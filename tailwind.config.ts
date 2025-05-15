@@ -30,10 +30,8 @@ const config: Config = {
         yellow: "0 0px 5px #FFA41B",
       },
       colors: {
-        namava: "#1993ff",
-        namavaBlack: "#222327",
-        customGray: "#ccc",
-        namavaGreen : "rgb(153, 193, 77)"
+        primary: "#EAB308",
+        namavaBlack :"#1A1A1A"
       },
     },
     fontFamily: {
