@@ -55,6 +55,7 @@ async function SearchPage({ searchParams }: TSearchParams) {
                 title={movie.title}
                 type={movie.type}
                 showTime={movie.showTime}
+                contentType={movie.contentType}
                 isLink
               />
             ))}

@@ -15,6 +15,8 @@ function Movie({
   type,
   showTime,
 }: IMovie) {
+  console.log(`type => ${type} %%%% content type => ${contentType}`);
+
   const router = useRouter();
   const pathname = usePathname();
   const handleMovieNavigation = async () => {

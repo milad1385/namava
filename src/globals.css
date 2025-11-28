@@ -512,7 +512,6 @@ input:checked + .slider:before {
   height: 0.1vw !important;
 }
 .table-container::-webkit-scrollbar-track {
-  /* background-color: #ffffff; */
   height: 0.1vw !important;
 }
 

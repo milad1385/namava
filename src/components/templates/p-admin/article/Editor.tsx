@@ -1,8 +1,6 @@
 "use client";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import React, { useState } from "react";
-
 function Editor({article , onArticle} : any) {
 
   const uploadConfig = {
