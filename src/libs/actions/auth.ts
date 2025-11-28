@@ -12,11 +12,11 @@ import { Login, User } from "@/src/validators/frontend";
 import { redirect } from "next/navigation";
 
 interface ISignup {
-  name: string;
-  phone: string;
-  email: string;
-  password: string;
-  username: string;
+  name?: string;
+  phone?: string;
+  email?: string;
+  password?: string;
+  username?: string;
 }
 
 interface ISignin {
