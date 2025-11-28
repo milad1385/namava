@@ -16,7 +16,7 @@ async function page({ params }: TParams) {
 
   return (
     <div className="flex  my-28">
-      <div className="bg-namavaBlack  w-full h-[320px] px-[28] rounded-md py-6 md:w-1/3 mx-auto text-white">
+      <div className="bg-namavaBlack  w-full h-[320px] px-[28px] rounded-md py-6 md:w-1/3 mx-auto text-white">
         <h1 className="text-base md:text-lg font-IranMedium text-center">
           {title}
         </h1>

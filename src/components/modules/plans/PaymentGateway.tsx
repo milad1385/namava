@@ -31,7 +31,7 @@ function PaymentGateway({
     return toast.error(`${res?.message}`);
   };
   return (
-    <div className="bg-namavaBlack  w-full px-[28] rounded-md py-6 md:w-1/3 mx-auto text-white">
+    <div className="bg-namavaBlack  w-full px-[28px] rounded-md py-6 md:w-1/3 mx-auto text-white">
       <h2 className="text-base md:text-lg font-IranMedium text-center">
         درگاه پرداخت :
       </h2>

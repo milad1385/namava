@@ -17,7 +17,10 @@ function Slider({ slides, subscription }: any) {
         modules={[EffectFade, Autoplay]}
         className="mySwiper"
         loop={true}
-        autoplay={true}
+        autoplay={{
+          delay: 10000,
+          disableOnInteraction: false,
+        }}
       >
         {slides.map((slide: any) => (
           <SwiperSlide key={slide._id}>

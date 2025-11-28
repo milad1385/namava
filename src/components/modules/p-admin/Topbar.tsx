@@ -13,7 +13,9 @@ async function TopBar() {
     <div className="sticky z-10 top-0 border-b border-b-gray-700 bg-namavaBlack py-[0.5rem] md:py-[0.8rem] px-[1.2rem] md:px-[2.5rem] flex items-center justify-between flex-row-reverse gap-x-6">
       <div className="hidden md:flex items-center gap-x-5">
         <Logout />
-        <HiOutlineUser className="text-namava text-2xl" />
+        <Link href="/">
+          <HiOutlineUser className="text-namava text-2xl" />
+        </Link>
       </div>
       <Link href="/" className="block md:hidden">
         <RiMovie2Line className="text-white text-3xl" />
