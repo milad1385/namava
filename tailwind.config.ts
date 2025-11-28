@@ -30,7 +30,7 @@ const config: Config = {
         yellow: "0 0px 5px #FFA41B",
       },
       colors: {
-        primary: "#EAB308",
+        namava: "#1993ff",
         namavaBlack :"#1A1A1A"
       },
     },

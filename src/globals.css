@@ -444,11 +444,11 @@ input:checked + .slider:before {
   }
 
   .nav-item.active .icon-item {
-    @apply text-[#EAB308];
+    @apply text-[#1993ff];
   }
 
   .icon-item {
-    @apply text-[#9ca3af] text-2xl group-hover:text-[#EAB308];
+    @apply text-[#9ca3af] text-2xl group-hover:text-[#1993ff];
   }
 
   .show-hover {

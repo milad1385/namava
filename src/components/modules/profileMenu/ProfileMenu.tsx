@@ -19,6 +19,8 @@ function ProfileMenu({
   user,
   userSubscription,
 }: TProfileMenu) {
+  console.log(userSubscription);
+  
   const [profileId, setProfileId] = useState("");
   const url = usePathname();
 

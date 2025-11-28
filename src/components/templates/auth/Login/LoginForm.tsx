@@ -82,7 +82,7 @@ function LoginForm() {
         <Button
           disabled={isLoading}
           className={`h-[44px] ${
-            isValid && !isLoading ? "bg-namava" : "bg-slate-500"
+            isValid && !isLoading ? "!bg-namava" : "bg-slate-500"
           }`}
           type="submit"
         >

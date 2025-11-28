@@ -742,24 +742,23 @@ export const checkUserSubscription = async () => {
     const user = await authUser();
 
     if (!user) {
-      return {
-        message: "کاربر مورد نظر یافت نشد",
-      };
+      return { message: "کاربر مورد نظر یافت نشد" };
     }
 
-    const now: any = new Date();
-    if (!user.subscriptionEnd && user.subscriptionEnd < now) {
-      return {
-        hasSubscription: false,
-      };
-    } else {
-      const remainingTime = user.subscriptionEnd - now;
-      const remainingDays = Math.ceil(remainingTime / (1000 * 60 * 60 * 24));
-      return {
-        hasSubscription: true,
-        remainingDays,
-      };
+    const now = new Date();
+
+    if (!user.subscriptionEnd || new Date(user.subscriptionEnd) < now) {
+      return { hasSubscription: false };
     }
+
+    const remainingTime =
+      new Date(user.subscriptionEnd).getTime() - now.getTime();
+    const remainingDays = Math.ceil(remainingTime / (1000 * 60 * 60 * 24));
+
+    return {
+      hasSubscription: true,
+      remainingDays,
+    };
   } catch (error) {
     return error;
   }
