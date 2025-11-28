@@ -4,7 +4,6 @@ import { IMovie } from "@/src/libs/types";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
 
 function Movie({
   image,
@@ -15,8 +14,6 @@ function Movie({
   type,
   showTime,
 }: IMovie) {
-  console.log(`type => ${type} %%%% content type => ${contentType}`);
-
   const router = useRouter();
   const pathname = usePathname();
   const handleMovieNavigation = async () => {

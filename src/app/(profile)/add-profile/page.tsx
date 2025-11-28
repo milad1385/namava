@@ -2,17 +2,9 @@
 import Button from "@/src/components/modules/auth/Button/Button";
 import Logo from "@/src/icons/Logo";
 import { addNewProfile } from "@/src/libs/actions/profile";
-import { Metadata } from "next";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
 import toast from "react-hot-toast";
-
-export const metadata: Metadata = {
-  title: "ایجاد پروفایل جدید",
-  description: "از این صفحه میتوانید برای ساخت یک پروفایل جدید استفاده کنید",
-  keywords: "پروفایل ، ساخت ، رایگان",
-};
 
 function AddProfile() {
   const router = useRouter();
