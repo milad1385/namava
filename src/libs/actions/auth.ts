@@ -20,8 +20,8 @@ interface ISignup {
 }
 
 interface ISignin {
-  identifier: string;
-  password: string;
+  identifier?: string;
+  password?: string;
 }
 
 export const signUp = async (body: ISignup) => {
