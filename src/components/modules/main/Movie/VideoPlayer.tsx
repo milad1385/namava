@@ -1,24 +1,24 @@
 "use client";
+import { IVideoPlayer } from "@/src/libs/types";
 import { useEffect, useRef } from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 
-const VideoPlayer = ({ src, poster, subtitles }) => {
+const VideoPlayer = ({ src, poster, subtitles }: IVideoPlayer) => {
   const videoRef = useRef(null);
   const playerRef = useRef(null);
 
   useEffect(() => {
     if (!videoRef.current) return;
 
-    const tracks = subtitles?.map(sub => ({
-      kind: "subtitles",
-      src: sub.url,
-      srclang: sub.lang,
-      label: sub.label,
-      default: sub.default || false
-    })) || [];
-
-    
+    const tracks =
+      subtitles?.map((sub) => ({
+        kind: "subtitles",
+        src: sub.url,
+        srclang: sub.lang,
+        label: sub.label,
+        default: sub.default || false,
+      })) || [];
 
     const player = videojs(videoRef.current, {
       controls: true,
@@ -37,7 +37,6 @@ const VideoPlayer = ({ src, poster, subtitles }) => {
 
     player.src({ src, type: "video/mp4" });
     playerRef.current = player;
-
   }, [src, poster, subtitles]);
 
   return (

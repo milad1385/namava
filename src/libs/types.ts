@@ -270,3 +270,17 @@ export type TForm = {
   status?: "create" | "update";
   [key: string]: any;
 };
+
+interface ISubtitleList {
+  url: string;
+  lang: string;
+  label: string;
+  default: boolean;
+}
+
+
+export interface IVideoPlayer {
+  src: string;
+  poster: string;
+  subtitles: ISubtitleList[];
+}
