@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
+import { useAuth } from "@/src/context/AuthContextProvider";
 import ActiveLike from "@/src/icons/ActiveLike";
 import Dislike from "@/src/icons/Dislike";
 import IMBD from "@/src/icons/IMBD";
 import Like from "@/src/icons/Like";
 import Plus from "@/src/icons/Plus";
-import toast from "react-hot-toast";
+import { addOrDeleteBookmark } from "@/src/libs/actions/bookmark";
 import { dislikeMovie, likeMovie } from "@/src/libs/actions/movie";
 import { THeaderDetails } from "@/src/libs/types";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaPlay } from "react-icons/fa6";
 import { GrCircleInformation } from "react-icons/gr";
-import { addOrDeleteBookmark } from "@/src/libs/actions/bookmark";
 import { IoCheckmarkSharp } from "react-icons/io5";
-import { useAuth } from "@/src/context/AuthContextProvider";
 
 function HeaderDetail({
   isKid,
