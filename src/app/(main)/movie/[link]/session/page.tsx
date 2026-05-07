@@ -1,10 +1,16 @@
 import VideoContent from "@/src/components/modules/main/Movie/VideoContent";
+import { checkUserSubscription } from "@/src/libs/service/services";
+import { notFound } from "next/navigation";
 
-function page() {
-  
+async function page() {
+  const subscription = await checkUserSubscription();
+  if (!subscription.hasSubscription) {
+    notFound();
+  }
+
   return (
     <div className="my-28 container px-2">
-      <VideoContent/>
+      <VideoContent />
     </div>
   );
 }
