@@ -239,6 +239,21 @@ export const priority = [
   { id: 3, value: "3", label: "کم" },
 ];
 
+export const subtitleList = [
+  {
+    url: "/subtitles/spiderman-fa.vtt",
+    lang: "fa",
+    label: "فارسی",
+    default: false,
+  },
+  {
+    url: "/subtitles/spiderman-en.vtt",
+    lang: "en",
+    label: "English",
+    default: false,
+  },
+];
+
 generateMiladi();
 generateShamsi();
 generateDate();
