@@ -11,7 +11,6 @@ body {
 }
 
 @layer utilities {
-
   .spinner {
     margin: 3.2rem auto 1.6rem;
     width: 60px;
@@ -27,7 +26,7 @@ body {
     width: 20px;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 2px solid ;
+    border: 2px solid;
     border-right-color: transparent;
     animation: rotate 1s infinite linear;
   }
@@ -52,10 +51,8 @@ body {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background-image: linear-gradient(
-        rgba(18, 18, 18, 0) 10vw,
-        rgb(18, 18, 18) 46.875vw
-      ),
+    background-image:
+      linear-gradient(rgba(18, 18, 18, 0) 10vw, rgb(18, 18, 18) 46.875vw),
       linear-gradient(to left, rgba(18, 18, 18, 0.7), rgba(0, 0, 0, 0) 50%);
     opacity: 0.8;
     bottom: 0;
@@ -286,12 +283,14 @@ body {
   left: 0;
   bottom: 0;
   top: 0;
-  background-image: linear-gradient(to left, #1a1a1a, rgba(26, 26, 26, 0)),
+  background-image:
+    linear-gradient(to left, #1a1a1a, rgba(26, 26, 26, 0)),
     linear-gradient(0deg, #1a1a1a 0%, rgba(26, 26, 26, 0) 100%);
 }
 
 .rigth-side {
-  background-image: linear-gradient(90deg, #1a1a1a, #121212),
+  background-image:
+    linear-gradient(90deg, #1a1a1a, #121212),
     linear-gradient(90deg, #1a1a1a 0%, #1a1a1a00 100%);
 }
 
@@ -428,6 +427,10 @@ input:checked + .slider:before {
   background-image: url("../public/images/stadium.jpg");
   background-position: center;
   margin-top: 80px;
+}
+
+.vjs-menu-item .vjs-texttrack-settings {
+  display: none !important;
 }
 
 @layer components {
@@ -594,6 +597,3 @@ table {
 .swiper-pagination-bullets {
   margin-top: -54px;
 }
-
-
-
