@@ -23,6 +23,8 @@ function HeaderDetail({
   user,
   bookmarks,
 }: THeaderDetails) {
+  console.log(info);
+  
   const pathname = usePathname();
   const { activeProfile } = useAuth();
   const [liked, setLiked] = useState(info.liked.includes(user?._id));
@@ -102,7 +104,7 @@ function HeaderDetail({
                     subscription?.hasSubscription
                       ? `/${info.type === "film" ? "movie" : "series"}/${
                           info.link
-                        }`
+                        }/session`
                       : "/plans"
                   }
                   className="bg-white hover:bg-namava hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
@@ -229,7 +231,7 @@ function HeaderDetail({
                     subscription?.hasSubscription
                       ? `/${info.type === "film" ? "movie" : "series"}/${
                           info.link
-                        }`
+                        }/session`
                       : "/plans"
                   }
                   className="bg-white hover:bg-namava hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
