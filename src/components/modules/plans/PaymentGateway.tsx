@@ -22,10 +22,10 @@ function PaymentGateway({
       return toast.error("لطفا یک درگاه را انتخاب کنید");
     }
 
-    const res: any = await addSubscription(time, totalPrice, title , discount);
+    const res: any = await addSubscription(time, totalPrice, title, discount);
     if (res?.status === 200) {
-      router.push("/");
-      return toast.success(`${res.message}`);
+      toast.success(`${res.message}`);
+      return location.replace("/");
     }
 
     return toast.error(`${res?.message}`);
