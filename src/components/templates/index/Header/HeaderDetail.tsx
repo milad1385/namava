@@ -23,8 +23,6 @@ function HeaderDetail({
   user,
   bookmarks,
 }: THeaderDetails) {
-  console.log(info);
-  
   const pathname = usePathname();
   const { activeProfile } = useAuth();
   const [liked, setLiked] = useState(info.liked.includes(user?._id));
@@ -174,12 +172,12 @@ function HeaderDetail({
                 age === 3
                   ? "three"
                   : age === 7
-                  ? "seven"
-                  : age === 12
-                  ? "twelve"
-                  : age === 15
-                  ? "fifteen"
-                  : "eighteen"
+                    ? "seven"
+                    : age === 12
+                      ? "twelve"
+                      : age === 15
+                        ? "fifteen"
+                        : "eighteen"
               } flex-center text-sm rounded-full text-black font-bold px-1.5`}
             >
               {info.ageRange}+
@@ -203,12 +201,12 @@ function HeaderDetail({
                   age === 3
                     ? "three"
                     : age === 7
-                    ? "seven"
-                    : age === 12
-                    ? "twelve"
-                    : age === 15
-                    ? "fifteen"
-                    : "eighteen"
+                      ? "seven"
+                      : age === 12
+                        ? "twelve"
+                        : age === 15
+                          ? "fifteen"
+                          : "eighteen"
                 } flex-center text-sm rounded-full text-black font-bold px-1.5`}
               >
                 {info.ageRange}+
