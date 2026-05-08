@@ -1,18 +1,19 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import Logo from "@/src/icons/Logo";
-import Search from "@/src/icons/Search";
-import Link from "next/link";
-import Image from "next/image";
-import { HiMiniBars3 } from "react-icons/hi2";
-import MobileNavbar from "./MobileNavbar";
-import { usePathname } from "next/navigation";
-import KidLogo from "@/src/icons/KidLogo";
-import Button from "../auth/Button/Button";
-import ProfileMenu from "../profileMenu/ProfileMenu";
 import { useAuth } from "@/src/context/AuthContextProvider";
 import useCategoryName from "@/src/hooks/useCategoryName";
-function Navbar({ user, userSubscription }: any) {
+import KidLogo from "@/src/icons/KidLogo";
+import Logo from "@/src/icons/Logo";
+import Search from "@/src/icons/Search";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { HiMiniBars3 } from "react-icons/hi2";
+import Button from "../auth/Button/Button";
+import ProfileMenu from "../profileMenu/ProfileMenu";
+import MobileNavbar from "./MobileNavbar";
+import { limitedRoute } from "@/public/db";
+function Navbar({ user, userSubscription, menus }: any) {
   const { activeProfile } = useAuth();
   const category: any = useCategoryName();
 
@@ -57,15 +58,8 @@ function Navbar({ user, userSubscription }: any) {
     return () => document.removeEventListener("scroll", scrollHandler);
   }, [pathname]);
 
-  if (
-    pathname.includes("/login") ||
-    pathname.includes("/register") ||
-    pathname.includes("/forgot") ||
-    pathname.includes("/profile-list") ||
-    pathname.includes("/add-profile") ||
-    pathname.includes("/pin-lock") ||
-    pathname.includes("/p-admin")
-  ) {
+  const result = limitedRoute.some((route) => pathname.includes(route));
+  if (result) {
     return null;
   }
 
@@ -94,56 +88,28 @@ function Navbar({ user, userSubscription }: any) {
           <ul className="hidden md:flex child:block items-center md:gap-x-5 lg:gap-x-8 text-xs hover:child:text-namava">
             {!isKid ? (
               <>
-                <li>
-                  <Link href={"/"} className={pathname === "/" ? "active" : ""}>
-                    خانه
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href={"/movie"}
-                    className={pathname.includes("movie") ? "active" : ""}
-                  >
-                    فیلم ها
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href={"/series"}
-                    className={pathname.includes("series") ? "active" : ""}
-                  >
-                    سریال ها
-                  </Link>
-                </li>
-                <li className={pathname.includes("category") ? "active" : ""}>
-                  <Link href={"/category"}>
-                    دسته بندی {category ? `(${category?.title ?? ""})` : ""}
-                  </Link>
-                </li>
-                {user.role === "ADMIN" && (
-                  <li>
-                    <Link href={"/p-admin"}>پنل مدیریت</Link>
-                  </li>
-                )}
-                <li>
-                  <Link href={"/profile-list"}>کودکان</Link>
-                </li>
-                <li>
-                  <Link
-                    href={"/blog"}
-                    className={pathname.includes("blog") ? "active" : ""}
-                  >
-                    نماوا مگ
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href={"/about"}
-                    className={pathname.includes("blog") ? "active" : ""}
-                  >
-                    درباره ما
-                  </Link>
-                </li>
+                {menus
+                  ?.filter((menu) => {
+                    if (menu.title === "پنل مدیریت" && user?.role !== "ADMIN") {
+                      return false;
+                    }
+                    return true;
+                  })
+                  ?.map((menu) => (
+                    <li key={menu._id}>
+                      <Link
+                        href={`/${menu.link}`}
+                        className={
+                          pathname.includes(`/${menu.link}`) ? "active" : ""
+                        }
+                      >
+                        {menu.title}{" "}
+                        {menu.title === "دسته بندی ها" && category?.title
+                          ? `(${category.title})`
+                          : ""}
+                      </Link>
+                    </li>
+                  ))}
               </>
             ) : (
               <>
