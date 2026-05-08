@@ -245,6 +245,20 @@ export const getAllMenus = async (page: number, search: string) => {
   }
 };
 
+// get menus
+export const getMainMenus = async () => {
+  try {
+    connectToDB();
+    const menus = await MenuModel.find({
+      parrent: null,
+    }).lean();
+
+    return menus;
+  } catch (err) {
+    return err;
+  }
+};
+
 // get all contacts with pagination and search
 export const getAllContacts = async (page: number, search: string) => {
   try {
