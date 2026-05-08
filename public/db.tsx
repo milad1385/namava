@@ -189,6 +189,16 @@ export const sidebarLinks = [
   },
 ];
 
+export const limitedRoute = [
+  "/login",
+  "/register",
+  "/forgot",
+  "/profile-list",
+  "/add-profile",
+  "/pin-lock",
+  "/p-admin",
+];
+
 export const profileLinks = [
   { id: 1, title: "لیست من", icon: <Folder2 />, link: "bookmarks" },
   { id: 2, title: "خرید اشتراکی", icon: <Star />, link: "plans" },
