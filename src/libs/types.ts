@@ -10,7 +10,10 @@ export type THeader = {
   info?: any;
   onSwipe?: any;
   bookmarks?: any;
-  subscription?: any;
+  subscription?: {
+    hasSubscription: boolean;
+    remainingDays: number;
+  };
   user?: any;
 };
 
@@ -47,10 +50,10 @@ export type TComment = {
   movieLink: string;
 };
 
-export type TParams = {
-  params?: { [key: string]: string | string[] | undefined };
-  searchParams?: { [key: string]: string };
-};
+export interface TParams {
+  params?: Promise<{ [key: string]: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}
 
 export type TAdminPage = {
   searchParams: { page: string; q: string };
@@ -88,6 +91,10 @@ export type UserAuthContextType = {
   isLogin: boolean;
   userInfo: User | null;
   activeProfile: any;
+  subscripton: {
+    hasSubscription: boolean;
+    remainingDays: number;
+  };
 };
 
 export interface User {
@@ -277,7 +284,6 @@ interface ISubtitleList {
   label: string;
   default: boolean;
 }
-
 
 export interface IVideoPlayer {
   src: string;
