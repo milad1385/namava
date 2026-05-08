@@ -13,13 +13,17 @@ function useCategoryName() {
       setCategory(category);
     };
 
-    if (id) {
-      getCategoryName();
+    if (pathname.includes("/category")) {
+      if (id) {
+        getCategoryName();
+      }
+    } else {
+      setCategory(false);
     }
   }, [pathname]);
 
   if (category) {
-    return category;
+    return { category, setCategory };
   } else {
     return false;
   }

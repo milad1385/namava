@@ -16,7 +16,7 @@ import { limitedRoute } from "@/public/db";
 import Menus from "./Menus";
 function Navbar({ user, userSubscription, menus }: any) {
   const { activeProfile } = useAuth();
-  const category: any = useCategoryName();
+  const { category }: any = useCategoryName();
 
   const pathname = usePathname();
   const [isShowProfile, setIsShowProfile] = useState(false);
@@ -56,7 +56,9 @@ function Navbar({ user, userSubscription, menus }: any) {
     };
     document.addEventListener("scroll", scrollHandler);
 
-    return () => document.removeEventListener("scroll", scrollHandler);
+    return () => {
+      document.removeEventListener("scroll", scrollHandler);
+    };
   }, [pathname]);
 
   const result = limitedRoute.some((route) => pathname.includes(route));
