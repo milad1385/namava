@@ -7,6 +7,7 @@ import Plus from "@/src/icons/Plus";
 import { addOrDeleteBookmark } from "@/src/libs/actions/bookmark";
 import { dislikeMovie, likeMovie } from "@/src/libs/actions/movie";
 import { THeaderDetails } from "@/src/libs/types";
+import { userSubscriptionHref } from "@/src/utils/funcs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -80,7 +81,8 @@ function HeaderDetail({
             width={1920}
             height={1080}
             alt={info.title}
-            className="max-w-[160px] md:max-w-[200px]  max-h-[200px] mx-auto "
+            sizes="75vw"
+            className="max-w-[160px] md:max-w-[200px]  max-h-[200px] mx-auto object-cover static"
           />
           <h2 className="text-center font-IranMedium text-lg md:text-xl">
             {info.title}
@@ -98,18 +100,12 @@ function HeaderDetail({
             <div className="flex-center flex-col">
               <div className="flex items-center flex-col md:flex-row  gap-y-5 justify-center md:justify-start gap-x-4 mt-4">
                 <Link
-                  href={
-                    subscription?.hasSubscription
-                      ? `/${info.type === "film" ? "movie" : "series"}/${
-                          info.link
-                        }/session`
-                      : "/plans"
-                  }
+                  href={userSubscriptionHref(subscription, info)}
                   className="bg-white hover:bg-namava hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
                 >
                   <FaPlay />
                   {subscription?.hasSubscription
-                    ? "تماشای فیلم"
+                    ? `${info.type === "film" ? "تماشا فیلم" : "تماشا سریال"}`
                     : "خرید اشتراک"}
                 </Link>
                 <div className="flex items-center gap-x-4">
@@ -225,18 +221,12 @@ function HeaderDetail({
             <div className="flex items-center justify-center md:justify-start gap-x-4 mt-4 flex-col md:flex-row gap-y-3">
               <div className="flex items-center gap-x-3">
                 <Link
-                  href={
-                    subscription?.hasSubscription
-                      ? `/${info.type === "film" ? "movie" : "series"}/${
-                          info.link
-                        }/session`
-                      : "/plans"
-                  }
+                  href={userSubscriptionHref(subscription, info)}
                   className="bg-white hover:bg-namava hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
                 >
                   <FaPlay />
                   {subscription?.hasSubscription
-                    ? "تماشای فیلم"
+                    ? `${info.type === "film" ? "تماشا فیلم" : "تماشا سریال"}`
                     : "خرید اشتراک"}
                 </Link>
                 <button className=" py-3 px-5 bg-gray-500/35 hover:bg-white/40 text-white rounded-xl text-[13px]">
