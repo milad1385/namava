@@ -31,7 +31,7 @@ function ProfileMenu({
     <div
       className={`absolute profile-container rounded-[12px] ${
         isShow ? "opacity-100 visible" : "opacity-0 invisible"
-      } w-[272px] -left-4 top-14 hidden md:block`}
+      } w-[272px] -left-4 top-14`}
       onMouseLeave={() => onShow(false)}
     >
       <div className="relative">
