@@ -47,12 +47,12 @@ export const getAllStats = async (startDate: string) => {
     const orders = await OrderModel.find(filterByDate);
     const sumationOfOrder = orders.reduce(
       (curr, num) => curr + num.totalPrice,
-      0
+      0,
     );
 
     const latestUsers = await UserModel.find(
       filterByDate,
-      "name profiles createdAt"
+      "name profiles createdAt",
     )
       .sort({ createdAt: -1 })
       .limit(10)
@@ -97,7 +97,7 @@ export const getAllCategories = async (page: number, search: string) => {
 export const getSubCategory = async (
   id: string,
   page: number,
-  search: string
+  search: string,
 ) => {
   try {
     connectToDB();
@@ -184,7 +184,6 @@ export const getAllSubcategories = async () => {
   try {
     connectToDB();
     const allCategoeies = await CategoryModel.find({});
-
     return allCategoeies.filter((category) => category.parrent !== null);
   } catch (error) {
     return error;
@@ -301,7 +300,7 @@ export const getAllSlidersMovies = async (type?: string) => {
     connectToDB();
     return await MovieModel.find({ isSlider: true, ...filterObj }).populate(
       "actors",
-      "name link"
+      "name link",
     );
   } catch (error) {
     return error;
@@ -336,7 +335,7 @@ export const getMovie = async (link: any) => {
 export const getRealedMovies = async (
   category: string,
   id: string,
-  type?: string
+  type?: string,
 ) => {
   try {
     let filterObj = {};
@@ -363,7 +362,7 @@ export const getStarMovies = async (starId: string) => {
     connectToDB();
     const movies = await MovieModel.find({ actors: { $in: starId } }).populate(
       "actors",
-      "link name"
+      "link name",
     );
 
     return movies;
@@ -377,7 +376,7 @@ export const getStarMovies = async (starId: string) => {
 export const getMovies = async (
   contentType: "adult" | "kid",
   categoryId?: string,
-  type?: "film" | "series"
+  type?: "film" | "series",
 ) => {
   try {
     connectToDB();
@@ -396,7 +395,7 @@ export const getMovies = async (
     if (!categoryId) {
       allMovies = await MovieModel.find(filterObj).populate(
         "category actors",
-        "title link parrent link name"
+        "title link parrent link name",
       );
     } else {
       const movies = await MovieModel.find(filterObj)
@@ -409,7 +408,7 @@ export const getMovies = async (
         });
 
       allMovies = movies.filter(
-        (movie) => String(movie.category.parrent._id) === categoryId
+        (movie) => String(movie.category.parrent._id) === categoryId,
       );
     }
 
@@ -548,7 +547,7 @@ export const getArticles = async (): Promise<TArticle[]> => {
     connectToDB();
     const articles = await ArticleModel.find({ isAccept: true }).populate(
       "creator movie",
-      "name title link"
+      "name title link",
     );
 
     return articles;
@@ -564,7 +563,7 @@ export const getArticle = async (link: string) => {
     connectToDB();
     const article = await ArticleModel.findOne({ link }).populate(
       "creator movie",
-      "name title link mainImage type link"
+      "name title link mainImage type link",
     );
 
     return article;
@@ -582,12 +581,19 @@ export const searchMovies = async (
   voices: string[],
   countries: string[],
   order: string,
-  range: { from: String; to: String }
+  range: { from: string; to: string },
+  isKid?: boolean,
 ) => {
   try {
     await connectToDB();
 
     let filter = {};
+
+    if (isKid) {
+      filter = {
+        contentType: "kid",
+      };
+    }
 
     if (categoryNames?.length) {
       const categories = await CategoryModel.find({
@@ -646,7 +652,6 @@ export const searchMovies = async (
 
     return movies;
   } catch (error) {
-    console.error("Error in searchMovies:", error);
     return error;
   }
 };
@@ -656,7 +661,7 @@ export const searchMovies = async (
 export const getAllEpisodes = async (
   page: number,
   search: string,
-  id: string
+  id: string,
 ) => {
   try {
     connectToDB();
@@ -713,7 +718,7 @@ export const getSubscriptions = async () => {
     connectToDB();
     const subscriptions = await SubscriptionModel.find({}).populate(
       "creator",
-      "name username"
+      "name username",
     );
 
     return subscriptions;
@@ -795,7 +800,7 @@ export const getCollection = async (link: string) => {
     connectToDB();
     const collection = await CollcetionModel.findOne({ link }).populate(
       "movies",
-      "link title mainImage type showTime contentType"
+      "link title mainImage type showTime contentType",
     );
 
     return collection;
@@ -825,7 +830,7 @@ export const getUserBookmarks = async () => {
     const user = await authUser();
     const bookmarks = await BookmarkModel.find({ user: user._id }).populate(
       "movie",
-      "link title mainImage type showTime contentType"
+      "link title mainImage type showTime contentType",
     );
 
     return bookmarks;
@@ -880,7 +885,7 @@ export const getLikesMovies = async (page?: number): Promise<IWishList> => {
     const user = await authUser();
     const movies = await MovieModel.find(
       { liked: { $in: user._id as string } },
-      "title category createdAt link showTime type mainImage range IMDB"
+      "title category createdAt link showTime type mainImage range IMDB",
     )
       .populate("category", "title")
       .limit(ITEM_PER_PAGE)
@@ -1062,7 +1067,7 @@ export const getSpecificProfile = async (id: string) => {
 
     const profile = await ProfileModel.findOne({ _id: id }).populate(
       "limitsMovies",
-      "title link"
+      "title link",
     );
 
     return profile;
@@ -1084,7 +1089,7 @@ export const checkUserProfile = async () => {
       };
     }
 
-    const profileId = cookies().get("profile")?.value;
+    const profileId = (await cookies()).get("profile")?.value;
 
     const currentProfile = await ProfileModel.findOne({ _id: profileId });
 
@@ -1106,7 +1111,7 @@ export const getMoviesByCategory = async (categoryId: string) => {
       });
 
     const allMovies = movies.filter(
-      (movie) => String(movie.category.parrent._id) === categoryId
+      (movie) => String(movie.category.parrent._id) === categoryId,
     );
 
     return allMovies;
@@ -1130,7 +1135,7 @@ export const getUserInfo = async (id: string) => {
   try {
     const user = await UserModel.findOne(
       { _id: id },
-      "name username phone email biography"
+      "name username phone email biography",
     );
     return user;
   } catch (error) {
