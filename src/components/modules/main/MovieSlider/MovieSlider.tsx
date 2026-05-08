@@ -12,6 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Movie from "../Movie/Movie";
 import PreviewBox from "./PreviewBox";
 import SliderTitle from "./SiderTitle";
+import MovieSlide from "./MovieSlide";
 
 function MovieSlider({
   title,
@@ -104,34 +105,13 @@ function MovieSlider({
             }}
           >
             {movies.map((movie: any) => (
-              <SwiperSlide
-                key={movie._id}
-                onClick={() => {
-                  if (pathname.includes("/kids")) {
-                    return router.push(
-                      `/kids/${movie.type === "film" ? "movie" : "series"}/${
-                        movie.link
-                      }`,
-                    );
-                  }
-                  setMovieId(movie._id);
-                  setMovieDetail(movie);
-                }}
-                className="movie-slide"
-              >
-                <div
-                  className={`transition-all group ${
-                    movieId === movie._id ? "md:pt-[20px]" : ""
-                  }`}
-                >
-                  <Movie
-                    image={movie.mainImage}
-                    link={movie.link}
-                    title={movie.title}
-                    type={movie.type}
-                    showTime={movie.showTime}
-                  />
-                </div>
+              <SwiperSlide key={movie._id}>
+                <MovieSlide
+                  movie={movie}
+                  movieId={movieId}
+                  setMovieDetail={setMovieDetail}
+                  setMovieId={setMovieId}
+                />
               </SwiperSlide>
             ))}
           </Swiper>
