@@ -13,6 +13,7 @@ import Button from "../auth/Button/Button";
 import ProfileMenu from "../profileMenu/ProfileMenu";
 import MobileNavbar from "./MobileNavbar";
 import { limitedRoute } from "@/public/db";
+import Menus from "./Menus";
 function Navbar({ user, userSubscription, menus }: any) {
   const { activeProfile } = useAuth();
   const category: any = useCategoryName();
@@ -87,30 +88,7 @@ function Navbar({ user, userSubscription, menus }: any) {
           </div>
           <ul className="hidden md:flex child:block items-center md:gap-x-5 lg:gap-x-8 text-xs hover:child:text-namava">
             {!isKid ? (
-              <>
-                {menus
-                  ?.filter((menu) => {
-                    if (menu.title === "پنل مدیریت" && user?.role !== "ADMIN") {
-                      return false;
-                    }
-                    return true;
-                  })
-                  ?.map((menu) => (
-                    <li key={menu._id}>
-                      <Link
-                        href={`/${menu.link}`}
-                        className={
-                          pathname.includes(`/${menu.link}`) ? "active" : ""
-                        }
-                      >
-                        {menu.title}{" "}
-                        {menu.title === "دسته بندی ها" && category?.title
-                          ? `(${category.title})`
-                          : ""}
-                      </Link>
-                    </li>
-                  ))}
-              </>
+              <Menus menus={menus} category={category} user={user} />
             ) : (
               <>
                 <li className="text-sm">
