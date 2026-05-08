@@ -136,6 +136,14 @@ function Navbar({ user, userSubscription }: any) {
                     نماوا مگ
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href={"/about"}
+                    className={pathname.includes("blog") ? "active" : ""}
+                  >
+                    درباره ما
+                  </Link>
+                </li>
               </>
             ) : (
               <>
