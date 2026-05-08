@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
-import Navbar from "@/src/components/modules/Navbar/Navbar";
-import FooterMenu from "@/src/components/modules/FooterMenu/FooterMenu";
 import Footer from "@/src/components/modules/Footer/Footer";
-import { Toaster } from "react-hot-toast";
-import { authUser } from "@/src/utils/serverHelper";
-import { checkUserSubscription } from "../libs/service/services";
-import AuthContextProvider from "../context/AuthContextProvider";
+import FooterMenu from "@/src/components/modules/FooterMenu/FooterMenu";
+import Navbar from "@/src/components/modules/Navbar/Navbar";
 import "@/src/globals.css";
+import { authUser } from "@/src/utils/serverHelper";
+import type { Metadata } from "next";
 import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "react-hot-toast";
+import AuthContextProvider from "../context/AuthContextProvider";
+import { checkUserSubscription, getMainMenus } from "../libs/service/services";
 
 export const metadata: Metadata = {
   title: {
@@ -28,6 +28,7 @@ export default async function RootLayout({
 }>) {
   const user = await authUser();
   const userSubscription = await checkUserSubscription();
+  const menus = await getMainMenus();
 
   return (
     <html lang="fa" dir="rtl" className="font-Iran bg-[#121212]">
@@ -37,6 +38,7 @@ export default async function RootLayout({
           <Navbar
             user={JSON.parse(JSON.stringify(user))}
             userSubscription={userSubscription}
+            menus={JSON.parse(JSON.stringify(menus))}
           />
           {children}
           <Footer />
