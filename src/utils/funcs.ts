@@ -16,11 +16,9 @@ export const getRemainingDays = (user: any) => {
 };
 
 export function prepareData(startData: any, orders: any) {
-  // A bit ugly code, but sometimes this is what it takes when working with real data 😅
-
   function incArrayValue(arr: any, field: any) {
-    return arr.map((obj:any) =>
-      obj.duration === field ? { ...obj, value: obj.value + 1 } : obj
+    return arr.map((obj: any) =>
+      obj.duration === field ? { ...obj, value: obj.value + 1 } : obj,
     );
   }
 
@@ -33,7 +31,15 @@ export function prepareData(startData: any, orders: any) {
       if (num === 180) return incArrayValue(arr, "اشتراک 180");
       return arr;
     }, startData)
-    .filter((obj:any) => obj.value > 0);
+    .filter((obj: any) => obj.value > 0);
 
   return data;
 }
+
+export const userSubscriptionHref = (subscription, info) => {
+  const href = subscription?.hasSubscription
+    ? `/${info.type === "film" ? "movie" : "series"}/${info.link}/session`
+    : "/plans";
+
+  return href;
+};
