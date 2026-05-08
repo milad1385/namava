@@ -3,10 +3,10 @@ import React from "react";
 import VerifyOtp from "./VerifyOtp";
 import Register from "./Register";
 
-function RegisterForm({ searchParams }: { searchParams: any }) {
+function RegisterForm({ type }: { type: string }) {
   return (
     <div>
-      {searchParams?.type === "verify" && (
+      {type === "verify" && (
         <>
           <VerifyOtp />
           <div className="flex-center flex-col text-xs md:text-sm text-namava space-y-6 !mt-8">
@@ -14,7 +14,7 @@ function RegisterForm({ searchParams }: { searchParams: any }) {
           </div>
         </>
       )}
-      {(!searchParams?.type) && <Register />}
+      {!type && <Register />}
     </div>
   );
 }

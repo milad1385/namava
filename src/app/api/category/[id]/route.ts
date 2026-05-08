@@ -6,7 +6,8 @@ import { NextRequest } from "next/server";
 export async function GET(req: NextRequest, { params }: TParams) {
   try {
     connectToDB();
-    const mainCategories = await CategoryModel.findOne({ _id: params.id });
+    const { id } = await params;
+    const mainCategories = await CategoryModel.findOne({ _id: id });
     return Response.json(mainCategories);
   } catch (err) {
     return Response.json({ err: "interval server err" }, { status: 500 });

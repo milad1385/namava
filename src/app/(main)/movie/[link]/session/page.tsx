@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 async function page() {
   const subscription = await checkUserSubscription();
+
   if (!subscription.hasSubscription) {
     notFound();
   }

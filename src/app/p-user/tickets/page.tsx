@@ -2,22 +2,21 @@ import Filter from "@/src/components/modules/Filter/Filter";
 import StatBox from "@/src/components/modules/p-admin/StatBox";
 import SendNewTicket from "@/src/components/templates/p-user/SendNewTicket";
 import TicketsList from "@/src/components/templates/p-user/TicketsList";
-import {
-  getAllUserTicket
-} from "@/src/libs/service/services";
-import { IUserTicket, TSearchParams } from "@/src/libs/types";
+import { getAllUserTicket } from "@/src/libs/service/services";
+import { IUserTicket, TParams } from "@/src/libs/types";
 import { Metadata } from "next";
 import { FaClosedCaptioning } from "react-icons/fa6";
 import { HiOutlineBriefcase } from "react-icons/hi2";
 import { MdAccessTime } from "react-icons/md";
 
 export const metadata: Metadata = {
-  title :"لیست تیکت ها"
-}
+  title: "لیست تیکت ها",
+};
 
-async function page({ searchParams }: TSearchParams) {
+async function page({ searchParams }: TParams) {
+  const { page, status } = await searchParams;
   const { tickets, ticketsCount, answeredCount, pendingCount, closeCount } =
-    (await getAllUserTicket(+searchParams?.page || 1)) as IUserTicket;
+    (await getAllUserTicket(+page || 1)) as IUserTicket;
   return (
     <div>
       <Filter
@@ -58,7 +57,7 @@ async function page({ searchParams }: TSearchParams) {
       <TicketsList
         tickets={JSON.parse(JSON.stringify(tickets))}
         ticketsCount={ticketsCount}
-        filter={searchParams?.status}
+        filter={status as string}
       />
     </div>
   );

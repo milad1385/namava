@@ -13,19 +13,15 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 async function KidSinglePage({ params }: TParams) {
+  const { link } = await params;
   const [movie, userInfo, userBookmarks, subscription]: any = await Promise.all(
-    [
-      getMovie(params.link),
-      authUser(),
-      getUserBookmarks(),
-      checkUserSubscription(),
-    ]
+    [getMovie(link), authUser(), getUserBookmarks(), checkUserSubscription()],
   );
 
   const realatedMovies: any = await getRealedMovies(movie.category, movie._id);
 
   const userMoviesBookmark = userBookmarks.map(
-    (bookmark: any) => bookmark.movie._id
+    (bookmark: any) => bookmark.movie._id,
   );
 
   if (!movie) {
@@ -75,7 +71,8 @@ async function KidSinglePage({ params }: TParams) {
 }
 
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
-  const movie: any = await getMovie(params.link);
+  const { link } = await params;
+  const movie: any = await getMovie(link);
   return {
     title: `${movie.title}`,
     description: `${movie.shortDesc}`,

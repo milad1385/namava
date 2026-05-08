@@ -3,7 +3,7 @@ import Title from "@/src/components/modules/p-admin/Title";
 import AddNewSubscription from "@/src/components/templates/p-admin/Subscription/AddNewSubscription";
 import SubscriptionList from "@/src/components/templates/p-admin/Subscription/SubscriptionList";
 import { getAllSubscription } from "@/src/libs/service/services";
-import { TAdminPage } from "@/src/libs/types";
+import { TAdminPage, TParams } from "@/src/libs/types";
 import { Metadata } from "next";
 import React from "react";
 
@@ -12,10 +12,11 @@ export const metadata: Metadata = {
   description: "از این صفحه میتوان برای مدیریت اشتراک  ها استفاده کرد",
 };
 
-async function Subscription({ searchParams }: TAdminPage) {
+async function Subscription({ searchParams }: TParams) {
+  const { page, q } = await searchParams;
   const { subscriptions, counts }: any = await getAllSubscription(
-    +searchParams.page,
-    searchParams.q
+    +page,
+    q as string,
   );
   return (
     <div>

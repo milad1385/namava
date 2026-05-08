@@ -5,7 +5,8 @@ import { TParams } from "@/src/libs/types";
 import React from "react";
 
 async function page({ params }: TParams) {
-  const user = await getUserInfo(params?.id as string);
+  const { id } = await params;
+  const user = await getUserInfo(id as string);
 
   return (
     <>

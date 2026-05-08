@@ -5,17 +5,18 @@ import DurationChart from "@/src/components/templates/p-admin/DurationChart";
 import RecentUser from "@/src/components/templates/p-admin/RecentUser";
 import SalesChart from "@/src/components/templates/p-admin/SalesChart";
 import { getAllOrders, getAllStats } from "@/src/libs/service/services";
-import { TSearchParams, TStats } from "@/src/libs/types";
+import { TParams, TSearchParams, TStats } from "@/src/libs/types";
 import { authUser } from "@/src/utils/serverHelper";
 import { subDays } from "date-fns";
 import { HiOutlineBanknotes, HiOutlineBriefcase } from "react-icons/hi2";
 import { LuUsers } from "react-icons/lu";
 import { RiMovie2Line } from "react-icons/ri";
 
-async function MainPage({ searchParams }: TSearchParams) {
-  const numOfDays = !searchParams?.last ? 7 : searchParams?.last;
+async function MainPage({ searchParams }: TParams) {
+  const { last } = await searchParams;
+  const numOfDays = !last ? 7 : last;
 
-  const numQuery = subDays(new Date(), numOfDays).toISOString();
+  const numQuery = subDays(new Date(), +numOfDays).toISOString();
 
   const {
     usersCount,

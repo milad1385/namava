@@ -1,10 +1,9 @@
-import React from "react";
+import Search from "@/src/components/modules/p-admin/Search";
 import Title from "@/src/components/modules/p-admin/Title";
 import AddUser from "@/src/components/templates/p-admin/users/AddUser";
 import UsersList from "@/src/components/templates/p-admin/users/UsersList";
 import { getAllUsers } from "@/src/libs/service/services";
-import Search from "@/src/components/modules/p-admin/Search";
-import { TAdminPage } from "@/src/libs/types";
+import { TParams } from "@/src/libs/types";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,11 +11,9 @@ export const metadata: Metadata = {
   description: "از این صفحه میتوان برای مدیریت کاربران استفاده کرد",
 };
 
-async function UsersPage({ searchParams }: TAdminPage) {
-  const { users, counts }: any = await getAllUsers(
-    +searchParams.page,
-    searchParams.q
-  );
+async function UsersPage({ searchParams }: TParams) {
+  const { page, q } = await searchParams;
+  const { users, counts }: any = await getAllUsers(+page, q as string);
   return (
     <>
       <Title name="ایجاد کاربر" />

@@ -6,7 +6,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 async function page({ params }: TParams) {
-  const subscription = await getSubscription(params?.id as string);
+  const { id } = await params;
+  const subscription = await getSubscription(id as string);
 
   if (!subscription) {
     notFound();
@@ -62,7 +63,8 @@ async function page({ params }: TParams) {
 }
 
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
-  const subscription = await getSubscription(params?.id as string);
+  const { id } = await params;
+  const subscription = await getSubscription(id as string);
   return {
     title: `${subscription.title}`,
     description: `صفحه خرید اشتراک ${subscription.title} در نماوا`,

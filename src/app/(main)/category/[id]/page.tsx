@@ -14,8 +14,9 @@ import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 
 export default async function Home({ params }: TParams) {
+  const { id } = await params;
   const [slides, subscription, profile]: any = await Promise.all([
-    getMoviesByCategory(params.id as string),
+    getMoviesByCategory(id as string),
     checkUserSubscription(),
     checkUserProfile(),
   ]);
@@ -36,14 +37,15 @@ export default async function Home({ params }: TParams) {
       />
       <Slider slides={JSON.parse(JSON.stringify(slides))} />
       <Suspense fallback={<MiniSpinner />}>
-        <MainSlider categoryId={params.id as string} />
+        <MainSlider categoryId={id as string} />
       </Suspense>
     </>
   );
 }
 
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
-  const category: any = await getCategoryInfo(params.id as string);
+  const { id } = await params;
+  const category = await getCategoryInfo(id as string);
   return {
     title: `فیلم و سریال ${category.title}`,
     description: `${category.description}`,

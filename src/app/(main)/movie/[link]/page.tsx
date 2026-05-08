@@ -17,13 +17,9 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 async function page({ params }: TParams) {
+  const { link } = await params;
   const [movie, userInfo, userBookmarks, subscription]: any = await Promise.all(
-    [
-      getMovie(params.link),
-      authUser(),
-      getUserBookmarks(),
-      checkUserSubscription(),
-    ]
+    [getMovie(link), authUser(), getUserBookmarks(), checkUserSubscription()],
   );
 
   const [realatedMovies, relatedArticle]: any = await Promise.all([
@@ -32,7 +28,7 @@ async function page({ params }: TParams) {
   ]);
 
   const userMoviesBookmark = userBookmarks.map(
-    (bookmark: any) => bookmark.movie._id
+    (bookmark: any) => bookmark.movie._id,
   );
 
   if (!movie) {
@@ -88,11 +84,12 @@ async function page({ params }: TParams) {
 }
 
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
-  const movie : any = await  getMovie(params.link);
+  const { link } = await params;
+  const movie: any = await getMovie(link);
   return {
     title: `${movie.title}`,
     description: `${movie.shortDesc}`,
-    keywords:`فیلم ، سریال ، نماوا ، ${movie.title}`,
+    keywords: `فیلم ، سریال ، نماوا ، ${movie.title}`,
   };
 }
 

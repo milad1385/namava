@@ -11,6 +11,7 @@ type TAuthContextProvider = {
 
 function AuthContextProvider({ children }: TAuthContextProvider) {
   const [userInfo, setUserInfo] = useState(null);
+  const [subscripton, setSubscription] = useState(null);
   const [activeProfile, setActiveProfile] = useState<any>(null);
   const [isLogin, setIsLogin] = useState(false);
   const pathname = usePathname();
@@ -22,6 +23,7 @@ function AuthContextProvider({ children }: TAuthContextProvider) {
       if (res.status === 200) {
         const userData = await res.json();
         setUserInfo(userData.user);
+        setSubscription(userData.subscription);
         setActiveProfile(userData.currentProfile);
         setIsLogin(true);
       } else {
@@ -34,7 +36,9 @@ function AuthContextProvider({ children }: TAuthContextProvider) {
   }, [pathname]);
 
   return (
-    <UserAuthContext.Provider value={{ userInfo, isLogin, activeProfile }}>
+    <UserAuthContext.Provider
+      value={{ userInfo, isLogin, activeProfile, subscripton }}
+    >
       {children}
     </UserAuthContext.Provider>
   );

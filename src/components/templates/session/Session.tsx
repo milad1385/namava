@@ -1,21 +1,28 @@
 "use client";
+import { useAuth } from "@/src/context/AuthContextProvider";
 import ActiveLike from "@/src/icons/ActiveLike";
 import Dislike from "@/src/icons/Dislike";
 import Heart from "@/src/icons/Heart";
 import Like from "@/src/icons/Like";
 import { dislikeEpisode, likeEpisode } from "@/src/libs/actions/episode";
+import { userSubscriptionHref } from "@/src/utils/funcs";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { FaChevronDown, FaHeart, FaPlay } from "react-icons/fa6";
+import { FaChevronDown, FaPlay } from "react-icons/fa6";
 
-function Session({ episode, user, link, isKid }: any) {
+function Session({ episode, user, link, isKid, movie }: any) {
   const subMenuRef = useRef<any>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [liked, setLiked] = useState(episode.liked.includes(user));
   const [disliked, setDisliked] = useState(episode.disliked.includes(user));
   const router = useRouter();
+
+  const { subscripton } = useAuth();
+  console.log(subscripton);
+  
 
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
@@ -74,7 +81,10 @@ function Session({ episode, user, link, isKid }: any) {
   return (
     <>
       <div className="md:cursor-pointer hidden md:block">
-        <div className="relative group">
+        <Link
+          href={userSubscriptionHref(subscripton, movie)}
+          className="relative group"
+        >
           <Image
             src={episode.image}
             alt={episode.title}
@@ -92,7 +102,7 @@ function Session({ episode, user, link, isKid }: any) {
           </div>
 
           <div className="bg-black/50 rounded-md absolute inset-0 show-hover"></div>
-        </div>
+        </Link>
         <div
           className={`mt-2 space-y-3 ${isKid ? "text-black" : "text-white"}`}
         >

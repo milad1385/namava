@@ -6,7 +6,8 @@ import Image from "next/image";
 import React from "react";
 
 async function page({ params }: TParams) {
-  const collcetion = await getCollection(params.link as string);
+  const { link } = await params;
+  const collcetion = await getCollection(link as string);
   const { title, description, desktopBanner, movies, mobileBanner, mainImage } =
     collcetion;
 
@@ -64,13 +65,13 @@ async function page({ params }: TParams) {
 }
 
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
-  const collection = await getCollection(params.link as string);
+  const { link } = await params;
+  const collection = await getCollection(link as string);
   return {
     title: `مجموعه ${collection.title}`,
     description: `${collection.description}`,
     keywords: `مجموعه فیلم ، ${collection.title} ، یکپارچه ، اطلاعات ، لیست`,
   };
 }
-
 
 export default page;

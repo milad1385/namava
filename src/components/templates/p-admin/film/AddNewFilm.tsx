@@ -10,7 +10,7 @@ import { createNewMovie } from "@/src/libs/actions/movie";
 import { Movie, TMovie } from "@/src/validators/frontend";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { BiCameraMovie, BiMovie } from "react-icons/bi";
@@ -91,6 +91,12 @@ function AddNewFilm({ stars, subCategories }: any) {
     reset();
     toast.error(`${res?.message}`);
   };
+
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  if (!isClient) return;
   return (
     <form
       onSubmit={handleSubmit(createNewMovieHandler)}

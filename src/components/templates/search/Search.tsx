@@ -32,6 +32,8 @@ function SearchBox({
     router.replace(`${pathname}?${params}`);
   }, 300);
 
+  const isKid = pathname.includes("/kids/search");
+
   return (
     <>
       <div className="flex items-center gap-x-2">
@@ -44,14 +46,18 @@ function SearchBox({
             {searchParams.size}
           </span>
         </div>
-        <div className="bg-[#37383e] text-[13px] md:text-base w-full py-2 px-3 md:py-4 md:px-6 rounded-xl flex items-center justify-between gap-x-2">
+        <div
+          className={`${isKid ? "bg-gray-200" : "bg-[#37383e]"} text-[13px] md:text-base w-full py-2 px-3 md:py-4 md:px-6 rounded-xl flex items-center justify-between gap-x-2`}
+        >
           <div className="flex items-center gap-x-2 w-full">
-            <Search className="!w-[30px] !h-[30px] !fill-white " />
+            <Search
+              className={`!w-[30px] !h-[30px] ${isKid ? "!fill-black" : "!fill-white"} `}
+            />
             <input
               value={searchValue}
               type="text"
               placeholder="فیلم ، سریال ، بازیگر و ژانر"
-              className="bg-transparent outline-none text-[#cccc] w-full"
+              className={`bg-transparent  outline-none ${isKid ? "text-zinc-800" : "text-[#cccc]"} w-full`}
               onChange={(e) => {
                 handleSearch(e.target.value);
                 setSearchValue(e.target.value);
@@ -65,7 +71,7 @@ function SearchBox({
                 params.delete("q");
                 router.replace(`${pathname}?${params}`);
               }}
-              className="text-lg text-white md:text-xl cursor-default md:cursor-pointer"
+              className={`text-lg ${isKid ? "text-black" : "text-white"} md:text-xl cursor-default md:cursor-pointer`}
             />
           )}
         </div>
@@ -89,9 +95,13 @@ function SearchBox({
       </div>
 
       {q?.length > 2 && movies.length > 2 && (
-        <div className="hidden md:flex items-center gap-x-8 mt-3 text-sm">
-          <span className="text-[#aaa] ">کلمات مشابه : </span>{" "}
-          <div className=" flex items-center gap-x-4 flex-wrap">
+        <div className="hidden md:flex items-center gap-x-8 mt-6 text-sm">
+          <span className={`${isKid ? "text-namava" : "text-[#ccc]"}`}>
+            کلمات مشابه :
+          </span>
+          <div
+            className={`flex items-center gap-x-4 flex-wrap ${isKid ? "text-black" : "text-white"}`}
+          >
             {movies.map((movie: any) => (
               <span
                 key={movie._id}

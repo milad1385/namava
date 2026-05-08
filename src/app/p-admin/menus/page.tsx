@@ -3,7 +3,7 @@ import Title from "@/src/components/modules/p-admin/Title";
 import AddNewMenu from "@/src/components/templates/p-admin/menus/AddNewMenu";
 import MenusList from "@/src/components/templates/p-admin/menus/MenusList";
 import { getAllMenus } from "@/src/libs/service/services";
-import { TAdminPage } from "@/src/libs/types";
+import { TAdminPage, TParams } from "@/src/libs/types";
 import { Metadata } from "next";
 import React from "react";
 
@@ -12,11 +12,9 @@ export const metadata: Metadata = {
   description: "از این صفحه میتوان برای مدیریت منو  ها استفاده کرد",
 };
 
-async function MenusPage({ searchParams }: TAdminPage) {
-  const { allMenus, counts }: any = await getAllMenus(
-    +searchParams.page,
-    searchParams.q
-  );
+async function MenusPage({ searchParams }: TParams) {
+  const { page, q } = await searchParams;
+  const { allMenus, counts }: any = await getAllMenus(+page, q as string);
   return (
     <div>
       <Title name="ایجاد منو" />

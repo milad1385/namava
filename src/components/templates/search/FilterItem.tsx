@@ -85,7 +85,6 @@ function FilterItem({
     const from = searchParams.get(key);
     const to = searchParams.get(key);
 
-
     if (from !== null) {
       params.set(key, value);
     } else if (!from && !to) {
@@ -106,6 +105,8 @@ function FilterItem({
     }
   }, [isOpen]);
 
+  const isKid = pathname.includes("/kids/search");
+
   return (
     <div>
       <div
@@ -113,7 +114,9 @@ function FilterItem({
         onClick={handleToggle}
       >
         <div className="flex items-center gap-x-2.5">
-          <span>{title}</span>
+          <span className={`${isKid ? "!text-zinc-700" : "!text-white"}`}>
+            {title}
+          </span>
           {searchParams.get(slug) && type !== "selectBox" && (
             <span className="bg-namava flex-center w-5 h-5 font-Dana text-xs rounded-md">
               <span className="mt-0.5">{searchParams.getAll(slug).length}</span>
@@ -143,7 +146,7 @@ function FilterItem({
             {items.map((item) => (
               <div className="flex items-center gap-x-2" key={item.id}>
                 <input
-                  className="radio-input"
+                  className={`radio-input ${isKid ? "!border !border-black" : "!border !border-white"}`}
                   type="radio"
                   name="order"
                   onChange={(e) =>
@@ -159,7 +162,7 @@ function FilterItem({
             <div className="flex items-center gap-x-10">
               <div className="flex items-center gap-x-2">
                 <input
-                  className="radio-input"
+                  className={`radio-input ${isKid ? "!border !border-black" : "!border !border-white"}`}
                   type="radio"
                   name="date"
                   onChange={() => setDateType("shamsi")}
@@ -168,7 +171,7 @@ function FilterItem({
               </div>
               <div className="flex items-center gap-x-2">
                 <input
-                  className="radio-input"
+                  className={`radio-input ${isKid ? "!border !border-black" : "!border !border-white"}`}
                   type="radio"
                   name="date"
                   defaultChecked
@@ -257,7 +260,11 @@ function FilterItem({
               {searchParams.get(slug)?.length && (
                 <>
                   <div className="flex items-center justify-between pl-2">
-                    <span className="text-sm text-[#ccc]">انتخاب شما</span>
+                    <span
+                      className={`text-sm ${isKid ? "text-black" : "text-[#ccc]"}`}
+                    >
+                      انتخاب شما
+                    </span>
                     <FaTrash
                       className="text-namava"
                       onClick={deleteUserFilter}
@@ -271,7 +278,7 @@ function FilterItem({
                             id={item}
                             checked={searchParams.getAll(slug).includes(item)}
                             type="checkbox"
-                            className="film-checkbox"
+                            className={`film-checkbox ${isKid ? "!border !border-black" : "!border !border-white"}`}
                             onChange={(e) => handleFilterChange(item, e)}
                           />
                           <label className="text-sm" htmlFor={item}>
@@ -283,7 +290,11 @@ function FilterItem({
                   </ul>
                 </>
               )}
-              <span className="text-sm text-[#ccc]">همه {title} </span>
+              <span
+                className={`text-sm ${isKid ? "text-zinc-700" : "text-[#ccc]"}`}
+              >
+                همه {title}{" "}
+              </span>
               <ul className="space-y-4 my-4">
                 {searchedItems?.map((item, index) => (
                   <li key={index}>
@@ -292,7 +303,7 @@ function FilterItem({
                         id={item.name}
                         checked={searchParams.getAll(slug).includes(item.name)}
                         type="checkbox"
-                        className="film-checkbox"
+                        className={`film-checkbox ${isKid ? "!border !border-black" : "!border !border-white"}`}
                         onChange={(e) => handleFilterChange(item.name, e)}
                       />
                       <label className="text-sm" htmlFor={item.name}>

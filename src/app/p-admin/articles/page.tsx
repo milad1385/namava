@@ -6,19 +6,19 @@ import {
   getAllArticles,
   getAllMoviesWithOutPagination,
 } from "@/src/libs/service/services";
-import { TAdminPage } from "@/src/libs/types";
+import { TParams } from "@/src/libs/types";
 import { Metadata } from "next";
-import React from "react";
 
 export const metadata: Metadata = {
   title: "مقاله ها",
   description: "از این صفحه میتوان برای مدیریت مقاله  ها استفاده کرد",
 };
 
-async function ArticlesPage({ searchParams }: TAdminPage) {
+async function ArticlesPage({ searchParams }: TParams) {
+  const { page, q } = await searchParams;
   const [movies, data]: any = await Promise.all([
     getAllMoviesWithOutPagination(),
-    getAllArticles(+searchParams.page, searchParams.q),
+    getAllArticles(+page, q as string),
   ]);
   return (
     <>

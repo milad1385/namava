@@ -19,8 +19,6 @@ function ProfileMenu({
   user,
   userSubscription,
 }: TProfileMenu) {
-  console.log(userSubscription);
-  
   const [profileId, setProfileId] = useState("");
   const url = usePathname();
 
@@ -47,7 +45,7 @@ function ProfileMenu({
               {!userSubscription?.hasSubscription
                 ? "اشتراک فعال ندارید"
                 : `اشتراک باقی مانده :  ${userSubscription?.remainingDays.toLocaleString(
-                    "fa-IR"
+                    "fa-IR",
                   )} روز`}
             </h1>
             {!userSubscription?.hasSubscription && (

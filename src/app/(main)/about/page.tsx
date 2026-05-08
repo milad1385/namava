@@ -7,6 +7,7 @@ import TMobile from "@/src/icons/TMobile";
 import Tv from "@/src/icons/Tv";
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export const metadata: Metadata = {
@@ -38,9 +39,11 @@ function AboutUs() {
         </p>
       </section>
       <section className="my-10">
-        <Button className="text-white !w-[200px] h-[52px] mx-auto text-lg">
-          ثبت نام
-        </Button>
+        <Link href="/">
+          <Button className="text-white !w-[200px] h-[52px] mx-auto text-lg">
+            تماشا آنلاین
+          </Button>
+        </Link>
 
         <div className="pt-[80px]">
           <p className="text-lg md:text-2xl font-IranMedium text-center text-white">
@@ -230,11 +233,11 @@ function AboutUs() {
             </div>
             <div className="md:w-[384px] h-[509px] flex flex-col items-center gap-y-4 text-white bg-[#37383e] px-[24px] pt-[56px] pb-[46px] border-[2px] border-gray-400 rounded-xl">
               <Image
-                src={"/images/about/star.svg"}
+                src={"/images/about/star2.svg"}
                 alt="star"
                 width={100}
                 height={100}
-                className="w-[100px] h-[100px]"
+                className="w-[65px] h-[100px]"
               />
               <h3 className="font-IranMedium text-lg md:text-2xl mt-10">
                 اشتراک با تمدید خودکار
@@ -253,11 +256,16 @@ function AboutUs() {
             </div>
           </div>
 
-          <Button className="!w-[250px] md:!w-[366px] mx-auto my-10 text-white">
-            خرید اشتراک
-          </Button>
+          <Link href="/plans">
+            <Button className="!w-[250px] md:!w-[366px] mx-auto my-10 text-white">
+              خرید اشتراک
+            </Button>
+          </Link>
 
-          <div className="questions text-white my-24 max-w-[1216px] mx-auto">
+          <div
+            className="questions text-white my-24 max-w-[1216px] mx-auto"
+            id="questions"
+          >
             <h3 className="text-2xl font-IranMedium text-center">
               سوالات متداول
             </h3>

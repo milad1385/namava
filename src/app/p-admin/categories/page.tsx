@@ -3,19 +3,19 @@ import Title from "@/src/components/modules/p-admin/Title";
 import AddCategories from "@/src/components/templates/p-admin/categories/AddCategory";
 import CategoriesList from "@/src/components/templates/p-admin/categories/CategoriesList";
 import { getAllCategories } from "@/src/libs/service/services";
-import { TAdminPage } from "@/src/libs/types";
+import { TParams } from "@/src/libs/types";
 import { Metadata } from "next";
-import React from "react";
 
 export const metadata: Metadata = {
   title: "دسته بندی ها",
   description: "از این صفحه میتوان برای مدیریت دسته بندی ها استفاده کرد",
 };
 
-async function CategoriesPage({ searchParams }: TAdminPage) {
+async function CategoriesPage({ searchParams }: TParams) {
+  const { page, q } = await searchParams;
   const { categories, counts }: any = await getAllCategories(
-    +searchParams.page,
-    searchParams.q
+    +page,
+    q as string,
   );
   return (
     <>

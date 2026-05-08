@@ -7,7 +7,7 @@ import {
   getAllSubcategories,
   getStars,
 } from "@/src/libs/service/services";
-import { TAdminPage } from "@/src/libs/types";
+import { TAdminPage, TParams } from "@/src/libs/types";
 import { Metadata } from "next";
 import React from "react";
 
@@ -16,11 +16,12 @@ export const metadata: Metadata = {
   description: "از این صفحه میتوان برای مدیریت فیلم و سریال  ها استفاده کرد",
 };
 
-async function MoviesPage({ searchParams }: TAdminPage) {
+async function MoviesPage({ searchParams }: TParams) {
+  const { page, q } = await searchParams;
   const [allStarts, allSubCategories, movies]: any = await Promise.all([
     getStars(),
     getAllSubcategories(),
-    getAllMovies(+searchParams.page, searchParams.q),
+    getAllMovies(+page, q as string),
   ]);
 
   return (

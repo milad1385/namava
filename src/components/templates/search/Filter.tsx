@@ -28,17 +28,19 @@ function Filter({ className, onShow, categories }: Filter) {
     router.replace(`${pathname}?${params}`);
   };
 
+  const isKid = pathname.includes("/kids/search");
+
   return (
     <div
-      className={`w-[300px] fixed  bg-[#37383e] rounded-xl  py-4 px-6 ${className}`}
+      className={`w-[300px] fixed  ${isKid ? "!text-black bg-gray-200" : "bg-[#37383e]"} rounded-xl  py-4 px-6 ${className}`}
     >
       <section className="flex items-center justify-between pb-5 md:pb-0">
         <div className="flex items-center gap-x-2">
           <BiChevronRight
-            className="block md:hidden text-white text-2xl"
+            className="block md:hidden text-2xl"
             onClick={() => onShow(false)}
           />
-          <span className="text-white">فیلترها</span>
+          <span>فیلترها</span>
         </div>
         <span
           className="text-namava text-sm"
@@ -56,7 +58,7 @@ function Filter({ className, onShow, categories }: Filter) {
           <input
             id="film"
             type="checkbox"
-            className="film-checkbox"
+            className={`film-checkbox ${isKid ? "!border !border-black" : "!border !border-white"}`}
             checked={searchParams.getAll("type").includes("film")}
             onChange={(e) => handleTypeChange("film", e)}
           />
@@ -66,7 +68,7 @@ function Filter({ className, onShow, categories }: Filter) {
           <input
             id="series"
             type="checkbox"
-            className="series-checkbox"
+            className={`series-checkbox ${isKid ? "!border !border-black" : "!border !border-white"}`}
             checked={searchParams.getAll("type").includes("series")}
             onChange={(e) => handleTypeChange("series", e)}
           />
