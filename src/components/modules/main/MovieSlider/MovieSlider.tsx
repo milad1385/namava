@@ -9,10 +9,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Movie from "../Movie/Movie";
+import MovieSlide from "./MovieSlide";
 import PreviewBox from "./PreviewBox";
 import SliderTitle from "./SiderTitle";
-import MovieSlide from "./MovieSlide";
 
 function MovieSlider({
   title,
