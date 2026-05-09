@@ -10,7 +10,7 @@ async function page() {
   }
 
   return (
-    <div className="my-28 container px-2">
+    <div className="my-20  md:my-28 container px-2">
       <VideoContent />
     </div>
   );
