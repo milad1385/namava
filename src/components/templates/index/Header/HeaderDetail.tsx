@@ -229,9 +229,12 @@ function HeaderDetail({
                     ? `${info.type === "film" ? "تماشا فیلم" : "تماشا سریال"}`
                     : "خرید اشتراک"}
                 </Link>
-                <button className=" py-3 px-5 bg-gray-500/35 hover:bg-white/40 text-white rounded-xl text-[13px]">
+                <Link
+                  href={`/${info.type === "film" ? "movie" : "series"}/${info.link}`}
+                  className=" py-3 px-5 bg-gray-500/35 hover:bg-white/40 text-white rounded-xl text-[13px]"
+                >
                   پیش نمایش
-                </button>
+                </Link>
               </div>
 
               {isSinglePage && user ? (
@@ -287,7 +290,7 @@ function HeaderDetail({
                 </div>
               ) : (
                 <Link
-                  href={`/movie/${info.link}`}
+                  href={`/${info.type === "film" ? "movie" : "series"}/${info.link}`}
                   className="hidden md:flex items-center  text-sm gap-x-2 text-white hover:text-namava"
                 >
                   <GrCircleInformation className="text-3xl" />
