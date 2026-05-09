@@ -230,10 +230,14 @@ function HeaderDetail({
                     : "خرید اشتراک"}
                 </Link>
                 <Link
-                  href={`/${info.type === "film" ? "movie" : "series"}/${info.link}`}
+                  href={
+                    pathname === "/"
+                      ? `/${info.type === "film" ? "movie" : "series"}/${info.link}`
+                      : "/"
+                  }
                   className=" py-3 px-5 bg-gray-500/35 hover:bg-white/40 text-white rounded-xl text-[13px]"
                 >
-                  پیش نمایش
+                  {pathname === "/" ? "پیش نمایش" : "بازگشت"}
                 </Link>
               </div>
 
