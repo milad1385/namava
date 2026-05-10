@@ -9,7 +9,7 @@ function TitleLimit({ movies, limitedMovie, limites, setLimites }: any) {
 
   const allMovies = movies.filter(
     (movie: any) =>
-      !movie.title.includes(limitedMovie) && movie.title.includes(search)
+      movie.title.includes(search) && movie.title !== limitedMovie?.title,
   );
 
   const handleSearch = (e: any) => {
@@ -36,7 +36,7 @@ function TitleLimit({ movies, limitedMovie, limites, setLimites }: any) {
   const removeItem = (id: string) => {
     setLimites((prev: any) => prev.filter((limit: any) => limit._id !== id));
   };
-  
+
   return (
     <div className="max-w-[700px] mx-auto text-white flex flex-col items-center md:items-start gap-x-3 md:gap-x-8 px-4 md:px-10 py-6 md:py-[30px] bg-namavaBlack rounded-xl my-10">
       <div className="w-full">
