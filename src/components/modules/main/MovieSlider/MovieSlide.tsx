@@ -27,6 +27,7 @@ function MovieSlide({ movie, setMovieId, setMovieDetail, movieId }) {
           image={movie.mainImage}
           link={movie.link}
           title={movie.title}
+          isLink={pathname.includes("/kids")}
           type={movie.type}
           showTime={movie.showTime}
         />
