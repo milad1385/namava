@@ -36,9 +36,9 @@ export function prepareData(startData: any, orders: any) {
   return data;
 }
 
-export const userSubscriptionHref = (subscription, info) => {
+export const userSubscriptionHref = (subscription, info, isKid) => {
   const href = subscription?.hasSubscription
-    ? `/${info.type === "film" ? "movie" : "series"}/${info.link}/session`
+    ? `${isKid ? "/kids" : ""}/${info?.type === "film" ? "movie" : "series"}/${info?.link}/session`
     : "/plans";
 
   return href;
