@@ -3,17 +3,25 @@ import React from "react";
 import VideoPlayer from "./VideoPlayer";
 import { subtitleList } from "@/public/db";
 import Button from "../../auth/Button/Button";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 function VideoContent() {
   const router = useRouter();
+  const pathname = usePathname();
+
+  const isKid = pathname.includes("/kids");
   return (
-    <div className="w-[95%] md:w-[75%] mx-auto md:py-4 text-white">
+    <div
+      className={`w-[95%] md:w-[75%] mx-auto md:py-4 ${isKid ? "text-black" : "text-white"}`}
+    >
       <div className="flex items-center justify-between gap-x-2 mb-8">
         <h3 className="text-[13px] md:text-xl font-IranMedium">
           کاربر گرامی میتوانید به تماشای آنلاین بپردازید
         </h3>
-        <Button className="text-xs !w-[60px]  md:!w-[125px]" onClick={() => router.back()}>
+        <Button
+          className="text-xs !w-[60px]  md:!w-[125px] !text-white"
+          onClick={() => router.back()}
+        >
           بازگشت
         </Button>
       </div>
