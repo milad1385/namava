@@ -8,9 +8,8 @@ import React from "react";
 import { FaShop } from "react-icons/fa6";
 
 export const metadata: Metadata = {
-  title :"وضعیت اشتراک"
-}
-
+  title: "وضعیت اشتراک",
+};
 
 async function page() {
   const [user, subscription]: any = await Promise.all([
@@ -18,56 +17,68 @@ async function page() {
     checkUserSubscription(),
   ]);
   return (
-    <div className="bg-namavaBlack rounded-md p-6 text-white">
-      <div className="flex items-center justify-between">
-        <h1
-          className={`text-xl ${
-            subscription.hasSubscription ? "text-green-600" : "text-red-600"
-          }`}
-        >
-          {subscription.hasSubscription
-            ? "اطلاعات اشتراک فعال"
-            : "اشتراک غیر فعال"}
-        </h1>
-      </div>
-      <div className="mt-8">
-        {subscription.hasSubscription ? (
-          <ul className="space-y-5 text-base">
-            <li>
-              <span className="text-[#d4d4d4]">تاریخ فعال سازی : </span>
-              <span>{formatDate(user.subscriptionStart)}</span>
-            </li>
-            <li>
-              <span className="text-[#d4d4d4]">تاریخ اتمام : </span>
-              <span>{formatDate(user.subscriptionEnd)}</span>
-            </li>
+    <>
+      <div className="bg-namavaBlack rounded-md p-6 text-white">
+        <div className="flex items-center justify-between">
+          <h1
+            className={`text-xl ${
+              subscription.hasSubscription ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {subscription.hasSubscription
+              ? "اطلاعات اشتراک فعال"
+              : "اشتراک غیر فعال"}
+          </h1>
+        </div>
+        <div className="mt-8">
+          {subscription.hasSubscription ? (
+            <ul className="space-y-5 text-base">
+              <li>
+                <span className="text-[#d4d4d4]">تاریخ فعال سازی : </span>
+                <span>{formatDate(user.subscriptionStart)}</span>
+              </li>
+              <li>
+                <span className="text-[#d4d4d4]">تاریخ اتمام : </span>
+                <span>{formatDate(user.subscriptionEnd)}</span>
+              </li>
 
-            <li>
-              <span className="text-[#d4d4d4]">
-                تعداد روز های باقی مانده :{" "}
-              </span>
-              <span>{subscription.remainingDays.toLocaleString("fa-IR")} روز</span>
-            </li>
-            <li>
-              <span className="text-[#d4d4d4]">خریدار : </span>
-              <span>{user.name}</span>
-            </li>
-            <li>
-              <span className="text-[#d4d4d4]">ایمیل : </span>
-              <span>{user.email}</span>
-            </li>
-          </ul>
-        ) : (
-          <div className="flex-center flex-col gap-y-12 mt-16">
-            <FaShop className="text-[50px] md:text-[100px]"/>
-            <p>شما در حال حاضر اشتراک فعالی ندارید.</p>
-            <Link href={"/plans"}>
-              <Button className="!w-[200px]">خرید اشتراک</Button>
-            </Link>
-          </div>
-        )}
+              <li>
+                <span className="text-[#d4d4d4]">
+                  تعداد روز های باقی مانده :{" "}
+                </span>
+                <span>
+                  {subscription.remainingDays.toLocaleString("fa-IR")} روز
+                </span>
+              </li>
+              <li>
+                <span className="text-[#d4d4d4]">خریدار : </span>
+                <span>{user.name}</span>
+              </li>
+              <li>
+                <span className="text-[#d4d4d4]">ایمیل : </span>
+                <span>{user.email}</span>
+              </li>
+            </ul>
+          ) : (
+            <div className="flex-center flex-col gap-y-12 mt-16">
+              <FaShop className="text-[50px] md:text-[100px]" />
+              <p>شما در حال حاضر اشتراک فعالی ندارید.</p>
+              <Link href={"/plans"}>
+                <Button className="!w-[200px]">خرید اشتراک</Button>
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+      <div className="flex flex-col gap-y-10 my-20">
+        <Link href="/" className="block md:hidden">
+          <Button className="text-white">صفحه اصلی</Button>
+        </Link>
+        <Link href="/movie" className="block md:hidden">
+          <Button className="text-white">مشاهده فیلم و سریال</Button>
+        </Link>
+      </div>
+    </>
   );
 }
 
