@@ -17,8 +17,7 @@ async function page({ searchParams }: TParams) {
   const { page, status } = await searchParams;
   const { tickets, ticketsCount, answeredCount, pendingCount, closeCount } =
     (await getAllUserTicket(+page || 1)) as IUserTicket;
-  console.log(tickets);
-  
+
   return (
     <div>
       <Filter
