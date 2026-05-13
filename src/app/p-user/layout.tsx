@@ -15,7 +15,7 @@ function UserLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex  gap-x-5 container my-28">
       <Sidebar />
-      <div className="w-full rounded-md">{children}</div>
+      <div className="w-full rounded-md mb-64 md:m-0">{children}</div>
     </div>
   );
 }
