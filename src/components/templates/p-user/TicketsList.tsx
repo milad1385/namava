@@ -42,7 +42,7 @@ function TicketsList({ tickets, ticketsCount, filter }: IUserTicket) {
               <td>{index + 1}</td>
               <td>{ticket.user.name}</td>
               <td>{ticket.department.title}</td>
-              <td>{ticket.subDepartment.title}</td>
+              <td>{ticket.subDepartment ? "دارد" : "ندارد"}</td>
 
               <td>
                 {ticket.priority === 1 && "زیاد"}
