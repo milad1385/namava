@@ -966,16 +966,19 @@ export const getLastUserTickets = async () => {
   }
 };
 
-export const getAllUserTicket = async (page: number) => {
+export const getAllUserTicket = async (page: number = 1) => {
   try {
     const user = await authUser();
+
     const tickets = await TicketModel.find({ isAnswer: false, user: user._id })
-      .sort({ _id: -1 })
-      .populate("department subDepartment user", "name title")
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1))
       .sort({ createdAt: -1 })
+      .populate("department", "title")
+      .populate("user", "name")
       .lean();
+
+    console.log("ticket => ", tickets);
 
     const ticketsCount = await TicketModel.countDocuments({
       isAnswer: false,
