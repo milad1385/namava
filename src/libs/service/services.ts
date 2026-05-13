@@ -978,8 +978,6 @@ export const getAllUserTicket = async (page: number = 1) => {
       .populate("user", "name")
       .lean();
 
-    console.log("ticket => ", tickets);
-
     const ticketsCount = await TicketModel.countDocuments({
       isAnswer: false,
       user: user._id,
