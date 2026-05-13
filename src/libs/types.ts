@@ -260,6 +260,13 @@ export interface IMovie {
   contentType?: "adult" | "kid";
 }
 
+export interface IMobileNavbar {
+  isOpen: boolean;
+  onOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  user: any;
+}
+
+
 export type TProfileMenu = {
   isShow: boolean;
   onShow: React.Dispatch<React.SetStateAction<boolean>>;
