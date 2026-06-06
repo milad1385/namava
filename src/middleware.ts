@@ -1,10 +1,10 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("accessToken");
+  const profileId = request.cookies.get("profile")?.value;
   const pathname = request.nextUrl.pathname;
-
 
   if (
     pathname.startsWith("/plans") ||
