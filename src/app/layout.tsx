@@ -1,13 +1,13 @@
-import Footer from "@/src/components/modules/Footer/Footer";
-import FooterMenu from "@/src/components/modules/FooterMenu/FooterMenu";
-import Navbar from "@/src/components/modules/Navbar/Navbar";
-import "@/src/globals.css";
-import { authUser } from "@/src/utils/serverHelper";
 import type { Metadata } from "next";
-import NextTopLoader from "nextjs-toploader";
+import Navbar from "@/src/components/modules/Navbar/Navbar";
+import FooterMenu from "@/src/components/modules/FooterMenu/FooterMenu";
+import Footer from "@/src/components/modules/Footer/Footer";
 import { Toaster } from "react-hot-toast";
-import AuthContextProvider from "../context/AuthContextProvider";
+import { authUser } from "@/src/utils/serverHelper";
 import { checkUserSubscription, getMainMenus } from "../libs/service/services";
+import AuthContextProvider from "../context/AuthContextProvider";
+import "@/src/globals.css";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   title: {

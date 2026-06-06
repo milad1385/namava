@@ -18,8 +18,7 @@ function Collection({ image, title, link }: Collection) {
         alt={title}
         width={450}
         height={189}
-        sizes="75vw"
-        className="md:w-[360px] h-[90px] md:h-[189px] rounded-md object-cover static"
+        className="md:w-[360px] h-[90px] md:h-[189px] rounded-md"
       />
       <h3 className="mt-3 text-xs">مجموعه فیلم های {title}</h3>
     </Link>

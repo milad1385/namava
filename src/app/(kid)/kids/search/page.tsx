@@ -14,19 +14,18 @@ export const metadata: Metadata = {
 };
 
 async function SearchPage({ searchParams }: TParams) {
-  const { q, type, genre, voice, country, order, from, to } =
-    await searchParams;
+  const { q, type, genre, voice, country, order, from, to } = searchParams;
   const [movies, categories]: any = await Promise.all([
     searchMovies(
-      (q as string) ?? "",
-      type as [string],
-      genre as [string],
-      voice as [string],
-      country as [string],
-      order as string,
+      (q) ?? "",
+      type,
+      genre,
+      voice,
+      country,
+      order,
       {
-        from: from as string,
-        to: to as string,
+        from,
+        to,
       },
       true,
     ),

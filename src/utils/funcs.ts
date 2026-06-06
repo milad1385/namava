@@ -16,6 +16,8 @@ export const getRemainingDays = (user: any) => {
 };
 
 export function prepareData(startData: any, orders: any) {
+  // A bit ugly code, but sometimes this is what it takes when working with real data 😅
+
   function incArrayValue(arr: any, field: any) {
     return arr.map((obj: any) =>
       obj.duration === field ? { ...obj, value: obj.value + 1 } : obj,
@@ -36,9 +38,9 @@ export function prepareData(startData: any, orders: any) {
   return data;
 }
 
-export const userSubscriptionHref = (subscription, info, isKid) => {
+export const userSubscriptionHref = (subscription, info, isKid = false , episodeId=null) => {
   const href = subscription?.hasSubscription
-    ? `${isKid ? "/kids" : ""}/${info?.type === "film" ? "movie" : "series"}/${info?.link}/session`
+    ? `${isKid ? "/kids" : ""}/${info?.type === "film" ? "movie" : "series"}/${info?.link}/session/${episodeId ? episodeId :""}`
     : "/plans";
 
   return href;

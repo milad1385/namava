@@ -1,6 +1,8 @@
+import React from "react";
+import { FiLogOut } from "react-icons/fi";
+import SidebarLink from "./SidebarLink";
 import { authUser } from "@/src/utils/serverHelper";
 import Logout from "../../templates/p-user/Logout";
-import SidebarLink from "./SidebarLink";
 
 async function Sidebar() {
   const user = await authUser();

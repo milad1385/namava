@@ -6,7 +6,7 @@ import { unlink } from "fs";
 import path from "path";
 const authUser = async () => {
   connectToDB();
-  const token = (await cookies()).get("accessToken")?.value;
+  const token = cookies().get("accessToken")?.value;
 
   if (!token) {
     return false;
@@ -20,7 +20,7 @@ const authUser = async () => {
 
   const user = await UserModel.findOne(
     { email: tokenPayload?.email },
-    "-password",
+    "-password"
   ).populate("profiles");
 
   return user;
@@ -28,7 +28,7 @@ const authUser = async () => {
 
 const checkIsAdmin = async () => {
   connectToDB();
-  const token = (await cookies()).get("accessToken")?.value;
+  const token = cookies().get("accessToken")?.value;
 
   if (!token) {
     return false;

@@ -14,16 +14,18 @@ function Movie({
   type,
   showTime,
 }: IMovie) {
-  console.log(isLink);
-
   const router = useRouter();
   const pathname = usePathname();
 
   const getHref = () => {
     if (type === "film") {
-      return !isLink ? `/movie/${link}` : `/kids/movie/${link}`;
+      return !isLink
+        ? `/movie/${link}`
+        : `${contentType === "adult" ? "" : "/kids"}/movie/${link}`;
     } else {
-      return !isLink ? `/series/${link}` : `/kids/series/${link}`;
+      return !isLink
+        ? `/series/${link}`
+        : `${contentType === "adult" ? "" : "/kids"}/series/${link}`;
     }
   };
 

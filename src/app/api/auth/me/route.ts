@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
       return Response.json({ msg: "User is unauthorized" }, { status: 401 });
     }
 
-    const profileId = (await cookies()).get("profile")?.value;
+    const profileId = cookies().get("profile")?.value;
 
     const currentProfile = await ProfileModel.findOne({ _id: profileId });
 

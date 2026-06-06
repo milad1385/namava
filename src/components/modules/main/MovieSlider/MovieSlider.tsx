@@ -2,8 +2,8 @@
 import { addOrDeleteBookmark } from "@/src/libs/actions/bookmark";
 import { dislikeMovie, likeMovie } from "@/src/libs/actions/movie";
 import { TMovieSlider } from "@/src/libs/types";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -25,9 +25,7 @@ function MovieSlider({
   const [bookmarks, setBookmarks] = useState(userBookmarks);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
-
-  const pathname = usePathname();
-
+  const previewBoxRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const handleAddToBookmark = async () => {
@@ -75,6 +73,15 @@ function MovieSlider({
     setDisliked(movieDetail?.dislike?.includes(user?._id));
   }, [movieDetail]);
 
+  useEffect(() => {
+    if (movieId && previewBoxRef.current) {
+      previewBoxRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [movieId]);
+
   return (
     <div>
       <div className="container mt-[20px]">
@@ -117,16 +124,18 @@ function MovieSlider({
         </div>
       </div>
       {movieId && (
-        <PreviewBox
-          bookmarks={bookmarks}
-          disliked={disliked}
-          handleAddToBookmark={handleAddToBookmark}
-          handleDislike={handleDislike}
-          handleLike={handleLike}
-          handleRemoveFromBookmark={handleRemoveFromBookmark}
-          liked={liked}
-          movieDetail={movieDetail}
-        />
+        <div ref={previewBoxRef}>
+          <PreviewBox
+            bookmarks={bookmarks}
+            disliked={disliked}
+            handleAddToBookmark={handleAddToBookmark}
+            handleDislike={handleDislike}
+            handleLike={handleLike}
+            handleRemoveFromBookmark={handleRemoveFromBookmark}
+            liked={liked}
+            movieDetail={movieDetail}
+          />
+        </div>
       )}
     </div>
   );

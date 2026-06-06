@@ -20,6 +20,7 @@ export const sendNewTicket = async (data: any): Promise<TResponse> => {
 
     const { title, body, priority, departmentId, subDepartmentId, status } =
       data;
+    console.log(status);
 
     if (!isValidObjectId(departmentId) || !isValidObjectId(subDepartmentId)) {
       return {

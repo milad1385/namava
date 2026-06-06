@@ -6,9 +6,8 @@ import { NextRequest } from "next/server";
 export async function GET(req: NextRequest, { params }: TParams) {
   try {
     connectToDB();
-    const { id } = await params;
     const subDepartments = await SubDepartmentModel.find({
-      department: id,
+      department: params.id,
     });
     return Response.json(subDepartments);
   } catch (err) {

@@ -1,17 +1,17 @@
 import Filter from "@/src/components/modules/Filter/Filter";
 import CommentsList from "@/src/components/templates/p-user/CommentsList";
 import { getAllUserComments } from "@/src/libs/service/services";
-import { TParams } from "@/src/libs/types";
+import { TSearchParams } from "@/src/libs/types";
 import { Metadata } from "next";
+import React from "react";
 
 export const metadata: Metadata = {
-  title: "لیست کامنت ها",
-};
+  title :"لیست کامنت ها"
+}
 
-async function page({ searchParams }: TParams) {
-  const { page , status } = await searchParams;
+async function page({ searchParams }: TSearchParams) {
   const { count, comments }: any = await getAllUserComments(
-    +page,
+    +searchParams?.page
   );
   return (
     <div>
@@ -26,7 +26,7 @@ async function page({ searchParams }: TParams) {
       <CommentsList
         comments={JSON.parse(JSON.stringify(comments))}
         count={count}
-        status={status}
+        status={searchParams?.status}
       />
     </div>
   );

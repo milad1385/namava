@@ -184,9 +184,23 @@ export const getAllSubcategories = async () => {
   try {
     connectToDB();
     const allCategoeies = await CategoryModel.find({});
+
     return allCategoeies.filter((category) => category.parrent !== null);
   } catch (error) {
     return error;
+  }
+};
+
+export const getMainMenus = async () => {
+  try {
+    connectToDB();
+    const menus = await MenuModel.find({
+      parrent: null,
+    }).lean();
+
+    return menus;
+  } catch (err) {
+    return err;
   }
 };
 
@@ -242,20 +256,6 @@ export const getAllMenus = async (page: number, search: string) => {
     };
   } catch (error) {
     return error;
-  }
-};
-
-// get menus
-export const getMainMenus = async () => {
-  try {
-    connectToDB();
-    const menus = await MenuModel.find({
-      parrent: null,
-    }).lean();
-
-    return menus;
-  } catch (err) {
-    return err;
   }
 };
 
@@ -559,10 +559,9 @@ export const getRelatedArticleToMovie = async (id: string) => {
 export const getArticles = async (): Promise<TArticle[]> => {
   try {
     connectToDB();
-    const articles = await ArticleModel.find({ isAccept: true }).populate(
-      "creator movie",
-      "name title link",
-    );
+    const articles = await ArticleModel.find({ isAccept: true })
+      .populate("creator movie", "name title link")
+      .sort({ createdAt: -1 });
 
     return articles;
   } catch (error) {
@@ -590,12 +589,12 @@ export const getArticle = async (link: string) => {
 
 export const searchMovies = async (
   search: string,
-  types: string[],
-  categoryNames: string[],
-  voices: string[],
-  countries: string[],
+  types: string,
+  categoryNames: string,
+  voices: string,
+  countries: string,
   order: string,
-  range: { from: string; to: string },
+  range: { from: String; to: String },
   isKid?: boolean,
 ) => {
   try {
@@ -696,6 +695,18 @@ export const getAllEpisodes = async (
       counts,
       name: mainMovie.title,
     };
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getEpisode = async (id: string) => {
+  try {
+    connectToDB();
+
+    const episode = await EpisodeModel.findOne({ _id: id }).populate("season");
+
+    return episode;
   } catch (error) {
     return error;
   }
@@ -966,16 +977,15 @@ export const getLastUserTickets = async () => {
   }
 };
 
-export const getAllUserTicket = async (page: number = 1) => {
+export const getAllUserTicket = async (page: number) => {
   try {
     const user = await authUser();
-
     const tickets = await TicketModel.find({ isAnswer: false, user: user._id })
+      .sort({ _id: -1 })
+      .populate("department subDepartment user", "name title")
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1))
       .sort({ createdAt: -1 })
-      .populate("department", "title")
-      .populate("user", "name")
       .lean();
 
     const ticketsCount = await TicketModel.countDocuments({
@@ -1104,7 +1114,7 @@ export const checkUserProfile = async () => {
       };
     }
 
-    const profileId = (await cookies()).get("profile")?.value;
+    const profileId = cookies().get("profile")?.value;
 
     const currentProfile = await ProfileModel.findOne({ _id: profileId });
 

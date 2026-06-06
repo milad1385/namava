@@ -1,7 +1,8 @@
+import React from "react";
 import Title from "@/src/components/modules/p-admin/Title";
 import TicketsList from "@/src/components/templates/p-admin/tickets/TicketsList";
 import { getAllTickets } from "@/src/libs/service/services";
-import { IPanelTicket, TParams } from "@/src/libs/types";
+import { IPanelTicket, TSearchParams } from "@/src/libs/types";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,10 +11,10 @@ export const metadata: Metadata = {
   keywords: "اضافه کردن ، حذف کردن ، ویرایش کردن",
 };
 
-async function Ticketspage({ searchParams }: TParams) {
-  const { page } = await searchParams;
+
+async function Ticketspage({ searchParams }: TSearchParams) {
   const { tickets, ticketsCount } = (await getAllTickets(
-    +page,
+    +searchParams?.page
   )) as IPanelTicket;
   return (
     <div>

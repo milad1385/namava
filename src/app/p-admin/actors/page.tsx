@@ -3,17 +3,20 @@ import Title from "@/src/components/modules/p-admin/Title";
 import ActorsList from "@/src/components/templates/p-admin/actors/ActorsList";
 import AddNewActor from "@/src/components/templates/p-admin/actors/AddNewActor";
 import { getAllStars } from "@/src/libs/service/services";
-import { TParams } from "@/src/libs/types";
+import { TAdminPage } from "@/src/libs/types";
 import { Metadata } from "next";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "بازیگران",
   description: "از این صفحه میتوان برای مدیریت بازیگر  ها استفاده کرد",
 };
 
-async function ActorsPage({ searchParams }: TParams) {
-  const { page, q } = await searchParams;
-  const { stars, counts }: any = await getAllStars(+page, q as string);
+async function ActorsPage({ searchParams }: TAdminPage) {
+  const { stars, counts }: any = await getAllStars(
+    +searchParams.page,
+    searchParams.q
+  );
   return (
     <div>
       <Title name="ایجاد بازیگر" />

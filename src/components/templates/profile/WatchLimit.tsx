@@ -54,14 +54,12 @@ function WatchLimit({ profile, movies }: any) {
       <Ages setAge={setAge} age={age} />
       <Lock profile={profile} />
       {age < 12 && <TimeLimit />}
-      {profile.type !== "adult" && (
-        <TitleLimit
-          limites={limites}
-          setLimites={setLimites}
-          movies={movies}
-          limitedMovie={limitedMovies}
-        />
-      )}
+      <TitleLimit
+        limites={limites}
+        setLimites={setLimites}
+        movies={movies}
+        limitedMovie={limitedMovies}
+      />
       <div className="max-w-[700px] mx-auto flex items-center text-white gap-x-5 pb-20 ">
         <Button disabled={isLoading} onClick={updateProfileHandler}>
           ذخیره

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 async function Bookmarks() {
   const bookmarks: any = await getUserBookmarks();
 
-  const kidBookmarks = bookmarks.filter(
+  const kidBookmarks = bookmarks?.filter(
     (bookmark: any) => bookmark.movie.contentType === "kid"
   );
 

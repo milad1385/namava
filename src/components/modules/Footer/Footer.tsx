@@ -9,7 +9,7 @@ import Tiwter from "@/src/icons/Tiwter";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaChevronUp } from "react-icons/fa6";
 import Overlay from "../Overlay/Overlay";
 
@@ -20,12 +20,11 @@ function Footer() {
   if (
     pathname.includes("/login") ||
     pathname.includes("/register") ||
-    pathname.includes("forgot") ||
     pathname.includes("/profile-list") ||
     pathname.includes("/add-profile") ||
     pathname.includes("/pin-lock") ||
-    pathname.includes("/kids") ||
-    pathname.includes("/p-admin")
+    pathname.includes("/p-admin") ||
+    pathname.includes("/kids")
   ) {
     return null;
   }

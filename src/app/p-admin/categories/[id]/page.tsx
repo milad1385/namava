@@ -2,15 +2,14 @@ import Search from "@/src/components/modules/p-admin/Search";
 import Title from "@/src/components/modules/p-admin/Title";
 import SubCategoriesList from "@/src/components/templates/p-admin/categories/SubCategoriesList";
 import { getSubCategory } from "@/src/libs/service/services";
-import { TParams } from "@/src/libs/types";
+import { TAdminPage } from "@/src/libs/types";
+import React from "react";
 
-async function page({ params, searchParams }: TParams) {
-  const { id } = await params;
-  const { page, q } = await searchParams;
+async function page({ params, searchParams }: TAdminPage) {
   const { subCategories, counts, parrent }: any = await getSubCategory(
-    id as string,
-    +page || 1,
-    q as string,
+    params.id as string,
+    +searchParams.page || 1,
+    searchParams.q || ""
   );
 
   return (

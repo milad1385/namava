@@ -4,8 +4,7 @@ import { getActor } from "@/src/libs/service/services";
 import { TParams } from "@/src/libs/types";
 
 async function page({ params }: TParams) {
-  const { id } = await params;
-  const actor = await getActor(id as string);
+  const actor = await getActor(params?.id as string);
 
   return (
     <>

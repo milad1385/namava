@@ -3,12 +3,10 @@ import {
   getAllMoviesWithOutPagination,
   getSpecificProfile,
 } from "@/src/libs/service/services";
-import { TParams } from "@/src/libs/types";
 
-async function page({ params }: TParams) {
-  const { id } = await params;
+async function page({ params }: { params: { id: string } }) {
   const [profile, movies] = await Promise.all([
-    getSpecificProfile(id),
+    getSpecificProfile(params?.id),
     getAllMoviesWithOutPagination(),
   ]);
 

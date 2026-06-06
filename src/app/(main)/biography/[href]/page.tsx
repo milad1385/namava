@@ -6,17 +6,17 @@ import { Metadata } from "next";
 import Image from "next/image";
 
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
-  const { href } = await params;
+  const { href } = params;
   const { name, bio } = await getStar(href as string);
   return {
     title: `بیوگرافی ${name}`,
     description: `${bio} در این صفحه بیوگرافی ستاره محبوب شما ${name} است پس بریم که داستان زندگی این سوپر استار رو بشنویم`,
-    keywords: "بیوگرافی ، بازیگر ، سوپر استار ، زندگی نامه",
+    keywords :"بیوگرافی ، بازیگر ، سوپر استار ، زندگی نامه",
   };
 }
 
 async function page({ params }: TParams) {
-  const { href } = await params;
+  const { href } = params;
 
   const { image, name, bio, _id } = await getStar(href as string);
   const actorMovies: any = await getStarMovies(_id);

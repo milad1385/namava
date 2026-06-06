@@ -6,13 +6,11 @@ import { TAdminPage, TParams } from "@/src/libs/types";
 import { Metadata } from "next";
 import React from "react";
 
-async function page({ params, searchParams }: TParams) {
-  const { id } = await params;
-  const { page, q } = await searchParams;
+async function page({ params, searchParams }: TAdminPage) {
   const { episodes, counts, name }: any = await getAllEpisodes(
-    +page,
-    q as string,
-    id,
+    +searchParams.page,
+    searchParams.q,
+    params.id
   );
   return (
     <>
@@ -30,8 +28,7 @@ async function page({ params, searchParams }: TParams) {
 }
 
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
-  const { id } = await params;
-  const series: any = await getAllEpisodes(1, "", id as string);
+  const series: any = await getAllEpisodes(1, "", params?.id as string);
   return {
     title: ` قسمت های سریال  ${series.name}`,
   };

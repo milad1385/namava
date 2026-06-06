@@ -16,7 +16,7 @@ import { limitedRoute } from "@/public/db";
 import Menus from "./Menus";
 function Navbar({ user, userSubscription, menus }: any) {
   const { activeProfile } = useAuth();
-  const { category }: any = useCategoryName();
+  const category: any = useCategoryName();
 
   const pathname = usePathname();
   const [isShowProfile, setIsShowProfile] = useState(false);
@@ -96,18 +96,30 @@ function Navbar({ user, userSubscription, menus }: any) {
                 <li className="text-sm">
                   <Link href={"/kids"}>خانه</Link>
                 </li>
-                <li className="text-sm">
-                  <Link href={"/kids/bookmarks"}>لیست من</Link>
-                </li>
+
+                {user ? (
+                  <Link href="/kids/bookmarks" className="text-sm">
+                    لیست من
+                  </Link>
+                ) : (
+                  <Link href="/login" className="text-sm">
+                    ورود
+                  </Link>
+                )}
+                <Link href="/kids/search" className="text-sm">
+                  جستجو کردن
+                </Link>
               </>
             )}
           </ul>
         </div>
         <div className="flex items-center gap-x-5">
-          {isKid && (
-            <Button className="!w-[120px] !hidden md:!block text-xs text-white !font-Iran">
-              تنظیمات کودک
-            </Button>
+          {isKid && user && (
+            <Link href={`/profile-list-edit/${activeProfile?._id}`}>
+              <Button className="!w-[120px] !hidden md:!block text-xs text-white !font-Iran">
+                تنظیمات کودک
+              </Button>
+            </Link>
           )}
           <Link href={isKid ? "/kids/search" : "/search"}>
             <Search className={isKid ? "fill-gray-600" : "fill-white"} />

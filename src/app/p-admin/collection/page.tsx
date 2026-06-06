@@ -6,7 +6,7 @@ import {
   getAllCollcetions,
   getAllMoviesWithOutPagination,
 } from "@/src/libs/service/services";
-import { TParams } from "@/src/libs/types";
+import { TAdminPage } from "@/src/libs/types";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,11 +14,10 @@ export const metadata: Metadata = {
   description: "از این صفحه میتوان برای مدیریت مجموعه  ها استفاده کرد",
 };
 
-async function SlidersPage({ searchParams }: TParams) {
-  const { page, q } = await searchParams;
+async function SlidersPage({ searchParams }: TAdminPage) {
   const [movies, data]: any = await Promise.all([
     getAllMoviesWithOutPagination(),
-    getAllCollcetions(+page, q as string),
+    getAllCollcetions(+searchParams?.page, searchParams?.q),
   ]);
 
   return (

@@ -2,6 +2,7 @@ import { authUser } from "@/src/utils/serverHelper";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 
 export const metadata: Metadata = {
   title :"تنظیمات حساب کاربری"
@@ -22,11 +23,11 @@ async function page() {
                 height={1080}
                 className="w-[60px] h-[60px] rounded-full"
               />
-              <span className="!text-sm md:text-base">
+              <span>
                 {profile.name} <span className="text-[#aaa]">{index === 0 ? "(پیش فرض)" :""}</span>
               </span>
             </div>
-            <Link href={`/profile-list-edit/${profile._id}`} className="text-namava text-xs md:text-base">
+            <Link href={`/profile-list-edit/${profile._id}`} className="text-namava">
               ویرایش پروفایل
             </Link>
           </li>

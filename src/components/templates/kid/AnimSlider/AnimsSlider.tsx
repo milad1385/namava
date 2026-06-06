@@ -37,16 +37,13 @@ function AnimsSlider({ collections }: any) {
       >
         {collections.map((collection: any) => (
           <SwiperSlide key={collection._id}>
-            <Link
-              title={collection.title}
-              href={`/kids/collections/${collection.link}`}
-            >
+            <Link title={collection.title} href={`/kids/collections/${collection.link}`}>
               <Image
                 src={collection.mainImage}
                 alt={collection.title}
-                width={1920}
-                height={1080}
-                className="w-[225px]  anim-collection h-auto  rounded-full shadow-sm"
+                width={500}
+                height={500}
+                className="w-[300px]  anim-collection h-auto  rounded-full shadow-sm"
               />
             </Link>
           </SwiperSlide>

@@ -1,11 +1,12 @@
 "use client";
 import { banks } from "@/public/db";
-import { addSubscription } from "@/src/libs/actions/subscription";
-import { IPaymentGateway } from "@/src/libs/types";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import Button from "../auth/Button/Button";
+import React, { useState } from "react";
 import Bank from "./Bank";
+import Button from "../auth/Button/Button";
+import toast from "react-hot-toast";
+import { addSubscription } from "@/src/libs/actions/subscription";
+import { useRouter } from "next/navigation";
+import { IPaymentGateway } from "@/src/libs/types";
 
 function PaymentGateway({
   totalPrice,
@@ -13,6 +14,7 @@ function PaymentGateway({
   title,
   discount,
 }: IPaymentGateway) {
+  const router = useRouter();
   const [activeBank, setActiveBank] = useState("");
 
   const paymentHandler = async () => {
@@ -21,9 +23,6 @@ function PaymentGateway({
     }
 
     const res: any = await addSubscription(time, totalPrice, title, discount);
-    if (!res) {
-      return toast.error("شما در حال حاضر اشتراک فعال دارید.");
-    }
     if (res?.status === 200) {
       toast.success(`${res.message}`);
       return location.replace("/");

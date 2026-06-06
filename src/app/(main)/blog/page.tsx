@@ -4,7 +4,6 @@ import { getArticles } from "@/src/libs/service/services";
 import { TArticle } from "@/src/libs/types";
 import { Metadata } from "next";
 import Link from "next/link";
-import React from "react";
 import { FaChevronLeft } from "react-icons/fa6";
 
 export const metadata: Metadata = {
@@ -16,7 +15,7 @@ export const metadata: Metadata = {
 
 async function page() {
   const articles: TArticle[] = await getArticles();
-
+  
   return (
     <div className="max-w-[1200px] container mx-auto  my-24">
       <MainSlider articles={JSON.parse(JSON.stringify(articles))} />

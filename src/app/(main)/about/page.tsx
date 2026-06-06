@@ -39,11 +39,9 @@ function AboutUs() {
         </p>
       </section>
       <section className="my-10">
-        <Link href="/">
-          <Button className="text-white !w-[200px] h-[52px] mx-auto text-lg">
-            تماشا آنلاین
-          </Button>
-        </Link>
+        <Button className="text-white !w-[200px] h-[52px] mx-auto text-lg">
+          ثبت نام
+        </Button>
 
         <div className="pt-[80px]">
           <p className="text-lg md:text-2xl font-IranMedium text-center text-white">
@@ -237,7 +235,7 @@ function AboutUs() {
                 alt="star"
                 width={100}
                 height={100}
-                className="w-[65px] h-[100px]"
+                className="w-[100px] h-[100px]"
               />
               <h3 className="font-IranMedium text-lg md:text-2xl mt-10">
                 اشتراک با تمدید خودکار
@@ -256,16 +254,11 @@ function AboutUs() {
             </div>
           </div>
 
-          <Link href="/plans">
-            <Button className="!w-[250px] md:!w-[366px] mx-auto my-10 text-white">
-              خرید اشتراک
-            </Button>
-          </Link>
+          <Button className="!w-[250px] md:!w-[366px] mx-auto my-10 text-white">
+            خرید اشتراک
+          </Button>
 
-          <div
-            className="questions text-white my-24 max-w-[1216px] mx-auto"
-            id="questions"
-          >
+          <div className="questions text-white my-24 max-w-[1216px] mx-auto">
             <h3 className="text-2xl font-IranMedium text-center">
               سوالات متداول
             </h3>
@@ -323,7 +316,9 @@ function AboutUs() {
                 نقد و بررسی محتواهای روز دنیا را در مجله نماوا بخوانید و از
                 خواندن آن لذت ببرید{" "}
               </p>
-              <Button className="!w-[150px]">اطلاعات بیشتر</Button>
+              <Link href="/blog">
+                <Button className="!w-[150px]">اطلاعات بیشتر</Button>
+              </Link>
               <Image
                 width={1920}
                 height={1080}

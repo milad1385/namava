@@ -7,7 +7,7 @@ import Table from "@/src/components/modules/table/Table";
 import { deleteMovie } from "@/src/libs/actions/movie";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useOptimistic, useState } from "react";
+import React, { useOptimistic } from "react";
 import toast from "react-hot-toast";
 import { FaPencil, FaRegStar, FaStar, FaTrash } from "react-icons/fa6";
 
@@ -16,7 +16,7 @@ function FilmList({ movies, counts }: { movies: any; counts: number }) {
     movies,
     (allMovies, id) => {
       return allMovies.filter((movie: any) => movie._id !== id);
-    },
+    }
   );
 
   const deleteMovieHandler = async (id: string) => {

@@ -1,14 +1,15 @@
-import MovieSlider from "@/src/components/modules/main/MovieSlider/MovieSlider";
 import StarsSlider from "@/src/components/modules/main/StarsSlider/StarsSlider";
+import React from "react";
+import Collections from "../Collections/Collections";
+import MovieSlider from "@/src/components/modules/main/MovieSlider/MovieSlider";
 import {
   getAllCollectionSlider,
   getMovies,
   getStars,
   getUserBookmarks,
 } from "@/src/libs/service/services";
-import { TMainSlider } from "@/src/libs/types";
 import { authUser } from "@/src/utils/serverHelper";
-import Collections from "../Collections/Collections";
+import { TMainSlider } from "@/src/libs/types";
 
 async function MainSlider({ categoryId, type }: TMainSlider) {
   const [allStars, movies, collections, userBookmarks, userInfo]: any =
@@ -21,7 +22,7 @@ async function MainSlider({ categoryId, type }: TMainSlider) {
     ]);
 
   const userMoviesBookmark = userBookmarks.map(
-    (bookmark: any) => bookmark.movie._id,
+    (bookmark: any) => bookmark.movie._id
   );
   return (
     <div className="text-white">
@@ -33,7 +34,6 @@ async function MainSlider({ categoryId, type }: TMainSlider) {
               userBookmarks={JSON.parse(JSON.stringify(userMoviesBookmark))}
               title={`${category}`}
               user={JSON.parse(JSON.stringify(userInfo))}
-          
             />
           </div>
         );

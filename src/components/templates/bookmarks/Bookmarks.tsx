@@ -46,7 +46,7 @@ function Bookmarks({ bookmarks, likesMovies }: any) {
       {/* bookmark body */}
 
       {showStatus === "bookmark" &&
-        (bookmarks.length > 0 ? (
+        (bookmarks?.length > 0 ? (
           <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-x-4 gap-y-16 pt-10">
             {bookmarks.map((bookmark: any) => (
               <Movie

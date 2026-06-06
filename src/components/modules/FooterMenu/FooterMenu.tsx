@@ -17,10 +17,12 @@ function FooterMenu() {
     pathname.includes("/profile-list") ||
     pathname.includes("/add-profile") ||
     pathname.includes("/pin-lock") ||
-    pathname.includes("/p-admin")
+    pathname.includes("/p-admin") ||
+    pathname.includes("/kids")
   ) {
     return null;
   }
+  
 
   return (
     <div

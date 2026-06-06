@@ -7,7 +7,6 @@ import { authUser, checkIsAdmin } from "@/src/utils/serverHelper";
 import { Subscription, TSubscription } from "@/src/validators/frontend";
 import { isValidObjectId } from "mongoose";
 import { revalidatePath } from "next/cache";
-import toast from "react-hot-toast";
 
 export const createNewSubscription = async (data: TSubscription) => {
   try {
@@ -102,7 +101,7 @@ export const addSubscription = async (
   durationInDay: number,
   price: number,
   title: string,
-  discount: number,
+  discount: number
 ) => {
   try {
     connectToDB();
@@ -112,19 +111,6 @@ export const addSubscription = async (
         message: "برای خرید اشتراک ابتدا لاگین کنید",
         status: 401,
       };
-    }
-
-    const now = new Date();
-    let hasSubscription = false;
-
-    if (!user?.subscriptionEnd || new Date(user?.subscriptionEnd) < now) {
-      hasSubscription = false;
-    } else {
-      hasSubscription = true;
-    }
-
-    if (hasSubscription) {
-      return false;
     }
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + durationInDay);

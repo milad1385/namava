@@ -1,10 +1,15 @@
 "use client";
-import ArticleContent from "./ArticleContent";
+import DOMPurify from "dompurify";
+import React from "react";
 
 function ArticleBody({ content }: any) {
-
   return (
-    <ArticleContent content={content}/>
+    <div
+      className="article-content"
+      dangerouslySetInnerHTML={{
+        __html: DOMPurify.sanitize(content),
+      }}
+    ></div>
   );
 }
 

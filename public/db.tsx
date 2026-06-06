@@ -12,9 +12,9 @@ import Star from "@/src/icons/Star";
 import Gift from "@/src/icons/gift";
 import User from "@/src/icons/User";
 import Phone from "@/src/icons/Phone";
+import { GiFilmStrip } from "react-icons/gi";
 import { FiFilm, FiYoutube } from "react-icons/fi";
 import { LuBaby, LuPopcorn } from "react-icons/lu";
-import { GiFilmStrip } from "react-icons/gi";
 export const day: any = [];
 export const year: any = [];
 export let genres = [
@@ -192,32 +192,12 @@ export const sidebarLinks = [
   },
 ];
 
-export const limitedRoute = [
-  "/login",
-  "/register",
-  "/forgot",
-  "/profile-list",
-  "/add-profile",
-  "/pin-lock",
-  "/p-admin",
-];
-
 export const profileLinks = [
   { id: 1, title: "لیست من", icon: <Folder2 />, link: "bookmarks" },
   { id: 2, title: "خرید اشتراکی", icon: <Star />, link: "plans" },
   { id: 3, title: "کارت هدیه", icon: <Gift />, link: "plans" },
   { id: 4, title: "حساب کاربری", icon: <User />, link: "p-user" },
   { id: 5, title: "تماس با ما", icon: <Phone />, link: "contact-us" },
-];
-
-export const mobileMenuNavbar = [
-  { id: 1, title: "خانه", icon: <IoHomeOutline />, link: "/" },
-  { id: 2, title: "فیلم ها", icon: <FiFilm />, link: "/movie" },
-  { id: 3, title: "سریال ها", icon: <FiYoutube />, link: "/series" },
-  { id: 4, title: "تازه ها", icon: <LuPopcorn />, link: "/" },
-  { id: 5, title: "کودکان", icon: <LuBaby />, link: "/kids" },
-  { id: 6, title: "نماوا مگ", icon: <GiFilmStrip />, link: "/blog" },
-  { id: 7, title: "تماس با ما", icon: <Phone />, link: "/contact-us" },
 ];
 
 const generateDate = () => {
@@ -275,6 +255,26 @@ export const subtitleList = [
     label: "English",
     default: false,
   },
+];
+
+export const limitedRoute = [
+  "/login",
+  "/register",
+  "/forgot",
+  "/profile-list",
+  "/add-profile",
+  "/pin-lock",
+  "/p-admin",
+];
+
+export const mobileMenuNavbar = [
+  { id: 1, title: "خانه", icon: <IoHomeOutline />, link: "/" },
+  { id: 2, title: "فیلم ها", icon: <FiFilm />, link: "/movie" },
+  { id: 3, title: "سریال ها", icon: <FiYoutube />, link: "/series" },
+  { id: 4, title: "دسته بندی ها", icon: <LuPopcorn />, link: "/category" },
+  { id: 5, title: "کودکان", icon: <LuBaby />, link: "/kids" },
+  { id: 6, title: "نماوا مگ", icon: <GiFilmStrip />, link: "/blog" },
+  { id: 7, title: "تماس با ما", icon: <Phone />, link: "/contact-us" },
 ];
 
 generateMiladi();

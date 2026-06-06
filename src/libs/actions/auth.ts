@@ -83,7 +83,7 @@ export const signUp = async (body: ISignup) => {
 
     await user.save();
 
-    (await cookies()).set({
+    cookies().set({
       name: "accessToken",
       value: `${accessToken}`,
       httpOnly: true,
@@ -142,7 +142,7 @@ export const signIn = async (body: ISignin) => {
 
     const accessToken = generateAccessToken({ email: user.email });
 
-    (await cookies()).set({
+    cookies().set({
       name: "accessToken",
       value: `${accessToken}`,
       httpOnly: true,
@@ -164,7 +164,7 @@ export const signIn = async (body: ISignin) => {
 
 export const logout = async () => {
   try {
-    (await cookies()).set({ name: "accessToken", value: "", maxAge: 0 });
+    cookies().set({ name: "accessToken", value: "", maxAge: 0 });
     redirect("/");
   } catch (error) {
     return {

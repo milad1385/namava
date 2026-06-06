@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 function useCategoryName() {
   const [category, setCategory] = useState<any>(null);
   const { id } = useParams();
+
   const pathname = usePathname();
 
   useEffect(() => {
@@ -13,17 +14,13 @@ function useCategoryName() {
       setCategory(category);
     };
 
-    if (pathname.includes("/category")) {
-      if (id) {
-        getCategoryName();
-      }
-    } else {
-      setCategory(false);
+    if (id) {
+      getCategoryName();
     }
   }, [pathname]);
 
   if (category) {
-    return { category, setCategory };
+    return category;
   } else {
     return false;
   }

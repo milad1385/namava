@@ -6,9 +6,8 @@ import { Metadata } from "next";
 import React from "react";
 
 async function page({ params }: TParams) {
-  const { id } = await params;
   const { ticketInfo, tickets }: any = await getSpecificTicketInfo(
-    id as string,
+    params?.id as string
   );
 
   return (
@@ -55,8 +54,7 @@ async function page({ params }: TParams) {
 }
 
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
-  const { id } = await params;
-  const { ticketInfo }: any = await getSpecificTicketInfo(id as string);
+  const { ticketInfo }: any = await getSpecificTicketInfo(params?.id as string);
   return {
     title: `${ticketInfo.title}`,
     description: `برای مشاهده و ادامه بحث با ${ticketInfo.title}`,

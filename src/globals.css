@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 * {
   user-select: none;
 }
@@ -113,7 +114,6 @@ body {
     width: 15px;
     height: 15px;
     appearance: none;
-    border: 1px solid white;
     border-radius: 100%;
   }
 
@@ -245,7 +245,7 @@ body {
   width: 15px;
   height: 15px;
   appearance: none;
-  border: 1px solid white;
+  
   border-radius: 3px;
 }
 .film-checkbox:checked,

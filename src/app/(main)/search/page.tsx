@@ -3,7 +3,7 @@ import Filter from "@/src/components/templates/search/Filter";
 import SearchBox from "@/src/components/templates/search/Search";
 import SearchMovie from "@/src/icons/SearchMovie";
 import { getAllSubcategories, searchMovies } from "@/src/libs/service/services";
-import { TParams } from "@/src/libs/types";
+import { TSearchParams } from "@/src/libs/types";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,21 +13,16 @@ export const metadata: Metadata = {
   keywords: "سرچ ، جستجو ، فیلتر ، مرتب سازی",
 };
 
-async function SearchPage({ searchParams }: TParams) {
-  const { q, type, genre, voice, country, order, from, to } =
-    await searchParams;
+async function SearchPage({ searchParams }: TSearchParams) {
   const [movies, categories]: any = await Promise.all([
     searchMovies(
-      (q as string) ?? "",
-      type as [string],
-      genre as [string],
-      voice as [string],
-      country as [string],
-      order as string,
-      {
-        from: from as string,
-        to: to as string,
-      },
+      searchParams?.q ?? "",
+      searchParams?.type,
+      searchParams?.genre,
+      searchParams?.voice,
+      searchParams?.country,
+      searchParams?.order,
+      { from: searchParams?.from, to: searchParams?.to }
     ),
     getAllSubcategories(),
   ]);
@@ -47,7 +42,7 @@ async function SearchPage({ searchParams }: TParams) {
         <SearchBox
           categories={JSON.parse(JSON.stringify(formatedCategories))}
           movies={JSON.parse(JSON.stringify(movies))}
-          q={q as string}
+          q={searchParams?.q}
         />
 
         {movies.length > 0 ? (

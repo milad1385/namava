@@ -10,10 +10,7 @@ export type THeader = {
   info?: any;
   onSwipe?: any;
   bookmarks?: any;
-  subscription?: {
-    hasSubscription: boolean;
-    remainingDays: number;
-  };
+  subscription?: any;
   user?: any;
 };
 
@@ -50,10 +47,10 @@ export type TComment = {
   movieLink: string;
 };
 
-export interface TParams {
-  params?: Promise<{ [key: string]: string }>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
-}
+export type TParams = {
+  params?: { [key: string]: string | string[] | undefined };
+  searchParams?: { [key: string]: string };
+};
 
 export type TAdminPage = {
   searchParams: { page: string; q: string };
@@ -96,6 +93,11 @@ export type UserAuthContextType = {
     remainingDays: number;
   };
 };
+export interface IMobileNavbar {
+  isOpen: boolean;
+  onOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  user: any;
+}
 
 export interface User {
   _id: string;
@@ -259,13 +261,6 @@ export interface IMovie {
   showTime: string;
   contentType?: "adult" | "kid";
 }
-
-export interface IMobileNavbar {
-  isOpen: boolean;
-  onOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  user: any;
-}
-
 
 export type TProfileMenu = {
   isShow: boolean;

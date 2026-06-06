@@ -19,29 +19,27 @@ import { notFound } from "next/navigation";
 import { FaYoutube } from "react-icons/fa6";
 
 async function page({ params, searchParams }: TParams) {
-  const { link } = await params;
-  const { season } = await searchParams;
-  const activeSeason = season ?? 1;
+  const activeSeason = searchParams?.season ?? 1;
 
   const [movie, userInfo]: [movie: any, userInfo: any] = await Promise.all([
-    getMovie(link),
+    getMovie(params.link),
     authUser(),
   ]);
 
   const [seasons, realatedMovies, userBookmarks, subscription]: any =
     await Promise.all([
       getSpecificSeasons(movie._id),
-      getRealedMovies(movie.category, movie._id, movie.contentType),
+      getRealedMovies(movie.category, movie._id , movie.contentType),
       getUserBookmarks(),
       checkUserSubscription(),
     ]);
 
   const userMoviesBookmark = userBookmarks.map(
-    (bookmark: any) => bookmark.movie._id,
+    (bookmark: any) => bookmark.movie._id
   );
 
   const seasonEpisodes = seasons.find(
-    (season: any) => season.seasonNumber == activeSeason,
+    (season: any) => season.seasonNumber == activeSeason
   );
 
   if (!movie) {
@@ -85,7 +83,7 @@ async function page({ params, searchParams }: TParams) {
             key={episode._id}
             episode={JSON.parse(JSON.stringify(episode))}
             user={JSON.parse(JSON.stringify(userInfo._id))}
-            link={link}
+            link={params.link}
             isKid
           />
         ))}
@@ -117,8 +115,7 @@ async function page({ params, searchParams }: TParams) {
 }
 
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
-    const { link } = await params;
-  const movie: any = await getMovie(link);
+  const movie: any = await getMovie(params.link);
   return {
     title: `سریال ${movie.title}`,
     description: `${movie.shortDesc}`,

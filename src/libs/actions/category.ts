@@ -23,7 +23,7 @@ export const addNewCategory = async (body: FormData) => {
       const fileName = Date.now() + image.name;
       imageName = `/uploads/${fileName}`;
       const imagePath = path.join(process.cwd(), "public/uploads/" + fileName);
-      const buffer: any = Buffer.from(await image.arrayBuffer());
+      const buffer = Buffer.from(await image.arrayBuffer());
       writeFileSync(imagePath, buffer);
     }
 
@@ -43,6 +43,8 @@ export const addNewCategory = async (body: FormData) => {
       status: 201,
     };
   } catch (error) {
+    console.log(error);
+
     return {
       message: "اتصال خود را به اینترنت چک کنید",
     };
