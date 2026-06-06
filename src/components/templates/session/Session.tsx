@@ -8,12 +8,12 @@ import { dislikeEpisode, likeEpisode } from "@/src/libs/actions/episode";
 import { userSubscriptionHref } from "@/src/utils/funcs";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { FaChevronDown, FaHeart, FaPlay } from "react-icons/fa6";
 
-function Session({ episode, user, link, isKid , info }: any) {
+function Session({ episode, user, link, isKid, info }: any) {
   const subMenuRef = useRef<any>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [liked, setLiked] = useState(episode.liked.includes(user));
@@ -21,8 +21,6 @@ function Session({ episode, user, link, isKid , info }: any) {
   const router = useRouter();
 
   const { subscripton } = useAuth();
-
-  
 
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
@@ -81,7 +79,10 @@ function Session({ episode, user, link, isKid , info }: any) {
   return (
     <>
       <div className="md:cursor-pointer hidden md:block">
-        <Link href={userSubscriptionHref(subscripton, info , false , episode._id)} className="relative group">
+        <Link
+          href={userSubscriptionHref(subscripton, info, isKid, episode._id)}
+          className="relative group"
+        >
           <Image
             src={episode.image}
             alt={episode.title}
