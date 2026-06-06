@@ -29,17 +29,17 @@ async function page({ params, searchParams }: TParams) {
   const [seasons, realatedMovies, userBookmarks, subscription]: any =
     await Promise.all([
       getSpecificSeasons(movie._id),
-      getRealedMovies(movie.category, movie._id , movie.contentType),
+      getRealedMovies(movie.category, movie._id, movie.contentType),
       getUserBookmarks(),
       checkUserSubscription(),
     ]);
 
   const userMoviesBookmark = userBookmarks.map(
-    (bookmark: any) => bookmark.movie._id
+    (bookmark: any) => bookmark.movie._id,
   );
 
   const seasonEpisodes = seasons.find(
-    (season: any) => season.seasonNumber == activeSeason
+    (season: any) => season.seasonNumber == activeSeason,
   );
 
   if (!movie) {
@@ -84,6 +84,7 @@ async function page({ params, searchParams }: TParams) {
             episode={JSON.parse(JSON.stringify(episode))}
             user={JSON.parse(JSON.stringify(userInfo._id))}
             link={params.link}
+            info={JSON.parse(JSON.stringify(movie))}
             isKid
           />
         ))}
