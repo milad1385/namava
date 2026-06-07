@@ -1068,6 +1068,20 @@ export const getAllOrders = async () => {
   }
 };
 
+export const getOrder = async (orderId: string) => {
+  try {
+    connectToDB();
+    const order = await OrderModel.findOne({ _id: orderId }).populate(
+      "subscription",
+      "time title",
+    );
+
+    return order;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getAllTickets = async (page: number) => {
   try {
     connectToDB();
