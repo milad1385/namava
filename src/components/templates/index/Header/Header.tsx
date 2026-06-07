@@ -4,6 +4,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import HeaderDetail from "./HeaderDetail";
+import { useEffect, useState } from "react";
 
 function Header({
   isImage,
@@ -18,8 +19,20 @@ function Header({
   bookmarks,
   user,
 }: THeader) {
+  const [episodeId, setEpisodeId] = useState("");
   const pathname = usePathname();
   const isAboutPage = pathname.includes("/about");
+
+  useEffect(() => {
+    const getSeriesEpisode = async () => {
+      if (info?.type !== "series") return false;
+      const res = await fetch(`/api/episode/${info._id}`);
+      const episode = await res.json();
+      setEpisodeId(episode._id);
+    };
+
+    getSeriesEpisode();
+  }, [info]);
 
   return (
     <>
@@ -61,6 +74,7 @@ function Header({
             isKid={isKid}
             info={info}
             bookmarks={bookmarks}
+            episodeId={episodeId}
           />
         )}
         {!isTitle && (

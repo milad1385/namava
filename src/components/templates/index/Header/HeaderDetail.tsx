@@ -23,6 +23,7 @@ function HeaderDetail({
   subscription,
   user,
   bookmarks,
+  episodeId,
 }: THeaderDetails) {
   const pathname = usePathname();
   const { activeProfile } = useAuth();
@@ -100,7 +101,7 @@ function HeaderDetail({
             <div className="flex-center flex-col">
               <div className="flex items-center flex-col md:flex-row  gap-y-5 justify-center md:justify-start gap-x-4 mt-4">
                 <Link
-                  href={userSubscriptionHref(subscription, info, isKid)}
+                  href={userSubscriptionHref(subscription, info, isKid , episodeId)}
                   className="bg-white hover:bg-namava hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
                 >
                   <FaPlay />
@@ -221,7 +222,12 @@ function HeaderDetail({
             <div className="flex items-center justify-center md:justify-start gap-x-4 mt-4 flex-col md:flex-row gap-y-3">
               <div className="flex items-center gap-x-3">
                 <Link
-                  href={userSubscriptionHref(subscription, info, isKid)}
+                  href={userSubscriptionHref(
+                    subscription,
+                    info,
+                    isKid,
+                    episodeId,
+                  )}
                   className="bg-white hover:bg-namava hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
                 >
                   <FaPlay />
