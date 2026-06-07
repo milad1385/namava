@@ -237,6 +237,7 @@ export interface IOrders {
     time: string;
   };
   __v: number;
+  paid_time: Date;
 }
 
 export interface IOrdersList {
