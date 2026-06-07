@@ -3,10 +3,15 @@ import UserModel from "./user";
 import SubscriptionModel from "./subscription";
 const schema = new mongoose.Schema(
   {
-    title: {
-      type: String,
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
       required: true,
-      trim: true,
+    },
+    subscription: {
+      type: mongoose.Types.ObjectId,
+      ref: "Subscription",
+      required: true,
     },
     orderNumber: {
       type: String,
@@ -20,23 +25,16 @@ const schema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["pay", "pending", "cancel"],
-    },
-    user: {
-      type: mongoose.Types.ObjectId,
-      ref: "User",
-    },
-    subscription: {
-      type: mongoose.Types.ObjectId,
-      ref: "Subscription",
-      required: true,
+      default: "pending",
     },
     discount: {
       type: Number,
       required: true,
     },
-    time: {
-      type: Number,
-      required: true,
+    paid_time: {
+      type: Date,
+      required: false,
+      default: null,
     },
   },
   {
