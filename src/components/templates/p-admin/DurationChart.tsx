@@ -1,6 +1,5 @@
 "use client";
 import { prepareData } from "@/src/utils/funcs";
-import React from "react";
 import {
   Cell,
   Legend,
@@ -10,7 +9,7 @@ import {
   Tooltip,
 } from "recharts";
 
-function DurationChart({orders }: any) {
+function DurationChart({ orders }: any) {
   const startData = [
     {
       duration: "اشتراک 30 روزه",
@@ -34,6 +33,7 @@ function DurationChart({orders }: any) {
     },
   ];
   const data = prepareData(startData, orders);
+  console.log(data);
 
   const windowWidth: any = typeof window !== "undefined" && window.innerWidth;
 
@@ -52,7 +52,7 @@ function DurationChart({orders }: any) {
             outerRadius={110}
             innerRadius={85}
           >
-            {data.map((entry : any) => (
+            {data.map((entry: any) => (
               <Cell
                 key={entry.duration}
                 fill={entry.color}
