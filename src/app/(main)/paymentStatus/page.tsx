@@ -1,9 +1,8 @@
-import React from 'react'
+import PaymentStatus from "@/src/components/modules/main/payment/PaymentStatus";
+import React from "react";
 
 function page() {
-  return (
-    <div>page</div>
-  )
+  return <PaymentStatus />;
 }
 
-export default page
+export default page;
