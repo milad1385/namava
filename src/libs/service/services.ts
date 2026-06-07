@@ -995,12 +995,15 @@ export const getAllUserTicket = async (page: number) => {
 
     const answeredCount = await TicketModel.countDocuments({
       status: "answered",
+      user: user._id,
     });
     const pendingCount = await TicketModel.countDocuments({
       status: "pending",
+      user: user._id,
     });
     const closeCount = await TicketModel.countDocuments({
       isOpen: false,
+      user: user._id,
     });
 
     return {
@@ -1040,7 +1043,8 @@ export const getAllUserOrders = async (page: number) => {
     const orders = await OrderModel.find({ user: user._id })
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1))
-      .sort({ createdAt: -1 }).populate("subscription" , "time title");
+      .sort({ createdAt: -1 })
+      .populate("subscription", "time title");
 
     const orderCount = await OrderModel.countDocuments({ user: user._id });
 
