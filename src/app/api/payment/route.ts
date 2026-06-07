@@ -27,8 +27,8 @@ export async function POST(req: NextRequest) {
     let amount = subscription.price;
     let discount = 0;
     if (subscription.discount) {
-      amount = amount - (amount * subscription.discount) / 100;
       discount = (amount * subscription.discount) / 100;
+      amount = amount - discount;
     }
 
     const newOrder = await OrderModel.create({
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
         },
         body: JSON.stringify({
           merchant: process.env.NEXT_PUBLIC_ZIBAL_MERCHANT_ID,
-          amount,
+          amount: amount * 10,
           orderId: newOrder.id,
           mobile: user.mobile,
           callbackUrl: process.env.NEXT_PUBLIC_ZIBAL_CALLBACK_URL,
