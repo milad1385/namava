@@ -39,7 +39,6 @@ function PaymentStatus() {
 
       if (res.ok) {
         setOrder(data);
-        console.log(data);
         if (data?.data.paid_time) {
           const date = new Date(data?.data?.paid_time);
           const persianDate = date
@@ -118,7 +117,11 @@ function PaymentStatus() {
         </li>
 
         <li className="flex items-center justify-between text-namava">
-          <span> {order?.data?.status !== "cancel" ? "مبلغ پرداختی" :"مبلغ کل"} : </span>
+          <span>
+            {" "}
+            {order?.data?.status !== "cancel" ? "مبلغ پرداختی" : "مبلغ کل"}{" "}
+            :{" "}
+          </span>
           <span>{order?.data?.totalPrice.toLocaleString("fa-IR")} تومان</span>
         </li>
 
@@ -127,7 +130,7 @@ function PaymentStatus() {
             <Button>بازگشت</Button>
           </a>
         ) : (
-          <Link href="/plans"  className="mt-10 block">
+          <Link href="/plans" className="mt-10 block">
             <Button className="!bg-red-600">تلاش دوباره</Button>
           </Link>
         )}
