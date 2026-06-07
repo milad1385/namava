@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineProduct } from "react-icons/ai";
 import Input from "@/src/components/modules/p-admin/Input";
-import { FaLink, FaTag } from "react-icons/fa6";
+import { FaLetterboxd, FaLink, FaTag } from "react-icons/fa6";
 import { MdAccessTime } from "react-icons/md";
 import SelectBox from "@/src/components/modules/p-admin/SelectBox";
 import Button from "@/src/components/modules/auth/Button/Button";
@@ -31,7 +31,6 @@ function AddNewArticle({ movies }: any) {
     resolver: zodResolver(Article),
   });
 
-
   const moviesOption = movies.map((movie: any) => ({
     id: movie._id,
     value: movie._id,
@@ -39,7 +38,6 @@ function AddNewArticle({ movies }: any) {
   }));
 
   const createNewArticleHandeler = async (data: TArticle) => {
-
     const articleData = new FormData();
     articleData.append("title", data.title);
     articleData.append("link", data.link);
@@ -48,6 +46,7 @@ function AddNewArticle({ movies }: any) {
     articleData.append("movie", selectedOption?.value);
     articleData.append("image", data.image[0]);
     articleData.append("content", articleBody);
+    articleData.append("shortDesc", data.shortDesc);
 
     const res = await createNewArticle(articleData);
     setIsLoading(true);
@@ -108,6 +107,17 @@ function AddNewArticle({ movies }: any) {
         title="تگ ها"
         type="text"
         placeholder="بطور مثال اکشن ، علمی و..."
+        disable={isLoading}
+      />
+
+      <Input
+        register={register}
+        errors={errors}
+        icon={<FaLetterboxd className={`text-2xl`} />}
+        name="shortDesc"
+        title="توضیحات کوتاه"
+        type="text"
+        placeholder="در این فیلم یا سریال می توانید ..."
         disable={isLoading}
       />
 
