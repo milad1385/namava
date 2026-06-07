@@ -19,7 +19,7 @@ import UserModel from "@/src/models/user";
 import OrderModel from "@/src/models/order";
 import { authUser, checkIsAdmin } from "@/src/utils/serverHelper";
 import { isValidObjectId } from "mongoose";
-import { IWishList, TArticle } from "../types";
+import { IOrders, IWishList, TArticle } from "../types";
 import { cookies } from "next/headers";
 
 // get all site stat
@@ -1068,7 +1068,7 @@ export const getAllOrders = async () => {
   }
 };
 
-export const getOrder = async (orderId: string) => {
+export const getOrder = async (orderId: string) : Promise<IOrders> => {
   try {
     connectToDB();
     const order = await OrderModel.findOne({ _id: orderId }).populate(
