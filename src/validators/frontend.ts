@@ -134,7 +134,7 @@ export const Actor = z.object({
     (file) => {
       return file && file[0] instanceof File;
     },
-    { message: "عکس را آپلود کنید" }
+    { message: "عکس را آپلود کنید" },
   ),
 });
 
@@ -201,38 +201,38 @@ export const Movie = z.object({
     (file) => {
       return file && file[0] instanceof File;
     },
-    { message: "تصویر اصلی را آپلود کنید" }
+    { message: "تصویر اصلی را آپلود کنید" },
   ),
   video: z.any().refine(
     (file) => {
       return file && file[0] instanceof File;
     },
-    { message: "ویدیو باید آپلود شود" }
+    { message: "ویدیو باید آپلود شود" },
   ),
   deskBanner: z.any().refine(
     (file) => {
       return file && file[0] instanceof File;
     },
-    { message: "بنر دسکتاپ باید آپلود شود" }
+    { message: "بنر دسکتاپ باید آپلود شود" },
   ),
   mobileBanner: z.any().refine(
     (file) => {
       return file && file[0] instanceof File;
     },
-    { message: "بنر موبایل باید آپلود شود" }
+    { message: "بنر موبایل باید آپلود شود" },
   ),
   detailImage: z.any().refine(
     (file) => {
       return file && file[0] instanceof File;
     },
-    { message: "تصویر جزییات را آپلود کنید" }
+    { message: "تصویر جزییات را آپلود کنید" },
   ),
 
   logo: z.any().refine(
     (file) => {
       return file && file[0] instanceof File;
     },
-    { message: "تصویر لوگو را آپلود کنید" }
+    { message: "تصویر لوگو را آپلود کنید" },
   ),
 
   director: z
@@ -273,13 +273,13 @@ export const Session = z.object({
     (file) => {
       return file && file[0] instanceof File;
     },
-    { message: "بنر  باید آپلود شود" }
+    { message: "بنر  باید آپلود شود" },
   ),
   video: z.any().refine(
     (file) => {
       return file && file[0] instanceof File;
     },
-    { message: "ویدیو باید آپلود شود" }
+    { message: "ویدیو باید آپلود شود" },
   ),
   serial: z.string().min(1, { message: "سریال را انتخاب کنید" }),
   season: z.string().min(1, { message: "شماره فصل قسمت را وارد کنید" }),
@@ -298,6 +298,10 @@ export const Article = z.object({
     .string()
     .min(1, { message: "مدت زمان خواندن حداقل باید 1 کارکتر باشد" })
     .max(10, { message: "مدت زمان خواندن باید 10 کاراکتر داشته باشد" }),
+  shortDesc: z
+    .string()
+    .min(5, { message: "توضیحات کوتاه حداقل باید 5 کارکتر باشد" })
+    .max(1000, { message: "توضیحات کوتاه باید حداکثر  1000 کاراکتر داشته باشد" }),
   link: z
     .string()
     .min(3, { message: "لینک  حداقل باید 3 کارکتر باشد" })
@@ -310,7 +314,7 @@ export const Article = z.object({
     (file) => {
       return file && file[0] instanceof File;
     },
-    { message: "عکس را آپلود کنید" }
+    { message: "عکس را آپلود کنید" },
   ),
 });
 
@@ -440,20 +444,20 @@ export const Collcetion = z.object({
     (file) => {
       return file && file[0] instanceof File;
     },
-    { message: "تصویر اصلی باید آپلود شود" }
+    { message: "تصویر اصلی باید آپلود شود" },
   ),
 
   deskBanner: z.any().refine(
     (file) => {
       return file && file[0] instanceof File;
     },
-    { message: "بنر دسکتاپ باید آپلود شود" }
+    { message: "بنر دسکتاپ باید آپلود شود" },
   ),
   mobileBanner: z.any().refine(
     (file) => {
       return file && file[0] instanceof File;
     },
-    { message: "بنر موبایل باید آپلود شود" }
+    { message: "بنر موبایل باید آپلود شود" },
   ),
 
   type: z.string().min(1, { message: "نوع محتوا این اثر را انتخاب کنید" }),
