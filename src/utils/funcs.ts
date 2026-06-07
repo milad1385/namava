@@ -38,10 +38,37 @@ export function prepareData(startData: any, orders: any) {
   return data;
 }
 
-export const userSubscriptionHref = (subscription, info, isKid = false , episodeId=null) => {
+export const userSubscriptionHref = (
+  subscription,
+  info,
+  isKid = false,
+  episodeId = null,
+) => {
   const href = subscription?.hasSubscription
-    ? `${isKid ? "/kids" : ""}/${info?.type === "film" ? "movie" : "series"}/${info?.link}/session/${episodeId ? episodeId :""}`
+    ? `${isKid ? "/kids" : ""}/${info?.type === "film" ? "movie" : "series"}/${info?.link}/session/${episodeId ? episodeId : ""}`
     : "/plans";
 
   return href;
+};
+
+export const getDateWithTime = (time: Date) => {
+  const date = new Date(time);
+  const persianDate = date
+    .toLocaleDateString("fa-IR", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    })
+    .replace(/[۰-۹]/g, function (d) {
+      return d;
+    })
+    .replace("،", " ")
+    .replace("ساعت", "")
+    .trim();
+
+  return persianDate;
 };
