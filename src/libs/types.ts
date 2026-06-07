@@ -20,6 +20,7 @@ export type THeaderDetails = {
   subscription: any;
   user?: any;
   bookmarks?: any;
+  episodeId?: string;
 };
 
 export type TMovieSlider = {
