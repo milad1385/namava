@@ -1,11 +1,11 @@
 "use client";
+import { IOrdersList } from "@/src/libs/types";
 import Link from "next/link";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaEye, FaRegCircleXmark } from "react-icons/fa6";
+import EmptyBox from "../../modules/p-admin/EmptyBox";
 import Pagination from "../../modules/pagination/Pagination";
 import Table from "../../modules/table/Table";
-import EmptyBox from "../../modules/p-admin/EmptyBox";
-import { IOrders, IOrdersList } from "@/src/libs/types";
 
 function OrderTable({ orders, orderCount, filter }: IOrdersList) {
   let ordersList = orders;
@@ -36,7 +36,7 @@ function OrderTable({ orders, orderCount, filter }: IOrdersList) {
             <Table.Row key={order._id}>
               <td>{index + 1}</td>
               <td> {new Date(order.createdAt).toLocaleString("fa")}</td>
-              <td>{order.title}</td>
+              <td>{order.subscription.title}</td>
               <td>{order.orderNumber}</td>
               <td>{order.totalPrice.toLocaleString("fa-IR")} تومان</td>
               <td>
