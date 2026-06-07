@@ -22,6 +22,7 @@ function MovieSlider({
 }: TMovieSlider) {
   const [movieId, setMovieId] = useState<string>("");
   const [movieDetail, setMovieDetail] = useState<any>(null);
+  const [episodeId, setEpisodeId] = useState("");
   const [bookmarks, setBookmarks] = useState(userBookmarks);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
@@ -82,6 +83,17 @@ function MovieSlider({
     }
   }, [movieId]);
 
+  useEffect(() => {
+    const getSeriesEpisode = async () => {
+      if (movieDetail?.type !== "series") return false;
+      const res = await fetch(`/api/episode/${movieId}`);
+      const episode = await res.json();
+      setEpisodeId(episode._id);
+    };
+
+    getSeriesEpisode();
+  }, [movieId]);
+
   return (
     <div>
       <div className="container mt-[20px]">
@@ -134,6 +146,7 @@ function MovieSlider({
             handleRemoveFromBookmark={handleRemoveFromBookmark}
             liked={liked}
             movieDetail={movieDetail}
+            episodeId={episodeId}
           />
         </div>
       )}

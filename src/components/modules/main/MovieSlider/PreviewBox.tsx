@@ -20,6 +20,7 @@ function PreviewBox({
   liked,
   disliked,
   handleDislike,
+  episodeId,
 }) {
   const { subscripton, isLogin } = useAuth();
   return (
@@ -61,6 +62,7 @@ function PreviewBox({
                   subscripton,
                   movieDetail,
                   movieDetail.contentType === "isKid",
+                  episodeId,
                 )}
                 className="bg-white text-namavaBlack hover:bg-namava hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
               >
