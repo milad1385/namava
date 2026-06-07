@@ -18,8 +18,16 @@ export const createNewArticle = async (data: FormData) => {
       };
     }
 
-    const { title, link, readingTime, tags, movie, image, content }: any =
-      Object.fromEntries(data);
+    const {
+      title,
+      link,
+      readingTime,
+      tags,
+      movie,
+      image,
+      content,
+      shortDesc,
+    }: any = Object.fromEntries(data);
 
     if (!title || !link || !readingTime || !tags || !image || !content) {
       return {
@@ -55,6 +63,7 @@ export const createNewArticle = async (data: FormData) => {
       image: imageName,
       content,
       creator: user._id,
+      shortDesc,
     });
 
     revalidatePath("/p-admin/articles");
@@ -62,6 +71,7 @@ export const createNewArticle = async (data: FormData) => {
     return {
       message: "مقاله با موفقیت ساخته شد",
       status: 201,
+      data: article,
     };
   } catch (error) {
     return {
