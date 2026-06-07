@@ -12,7 +12,7 @@ async function page({ params }: TParams) {
     notFound();
   }
 
-  const { title, price, discount, time } = subscription;
+  const { title, price, discount, time, _id } = subscription;
 
   return (
     <div className="flex  my-28">
@@ -56,6 +56,7 @@ async function page({ params }: TParams) {
         time={time}
         title={title}
         discount={(price * discount) / 100}
+        subscriptionId={JSON.parse(JSON.stringify(_id))}
       />
     </div>
   );
