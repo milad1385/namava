@@ -8,10 +8,10 @@ import { dislikeEpisode, likeEpisode } from "@/src/libs/actions/episode";
 import { userSubscriptionHref } from "@/src/utils/funcs";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { FaChevronDown, FaHeart, FaPlay } from "react-icons/fa6";
+import { FaChevronDown, FaPlay } from "react-icons/fa6";
 
 function Session({ episode, user, link, isKid, info }: any) {
   const subMenuRef = useRef<any>(null);
