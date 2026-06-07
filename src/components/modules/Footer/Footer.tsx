@@ -44,7 +44,7 @@ function Footer() {
             <Link href={""}>فرصت های شغلی</Link>
           </li>
           <li className="hover:text-white">
-            <Link href={""}>تبلیغات در نماوا</Link>
+            <Link href={"/about"}>تبلیغات در میلا فیلم</Link>
           </li>
           <li className="hover:text-white">
             <Link href={"/plans"}>خرید اشتراک</Link>
@@ -56,7 +56,7 @@ function Footer() {
             <Link href={"/about#questions"}>سوالات متداول</Link>
           </li>
           <li className="hover:text-white">
-            <Link href={"/about"}>درباره نماوا</Link>
+            <Link href={"/about"}>درباره میلا فیلم</Link>
           </li>
           <li className="relative">
             <span
@@ -75,22 +75,22 @@ function Footer() {
             >
               <ul className="child:px-4 child:py-3">
                 <li>
-                  <Link href="">سایر لینک ها</Link>
+                  <Link href="/">سایر لینک ها</Link>
                 </li>
                 <li>
-                  <Link href="">نماوا مگ</Link>
+                  <Link href="/blog">میلا مگ</Link>
                 </li>
                 <li>
-                  <Link href="">قوانین</Link>
+                  <Link href="/">قوانین</Link>
                 </li>
                 <li>
-                  <Link href="">شرایط مصرف اینترنت</Link>
+                  <Link href="/">شرایط مصرف اینترنت</Link>
                 </li>
                 <li>
-                  <Link href="">ارسال فیلم نامه</Link>
+                  <Link href="/">ارسال فیلم نامه</Link>
                 </li>
                 <li>
-                  <Link href="">دانلود ها</Link>
+                  <Link href="/">دانلود ها</Link>
                 </li>
               </ul>
             </div>
@@ -151,16 +151,15 @@ function Footer() {
             <div className="py-6 flex flex-wrap gap-y-6 items-center justify-between border-b border-b-[#37383e]">
               <section>
                 <h4 className="text-white font-IranMedium text-xs">
-                  درباره نماوا
+                  درباره میلا فیلم
                 </h4>
                 <p className="text-[#aaaaaa] text-xs/[26px] mt-2 max-w-[812px]">
-                  سرزمین شاتل در سایت نماوا امکان پخش آنلاین فیلم‌ها و سریال‌های
+                  سرزمین فیلم و سریال در سایت میلافیلم امکان پخش آنلاین فیلم‌ها و سریال‌های
                   محبوبتان را در اختیار شما کاربران گرامی قرار می‌دهد. مشاهده
                   پیش‌نمایش فیلم و سریال‌ها، جستجوی سریع مجموعه انتخابی، دانلود
-                  درون‌برنامه‌ای، حساب چند کاربره، تنظیمات کودک، پخش زنده
-                  رویدادهای ورزشی و فرهنگی و آرشیوی کامل از پرطرفدارترین فیلم‌ها
-                  و سریال‌ها از جمله قابلیت‌های نماوا، به‌روزترین سایت تماشای
-                  فیلم و سریال است. نماوا این امکان را برای کاربران خود فراهم
+                  درون‌برنامه‌ای، حساب چند کاربره، تنظیمات کودک، آرشیوی کامل از پرطرفدارترین فیلم‌ها
+                  و سریال‌ها از جمله قابلیت‌های میلا فیلم ، به‌روزترین سایت تماشای
+                  فیلم و سریال است. میلا فیلم این امکان را برای کاربران خود فراهم
                   کرده است تا در سریع‌ترین زمان ممکن و تنها با چند کلیک،
                   سریال‌ها و فیلم‌های مورد علاقه خود را به صورت آنلاین و آفلاین
                   مشاهده کنند.
@@ -187,18 +186,18 @@ function Footer() {
             </div>
             <div className="py-4 flex items-center justify-between flex-col md:flex-row  gap-y-4 md:gap-y-0">
               <p className="text-[10px]/[22px] text-[#aaa]">
-                خدمات ارائه شده در نماوا، دارای مجوزهای لازم از مراجع مربوطه است
-                و هر گونه بهره‌برداری و سوءاستفاده از محتوای نماوا، پیگرد قانونی
+                خدمات ارائه شده در میلا فیلم، دارای مجوزهای لازم از مراجع مربوطه است
+                و هر گونه بهره‌برداری و سوءاستفاده از محتوای میلا فیلم، پیگرد قانونی
                 دارد.
               </p>
               <div className="flex items-center gap-x-7">
-                <Link href={"https://twitter.com/Namava_ir"}>
+                <Link href={"https://twitter.com/MilaFilm.ir"}>
                   <Tiwter className="hover:fill-namava transition-all" />
                 </Link>
-                <Link href={"https://instagram.com/namava_ir"}>
+                <Link href={"https://instagram.com/MilaFilm.ir"}>
                   <Instagram className="hover:fill-namava transition-all" />
                 </Link>
-                <Link href={"https://telegram.me/namava_ir"}>
+                <Link href={"https://telegram.me/MilaFilm.ir"}>
                   <Telegram className="hover:fill-namava transition-all" />
                 </Link>
               </div>
