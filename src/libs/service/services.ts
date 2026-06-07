@@ -1060,7 +1060,10 @@ export const getAllUserOrders = async (page: number) => {
 export const getAllOrders = async () => {
   try {
     connectToDB();
-    const orders = await OrderModel.find({ status: "pay" });
+    const orders = await OrderModel.find({ status: "pay" }).populate(
+      "subscription",
+      "time title",
+    );
 
     return orders;
   } catch (error) {
@@ -1068,7 +1071,7 @@ export const getAllOrders = async () => {
   }
 };
 
-export const getOrder = async (orderId: string) : Promise<IOrders> => {
+export const getOrder = async (orderId: string): Promise<IOrders> => {
   try {
     connectToDB();
     const order = await OrderModel.findOne({ _id: orderId }).populate(
