@@ -251,6 +251,7 @@ export interface IPaymentGateway {
   time: number;
   title: string;
   discount: number;
+  subscriptionId: string;
 }
 
 export interface IMovie {
