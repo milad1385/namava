@@ -232,6 +232,10 @@ export interface IOrders {
   createdAt: string;
   updatedAt: string;
   discount: number;
+  subscription: {
+    title: string;
+    time: string;
+  };
   __v: number;
 }
 
