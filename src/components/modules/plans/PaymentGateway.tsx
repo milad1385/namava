@@ -7,28 +7,50 @@ import toast from "react-hot-toast";
 import { addSubscription } from "@/src/libs/actions/subscription";
 import { useRouter } from "next/navigation";
 import { IPaymentGateway } from "@/src/libs/types";
+import Spinner from "../spinner/Spinner";
 
 function PaymentGateway({
   totalPrice,
   time,
   title,
   discount,
+  subscriptionId,
 }: IPaymentGateway) {
   const router = useRouter();
   const [activeBank, setActiveBank] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const paymentHandler = async () => {
     if (!activeBank) {
       return toast.error("لطفا یک درگاه را انتخاب کنید");
     }
 
-    const res: any = await addSubscription(time, totalPrice, title, discount);
-    if (res?.status === 200) {
-      toast.success(`${res.message}`);
-      return location.replace("/");
-    }
+    // const res: any = await addSubscription(time, totalPrice, title, discount);
+    // if (res?.status === 200) {
+    //   toast.success(`${res.message}`);
+    //   return location.replace("/");
+    // }
 
-    return toast.error(`${res?.message}`);
+    // return toast.error(`${res?.message}`);
+    setIsLoading(true);
+    const res = await fetch(`/api/payment`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application.js",
+      },
+      body: JSON.stringify({
+        subscriptionId,
+      }),
+    });
+
+    const data = await res.json();
+
+    setIsLoading(false);
+    if (res.ok) {
+      router.replace(data.paymentUrl);
+    } else {
+      return toast.error(`${data.message}`);
+    }
   };
   return (
     <div className="bg-namavaBlack  w-full px-[28px] rounded-md py-6 md:w-1/3 mx-auto text-white">
@@ -52,8 +74,8 @@ function PaymentGateway({
           </span>
         </div>
 
-        <Button className="!mt-8" onClick={paymentHandler}>
-          ادامه و پرداخت
+        <Button disabled={isLoading} className="!mt-8 h-[50px]" onClick={paymentHandler}>
+          {isLoading ? <Spinner/> : " ادامه و پرداخت"}
         </Button>
       </div>
     </div>
