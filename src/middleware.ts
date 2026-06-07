@@ -9,7 +9,8 @@ export async function middleware(request: NextRequest) {
   if (
     pathname.startsWith("/plans") ||
     pathname.startsWith("/p-user") ||
-    pathname.startsWith("/profile-list-edit")
+    pathname.startsWith("/profile-list-edit") ||
+    pathname.startsWith("/paymentStatus")
   ) {
     if (!accessToken) {
       return NextResponse.redirect(new URL("/login", request.url));
