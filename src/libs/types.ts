@@ -39,6 +39,7 @@ export type TModal = {
   title?: string;
   desc?: string;
   onAction?: any;
+  isLoading?: boolean;
 };
 
 export type TComment = {
