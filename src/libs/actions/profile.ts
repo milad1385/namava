@@ -41,7 +41,7 @@ export const addNewProfile = async (formData: FormData) => {
     const fileName = Date.now() + image.name;
     let imageText = `/uploads/${fileName}`;
     const imagePath = path.join(process.cwd(), "public/uploads/" + fileName);
-    const buffer = Buffer.from(await image.arrayBuffer());
+    const buffer: any = Buffer.from(await image.arrayBuffer());
     writeFileSync(imagePath, buffer);
 
     const profile = await ProfileModel.create({
@@ -59,7 +59,7 @@ export const addNewProfile = async (formData: FormData) => {
           profiles: profile._id,
         },
         profileLimitCount: user.profileLimitCount - 1,
-      }
+      },
     );
 
     revalidatePath("/profile-list");
@@ -93,7 +93,7 @@ export const deletePasswordProfile = async (id: string): Promise<TResponse> => {
           password: "",
           isLock: false,
         },
-      }
+      },
     );
 
     revalidatePath(`/profile-list-edit/${id}`);
@@ -112,7 +112,7 @@ export const deletePasswordProfile = async (id: string): Promise<TResponse> => {
 
 export const addPasswordInProfile = async (
   id: string,
-  password: string
+  password: string,
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -133,7 +133,7 @@ export const addPasswordInProfile = async (
           password: hashedPassword,
           isLock: true,
         },
-      }
+      },
     );
 
     revalidatePath(`/profile-list-edit/${id}`);
@@ -164,7 +164,7 @@ export const updateProfile = async (data: FormData) => {
     if (isNew) {
       imageText = `/uploads/${Date.now() + profileImage.name}`;
       const mainPath = path.join(process.cwd(), "public" + imageText);
-      const mainBuffer = Buffer.from(await profileImage.arrayBuffer());
+      const mainBuffer: any = Buffer.from(await profileImage.arrayBuffer());
       writeFileSync(mainPath, mainBuffer);
     }
 
@@ -177,7 +177,7 @@ export const updateProfile = async (data: FormData) => {
           name: profileName,
           limitsMovies: JSON.parse(limitesMovies),
         },
-      }
+      },
     );
 
     revalidatePath(`/profile-list-edit/${profileId}`);
@@ -198,14 +198,14 @@ export const updateProfile = async (data: FormData) => {
 
 export const checkUserProfilePassword = async (
   profileId: string,
-  password: string
+  password: string,
 ): Promise<TResponse> => {
   try {
     await connectToDB();
     const profile = await ProfileModel.findOne({ _id: profileId });
     const isValidPassword = await verifyPassword(password, profile.password);
 
-    if(!isValidPassword){
+    if (!isValidPassword) {
       return {
         message: "رمز پروفایل نادرست میباشد",
         status: 404,
