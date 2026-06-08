@@ -31,9 +31,15 @@ function ProfileBox({ profile }: any) {
     if (res?.status === 200) {
       setIsLoading(false);
       document.cookie = `profile = ${profile._id}; path=/`;
-      router.push("/");
+      if (profile.type === "kid") {
+        router.push("/kids");
+      } else {
+        router.push("/");
+      }
       return toast.success(`${res?.message}`);
     }
+    setIsLoading(false);
+    setIsShowLockModal(false);
     return toast.error(`${res?.message}`);
   };
   return (
@@ -46,7 +52,9 @@ function ProfileBox({ profile }: any) {
           alt={profile.image}
           className="rounded-full w-[100px] h-[100px] md:w-[150px] md:h-[150px]"
         />
-        <h2 className="text-center mt-3 text-sm md:text-base">{profile.name}</h2>
+        <h2 className="text-center mt-3 text-sm md:text-base">
+          {profile.name}
+        </h2>
       </div>
 
       {isShowLockModal && (
