@@ -9,7 +9,7 @@ import Link from "next/link";
 
 function AnimsSlider({ collections }: any) {
   return (
-    <div className="pt-16 pb-5 md:py-20 container">
+    <div className="pt-16 pb-5 md:py-24 container">
       <Swiper
         slidesPerView={3}
         spaceBetween={30}
