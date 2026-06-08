@@ -5,6 +5,9 @@ import { BiLock } from "react-icons/bi";
 function ProfileBox({ image, name, type, isLock, _id }: any) {
   const router = useRouter();
   const handleNavigation = () => {
+    if (isLock) {
+      return router.push("/profile-list");
+    }
     if (type === "kid") {
       document.cookie = `profile = ${_id}; path=/`;
       router.push(`/kids`);
