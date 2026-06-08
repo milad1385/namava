@@ -67,6 +67,7 @@ function WatchLimit({ profile, movies }: any) {
           ذخیره
         </Button>
         <Button
+          onClick={() => router.back()}
           disabled={isLoading}
           className="!bg-gray-500/50 hover:!bg-white/40"
         >
