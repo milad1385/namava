@@ -28,7 +28,7 @@ function ProfileMenu({
   }, []);
 
   const profiles = user.profiles
-    .slice(1, 2)
+    .slice(1, 3)
     .filter((profile: any) => profile._id !== profileId);
 
   return (
