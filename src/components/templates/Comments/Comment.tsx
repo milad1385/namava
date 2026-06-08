@@ -9,32 +9,73 @@ import { dislikeComment, likeComment } from "@/src/libs/actions/comment";
 import { TComment } from "@/src/libs/types";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 function Comment({ onShow, comment, user, movieLink }: TComment) {
   const [isSpoiled, setIsSpoiled] = useState(comment.isSpoiled);
-  const [liked, setLiked] = useState(comment.liked.includes(user));
-  const [disliked, setDisliked] = useState(comment.disliked.includes(user));
-  const [likeList, setLikeList] = useState<string[]>(comment.liked);
-  const [disLikeList, setDisLikeList] = useState<string[]>(comment.disliked);
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
+  const [likeList, setLikeList] = useState<string[]>([]);
+  const [disLikeList, setDisLikeList] = useState<string[]>([]);
+  const [isProcessing, setIsProcessing] = useState(false);
   const path = usePathname();
   const isKid = path.includes("/kids");
+
+  useEffect(() => {
+    if (user) {
+      setLiked(comment.liked?.includes(user) || false);
+      setDisliked(comment.disliked?.includes(user) || false);
+    }
+    setLikeList(comment.liked || []);
+    setDisLikeList(comment.disliked || []);
+  }, [comment, user]);
 
   const handleLike = async (commentId: string) => {
     if (!user) {
       return onShow(true);
     }
 
-    setLikeList((prev: any) => [...prev, user]);
-    setLiked(!liked);
-    if (disliked) {
-      setDisliked(false);
-      setDisLikeList((prev) => prev.filter((dislike) => dislike !== user));
+    if (isProcessing) return;
+    setIsProcessing(true);
+
+    const prevLiked = liked;
+    const prevDisliked = disliked;
+    const prevLikeList = [...likeList];
+    const prevDisLikeList = [...disLikeList];
+
+    if (liked) {
+      setLikeList((prev) => prev.filter((id) => id !== user));
+      setLiked(false);
+    } else {
+      setLikeList((prev) => [...prev, user]);
+      setLiked(true);
+
+      if (disliked) {
+        setDisliked(false);
+        setDisLikeList((prev) => prev.filter((id) => id !== user));
+      }
     }
-    const res = await likeComment(commentId, user);
-    if (res.status === 200) {
-      toast.success(`${res.message}`);
+
+    try {
+      const res = await likeComment(commentId, user);
+      if (res.status === 200) {
+        toast.success(res.message);
+      } else {
+        setLiked(prevLiked);
+        setDisliked(prevDisliked);
+        setLikeList(prevLikeList);
+        setDisLikeList(prevDisLikeList);
+        toast.error(res.message || "خطا در ثبت لایک");
+      }
+    } catch (error) {
+      setLiked(prevLiked);
+      setDisliked(prevDisliked);
+      setLikeList(prevLikeList);
+      setDisLikeList(prevDisLikeList);
+      toast.error("خطا در ارتباط با سرور");
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -43,16 +84,46 @@ function Comment({ onShow, comment, user, movieLink }: TComment) {
       return onShow(true);
     }
 
-    setDisLikeList((prev: any) => [...prev, user]);
-    setDisliked(!disliked);
-    if (liked) {
-      setLiked(false);
-      setLikeList((prev) => prev.filter((dislike) => dislike !== user))
+    if (isProcessing) return;
+    setIsProcessing(true);
+
+    const prevLiked = liked;
+    const prevDisliked = disliked;
+    const prevLikeList = [...likeList];
+    const prevDisLikeList = [...disLikeList];
+
+    if (disliked) {
+      setDisLikeList((prev) => prev.filter((id) => id !== user));
+      setDisliked(false);
+    } else {
+      setDisLikeList((prev) => [...prev, user]);
+      setDisliked(true);
+
+      if (liked) {
+        setLiked(false);
+        setLikeList((prev) => prev.filter((id) => id !== user));
+      }
     }
 
-    const res = await dislikeComment(commentId, user);
-    if (res.status === 200) {
-      toast.success(`${res.message}`);
+    try {
+      const res = await dislikeComment(commentId, user);
+      if (res.status === 200) {
+        toast.success(res.message);
+      } else {
+        setLiked(prevLiked);
+        setDisliked(prevDisliked);
+        setLikeList(prevLikeList);
+        setDisLikeList(prevDisLikeList);
+        toast.error(res.message || "خطا در ثبت دیس‌لایک");
+      }
+    } catch (error) {
+      setLiked(prevLiked);
+      setDisliked(prevDisliked);
+      setLikeList(prevLikeList);
+      setDisLikeList(prevDisLikeList);
+      toast.error("خطا در ارتباط با سرور");
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -71,7 +142,7 @@ function Comment({ onShow, comment, user, movieLink }: TComment) {
           className="w-[30px] md:w-[40px] h-[30px] md:h-[40px] rounded-full"
         />
         <p>
-          {comment.user.name} - {" "}
+          {comment.user.name} -{" "}
           {new Date(comment.createdAt).toLocaleDateString("fa-IR")}
         </p>
       </div>
@@ -102,35 +173,38 @@ function Comment({ onShow, comment, user, movieLink }: TComment) {
             </p>
             <div className="flex items-center gap-x-8 mt-6">
               <div className="flex items-center gap-x-2">
-                {liked ? (
-                  <ActiveLike onClick={() => handleLike(comment._id)} />
-                ) : (
-                  <Like
-                    onClick={() => handleLike(comment._id)}
-                    fill={isKid ? "gray" : "white"}
-                    className="w-[30px] md:w-[40px] h-[30px] md:h-[40px] cursor-pointer"
-                  />
-                )}
-                <span className="font-Dana text-sm">
-                  {likeList.length}
-                </span>
+                <button
+                  onClick={() => handleLike(comment._id)}
+                  disabled={isProcessing}
+                  className="focus:outline-none"
+                >
+                  {liked ? (
+                    <ActiveLike isKid={isKid} />
+                  ) : (
+                    <Like
+                      fill={isKid ? "gray" : "white"}
+                      className="w-[30px] md:w-[40px] h-[30px] md:h-[40px] cursor-pointer"
+                    />
+                  )}
+                </button>
+                <span className="font-Dana text-sm">{likeList.length}</span>
               </div>
               <div className="flex items-center gap-x-2">
-                {disliked ? (
-                  <ActiveLike
-                    isDislike
-                    onClick={() => handleDislike(comment._id)}
-                  />
-                ) : (
-                  <Dislike
-                    onClick={() => handleDislike(comment._id)}
-                    fill={isKid ? "gray" : "white"}
-                    className="w-[30px] md:w-[40px] h-[30px] md:h-[40px] cursor-pointer"
-                  />
-                )}
-                <span className="font-Dana text-sm">
-                  {disLikeList.length}
-                </span>
+                <button
+                  onClick={() => handleDislike(comment._id)}
+                  disabled={isProcessing}
+                  className="focus:outline-none"
+                >
+                  {disliked ? (
+                    <ActiveLike isKid={isKid} isDislike />
+                  ) : (
+                    <Dislike
+                      fill={isKid ? "gray" : "white"}
+                      className="w-[30px] md:w-[40px] h-[30px] md:h-[40px] cursor-pointer"
+                    />
+                  )}
+                </button>
+                <span className="font-Dana text-sm">{disLikeList.length}</span>
               </div>
             </div>
           </>
