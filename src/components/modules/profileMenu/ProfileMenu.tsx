@@ -27,6 +27,10 @@ function ProfileMenu({
     setProfileId(id);
   }, []);
 
+  const profiles = user.profiles
+    .slice(1, 2)
+    .filter((profile: any) => profile._id !== profileId);
+
   return (
     <div
       className={`absolute profile-container rounded-[12px] ${
@@ -80,14 +84,13 @@ function ProfileMenu({
                 </div>
               </Link>
             </div>
-            <div className="mt-2 space-y-3 border-b border-b-gray-300 pb-2">
-              {user.profiles
-                .slice(1, 4)
-                .filter((profile: any) => profile._id !== profileId)
-                .map((profile: any) => (
+            {profiles?.length > 0 && (
+              <div className="mt-2 space-y-3 border-b border-b-gray-300 pb-2">
+                {profiles.map((profile: any) => (
                   <ProfileBox {...profile} key={profile._id} />
                 ))}
-            </div>
+              </div>
+            )}
             <div className="space-y-4 mt-4 mb-2">
               {!url.includes("/kids") &&
                 profileLinks.map((link) => (
