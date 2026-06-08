@@ -46,7 +46,7 @@ function ProfileBox({ profile }: any) {
           alt={profile.image}
           className="rounded-full w-[100px] h-[100px] md:w-[150px] md:h-[150px]"
         />
-        <h2 className="text-center mt-3">{profile.name}</h2>
+        <h2 className="text-center mt-3 text-sm md:text-base">{profile.name}</h2>
       </div>
 
       {isShowLockModal && (
