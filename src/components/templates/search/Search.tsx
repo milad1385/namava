@@ -95,12 +95,12 @@ function SearchBox({
       </div>
 
       {q?.length > 2 && movies.length > 2 && (
-        <div className="hidden md:flex items-center gap-x-8 mt-6 text-sm">
+        <div className="hidden md:flex  flex-col gap-4 mt-6 text-sm">
           <span className={`${isKid ? "text-namava" : "text-[#ccc]"}`}>
             کلمات مشابه :
           </span>
           <div
-            className={`flex items-center gap-x-4 flex-wrap ${isKid ? "text-black" : "text-white"}`}
+            className={`flex items-center gap-4 flex-wrap ${isKid ? "text-black" : "text-white"}`}
           >
             {movies.map((movie: any) => (
               <span
