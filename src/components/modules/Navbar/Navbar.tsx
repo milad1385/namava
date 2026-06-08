@@ -117,7 +117,13 @@ function Navbar({ user, userSubscription, menus }: any) {
         </div>
         <div className="flex items-center gap-x-5">
           {isKid && user && (
-            <Link href={`/profile-list-edit/${activeProfile?._id}`}>
+            <Link
+              href={
+                activeProfile?.isLock
+                  ? "/profile-list-edit"
+                  : `/profile-list-edit/${activeProfile?._id}`
+              }
+            >
               <Button className="!w-[120px] !hidden md:!block text-xs text-white !font-Iran">
                 تنظیمات کودک
               </Button>
