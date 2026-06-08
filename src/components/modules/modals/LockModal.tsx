@@ -1,8 +1,5 @@
 import useCloseOutSideClick from "@/src/hooks/useOutSideClick";
-import { addPasswordInProfile } from "@/src/libs/actions/profile";
 import { TModal } from "@/src/libs/types";
-import { useState } from "react";
-import toast from "react-hot-toast";
 import { FaXmark } from "react-icons/fa6";
 import Button from "../auth/Button/Button";
 import Spinner from "../spinner/Spinner";
@@ -15,12 +12,10 @@ function LockModal({
   onPassword,
   title,
   desc,
-  onAction
+  onAction,
+  isLoading,
 }: TModal) {
   const { ref } = useCloseOutSideClick(onClose, false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  
   return (
     <ModalContainer isShow={isShow ? true : false}>
       <div
@@ -34,12 +29,8 @@ function LockModal({
             className="text-lg md:text-3xl absolute left-0 md:cursor-pointer"
           />
         </div>
-        <h3 className="text-center mt-5">
-          {title}
-        </h3>
-        <h3 className="text-center mt-5 text-red-300">
-          {desc}
-        </h3>
+        <h3 className="text-center mt-5">{title}</h3>
+        <h3 className="text-center mt-5 text-red-300">{desc}</h3>
         <input
           type="password"
           value={password}
@@ -48,10 +39,14 @@ function LockModal({
           dir="ltr"
         />
         <div className="w-full mt-8 flex items-center gap-x-5">
-          <Button className="!font-Iran" onClick={onAction}>
+          <Button className="!font-Iran !h-[50px]" onClick={onAction}>
             {isLoading ? <Spinner /> : "تایید کد"}
           </Button>
-          <Button onClick={() => onClose(false)} className="!font-Iran !bg-gray-500/50 hover:bg-white/40">
+          <Button
+            onClick={() => onClose(false)}
+            disabled={isLoading}
+            className="!font-Iran !h-[50px] !bg-gray-500/50 hover:bg-white/40"
+          >
             بازگشت
           </Button>
         </div>
