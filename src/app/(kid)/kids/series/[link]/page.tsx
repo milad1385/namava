@@ -1,10 +1,8 @@
 import MovieSlider from "@/src/components/modules/main/MovieSlider/MovieSlider";
-import StarsSlider from "@/src/components/modules/main/StarsSlider/StarsSlider";
+import SeriesEpisode from "@/src/components/modules/main/series/SeriesEpisode";
 import Comments from "@/src/components/templates/Comments/Comments";
-import Details from "@/src/components/templates/Movie/Details";
 import SeasonOption from "@/src/components/templates/Movie/SeasonOption";
 import Header from "@/src/components/templates/index/Header/Header";
-import Session from "@/src/components/templates/session/Session";
 import {
   checkUserSubscription,
   getMovie,
@@ -77,18 +75,12 @@ async function page({ params, searchParams }: TParams) {
         </div>
       </section>
 
-      <section className="container mb-20 grid grid-cols-1 gap-3 md:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {seasonEpisodes.episodes.map((episode: any) => (
-          <Session
-            key={episode._id}
-            episode={JSON.parse(JSON.stringify(episode))}
-            user={JSON.parse(JSON.stringify(userInfo._id))}
-            link={params.link}
-            info={JSON.parse(JSON.stringify(movie))}
-            isKid
-          />
-        ))}
-      </section>
+      <SeriesEpisode
+        movie={JSON.parse(JSON.stringify(movie))}
+        seasonEpisodes={JSON.parse(JSON.stringify(seasonEpisodes))}
+        link={params.link}
+        userInfo={JSON.parse(JSON.stringify(userInfo))}
+      />
 
       <section className="text-white">
         {/* <StarsSlider title="عوامل فیلم هاوایی" /> */}
