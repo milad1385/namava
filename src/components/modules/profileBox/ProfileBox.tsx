@@ -9,6 +9,7 @@ import LockModal from "../modals/LockModal";
 function ProfileBox({ profile }: any) {
   const [isShowLockModal, setIsShowLockModal] = useState(false);
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleNavigation = async () => {
@@ -25,8 +26,10 @@ function ProfileBox({ profile }: any) {
   };
 
   const sendProfilePassword = async () => {
+    setIsLoading(true);
     const res = await checkUserProfilePassword(profile._id, password);
     if (res?.status === 200) {
+      setIsLoading(false);
       document.cookie = `profile = ${profile._id}; path=/`;
       router.push("/");
       return toast.success(`${res?.message}`);
@@ -55,6 +58,7 @@ function ProfileBox({ profile }: any) {
           title="رمز عبور پروفایل را وارد نمایید"
           desc="این رمز عبور ، همان رمز عبوری است که قبلا وارد کردید"
           onAction={sendProfilePassword}
+          isLoading={isLoading}
         />
       )}
     </>
