@@ -20,7 +20,7 @@ function LockModal({
     <ModalContainer isShow={isShow ? true : false}>
       <div
         ref={ref}
-        className="w-[500px] bg-[#37383E] rounded-md text-white px-4 pt-5 pb-7"
+        className="w-[350px] md:w-[500px] bg-[#37383E] rounded-md text-white px-4 pt-5 pb-7"
       >
         <div className="flex items-center justify-center relative border-b border-b-gray-500 pb-5">
           <span>قفل پروفایل</span>
@@ -30,7 +30,7 @@ function LockModal({
           />
         </div>
         <h3 className="text-center mt-5">{title}</h3>
-        <h3 className="text-center mt-5 text-red-300">{desc}</h3>
+        <h3 className="text-center mt-5 text-red-300 text-sm md:text-base">{desc}</h3>
         <input
           type="password"
           value={password}
@@ -39,13 +39,13 @@ function LockModal({
           dir="ltr"
         />
         <div className="w-full mt-8 flex items-center gap-x-5">
-          <Button className="!font-Iran !h-[50px]" onClick={onAction}>
+          <Button className="!font-Iran !h-[50px] !text-sm md:!text-base" onClick={onAction}>
             {isLoading ? <Spinner /> : "تایید کد"}
           </Button>
           <Button
             onClick={() => onClose(false)}
             disabled={isLoading}
-            className="!font-Iran !h-[50px] !bg-gray-500/50 hover:bg-white/40"
+            className="!font-Iran !h-[50px] !bg-gray-500/50 hover:bg-white/40 !text-sm md:!text-base"
           >
             بازگشت
           </Button>
