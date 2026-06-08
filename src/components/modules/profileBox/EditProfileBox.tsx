@@ -29,6 +29,8 @@ function EditProfileBox({ profile }: any) {
       router.push(`/profile-list-edit/${profile._id}`);
       return toast.success(`${res?.message}`);
     }
+    setIsLoading(false);
+    setIsShowLockModal(false);
     return toast.error(`${res?.message}`);
   };
   return (
