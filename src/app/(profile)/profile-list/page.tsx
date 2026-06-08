@@ -27,7 +27,7 @@ async function ProfileList() {
           <span>بیشتر بدانید</span>
         </div>
       </div>
-      <div className="flex items-center justify-center flex-col mt-10 md:mt-24">
+      <div className="flex items-center justify-center flex-col mt-10 px-4 md:mt-24">
         <h1 className="text-xl md:text-3xl">چه کسی تماشا می‌کند؟</h1>
         <div className="flex-center  flex-wrap gap-y-8 gap-x-10 mt-10 md:mt-20 child:md:cursor-pointer">
           {user?.profiles?.map((profile: any) => (
@@ -40,7 +40,7 @@ async function ProfileList() {
             <div className="flex items-center justify-center bg-gray-500/40 rounded-full w-[100px] h-[100px] md:w-[150px] md:h-[150px]">
               <Plus className="w-[35px] md:w-[60px] h-[35px] md:h-[60px]" />
             </div>
-            <h2 className="text-center mt-3">افزودن پروفایل</h2>
+            <h2 className="text-center mt-3 text-sm md:text-base">افزودن پروفایل</h2>
           </Link>
         </div>
         <Button className="!w-[200px] mt-20 flex items-center justify-center gap-x-2 bg-gray-500/40">
