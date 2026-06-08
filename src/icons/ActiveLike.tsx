@@ -15,7 +15,9 @@ function ActiveLike({
 }: TActiveLike) {
   const getFillColor = () => {
     if (fill) return fill;
+    if (!isKid) return "white";
     if (isDislike) return "#6b6767";
+    if (isKid) return "#6b6767";
     return "white";
   };
 
