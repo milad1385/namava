@@ -300,3 +300,8 @@ export interface IVideoPlayer {
   poster: string;
   subtitles: ISubtitleList[];
 }
+
+export interface Message {
+  role: "user" | "assistant";
+  content: string;
+}
