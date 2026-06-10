@@ -20,8 +20,8 @@ export const year: any = [];
 export let genres = [
   { name: "ایرانی", id: 1 },
   { name: " انیمه و انیمیشن", id: 2 },
-  { name: " دوبله نماوا", id: 3 },
-  { name: " پردیس نماوا", id: 4 },
+  { name: " دوبله میلا فیلم", id: 3 },
+  { name: " پردیس میلا فیلم", id: 4 },
   { name: "کره ای", id: 5 },
   { name: "هندی", id: 6 },
   { name: "ترکی", id: 7 },
@@ -110,7 +110,7 @@ export let voiceType = [
   { name: "صدای آذری", id: 11 },
   { name: "صدای چینی", id: 12 },
   { name: "صدای روسی", id: 13 },
-  { name: "دوبله نماوا", id: 14 },
+  { name: "دوبله میلا فیلم", id: 14 },
   { name: "دوبله فارسی", id: 15 },
   { name: "زیرنویس انگلیسی", id: 16 },
   { name: "مخصوص ناشنوایان", id: 17 },
@@ -118,7 +118,7 @@ export let voiceType = [
 
 export let orderType = [
   { name: "پیش فرض (مرتبط ترین)", id: 1, slug: "default" },
-  { name: "تازه های نماوا", id: 2, slug: "showTime-desc" },
+  { name: "تازه های میلا فیلم", id: 2, slug: "showTime-desc" },
   { name: "امتیاز IMDB", id: 3, slug: "IMDB-desc" },
   { name: "سال ساخت (جدید ترین)", id: 4, slug: "createdAt-desc" },
   { name: "سال ساخت (قدیمی ترین)", id: 5, slug: "createdAt-asc" },
@@ -273,7 +273,7 @@ export const mobileMenuNavbar = [
   { id: 3, title: "سریال ها", icon: <FiYoutube />, link: "/series" },
   { id: 4, title: "دسته بندی ها", icon: <LuPopcorn />, link: "/category" },
   { id: 5, title: "کودکان", icon: <LuBaby />, link: "/kids" },
-  { id: 6, title: "نماوا مگ", icon: <GiFilmStrip />, link: "/blog" },
+  { id: 6, title: "میلا فیلم مگ", icon: <GiFilmStrip />, link: "/blog" },
   { id: 7, title: "تماس با ما", icon: <Phone />, link: "/contact-us" },
 ];
 

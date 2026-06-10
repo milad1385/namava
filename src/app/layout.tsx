@@ -8,14 +8,15 @@ import { checkUserSubscription, getMainMenus } from "../libs/service/services";
 import AuthContextProvider from "../context/AuthContextProvider";
 import "@/src/globals.css";
 import NextTopLoader from "nextjs-toploader";
+import ChatButton from "../components/modules/chatbot/ChatButton";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | نماوا",
-    default: "تماشای آنلاین فیلم و سریال | نماوا",
+    template: "%s | میلا فیلم",
+    default: "تماشای آنلاین فیلم و سریال | میلا فیلم",
   },
   description:
-    "تماشای آنلاین فیلم و سریال در سایت فیلم نماوا. دانلود و تماشای آنلاین جدیدترین فیلم و سریال ایرانی و خارجی با قابلیت دانلود رایگان در نماوا.",
+    "تماشای آنلاین فیلم و سریال در سایت فیلم میلا فیلم. دانلود و تماشای آنلاین جدیدترین فیلم و سریال ایرانی و خارجی با قابلیت دانلود رایگان در میلا فیلم.",
   icons: {
     icon: "/images/namava.png",
   },
@@ -41,6 +42,7 @@ export default async function RootLayout({
             menus={JSON.parse(JSON.stringify(menus))}
           />
           {children}
+          <ChatButton />
           <Footer />
           <FooterMenu />
           <Toaster />

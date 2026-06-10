@@ -22,7 +22,7 @@ function PinLock() {
       </div>
       <div className="mt-10 flex-center flex-col space-y-5">
         <h3 className="text-base md:text-lg font-IranMedium">
-          برای ورود به نماوا رمز پروفایل را وارد کنید.
+          برای ورود به میلا فیلم رمز پروفایل را وارد کنید.
         </h3>
         <input
           type="password"

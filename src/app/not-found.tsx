@@ -9,7 +9,7 @@ function NotFound() {
       <Error />
       <h3 className="text-sm md:text-lg">صفحه مورد نظر شما یافت نشد.</h3>
       <p className="text-xs md:text-base text-[#ccc]">
-        برای دیدن هزاران فیلم و سریال، به صفحه اصلی نماوا بروید.
+        برای دیدن هزاران فیلم و سریال، به صفحه اصلی میلا فیلم بروید.
       </p>
       <Link href={"/"} className="w-[240px] block">
         <Button className="bg-white text-xs md:text-base w-[240px] text-namavaBlack mt-8">

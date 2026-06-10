@@ -79,7 +79,7 @@ export async function generateMetadata({ params }: TParams): Promise<Metadata> {
   return {
     title: `${movie.title}`,
     description: `${movie.shortDesc}`,
-    keywords: `فیلم ، سریال ، نماوا ، ${movie.title}`,
+    keywords: `فیلم ، سریال ، میلا فیلم ، ${movie.title}`,
   };
 }
 

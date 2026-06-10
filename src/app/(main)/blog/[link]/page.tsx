@@ -67,11 +67,11 @@ async function ArticlePage({ params }: TParams) {
             }`}
             className="border flex-center w-[300px] text-sm text-namava hover:bg-namava transition-all hover:text-white border-namava px-2 py-2 rounded-md mt-5"
           >
-            تماشا {article.movie.title} در نماوا
+            تماشا {article.movie.title} در میلا فیلم
           </Link>
 
           <h3 className="font-IranMedium my-8">
-            مجله نماوا ، {article.creator.name}{" "}
+            مجله میلا فیلم ، {article.creator.name}{" "}
           </h3>
 
           <ArticleBody content={JSON.parse(JSON.stringify(article.content))} />
@@ -120,7 +120,7 @@ async function ArticlePage({ params }: TParams) {
           className="space-y-10 block"
         >
           <h3>{article.movie.title}</h3>
-          <Button className="!w-[150px] md:!w-[200px]">تماشا در نماوا</Button>
+          <Button className="!w-[150px] md:!w-[200px]">تماشا در میلا فیلم</Button>
         </Link>
       </div>
     </>

@@ -48,7 +48,7 @@ function Details({ info, article }: any) {
           {info.longDesc}
         </p>
         <div className="mt-7 text-xs md:text-sm font-IranMedium space-y-3">
-          <p>دسته بندی : کمدی ، ماجراجویی ، پردیس نماوا ، فیلم ایرانی</p>
+          <p>دسته بندی : کمدی ، ماجراجویی ، پردیس میلا فیلم ، فیلم ایرانی</p>
           <p>صدا : {info.language}</p>
         </div>
       </div>

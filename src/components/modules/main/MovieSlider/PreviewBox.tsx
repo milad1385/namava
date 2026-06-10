@@ -54,7 +54,7 @@ function PreviewBox({
               {movieDetail.shortDesc}
             </p>
             <p className="my-3 text-white text-xs/6  text-center md:text-right">
-              تماشای اختصاصی در نماوا با بروزترین فیلم و سریال های جهان
+              تماشای اختصاصی در میلا فیلم با بروزترین فیلم و سریال های جهان
             </p>
             <div className="flex items-center justify-center w-[500px] md:justify-start gap-x-4 mt-4">
               <Link
