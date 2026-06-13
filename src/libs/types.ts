@@ -295,6 +295,19 @@ interface ISubtitleList {
   default: boolean;
 }
 
+export interface ICategory {
+  _id: string;
+  title: string;
+  link: string;
+  description: string;
+  tags: string[];
+  parrent: string | null;
+  image: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
 export interface IVideoPlayer {
   src: string;
   poster: string;
