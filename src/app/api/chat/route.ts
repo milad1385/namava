@@ -23,16 +23,14 @@ export async function POST(req: NextRequest) {
           },
           ...messages
         ],
-        stream: false,  // موقتاً استریم رو خاموش می‌کنیم برای دیباگ
+        stream: false, 
         temperature: 0.7,
         max_tokens: 800,
       }),
     });
 
-    // گرفتن متن خام پاسخ
     const rawText = await response.text();
     
-    // بررسی اینکه آیا پاسخ JSON است یا خیر
     let data;
     try {
       data = JSON.parse(rawText);
@@ -41,7 +39,6 @@ export async function POST(req: NextRequest) {
       return new Response("خطا در ارتباط با هوش مصنوعی: پاسخ سرور معتبر نیست", { status: 500 });
     }
 
-    // بررسی خطاهای OpenRouter
     if (data.error) {
       console.error("OpenRouter error:", data.error);
       return new Response(`خطا: ${data.error.message || "مشخص نیست"}`, { status: 500 });
