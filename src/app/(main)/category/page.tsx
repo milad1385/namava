@@ -10,12 +10,12 @@ export const metadata: Metadata = {
 };
 
 async function Categories() {
-  const categories: any = await getCategories();
+  const categories = await getCategories();
 
   return (
     <div className="text-white container pt-20 pb-10">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
-        {categories.map((category: any) => (
+        {categories.map((category) => (
           <CategoryCard
             key={category._id}
             image={category.image}
