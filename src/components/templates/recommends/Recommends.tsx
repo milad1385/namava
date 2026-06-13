@@ -39,7 +39,7 @@ function Recommends({ categories }: { categories: ICategory[] }) {
           </div>
         ))}
       </div>
-      <div className="text-center mb-8">
+      <div className="text-center my-8">
         <button
           disabled={!selectedGenres || isLoading}
           className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl text-lg font-semibold hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-md"
