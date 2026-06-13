@@ -19,7 +19,7 @@ import UserModel from "@/src/models/user";
 import OrderModel from "@/src/models/order";
 import { authUser, checkIsAdmin } from "@/src/utils/serverHelper";
 import { isValidObjectId } from "mongoose";
-import { IOrders, IWishList, TArticle } from "../types";
+import { ICategory, IOrders, IWishList, TArticle } from "../types";
 import { cookies } from "next/headers";
 
 // get all site stat
@@ -121,7 +121,7 @@ export const getSubCategory = async (
 };
 
 // get all of the categories with out any pagination and search
-export const getCategories = async () => {
+export const getCategories = async (): Promise<ICategory[]> => {
   try {
     connectToDB();
 
