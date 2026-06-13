@@ -308,6 +308,11 @@ export interface ICategory {
   __v: number;
 }
 
+interface ICategoryCard {
+  title: string;
+  image: string;
+  link?: string;
+} 
 export interface IVideoPlayer {
   src: string;
   poster: string;
