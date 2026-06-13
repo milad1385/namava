@@ -308,7 +308,7 @@ export interface ICategory {
   __v: number;
 }
 
-interface ICategoryCard {
+export interface ICategoryCard {
   title: string;
   image: string;
   link?: string;
