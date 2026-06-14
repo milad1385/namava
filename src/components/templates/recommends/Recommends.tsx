@@ -5,6 +5,7 @@ import { useState } from "react";
 import Titles from "./Titles";
 import ButtonSpinner from "../../modules/spinner/ButtonSpinner";
 import toast from "react-hot-toast";
+import MovieSlider from "../../modules/main/MovieSlider/MovieSlider";
 
 function Recommends({ categories }: { categories: ICategory[] }) {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -51,7 +52,7 @@ function Recommends({ categories }: { categories: ICategory[] }) {
       if (data.error) {
         setError(data.error);
       } else {
-        setRecommendations(data.movies);
+        setRecommendations(data.allMovies);
         setAiResponse(data.aiMessage);
       }
     } catch (err) {
@@ -93,55 +94,31 @@ function Recommends({ categories }: { categories: ICategory[] }) {
       </div>
 
       {aiResponse && (
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-2xl p-6 mb-8">
+        <div className="bg-namavaBlack  rounded-2xl p-6 mb-8">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-2xl">🤖</span>
-            <h3 className="font-semibold text-lg text-blue-800">
+            <h3 className="font-semibold text-lg text-namava">
               گفتگوی هوش مصنوعی:
             </h3>
           </div>
-          <p className="text-gray-700 leading-relaxed">{aiResponse}</p>
+          <p className="text-gray-100 text-sm md:text-base/[34px]">
+            {aiResponse}
+          </p>
         </div>
       )}
 
-      {/* نمایش فیلم‌های پیشنهادی */}
       {recommendations?.length > 0 && (
-        <div className="bg-white rounded-2xl shadow-lg p-6">
-          <h2 className="text-2xl font-bold mb-6 text-right border-b pb-3">
+        <div className="p-6">
+          <h2 className="text-2xl font-bold mb-6 text-right border-b pb-4">
             🎥 فیلم‌های پیشنهادی هوش مصنوعی
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {recommendations.map((movie, index) => (
-              <div
-                key={index}
-                className="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="bg-gradient-to-br from-blue-400 to-purple-500 h-48 flex items-center justify-center">
-                  <span className="text-6xl">🎬</span>
-                </div>
-                <div className="p-4 text-right">
-                  <h3 className="font-bold text-lg mb-1">{movie.title}</h3>
-                  <div className="flex flex-wrap gap-2 mb-2 text-sm">
-                    <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
-                      {movie.genre}
-                    </span>
-                    <span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full">
-                      {movie.year}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between mt-2">
-                    <span className="text-yellow-500">⭐ {movie.rating}</span>
-                    <span className="text-gray-500 text-sm">
-                      {movie.director}
-                    </span>
-                  </div>
-                  <p className="text-gray-600 text-sm mt-2 line-clamp-2">
-                    {movie.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+
+          <MovieSlider
+            movies={recommendations}
+            userBookmarks={[]}
+            title={"فیلم و سریال های پیشنهادی برای شما"}
+            user={null}
+          />
         </div>
       )}
     </div>
