@@ -4,6 +4,7 @@ import CategoryCard from "../category/CategoryCard";
 import { useState } from "react";
 import Titles from "./Titles";
 import ButtonSpinner from "../../modules/spinner/ButtonSpinner";
+import toast from "react-hot-toast";
 
 function Recommends({ categories }: { categories: ICategory[] }) {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -28,7 +29,7 @@ function Recommends({ categories }: { categories: ICategory[] }) {
 
   const getRecommendationsFromAI = async () => {
     if (!selectedGenres.length) {
-      setError("لطفاً یک ژانر را انتخاب کنید");
+      toast.error("حداقل یک ژانر را انتخاب کنید");
       return;
     }
 
