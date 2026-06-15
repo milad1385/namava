@@ -6,7 +6,7 @@ import {
 import { LiaComments } from "react-icons/lia";
 import { MdArticle } from "react-icons/md";
 
-import { FaRegCircleUser, FaRegHeart, FaStar } from "react-icons/fa6";
+import { FaRegCircleUser, FaRegHeart, FaRobot, FaStar } from "react-icons/fa6";
 import Folder2 from "@/src/icons/Folder2";
 import Star from "@/src/icons/Star";
 import Gift from "@/src/icons/gift";
@@ -272,9 +272,10 @@ export const mobileMenuNavbar = [
   { id: 2, title: "فیلم ها", icon: <FiFilm />, link: "/movie" },
   { id: 3, title: "سریال ها", icon: <FiYoutube />, link: "/series" },
   { id: 4, title: "دسته بندی ها", icon: <LuPopcorn />, link: "/category" },
-  { id: 5, title: "کودکان", icon: <LuBaby />, link: "/kids" },
-  { id: 6, title: "میلا فیلم مگ", icon: <GiFilmStrip />, link: "/blog" },
-  { id: 7, title: "تماس با ما", icon: <Phone />, link: "/contact-us" },
+  { id: 5, title: "پیشنهادات هوش مصنوعی", icon: <FaRobot />, link: "/recommends" },
+  { id: 6, title: "کودکان", icon: <LuBaby />, link: "/kids" },
+  { id: 7, title: "میلا فیلم مگ", icon: <GiFilmStrip />, link: "/blog" },
+  { id: 8, title: "تماس با ما", icon: <Phone />, link: "/contact-us" },
 ];
 
 generateMiladi();
