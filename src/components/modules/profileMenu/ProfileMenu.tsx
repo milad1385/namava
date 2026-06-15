@@ -1,16 +1,17 @@
 "use client";
 import { profileLinks } from "@/public/db";
+import useCloseOutSideClick from "@/src/hooks/useOutSideClick";
 import ProfileArrow from "@/src/icons/ProfileArrow";
+import { TProfileMenu } from "@/src/libs/types";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { LuSettings } from "react-icons/lu";
 import Button from "../auth/Button/Button";
 import Logout from "./Logout";
 import ProfileBox from "./ProfileBox";
 import ProfileLink from "./ProfileLink";
-import { TProfileMenu } from "@/src/libs/types";
 
 function ProfileMenu({
   isShow,
@@ -21,6 +22,8 @@ function ProfileMenu({
 }: TProfileMenu) {
   const [profileId, setProfileId] = useState("");
   const url = usePathname();
+
+  const { ref } = useCloseOutSideClick(() => onShow(false), false);
 
   useEffect(() => {
     const id = document.cookie.split("=")[1];
@@ -33,10 +36,10 @@ function ProfileMenu({
 
   return (
     <div
+      ref={ref}
       className={`absolute profile-container rounded-[12px] ${
         isShow ? "opacity-100 visible" : "opacity-0 invisible"
       } w-[272px] -left-4 top-14`}
-      onMouseLeave={() => onShow(false)}
     >
       <div className="relative">
         <ProfileArrow />
