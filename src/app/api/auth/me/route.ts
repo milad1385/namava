@@ -15,10 +15,10 @@ export async function GET(req: NextRequest) {
     }
 
     const profileId = cookies().get("profile")?.value;
-
+    const profileModel = ProfileModel as any;
     let currentProfile = null;
     if (profileId) {
-       currentProfile = await ProfileModel.findOne({ _id: profileId });
+      currentProfile = await profileModel.findOne({ _id: profileId });
     }
 
     if (!currentProfile && user.profiles && user.profiles.length > 0) {
