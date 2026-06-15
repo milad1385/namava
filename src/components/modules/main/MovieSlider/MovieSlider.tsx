@@ -96,7 +96,7 @@ function MovieSlider({
 
   return (
     <div>
-      <div className="container mt-[20px]">
+      <div className="container mt-[30px] md:mt-5">
         <SliderTitle title={title} link={link} key={crypto.randomUUID()} />
         <div className="mt-10 md:h-[21rem]">
           <Swiper
