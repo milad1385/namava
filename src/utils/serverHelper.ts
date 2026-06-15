@@ -4,6 +4,7 @@ import { verifyAccessToken } from "./auth";
 import { cookies } from "next/headers";
 import { unlink } from "fs";
 import path from "path";
+import ProfileModel from "@/src/models/profile";
 const authUser = async () => {
   connectToDB();
   const token = cookies().get("accessToken")?.value;
@@ -20,7 +21,7 @@ const authUser = async () => {
 
   const user = await UserModel.findOne(
     { email: tokenPayload?.email },
-    "-password"
+    "-password",
   ).populate("profiles");
 
   return user;
@@ -41,6 +42,9 @@ const checkIsAdmin = async () => {
   }
 
   const user = await UserModel.findOne({ email: tokenPayload?.email });
+  if (!user) {
+    return false;
+  }
 
   return user.role === "ADMIN" ? true : false;
 };

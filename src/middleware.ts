@@ -26,7 +26,7 @@ export async function middleware(request: NextRequest) {
     if (profileId && accessToken) {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/profile?id=${profileId}`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile?id=${profileId}`,
           {
             headers: {
               Cookie: request.headers.get("cookie") || "",
