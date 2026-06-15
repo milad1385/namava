@@ -81,10 +81,10 @@ function Recommends({ categories }: { categories: ICategory[] }) {
         <button
           onClick={getRecommendationsFromAI}
           disabled={!selectedGenres || isLoading}
-          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl text-lg font-semibold hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-md"
+          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl text-sm md:text-lg font-semibold hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-md"
         >
           {isLoading ? (
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 text-sm md:text-lg">
               <ButtonSpinner />
               هوش مصنوعی در حال تحلیل فیلم‌ها...
             </span>
@@ -98,26 +98,26 @@ function Recommends({ categories }: { categories: ICategory[] }) {
         <div className="bg-namavaBlack  rounded-2xl p-6 mb-8">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-2xl">🤖</span>
-            <h3 className="font-semibold text-lg text-namava">
+            <h3 className="font-semibold text-base md:text-lg text-namava">
               گفتگوی هوش مصنوعی:
             </h3>
           </div>
-          <p className="text-gray-100 text-sm md:text-base/[34px]">
+          <p className="text-gray-100 text-justify text-sm/[28px] md:text-base/[34px]">
             {aiResponse}
           </p>
         </div>
       )}
 
       {recommendations?.length > 0 && (
-        <div className="p-6">
-          <h2 className="text-2xl font-bold mb-6 text-right border-b pb-4">
+        <div className="md:p-6 mt-10">
+          <h2 className="text-base md:text-2xl font-bold mb-6 text-right border-b pb-4">
             🎥 فیلم‌های پیشنهادی هوش مصنوعی
           </h2>
 
           <MovieSlider
             movies={recommendations}
             userBookmarks={[]}
-            title={"فیلم و سریال های پیشنهادی برای شما"}
+            title=""
             user={null}
           />
         </div>
