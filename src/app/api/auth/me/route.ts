@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
 
     let currentProfile = null;
     if (profileId) {
-      currentProfile = await ProfileModel.findById(profileId);
+       currentProfile = await ProfileModel.findOne({ _id: profileId });
     }
 
     if (!currentProfile && user.profiles && user.profiles.length > 0) {
