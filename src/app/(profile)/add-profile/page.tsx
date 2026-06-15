@@ -20,9 +20,9 @@ function AddProfile() {
           if (res.status === 201) {
             toast.success(res.message);
             router.push("/profile-list");
-            return true;
+          } else {
+            toast.error(res.message);
           }
-          toast.error(res.message);
         }}
         className="max-w-[700px] mx-auto"
       >
