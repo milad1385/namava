@@ -30,6 +30,10 @@ function ProfileMenu({
     setProfileId(id);
   }, []);
 
+  useEffect(() => {
+    onShow(false);
+  }, [url]);
+
   const profiles = user.profiles
     .slice(1, 3)
     .filter((profile: any) => profile._id !== profileId);
