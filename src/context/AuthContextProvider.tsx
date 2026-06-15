@@ -18,7 +18,9 @@ function AuthContextProvider({ children }: TAuthContextProvider) {
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const res = await fetch(`${baseURL}/api/auth/me`);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/me`,
+      );
 
       if (res.status === 200) {
         const userData = await res.json();
