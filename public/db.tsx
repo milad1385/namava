@@ -13,7 +13,7 @@ import Gift from "@/src/icons/gift";
 import User from "@/src/icons/User";
 import Phone from "@/src/icons/Phone";
 import { GiFilmStrip } from "react-icons/gi";
-import { FiFilm, FiYoutube } from "react-icons/fi";
+import { FiBook, FiFilm, FiYoutube } from "react-icons/fi";
 import { LuBaby, LuPopcorn } from "react-icons/lu";
 export const day: any = [];
 export const year: any = [];
@@ -272,10 +272,16 @@ export const mobileMenuNavbar = [
   { id: 2, title: "فیلم ها", icon: <FiFilm />, link: "/movie" },
   { id: 3, title: "سریال ها", icon: <FiYoutube />, link: "/series" },
   { id: 4, title: "دسته بندی ها", icon: <LuPopcorn />, link: "/category" },
-  { id: 5, title: "پیشنهادات هوش مصنوعی", icon: <FaRobot />, link: "/recommends" },
+  {
+    id: 5,
+    title: "پیشنهادات هوش مصنوعی",
+    icon: <FaRobot />,
+    link: "/recommends",
+  },
   { id: 6, title: "کودکان", icon: <LuBaby />, link: "/kids" },
   { id: 7, title: "میلا فیلم مگ", icon: <GiFilmStrip />, link: "/blog" },
-  { id: 8, title: "تماس با ما", icon: <Phone />, link: "/contact-us" },
+  { id: 8, title: "درباره ما", icon: <FiBook />, link: "/about" },
+  { id: 9, title: "تماس با ما", icon: <Phone />, link: "/contact-us" },
 ];
 
 generateMiladi();
