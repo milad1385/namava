@@ -1,6 +1,22 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, models, Model } from "mongoose";
 
-const schema = new mongoose.Schema(
+export interface IArticle {
+  title: string;
+  link: string;
+  readingTime: string;
+  tags: string[];
+  movie?: mongoose.Types.ObjectId;
+  image: string;
+  content: string;
+  creator?: mongoose.Types.ObjectId;
+  isAccept?: boolean;
+  isDraft?: boolean;
+  shortDesc?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+const schema = new Schema<IArticle>(
   {
     title: {
       type: String,
@@ -25,7 +41,7 @@ const schema = new mongoose.Schema(
       },
     ],
     movie: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId, 
       ref: "Movie",
     },
     image: {
@@ -38,30 +54,27 @@ const schema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-
     creator: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
     },
-
     isAccept: {
       type: Boolean,
       default: false,
     },
-
     isDraft: {
       type: Boolean,
       default: false,
     },
-
     shortDesc: {
       type: String,
-      default: false,
+      default: "",  
     },
   },
   { timestamps: true }
 );
 
-const model = mongoose.models.Article || mongoose.model("Article", schema);
+// 📌 تعریف مدل با تایپ صحیح
+const ArticleModel: Model<IArticle> = models.Article || mongoose.model<IArticle>("Article", schema);
 
-export default model;
+export default ArticleModel;
