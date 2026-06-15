@@ -858,7 +858,7 @@ export const getUserBookmarks = async () => {
       "link title mainImage type showTime contentType",
     );
 
-    return bookmarks;
+    return bookmarks || [];
   } catch (error) {
     return error;
   }
