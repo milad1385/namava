@@ -74,9 +74,10 @@ function Comments({ isKid, user, movieId, comments, movieLink }: TComments) {
               const res = await sendNewComment(formData, movieId);
               if (res?.status === 201) {
                 router.refresh();
-                return toast.success(`${res?.message}`);
+                toast.success(`${res?.message}`);
+              } else {
+                toast.error(`${res?.message}`);
               }
-              return toast.error(`${res?.message}`);
             }}
           >
             <div className="w-full flex items-center gap-x-3 mt-10">
@@ -140,7 +141,7 @@ function Comments({ isKid, user, movieId, comments, movieLink }: TComments) {
         </div>
       </div>
       {isShowLoginModal && (
-        <LoginModal isShow={isShowLoginModal} onClose={setIsShowLoginModal}  />
+        <LoginModal isShow={isShowLoginModal} onClose={setIsShowLoginModal} />
       )}
     </>
   );
