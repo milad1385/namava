@@ -9,7 +9,7 @@ function ProfileLink({ icon, title, link }: TProfileLink) {
   return (
     <div className="flex items-center gap-x-2 my-2">
       {icon}
-      <Link href={`/${link}`}>{title}</Link>
+      <Link href={`/${link}`} className="block w-full">{title}</Link>
     </div>
   );
 }
