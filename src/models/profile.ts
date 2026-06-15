@@ -19,7 +19,7 @@ export interface IProfile {
   updatedAt?: Date;
 }
 
-const schema = new Schema<IProfile>(
+export const schema = new Schema<IProfile>(
   {
     name: {
       type: String,

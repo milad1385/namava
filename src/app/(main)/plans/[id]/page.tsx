@@ -16,11 +16,11 @@ async function page({ params }: TParams) {
 
   return (
     <div className="flex flex-col md:flex-row gap-6  my-28">
-      <div className="bg-namavaBlack  w-full h-[320px] px-[28px] rounded-md py-6 md:w-1/3 mx-auto text-white">
+      <div className="bg-namavaBlack  w-full h-[240px] px-[28px] rounded-md py-6 md:w-1/3 mx-auto text-white">
         <h1 className="text-base md:text-lg font-IranMedium text-center">
           {title}
         </h1>
-        <ul className="w-full mt-5 space-y-4 border-b border-b-slate-500 pb-4">
+        <ul className="w-full mt-5 space-y-4 pb-4">
           <li className="flex items-center justify-between">
             <span>قیمت : </span>
             <span>{price.toLocaleString("fa-IR")} تومان</span>

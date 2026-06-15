@@ -4,9 +4,10 @@ import { verifyAccessToken } from "./auth";
 import { cookies } from "next/headers";
 import { unlink } from "fs";
 import path from "path";
-import ProfileModel from "@/src/models/profile";
+import ProfileModel, { schema } from "@/src/models/profile";
+import mongoose from "mongoose";
 const authUser = async () => {
-  connectToDB();
+  await connectToDB();
   const token = cookies().get("accessToken")?.value;
 
   if (!token) {
@@ -17,6 +18,9 @@ const authUser = async () => {
 
   if (!tokenPayload) {
     return false;
+  }
+  if (!mongoose.models.Profile) {
+    mongoose.model("Profile", schema);
   }
 
   const user = await UserModel.findOne(
