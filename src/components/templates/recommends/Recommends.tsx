@@ -38,6 +38,7 @@ function Recommends({ categories }: { categories: ICategory[] }) {
 
     setRecommendations([]);
     setError("");
+    setError("");
     setAiResponse("");
 
     try {
