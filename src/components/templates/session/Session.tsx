@@ -194,8 +194,8 @@ function Session({ episode, user, link, isKid, info }: any) {
       </div>
       <div className="block md:hidden bg-[#222327] rounded-md">
         <div
-          className={`flex items-center h-[108px] ${
-            isOpen ? "border-b-[0.3px] border-b-[#454444]" : "rounded-md"
+          className={`flex items-center h-[108px] rounded-md ${
+            isOpen ? "border-b-[0.3px] border-b-[#454444]" : ""
           } overflow-hidden`}
         >
           <div className="w-full h-full bg-[#222327] py-4 pr-4 space-y-3">
