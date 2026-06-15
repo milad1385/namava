@@ -17,7 +17,7 @@ function Editor({article , onArticle} : any) {
   };
   return (
     <CKEditor
-      editor={ClassicEditor}
+      editor={ClassicEditor as any}
       config={uploadConfig}
       data={article}
       onChange={(event, editor) => {
