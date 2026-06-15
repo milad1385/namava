@@ -13,6 +13,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    console.log(process.env.NEXT_PUBLIC_ZIBAL_BASE_URL);
+    console.log(process.env.NEXT_PUBLIC_ZIBAL_MERCHANT_ID);
+    console.log(process.env.NEXT_PUBLIC_ZIBAL_CALLBACK_URL);
+
     const subscription = await SubscriptionModel.findOne({
       _id: subscriptionId,
     });
@@ -31,6 +35,10 @@ export async function POST(req: NextRequest) {
       amount = amount - discount;
     }
 
+    console.log(process.env.NEXT_PUBLIC_ZIBAL_BASE_URL);
+    console.log(process.env.NEXT_PUBLIC_ZIBAL_MERCHANT_ID);
+    console.log(process.env.NEXT_PUBLIC_ZIBAL_CALLBACK_URL);
+
     const newOrder = await OrderModel.create({
       user: user._id,
       subscription: subscription._id,
@@ -38,6 +46,10 @@ export async function POST(req: NextRequest) {
       totalPrice: amount,
       discount,
     });
+
+    console.log(process.env.NEXT_PUBLIC_ZIBAL_BASE_URL);
+    console.log(process.env.NEXT_PUBLIC_ZIBAL_MERCHANT_ID);
+    console.log(process.env.NEXT_PUBLIC_ZIBAL_CALLBACK_URL);
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_ZIBAL_BASE_URL}/v1/request`,
@@ -55,6 +67,9 @@ export async function POST(req: NextRequest) {
         }),
       },
     );
+    console.log(process.env.NEXT_PUBLIC_ZIBAL_BASE_URL);
+    console.log(process.env.NEXT_PUBLIC_ZIBAL_MERCHANT_ID);
+    console.log(process.env.NEXT_PUBLIC_ZIBAL_CALLBACK_URL);
 
     const data = await res.json();
     const trackId = data.trackId;
@@ -64,6 +79,8 @@ export async function POST(req: NextRequest) {
       paymentUrl: `${process.env.NEXT_PUBLIC_ZIBAL_BASE_URL}/start/${trackId}`,
     });
   } catch (error) {
+    console.log(error);
+
     return Response.json(
       { message: "پرداخت با مشکل مواجه شد" },
       { status: 500 },
