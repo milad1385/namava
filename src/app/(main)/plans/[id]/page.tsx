@@ -15,7 +15,7 @@ async function page({ params }: TParams) {
   const { title, price, discount, time, _id } = subscription;
 
   return (
-    <div className="flex  my-28">
+    <div className="flex-col md:flex-row gap-6  my-28">
       <div className="bg-namavaBlack  w-full h-[320px] px-[28px] rounded-md py-6 md:w-1/3 mx-auto text-white">
         <h1 className="text-base md:text-lg font-IranMedium text-center">
           {title}
@@ -38,7 +38,7 @@ async function page({ params }: TParams) {
             </span>
           </li>
         </ul>
-        <div className="w-full mt-5 space-y-4">
+        {/* <div className="w-full mt-5 space-y-4">
           <h3>ثبت کد تخفیف</h3>
 
           <div className="bg-black flex items-center justify-between rounded-md overflow-hidden">
@@ -49,7 +49,7 @@ async function page({ params }: TParams) {
             />
             <Button className="!w-[80px] !rounded-none">اعمال</Button>
           </div>
-        </div>
+        </div> */}
       </div>
       <PaymentGateway
         totalPrice={price - (price * discount) / 100}
