@@ -1,7 +1,20 @@
 import mongoose from "mongoose";
 import movieModel from "./movie";
 
-const schema = new mongoose.Schema(
+export interface ICollection {
+  title: string;
+  link: string;
+  description: string;
+  movies?: mongoose.Types.ObjectId[];
+  mainImage: string;
+  desktopBanner: string;
+  mobileBanner: string;
+  type?: "kid" | "adult";
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+const schema = new mongoose.Schema<ICollection>(
   {
     title: {
       type: String,
@@ -46,7 +59,6 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const model =
-  mongoose.models.Collection || mongoose.model("Collection", schema);
+const model = mongoose.models.Collection || mongoose.model<ICollection>("Collection", schema);
 
 export default model;

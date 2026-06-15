@@ -1,5 +1,6 @@
 import mongoose, { Schema, models, Model } from "mongoose";
-
+import MovieModel from "./movie";
+import UserModel from "./user";
 export interface IArticle {
   title: string;
   link: string;

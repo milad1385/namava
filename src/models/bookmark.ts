@@ -1,5 +1,6 @@
 import mongoose, { Schema, models, Model } from "mongoose";
-
+import MovieModel from "./movie";
+import UserModel from "./user";
 export interface IBookmark {
   user?: mongoose.Types.ObjectId;
   movie?: mongoose.Types.ObjectId;
@@ -7,7 +8,6 @@ export interface IBookmark {
   updatedAt?: Date;
 }
 
-// 📌 تعریف schema با تایپ IBookmark
 const schema = new Schema<IBookmark>(
   {
     user: {
