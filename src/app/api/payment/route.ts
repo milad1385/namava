@@ -13,10 +13,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    console.log(process.env.NEXT_PUBLIC_ZIBAL_BASE_URL);
-    console.log(process.env.NEXT_PUBLIC_ZIBAL_MERCHANT_ID);
-    console.log(process.env.NEXT_PUBLIC_ZIBAL_CALLBACK_URL);
-
     const subscription = await SubscriptionModel.findOne({
       _id: subscriptionId,
     });
@@ -35,10 +31,6 @@ export async function POST(req: NextRequest) {
       amount = amount - discount;
     }
 
-    console.log(process.env.NEXT_PUBLIC_ZIBAL_BASE_URL);
-    console.log(process.env.NEXT_PUBLIC_ZIBAL_MERCHANT_ID);
-    console.log(process.env.NEXT_PUBLIC_ZIBAL_CALLBACK_URL);
-
     const newOrder = await OrderModel.create({
       user: user._id,
       subscription: subscription._id,
@@ -47,36 +39,29 @@ export async function POST(req: NextRequest) {
       discount,
     });
 
-    console.log(process.env.NEXT_PUBLIC_ZIBAL_BASE_URL);
-    console.log(process.env.NEXT_PUBLIC_ZIBAL_MERCHANT_ID);
-    console.log(process.env.NEXT_PUBLIC_ZIBAL_CALLBACK_URL);
-
     const res = await fetch(
-      `https://gateway.zibal.ir/v1/request`,
+      `${process.env.NEXT_PUBLIC_ZIBAL_BASE_URL}/v1/request`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          merchant: "zibal",
+          merchant: process.env.NEXT_PUBLIC_ZIBAL_MERCHANT_ID,
           amount: amount * 10,
           orderId: newOrder.id,
           mobile: user.mobile,
-          callbackUrl: "https://milafilm.vercel.app/paymentStatus",
+          callbackUrl: process.env.NEXT_PUBLIC_ZIBAL_CALLBACK_URL,
         }),
       },
     );
-    console.log(process.env.NEXT_PUBLIC_ZIBAL_BASE_URL);
-    console.log(process.env.NEXT_PUBLIC_ZIBAL_MERCHANT_ID);
-    console.log(process.env.NEXT_PUBLIC_ZIBAL_CALLBACK_URL);
 
     const data = await res.json();
     const trackId = data.trackId;
     return Response.json({
       message: "درگاه پرداخت با موفقیت ساخته شد ",
       trackId,
-      paymentUrl: `https://gateway.zibal.ir/start/${trackId}`,
+      paymentUrl: `${process.env.NEXT_PUBLIC_ZIBAL_BASE_URL}/start/${trackId}`,
     });
   } catch (error) {
     console.log(error);
