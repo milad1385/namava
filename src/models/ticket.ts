@@ -1,8 +1,25 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import usersModel from "./user";
 import departmentsModel from "./department";
 import SubDepartment from "./subdepartment";
-const schema = new mongoose.Schema(
+
+export interface ITicket {
+  title: string;
+  body: string;
+  priority?: 1 | 2 | 3;
+  department: mongoose.Types.ObjectId;
+  subDepartment?: mongoose.Types.ObjectId;
+  user: mongoose.Types.ObjectId;
+  isFromUserPanel?: boolean;
+  isAnswer?: boolean;
+  replyTo?: mongoose.Types.ObjectId;
+  isOpen?: boolean;
+  status?: "answered" | "pending";
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+const schema = new Schema<ITicket>(
   {
     title: {
       type: String,
@@ -18,16 +35,16 @@ const schema = new mongoose.Schema(
       default: 1,
     },
     department: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Department",
       required: true,
     },
     subDepartment: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "SubDepartment",
     },
     user: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
@@ -40,7 +57,7 @@ const schema = new mongoose.Schema(
       default: false,
     },
     replyTo: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Ticket",
     },
     isOpen: {
@@ -56,6 +73,6 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const model = mongoose.models.Ticket || mongoose.model("Ticket", schema);
+const model = mongoose.models.Ticket || mongoose.model<ITicket>("Ticket", schema);
 
 export default model;

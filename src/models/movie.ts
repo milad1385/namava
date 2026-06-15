@@ -1,9 +1,43 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import CategoryModel from "./category";
 import UserModel from "./user";
 import StarModel from "./stars";
 import Season from "./Season";
-const schema = new mongoose.Schema(
+
+export interface IMovie {
+  title: string;
+  ageRange: string;
+  time?: string;
+  link: string;
+  type?: "film" | "series";
+  shortDesc: string;
+  showTime: string;
+  category: mongoose.Types.ObjectId;
+  season?: string | null;
+  longDesc: string;
+  language: string;
+  mainImage: string;
+  video?: string;
+  deskBanner: string;
+  mobileBanner: string;
+  detailImage: string[];
+  creator: mongoose.Types.ObjectId;
+  priceStatus?: "price" | "free";
+  logo: string;
+  director: string;
+  IMDB?: number;
+  contentType?: "kid" | "adult";
+  actors?: mongoose.Types.ObjectId[];
+  isSlider?: boolean;
+  seasons?: mongoose.Types.ObjectId[];
+  liked?: mongoose.Types.ObjectId[];
+  disliked?: mongoose.Types.ObjectId[];
+  createdAt?: Date;
+  updatedAt?: Date;
+  comments?: any[];
+}
+
+const schema = new Schema<IMovie>(
   {
     title: {
       type: String,
@@ -42,7 +76,7 @@ const schema = new mongoose.Schema(
       required: true,
     },
     category: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Category",
       required: true,
     },
@@ -90,7 +124,7 @@ const schema = new mongoose.Schema(
       },
     ],
     creator: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
@@ -120,7 +154,7 @@ const schema = new mongoose.Schema(
     },
     actors: [
       {
-        type: mongoose.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Stars",
       },
     ],
@@ -130,14 +164,14 @@ const schema = new mongoose.Schema(
     },
     seasons: [
       {
-        type: mongoose.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Season",
       },
     ],
-    liked: [{ type: mongoose.Types.ObjectId, ref: "User", default: [] }],
-    disliked: [{ type: mongoose.Types.ObjectId, ref: "User", default: [] }],
+    liked: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
+    disliked: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 schema.virtual("comments", {
@@ -146,6 +180,6 @@ schema.virtual("comments", {
   foreignField: "movie",
 });
 
-const model = mongoose.models?.Movie || mongoose.model("Movie", schema);
+const model = mongoose.models?.Movie || mongoose.model<IMovie>("Movie", schema);
 
 export default model;

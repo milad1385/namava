@@ -1,7 +1,27 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import CategoryModel from "./category";
 import ProfileModel from "./profile";
-const schema = new mongoose.Schema(
+
+export interface IUser {
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  phone: string;
+  role?: "USER" | "ADMIN";
+  birthday?: string;
+  province?: string;
+  favGenre?: mongoose.Types.ObjectId;
+  biography?: string;
+  profiles?: mongoose.Types.ObjectId[];
+  profileLimitCount?: number;
+  subscriptionEnd?: Date | null;
+  subscriptionStart?: Date | null;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+const schema = new Schema<IUser>(
   {
     name: {
       type: String,
@@ -39,13 +59,12 @@ const schema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-
     province: {
       type: String,
       trim: true,
     },
     favGenre: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Category",
       required: false,
     },
@@ -54,11 +73,13 @@ const schema = new mongoose.Schema(
       required: false,
       trim: true,
     },
-
     profiles: [
-      { type: mongoose.Types.ObjectId, ref: "Profile", required: false },
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Profile",
+        required: false,
+      },
     ],
-
     profileLimitCount: {
       type: Number,
       default: 4,
@@ -72,9 +93,9 @@ const schema = new mongoose.Schema(
       default: null,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const model = mongoose.models?.User || mongoose.model("User", schema);
+const model = mongoose.models?.User || mongoose.model<IUser>("User", schema);
 
 export default model;

@@ -1,15 +1,28 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import UserModel from "./user";
 import SubscriptionModel from "./subscription";
-const schema = new mongoose.Schema(
+
+export interface IOrder {
+  user: mongoose.Types.ObjectId;
+  subscription: mongoose.Types.ObjectId;
+  orderNumber: string;
+  totalPrice: number;
+  status?: "pay" | "pending" | "cancel";
+  discount: number;
+  paid_time?: Date | null;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+const schema = new Schema<IOrder>(
   {
     user: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
     subscription: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Subscription",
       required: true,
     },
@@ -39,9 +52,9 @@ const schema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
-const model = mongoose.models.Order || mongoose.model("Order", schema);
+const model = mongoose.models.Order || mongoose.model<IOrder>("Order", schema);
 
 export default model;
