@@ -134,7 +134,7 @@ function Navbar({ user, userSubscription, menus }: any) {
           </Link>
           {user ? (
             <div className="relative">
-              <Link href={""} onMouseEnter={() => setIsShowProfile(true)}>
+              <div onClick={() => setIsShowProfile(true)}>
                 <Image
                   src={activeProfile?.image ?? "/images/user.png"}
                   alt={"userprofile"}
@@ -143,7 +143,7 @@ function Navbar({ user, userSubscription, menus }: any) {
                   priority
                   className="rounded-full w-[30px] h-[30px] lg:w-10 lg:h-10 shrink-0"
                 />
-              </Link>
+              </div>
               <ProfileMenu
                 isShow={isShowProfile}
                 onShow={setIsShowProfile}
