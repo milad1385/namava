@@ -19,9 +19,11 @@ const schema = new Schema<ISubDepartment>(
       ref: "Department",
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const model = mongoose.models.SubDepartment || mongoose.model<ISubDepartment>("SubDepartment", schema);
+const model =
+  mongoose.models.SubDepartment ||
+  mongoose.model<ISubDepartment>("SubDepartment", schema);
 
-export default model;
+export default model as any;
