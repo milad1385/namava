@@ -60,7 +60,7 @@ async function SearchPage({ searchParams }: TParams) {
                 title={movie.title}
                 type={movie.type}
                 showTime={movie.showTime}
-                contentType={movie.contentType}
+                contentType={"kid"}
                 isLink
               />
             ))}

@@ -22,7 +22,7 @@ async function SearchPage({ searchParams }: TSearchParams) {
       searchParams?.voice,
       searchParams?.country,
       searchParams?.order,
-      { from: searchParams?.from, to: searchParams?.to }
+      { from: searchParams?.from, to: searchParams?.to },
     ),
     getAllSubcategories(),
   ]);
@@ -55,7 +55,7 @@ async function SearchPage({ searchParams }: TSearchParams) {
                 title={movie.title}
                 type={movie.type}
                 showTime={movie.showTime}
-                contentType={movie.contentType}
+                contentType={"adult"}
                 isLink
               />
             ))}
