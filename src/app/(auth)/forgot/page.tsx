@@ -11,7 +11,7 @@ export type ForgotProps = {
 
 function ForgotPage({ searchParams }: ForgotProps) {
   return (
-    <div className="bg-namavaBlack md:bg-[#121212] flex-center min-h-screen text-white">
+    <div className="bg-namavaBlack md:bg-[#121212] flex items-center justify-center min-h-screen text-white">
       <div className="login-form relative  md:shadow w-[500px] max-h-[641px] bg-namavaBlack px-[40px] md:px-[60px] py-[20px] md:py-[30px] rounded-lg">
         <Logo className="fill-namava !w-[96px] !h-[61px] mx-auto" />
         <Link
