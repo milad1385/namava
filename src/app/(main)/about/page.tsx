@@ -103,11 +103,11 @@ async function AboutUs() {
 
               <div className="space-y-5 md:space-y-12 flex-center md:block flex-col">
                 <Image
-                  src={"/images/namavaLive.svg"}
-                  alt="namavaLive.svg"
+                  src={"/images/milaFilm.png"}
+                  alt="milafilmLive.svg"
                   width={1920}
                   height={1080}
-                  className="w-[110px] mt-5 md:mt-0 md:w-[188px]"
+                  className="w-[110px] mt-5 md:mt-0 md:w-[220px]"
                 />
 
                 <p className="text-base md:text-3xl font-IranMedium">
@@ -331,7 +331,7 @@ async function AboutUs() {
                 <Image
                   width={1920}
                   height={1080}
-                  src="/images/about/article.jpg"
+                  src="/images/about/blogPage.png"
                   alt="article.jpg"
                   className="w-[248px] md:w-[512px] absolute top-52"
                 />
