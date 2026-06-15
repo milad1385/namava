@@ -52,18 +52,18 @@ export async function POST(req: NextRequest) {
     console.log(process.env.NEXT_PUBLIC_ZIBAL_CALLBACK_URL);
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ZIBAL_BASE_URL}/v1/request`,
+      `https://gateway.zibal.ir/v1/request`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          merchant: process.env.NEXT_PUBLIC_ZIBAL_MERCHANT_ID,
+          merchant: "zibal",
           amount: amount * 10,
           orderId: newOrder.id,
           mobile: user.mobile,
-          callbackUrl: process.env.NEXT_PUBLIC_ZIBAL_CALLBACK_URL,
+          callbackUrl: "https://milafilm.vercel.app/paymentStatus",
         }),
       },
     );
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
     return Response.json({
       message: "درگاه پرداخت با موفقیت ساخته شد ",
       trackId,
-      paymentUrl: `${process.env.NEXT_PUBLIC_ZIBAL_BASE_URL}/start/${trackId}`,
+      paymentUrl: `https://gateway.zibal.ir/start/${trackId}`,
     });
   } catch (error) {
     console.log(error);
