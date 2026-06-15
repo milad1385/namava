@@ -48,7 +48,6 @@ const schema = new Schema<ICategory>(
   { timestamps: true },
 );
 
-// 📌 تعریف مدل با تایپ صحیح
 const CategoryModel: Model<ICategory> =
   models.Category || mongoose.model<ICategory>("Category", schema);
 
