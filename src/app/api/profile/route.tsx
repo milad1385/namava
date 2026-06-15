@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import ProfileModel from "@/src/models/profile";
+export const dynamic = "force-dynamic";
 export const GET = async (req: NextRequest) => {
   try {
     const profileId = req.nextUrl.searchParams.get("id");
