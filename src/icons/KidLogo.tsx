@@ -5,7 +5,7 @@ function KidLogo({ className }: any) {
   return (
     <Image
       src="/images/kidLogo.png"
-      className="w-[120px] md:w-[140px]"
+      className={`w-[120px] md:w-[140px] ${className}`}
       alt="main-logo"
       width={1920}
       height={1080}
