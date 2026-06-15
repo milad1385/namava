@@ -1,6 +1,17 @@
-import React from "react";
+"use client";
+import { usePathname } from "next/navigation";
+import React, { useEffect } from "react";
 
 function Article() {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    window.scrollBy({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+  }, [pathname]);
   return (
     <svg
       width="158"
