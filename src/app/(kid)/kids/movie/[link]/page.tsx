@@ -48,7 +48,7 @@ async function KidSinglePage({ params }: TParams) {
         <div className="absolute inset-0 title-overlay"></div>
       </section>
 
-      <section className="py-10">
+      <section className="pt-0 pb-10 md:py-10">
         {realatedMovies.length > 0 && (
           <MovieSlider
             movies={JSON.parse(JSON.stringify(realatedMovies))}
