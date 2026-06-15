@@ -85,6 +85,7 @@ function HeaderDetail({
             sizes="75vw"
             className="max-w-[160px] md:max-w-[200px]  max-h-[200px] mx-auto object-cover static"
           />
+
           <h2 className="text-center font-IranMedium text-lg md:text-xl">
             {info.title}
           </h2>
@@ -101,7 +102,12 @@ function HeaderDetail({
             <div className="flex-center flex-col">
               <div className="flex items-center flex-col md:flex-row  gap-y-5 justify-center md:justify-start gap-x-4 mt-4">
                 <Link
-                  href={userSubscriptionHref(subscription, info, isKid , episodeId)}
+                  href={userSubscriptionHref(
+                    subscription,
+                    info,
+                    isKid,
+                    episodeId,
+                  )}
                   className="bg-white hover:bg-namava hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
                 >
                   <FaPlay />
@@ -184,14 +190,22 @@ function HeaderDetail({
         </div>
       ) : (
         <div className="px-[43px] top-40 md:top-28  absolute z-20">
-          <img
-            src={info?.logo}
-            className="max-w-[140px] md:max-w-[200px]  max-h-[160px] mx-auto md:mx-0 "
-          />
+          <Link
+            href={`/${info?.type === "film" ? "movie" : "series"}/${info?.link}`}
+          >
+            <img
+              src={info?.logo}
+              className="max-w-[140px] md:max-w-[200px]  max-h-[160px] mx-auto md:mx-0 "
+            />
+          </Link>
           <div className="py-6">
-            <span className="block text-white text-center md:text-right text-base md:text-[22px]">
-              {info.title}
-            </span>
+            <Link
+              href={`/${info?.type === "film" ? "movie" : "series"}/${info?.link}`}
+            >
+              <span className="block text-white text-center md:text-right text-base md:text-[22px]">
+                {info.title}
+              </span>
+            </Link>
             <div className="hidden md:flex items-center gap-x-5 font-Dana text-white text-sm mt-5">
               <span
                 className={`${
@@ -215,9 +229,13 @@ function HeaderDetail({
                 <span className="mt-0.5">{info.IMDB}</span>
               </div>
             </div>
-            <p className="line-clamp-2 text-xs/[24px] md:text-sm/[28px] text-center md:text-right  md:line-clamp-6  max-w-[544px] text-white mt-5">
-              {info.shortDesc}
-            </p>
+            <Link
+              href={`/${info?.type === "film" ? "movie" : "series"}/${info?.link}`}
+            >
+              <p className="line-clamp-2 text-xs/[24px] md:text-sm/[28px] text-center md:text-right  md:line-clamp-6  max-w-[544px] text-white mt-5">
+                {info.shortDesc}
+              </p>
+            </Link>
 
             <div className="flex items-center justify-center md:justify-start gap-x-4 mt-4 flex-col md:flex-row gap-y-3">
               <div className="flex items-center gap-x-3">
