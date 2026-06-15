@@ -104,7 +104,12 @@ function Session({ episode, user, link, isKid, info }: any) {
         <div
           className={`mt-2 space-y-3 ${isKid ? "text-black" : "text-white"}`}
         >
-          <h3 className="text-sm">{episode.title}</h3>
+          <Link
+            href={userSubscriptionHref(subscripton, info, isKid, episode._id)}
+            className="relative group"
+          >
+            <h3 className="text-sm">{episode.title}</h3>
+          </Link>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-x-1 flex-row-reverse">
               <span className="block mt-1 font-Dana">
@@ -194,9 +199,14 @@ function Session({ episode, user, link, isKid, info }: any) {
           } overflow-hidden`}
         >
           <div className="w-full h-full bg-[#222327] py-4 pr-4 space-y-3">
-            <h3 className="text-[13px] text-white font-Dana">
-              {episode.title}
-            </h3>
+            <Link
+              href={userSubscriptionHref(subscripton, info, isKid, episode._id)}
+              className="relative group"
+            >
+              <h3 className="text-[13px] text-white font-Dana">
+                {episode.title}
+              </h3>
+            </Link>
             <h5 className="font-Dana text-[#575757] text-[13px]">
               {episode.time} دقیقه
             </h5>
