@@ -16,7 +16,14 @@ export async function GET(req: NextRequest) {
 
     const profileId = cookies().get("profile")?.value;
 
-    const currentProfile = await ProfileModel.findOne({ _id: profileId });
+    let currentProfile = null;
+    if (profileId) {
+      currentProfile = await ProfileModel.findById(profileId);
+    }
+
+    if (!currentProfile && user.profiles && user.profiles.length > 0) {
+      currentProfile = user.profiles[0];
+    }
 
     const now = new Date();
     let hasSubscription = false;
@@ -32,11 +39,12 @@ export async function GET(req: NextRequest) {
     const remainingDays = Math.ceil(remainingTime / (1000 * 60 * 60 * 24));
 
     return Response.json({
-      currentProfile: currentProfile || user.profiles[0],
+      currentProfile: currentProfile || (user.profiles && user.profiles[0]),
       user,
       subscription: { hasSubscription, remainingDays },
     });
   } catch (error) {
-    return Response.json({ msg: "Interval error" }, { status: 500 });
+    console.error(error);
+    return Response.json({ msg: "Internal error" }, { status: 500 });
   }
 }
