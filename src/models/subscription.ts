@@ -40,4 +40,4 @@ const schema = new Schema<ISubscription>(
 
 const model = mongoose.models.Subscription || mongoose.model<ISubscription>("Subscription", schema);
 
-export default model;
+export default model as any;

@@ -81,4 +81,4 @@ const schema = new Schema<IProfile>(
 const model =
   mongoose.models.Profile || mongoose.model<IProfile>("Profile", schema);
 
-export default model;
+export default model as any;

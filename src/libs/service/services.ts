@@ -121,7 +121,7 @@ export const getSubCategory = async (
 };
 
 // get all of the categories with out any pagination and search
-export const getCategories = async (): Promise<ICategory[]> => {
+export const getCategories = async () => {
   try {
     connectToDB();
 
@@ -556,7 +556,7 @@ export const getRelatedArticleToMovie = async (id: string) => {
 };
 
 // get all articles without pagination
-export const getArticles = async (): Promise<TArticle[]> => {
+export const getArticles = async () => {
   try {
     connectToDB();
     const articles = await ArticleModel.find({ isAccept: true })

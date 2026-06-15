@@ -56,9 +56,11 @@ const schema = new mongoose.Schema<ICollection>(
       default: "adult",
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const model = mongoose.models.Collection || mongoose.model<ICollection>("Collection", schema);
+const model =
+  mongoose.models.Collection ||
+  mongoose.model<ICollection>("Collection", schema);
 
-export default model;
+export default model as any;
