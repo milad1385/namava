@@ -5,16 +5,18 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "مورد علاقه ها | نشان شده ها",
-  description :"در این صفحه میتوانید فیلم هایی که آنها رو نشان کردید رو مشاهده کنید",
-  keywords :"نشان شده ، مورد علاقه"
+  description:
+    "در این صفحه میتوانید فیلم هایی که آنها رو نشان کردید رو مشاهده کنید",
+  keywords: "نشان شده ، مورد علاقه",
 };
-
 
 async function Bookmarks() {
   const bookmarks: any = await getUserBookmarks();
 
-  const kidBookmarks = bookmarks?.filter(
-    (bookmark: any) => bookmark.movie.contentType === "kid"
+  const bookmarksArray = Array.isArray(bookmarks) ? bookmarks : [];
+
+  const kidBookmarks = bookmarksArray?.filter(
+    (bookmark: any) => bookmark?.movie?.contentType === "kid",
   );
 
   return (
