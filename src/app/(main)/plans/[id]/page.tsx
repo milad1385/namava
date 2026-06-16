@@ -2,15 +2,18 @@ import Button from "@/src/components/modules/auth/Button/Button";
 import PaymentGateway from "@/src/components/modules/plans/PaymentGateway";
 import { getSubscription } from "@/src/libs/service/services";
 import { TParams } from "@/src/libs/types";
+import { authUser } from "@/src/utils/serverHelper";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 async function page({ params }: TParams) {
   const subscription = await getSubscription(params?.id as string);
-
+  const user = await authUser();
   if (!subscription) {
     notFound();
   }
+
+  if (user?.subscriptionEnd > Date.now()) notFound();
 
   const { title, price, discount, time, _id } = subscription;
 

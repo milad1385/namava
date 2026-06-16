@@ -1,6 +1,8 @@
 import Plan from "@/src/components/modules/plans/Plan";
 import { getSubscriptions } from "@/src/libs/service/services";
+import { authUser } from "@/src/utils/serverHelper";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import React from "react";
 import { ImWarning } from "react-icons/im";
 
@@ -11,6 +13,8 @@ export const metadata: Metadata = {
 
 async function page() {
   const subscriptions: any = await getSubscriptions();
+  const user = await authUser();
+  if (user?.subscriptionEnd > Date.now()) notFound();
   return (
     <div className="my-28 text-white">
       <h1 className="text-center text-lg md:text-xl lg:text-2xl">
@@ -31,8 +35,8 @@ async function page() {
           </h2>
           <ul className="pr-4 list-disc text-xs/[25px] md:text-sm text-[#d2d2d2]">
             <li>
-              تماشای نامحدود هزاران فیلم و سریال و انیمیشن جذاب میلا فیلم در طول مدت
-              اشتراک خریداری شده.
+              تماشای نامحدود هزاران فیلم و سریال و انیمیشن جذاب میلا فیلم در طول
+              مدت اشتراک خریداری شده.
             </li>
           </ul>
         </div>
