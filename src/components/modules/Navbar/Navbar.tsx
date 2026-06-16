@@ -132,7 +132,7 @@ function Navbar({ user, userSubscription, menus }: any) {
           <Link href={isKid ? "/kids/search" : "/search"}>
             <Search className={isKid ? "fill-gray-600" : "fill-white"} />
           </Link>
-          {user ? (
+          {user && (
             <div className="relative">
               <div onClick={() => setIsShowProfile(true)}>
                 <Image
@@ -152,7 +152,8 @@ function Navbar({ user, userSubscription, menus }: any) {
                 activeProfile={activeProfile}
               />
             </div>
-          ) : (
+          )}
+          {user?.subscriptionEnd < Date.now() && (
             <Link href={"/plans"} className="text-xs">
               خرید اشتراک
             </Link>
