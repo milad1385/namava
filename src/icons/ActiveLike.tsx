@@ -29,7 +29,7 @@ function ActiveLike({
       width="40"
       height="40"
       preserveAspectRatio="xMidYMid meet"
-      className={` ${isDislike ? "rotate-180" : ""} ${className}`}
+      className={`w-[30px] md:w-[40px] ${isDislike ? "rotate-180" : ""} ${className}`}
     >
       <defs>
         <clipPath id="__lottie_element_162">
