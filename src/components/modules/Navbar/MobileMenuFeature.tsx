@@ -50,17 +50,19 @@ function MobileMenuFeature({ user }) {
             </Link>
           </li>
         )}
-        <li>
-          <Link
-            href={"/plans"}
-            className={`flex items-center gap-x-2 text-2xl ${
-              pathname === "/plans" ? "active" : ""
-            }`}
-          >
-            <CiShoppingBasket />
-            <span className="text-sm">خرید اشتراک</span>
-          </Link>
-        </li>
+        {user?.subscriptionEnd < Date.now() && (
+          <li>
+            <Link
+              href={"/plans"}
+              className={`flex items-center gap-x-2 text-2xl ${
+                pathname === "/plans" ? "active" : ""
+              }`}
+            >
+              <CiShoppingBasket />
+              <span className="text-sm">خرید اشتراک</span>
+            </Link>
+          </li>
+        )}
       </ul>
     </div>
   );
