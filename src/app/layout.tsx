@@ -43,7 +43,7 @@ export default async function RootLayout({
           />
           {children}
           <ChatButton />
-          <Footer />
+          <Footer subscription={userSubscription.hasSubscription} />
           <FooterMenu />
           <Toaster />
         </AuthContextProvider>

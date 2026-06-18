@@ -14,6 +14,10 @@ export type THeader = {
   user?: any;
 };
 
+export interface IFooter {
+  subscription?: boolean;
+}
+
 export type THeaderDetails = {
   isKid: boolean | undefined;
   info: any;
@@ -312,7 +316,7 @@ export interface ICategoryCard {
   title: string;
   image: string;
   link?: string;
-} 
+}
 export interface IVideoPlayer {
   src: string;
   poster: string;
