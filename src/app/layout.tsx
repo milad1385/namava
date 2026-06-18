@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description:
     "تماشای آنلاین فیلم و سریال در سایت فیلم میلا فیلم. دانلود و تماشای آنلاین جدیدترین فیلم و سریال ایرانی و خارجی با قابلیت دانلود رایگان در میلا فیلم.",
   icons: {
-    icon: "/images/milafilm.png",
+    icon: "/images/milafilmTitleLogo.png",
   },
 };
 
