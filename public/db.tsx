@@ -267,6 +267,17 @@ export const limitedRoute = [
   "/p-admin",
 ];
 
+export const chatButtonLimitedRoute = [
+  "/login",
+  "/register",
+  "/forgot",
+  "/profile-list",
+  "/add-profile",
+  "/pin-lock",
+  "/p-admin",
+  "/p-user",
+];
+
 export const mobileMenuNavbar = [
   { id: 1, title: "خانه", icon: <IoHomeOutline />, link: "/" },
   { id: 2, title: "فیلم ها", icon: <FiFilm />, link: "/movie" },
