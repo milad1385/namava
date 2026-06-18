@@ -22,7 +22,7 @@ function MainSlider({ articles }: any) {
                 width={1920}
                 height={1080}
               />
-              <div className="px-4 py-3 space-y-4 md:space-y-2 bg-namavaBlack rounded-b-md">
+              <div className="px-4 py-3 space-y-4 md:space-y-2 bg-milafilmBlack rounded-b-md">
                 <h2 className="text-white text-sm md:text-base font-IranMedium">
                   {article.title}
                 </h2>

@@ -20,7 +20,7 @@ function OrderTable({ orders, orderCount, filter }: IOrdersList) {
     ordersList = orders.filter((order) => order.status === "pending");
   }
   return (
-    <div className="users-list mt-5 overflow-hidden bg-namavaBlack  rounded-md">
+    <div className="users-list mt-5 overflow-hidden bg-milafilmBlack  rounded-md">
       <Table>
         <Table.Header>
           <th>ردیف</th>
@@ -55,7 +55,7 @@ function OrderTable({ orders, orderCount, filter }: IOrdersList) {
               </td>
               <td>
                 <Link href={`/p-user/orders/${order._id}`}>
-                  <FaEye className="text-xl text-namava" />
+                  <FaEye className="text-xl text-milafilm" />
                 </Link>
               </td>
             </Table.Row>

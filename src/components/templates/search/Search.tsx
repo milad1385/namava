@@ -39,10 +39,10 @@ function SearchBox({
       <div className="flex items-center gap-x-2">
         <div
           onClick={() => setIsShow(true)}
-          className="relative block md:hidden bg-white text-sm text-namavaBlack py-3 rounded-xl px-5"
+          className="relative block md:hidden bg-white text-sm text-milafilmBlack py-3 rounded-xl px-5"
         >
           فیلتر
-          <span className="absolute -top-2 text-sm -left-2 rounded-md font-Dana bg-namava text-white w-[21px] h-[19.41px] flex-center">
+          <span className="absolute -top-2 text-sm -left-2 rounded-md font-Dana bg-milafilm text-white w-[21px] h-[19.41px] flex-center">
             {searchParams.size}
           </span>
         </div>
@@ -96,7 +96,7 @@ function SearchBox({
 
       {q?.length > 2 && movies.length > 2 && (
         <div className="hidden md:flex  flex-col gap-4 mt-6 text-sm">
-          <span className={`${isKid ? "text-namava" : "text-[#ccc]"}`}>
+          <span className={`${isKid ? "text-milafilm" : "text-[#ccc]"}`}>
             کلمات مشابه :
           </span>
           <div

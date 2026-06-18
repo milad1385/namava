@@ -56,7 +56,7 @@ function Form() {
   return (
     <form
       onSubmit={handleSubmit(sendNewMessage)}
-      className="bg-namavaBlack text-white p-[15px] md:p-[22px] rounded-xl max-w-[700px] mx-auto space-y-6 mt-10"
+      className="bg-milafilmBlack text-white p-[15px] md:p-[22px] rounded-xl max-w-[700px] mx-auto space-y-6 mt-10"
     >
       <p className="text-sm/[26px]">
         کاربر گرامی، برای پیگیری خرید اشتراک، موارد محتوایی و یا ارسال پیشنهادات

@@ -63,7 +63,7 @@ function AddNewArticle({ movies }: any) {
 
   return (
     <form
-      className="bg-namavaBlack rounded-lg p-6 shadow my-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 md:gap-y-6"
+      className="bg-milafilmBlack rounded-lg p-6 shadow my-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 md:gap-y-6"
       onSubmit={handleSubmit(createNewArticleHandeler)}
     >
       <Input

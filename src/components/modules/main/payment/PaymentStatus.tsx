@@ -77,7 +77,7 @@ function PaymentStatus() {
   }
 
   return (
-    <div className="bg-namavaBlack my-40 w-full px-[28px] rounded-md py-6 md:w-1/3 mx-auto text-white">
+    <div className="bg-milafilmBlack my-40 w-full px-[28px] rounded-md py-6 md:w-1/3 mx-auto text-white">
       <h1 className="text-base md:text-lg font-IranMedium text-center">
         جزییات سفارش
       </h1>
@@ -116,7 +116,7 @@ function PaymentStatus() {
           <span> {order?.data?.discount.toLocaleString("fa-IR")} تومان</span>
         </li>
 
-        <li className="flex items-center justify-between text-namava">
+        <li className="flex items-center justify-between text-milafilm">
           <span>
             {" "}
             {order?.data?.status !== "cancel" ? "مبلغ پرداختی" : "مبلغ کل"}{" "}

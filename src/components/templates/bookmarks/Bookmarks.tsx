@@ -61,7 +61,7 @@ function Bookmarks({ bookmarks, likesMovies }: any) {
             ))}
           </div>
         ) : (
-          <div className="bg-namavaBlack flex items-center justify-center flex-col py-8 mt-10 gap-y-12">
+          <div className="bg-milafilmBlack flex items-center justify-center flex-col py-8 mt-10 gap-y-12">
             <FaBookmark className="text-[75px] md:text-[100px] lg:text-[125px]" />
             <span className="text-sm md:text-xl">
               کاربر گرامی لیست بوک مارک های شما خالی می باشد
@@ -89,7 +89,7 @@ function Bookmarks({ bookmarks, likesMovies }: any) {
             ))}
           </div>
         ) : (
-          <div className="bg-namavaBlack flex items-center justify-center flex-col py-8 mt-10 gap-y-12">
+          <div className="bg-milafilmBlack flex items-center justify-center flex-col py-8 mt-10 gap-y-12">
             <FaHeart className="text-[75px] md:text-[100px] lg:text-[125px]" />
             <span className="text-sm md:text-xl">
               کاربر گرامی لیست علاقه مندی های شما خالی می باشد

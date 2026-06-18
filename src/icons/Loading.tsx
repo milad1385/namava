@@ -2,7 +2,7 @@ import React from "react";
 
 function Loading() {
   return (
-    <div className="bg-namavaBlack z-50 text-white fixed inset-0 flex-center">
+    <div className="bg-milafilmBlack z-50 text-white fixed inset-0 flex-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="100"

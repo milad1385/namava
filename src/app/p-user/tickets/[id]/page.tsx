@@ -11,7 +11,7 @@ async function page({ params }: TParams) {
   );
 
   return (
-    <div className="bg-namavaBlack text-white rounded-md  p-[18px] shadow h-full">
+    <div className="bg-milafilmBlack text-white rounded-md  p-[18px] shadow h-full">
       <h3 className="text-xl font-DanaDemiBold border-b border-b-gray-500 pb-4">
         {ticketInfo.title}
       </h3>
@@ -41,7 +41,7 @@ async function page({ params }: TParams) {
           ticketInfo={JSON.parse(JSON.stringify(ticketInfo))}
         />
       ) : (
-        <div className="bg-namava text-xs md:text-lg  text-white font-DanaDemiBold text-center rounded-lg py-8 mt-52">
+        <div className="bg-milafilm text-xs md:text-lg  text-white font-DanaDemiBold text-center rounded-lg py-8 mt-52">
           این چت در تاریخ
           <span className="font-bold">
             {new Date(ticketInfo?.updatedAt).toLocaleString("fa")}

@@ -43,7 +43,7 @@ function Filter({ className, onShow, categories }: Filter) {
           <span>فیلترها</span>
         </div>
         <span
-          className="text-namava text-sm"
+          className="text-milafilm text-sm"
           onClick={() => {
             router.replace(pathname);
             onShow?.(false);

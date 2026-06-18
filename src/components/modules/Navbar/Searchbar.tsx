@@ -20,7 +20,7 @@ function Searchbar() {
             router.push(`/search?q=${search}`);
           }
         }}
-        className="bg-namavaBlack text-white p-1 rounded-sm"
+        className="bg-milafilmBlack text-white p-1 rounded-sm"
       >
         <FaMagnifyingGlass />
       </button>

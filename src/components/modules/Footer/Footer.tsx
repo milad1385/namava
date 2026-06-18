@@ -34,7 +34,7 @@ function Footer() {
       <div
         className={`text-[#ccc] ${
           isShowMoreMenu ? "" : "overflow-hidden"
-        }  sticky bottom-0 z-30 my-auto h-[40px] hidden md:flex-center bg-namavaBlack`}
+        }  sticky bottom-0 z-30 my-auto h-[40px] hidden md:flex-center bg-milafilmBlack`}
       >
         <ul className="text-xs flex font-IranMedium  items-center justify-around flex-grow">
           <li className="hover:text-white">
@@ -69,7 +69,7 @@ function Footer() {
 
             <div
               id="more-menu"
-              className={`bg-namavaBlack absolute text-[12px] -left-2 transition-all ${
+              className={`bg-milafilmBlack absolute text-[12px] -left-2 transition-all ${
                 isShowMoreMenu ? "bottom-6" : "top-7"
               } w-[180px] py-3`}
             >
@@ -101,9 +101,9 @@ function Footer() {
         <footer className="md:px-[160px] pb-4 bg-[#1A1A1A] relative z-30">
           <div className="container">
             <div className="flex items-center justify-between">
-              <div className="py-4 px-2.5 md:px-6  bg-namavaBlack rounded-md mt-5 w-full flex flex-wrap gap-y-4 items-center justify-between">
+              <div className="py-4 px-2.5 md:px-6  bg-milafilmBlack rounded-md mt-5 w-full flex flex-wrap gap-y-4 items-center justify-between">
                 <div className="flex items-center gap-x-4">
-                  <div className="w-[74px] h-[74px] flex-center namava-logo">
+                  <div className="w-[74px] h-[74px] flex-center milafilm-logo">
                     <Logo className="lg:w-[50px] lg:h-[30px]" />
                   </div>
                   <span className="text-white font-IranMedium text-sm md:text-base">
@@ -192,13 +192,13 @@ function Footer() {
               </p>
               <div className="flex items-center gap-x-7">
                 <Link href={"https://twitter.com/MilaFilm.ir"}>
-                  <Tiwter className="hover:fill-namava transition-all" />
+                  <Tiwter className="hover:fill-milafilm transition-all" />
                 </Link>
                 <Link href={"https://instagram.com/MilaFilm.ir"}>
-                  <Instagram className="hover:fill-namava transition-all" />
+                  <Instagram className="hover:fill-milafilm transition-all" />
                 </Link>
                 <Link href={"https://telegram.me/MilaFilm.ir"}>
-                  <Telegram className="hover:fill-namava transition-all" />
+                  <Telegram className="hover:fill-milafilm transition-all" />
                 </Link>
               </div>
             </div>

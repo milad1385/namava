@@ -8,7 +8,7 @@ type Ages = {
 };
 function Ages({ setAge, age }: Ages) {
   return (
-    <div className="max-w-[700px] mx-auto text-white flex flex-col items-center md:items-start gap-x-3 md:gap-x-8 px-4 md:px-10 py-6 md:py-[30px] bg-namavaBlack rounded-xl mt-10">
+    <div className="max-w-[700px] mx-auto text-white flex flex-col items-center md:items-start gap-x-3 md:gap-x-8 px-4 md:px-10 py-6 md:py-[30px] bg-milafilmBlack rounded-xl mt-10">
       <div className="flex items-center gap-x-3">
         <FaCircleInfo className="text-xl" />
         <span className="text-lg">لطفا رده سنی را مشخص کنید</span>
@@ -16,49 +16,49 @@ function Ages({ setAge, age }: Ages) {
       <div className="w-full flex mt-8" dir="ltr">
         <div
           className={`h-0.5 ${
-            age >= 3 ? "bg-namavaGreen" : "bg-white"
+            age >= 3 ? "bg-milafilmGreen" : "bg-white"
           }  w-[43px] relative`}
           onClick={() => setAge(3)}
         >
           <div
             className={`circle-item ${
-              age >= 3 ? "bg-namavaGreen" : "bg-white"
+              age >= 3 ? "bg-milafilmGreen" : "bg-white"
             }`}
           >
             {age === 3 && <FaCheck className="text-sm text-black" />}
           </div>
         </div>
         <div
-          className={`circle ${age >= 7 ? "bg-namavaGreen" : "bg-white"}`}
+          className={`circle ${age >= 7 ? "bg-milafilmGreen" : "bg-white"}`}
           onClick={() => setAge(7)}
         >
           <div
             className={`circle-item ${
-              age >= 7 ? "bg-namavaGreen" : "bg-white"
+              age >= 7 ? "bg-milafilmGreen" : "bg-white"
             }`}
           >
             {age === 7 && <FaCheck className="text-sm text-black" />}
           </div>
         </div>
         <div
-          className={`circle ${age >= 12 ? "bg-namavaGreen" : "bg-white"}`}
+          className={`circle ${age >= 12 ? "bg-milafilmGreen" : "bg-white"}`}
           onClick={() => setAge(12)}
         >
           <div
             className={`circle-item ${
-              age >= 12 ? "bg-namavaGreen" : "bg-white"
+              age >= 12 ? "bg-milafilmGreen" : "bg-white"
             }`}
           >
             {age === 12 && <FaCheck className="text-sm text-black" />}
           </div>
         </div>
         <div
-          className={`circle ${age >= 15 ? "bg-namavaGreen" : "bg-white"}`}
+          className={`circle ${age >= 15 ? "bg-milafilmGreen" : "bg-white"}`}
           onClick={() => setAge(15)}
         >
           <div
             className={`circle-item ${
-              age >= 15 ? "bg-namavaGreen" : "bg-white"
+              age >= 15 ? "bg-milafilmGreen" : "bg-white"
             }`}
           >
             {age === 15 && <FaCheck className="text-sm text-black" />}
@@ -66,18 +66,18 @@ function Ages({ setAge, age }: Ages) {
         </div>
         <div
           className={`h-0.5 ${
-            age >= 18 ? "bg-namavaGreen" : "bg-white"
+            age >= 18 ? "bg-milafilmGreen" : "bg-white"
           } w-[150px] relative`}
         ></div>
         <div
           className={`h-0.5 ${
-            age >= 18 ? "bg-namavaGreen" : "bg-white"
+            age >= 18 ? "bg-milafilmGreen" : "bg-white"
           } flex-center w-[43px] relative`}
           onClick={() => setAge(18)}
         >
           <div
             className={`w-[20px] h-[20px] flex-center ${
-              age >= 18 ? "bg-namavaGreen" : "bg-white"
+              age >= 18 ? "bg-milafilmGreen" : "bg-white"
             }  rounded-full absolute left-0`}
           >
             {age === 18 && <FaCheck className="text-sm text-black" />}

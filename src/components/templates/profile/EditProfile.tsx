@@ -16,7 +16,7 @@ function EditProfile({
         <h1 className="text-lg md:text-2xl text-center">ویرایش پروفایل</h1>
       </div>
       <div className="max-w-[700px] mx-auto">
-        <div className="flex items-center md:items-start gap-x-3 md:gap-x-8 px-4 md:px-10 py-6 md:py-[30px] bg-namavaBlack rounded-xl mt-10">
+        <div className="flex items-center md:items-start gap-x-3 md:gap-x-8 px-4 md:px-10 py-6 md:py-[30px] bg-milafilmBlack rounded-xl mt-10">
           <label
             htmlFor="profile-uploader"
             className="relative flex-center group cursor-pointer w-[100px] md:w-[150px] h-[100px] md:h-[150px]"

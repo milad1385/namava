@@ -34,7 +34,7 @@ function Lock({ profile }: any) {
 
   return (
     <>
-      <div className="max-w-[700px] mx-auto text-white flex flex-col items-center md:items-start gap-x-3 md:gap-x-8 px-4 md:px-10 py-6 md:py-[30px] bg-namavaBlack rounded-xl my-10">
+      <div className="max-w-[700px] mx-auto text-white flex flex-col items-center md:items-start gap-x-3 md:gap-x-8 px-4 md:px-10 py-6 md:py-[30px] bg-milafilmBlack rounded-xl my-10">
         <div className="flex w-full items-center justify-between">
           <div className="text-lg">
             <span>قفل پروفایل : </span>

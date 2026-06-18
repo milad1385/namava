@@ -25,7 +25,7 @@ function Details({ info, article }: any) {
             <h3 className="text-base md:text-lg font-IranMedium">
               اطلاعات بیشتر
             </h3>
-            <div className="bg-namavaBlack max-w-[577px] my-5 rounded-md shadow py-6">
+            <div className="bg-milafilmBlack max-w-[577px] my-5 rounded-md shadow py-6">
               <Article />
               <div className="px-5 mt-4">
                 <h3 className="">{article.title}</h3>
@@ -33,7 +33,7 @@ function Details({ info, article }: any) {
                   {article.shortDesc}
                 </p>
 
-                <Link href={`/blog/${article.link}`} className="text-namava">
+                <Link href={`/blog/${article.link}`} className="text-milafilm">
                   ادامه مطلب
                 </Link>
               </div>

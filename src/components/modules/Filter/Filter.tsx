@@ -25,12 +25,12 @@ function Filter({ filterField, options }: TFilter) {
     router.replace(`${pathname}?${params}`);
   };
   return (
-    <div className="inline-flex items-center gap-x-2 font-Dana bg-namavaBlack p-1 child:transition-all child:cursor-pointer text-xs md:text-sm rounded-md">
+    <div className="inline-flex items-center gap-x-2 font-Dana bg-milafilmBlack p-1 child:transition-all child:cursor-pointer text-xs md:text-sm rounded-md">
       {options.map((option, index) => (
         <div
           key={index}
-          className={`text-white hover:bg-namava ${
-            option.slug === paramValue ? "bg-namava" : ""
+          className={`text-white hover:bg-milafilm ${
+            option.slug === paramValue ? "bg-milafilm" : ""
           } hover:text-white py-1 px-1 rounded-md`}
           onClick={() => handleFilterParm(option.slug)}
         >

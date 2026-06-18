@@ -10,12 +10,12 @@ async function LastTickets() {
   const tickets = (await getLastUserTickets()) as ILastTicket[];
 
   return (
-    <div className="bg-namavaBlack rounded-md border  border-gray-800 shadow py-4 md:pb-6 md:pt-5 px-3 md:px-6">
+    <div className="bg-milafilmBlack rounded-md border  border-gray-800 shadow py-4 md:pb-6 md:pt-5 px-3 md:px-6">
       <div className="text-white flex items-center justify-between border-b border-gray-600 pb-1">
         <span className="pb-2 font-IranMedium">تیکت های اخیر</span>
         <Link
           href="/p-user/tickets"
-          className="flex items-center gap-x-2 text-namava text-sm"
+          className="flex items-center gap-x-2 text-milafilm text-sm"
         >
           همه تیکت ها
           <IoMdArrowRoundBack className="text-lg" />
@@ -28,7 +28,7 @@ async function LastTickets() {
               <LastTicketItem key={ticket._id} ticket={ticket} />
             ))
           ) : (
-            <div className="bg-namava flex-center  lg:mt-[40px] flex-col gap-y-4 py-12 lg:py-28 text-white rounded-md shadow">
+            <div className="bg-milafilm flex-center  lg:mt-[40px] flex-col gap-y-4 py-12 lg:py-28 text-white rounded-md shadow">
               <FaTicket className="text-2xl md:text-3xl lg:text-4xl" />
               <p className="text-sm md:text-base">
                 هیچ تیکتی تاکنون توسط شما ارسال نشده است

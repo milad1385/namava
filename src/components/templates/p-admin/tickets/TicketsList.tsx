@@ -22,7 +22,7 @@ function TicketsList({ tickets, ticketsCount }: IPanelTicket) {
     return toast.error(`${res?.message}`);
   };
   return (
-    <div className="users-list mt-10 overflow-hidden bg-namavaBlack  rounded-md">
+    <div className="users-list mt-10 overflow-hidden bg-milafilmBlack  rounded-md">
       <Table>
         <Table.Header>
           <th>شماره</th>
@@ -86,7 +86,7 @@ function TicketsList({ tickets, ticketsCount }: IPanelTicket) {
                       />
                     </Modal.Page>
                     <Link href={`/p-admin/tickets/${ticket._id}`}>
-                      <FaEye className="text-namava text-base md:text-lg" />
+                      <FaEye className="text-milafilm text-base md:text-lg" />
                     </Link>
                   </Modal>
                 </div>

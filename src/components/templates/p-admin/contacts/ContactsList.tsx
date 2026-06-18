@@ -43,7 +43,7 @@ function ContactsList({ contacts, count }: { contacts: any; count: number }) {
     toast.error(`${res?.message}`);
   };
   return (
-    <div className="users-list mt-10 overflow-hidden bg-namavaBlack  rounded-md">
+    <div className="users-list mt-10 overflow-hidden bg-milafilmBlack  rounded-md">
       <Table>
         <Table.Header>
           <th>شماره</th>
@@ -90,7 +90,7 @@ function ContactsList({ contacts, count }: { contacts: any; count: number }) {
                     </Modal.Page>
 
                     <Modal.Open name="detail">
-                      <FaEye className="text-namava text-base md:text-lg" />
+                      <FaEye className="text-milafilm text-base md:text-lg" />
                     </Modal.Open>
                     <Modal.Page name="detail">
                       <DetailModal msg={contact.message} />

@@ -10,7 +10,7 @@ async function page({ params }: TParams) {
   const orderStatusStyle =
     order.status === "pay" ? "text-green-600" : "text-red-600";
   return (
-    <div className="bg-namavaBlack w-full px-[28] rounded-md py-6 md:w-1/2 mx-auto text-white">
+    <div className="bg-milafilmBlack w-full px-[28] rounded-md py-6 md:w-1/2 mx-auto text-white">
       <h1 className="text-base md:text-lg font-IranMedium text-center">
         جزییات سفارش
       </h1>
@@ -46,7 +46,7 @@ async function page({ params }: TParams) {
           <span>{order.discount.toLocaleString("fa-IR")} تومان</span>
         </li>
         <li
-          className={`flex items-center justify-between ${order.status === "pay" ? "text-namava" : "text-red-600"}`}
+          className={`flex items-center justify-between ${order.status === "pay" ? "text-milafilm" : "text-red-600"}`}
         >
           <span>مبلغ پرداختی : </span>
           <span>{order.totalPrice.toLocaleString("fa-IR")} تومان</span>

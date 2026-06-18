@@ -61,7 +61,7 @@ function ProfileMenu({
             </h1>
             {!userSubscription?.hasSubscription && (
               <Link href={"/plans"}>
-                <Button className="h-[32px] !text-xs text-black shadow-xl !font-Iran bg-white  hover:bg-namava hover:text-white mt-2">
+                <Button className="h-[32px] !text-xs text-black shadow-xl !font-Iran bg-white  hover:bg-milafilm hover:text-white mt-2">
                   خرید اشتراک
                 </Button>
               </Link>

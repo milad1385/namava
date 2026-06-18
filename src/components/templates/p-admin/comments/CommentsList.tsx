@@ -52,7 +52,7 @@ function CommentsList({ comments, counts }: any) {
   };
 
   return (
-    <div className="users-list mt-10 overflow-hidden bg-namavaBlack  rounded-md">
+    <div className="users-list mt-10 overflow-hidden bg-milafilmBlack  rounded-md">
       <Table>
         <Table.Header>
           <th>شماره</th>

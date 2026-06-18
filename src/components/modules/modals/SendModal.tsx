@@ -27,7 +27,7 @@ function SendModal({
 
 
   return (
-    <div className="w-[350px] md:w-[500px] bg-namavaBlack relative rounded-md text-black px-4 pt-5 pb-7">
+    <div className="w-[350px] md:w-[500px] bg-milafilmBlack relative rounded-md text-black px-4 pt-5 pb-7">
       <FaXmark
         onClick={() => onClose()}
         className="text-lg md:text-3xl absolute left-3 top-3 md:cursor-pointer text-white"

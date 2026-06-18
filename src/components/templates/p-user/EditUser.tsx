@@ -32,7 +32,7 @@ function EditUser() {
   return (
     <form
       onSubmit={handleSubmit(updateUserInfo)}
-      className="bg-namavaBlack rounded-lg p-6 shadow grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 md:gap-y-6"
+      className="bg-milafilmBlack rounded-lg p-6 shadow grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 md:gap-y-6"
     >
       <Input
         type="text"

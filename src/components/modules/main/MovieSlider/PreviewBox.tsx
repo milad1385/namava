@@ -64,7 +64,7 @@ function PreviewBox({
                   movieDetail.contentType === "isKid",
                   episodeId,
                 )}
-                className="bg-white text-namavaBlack hover:bg-namava hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
+                className="bg-white text-milafilmBlack hover:bg-milafilm hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
               >
                 <FaPlay />
                 {subscripton?.hasSubscription
@@ -135,7 +135,7 @@ function PreviewBox({
                     ? `/movie/${movieDetail.link}`
                     : `/series/${movieDetail.link}`
                 }
-                className="hidden md:flex items-center  text-sm gap-x-2 text-white hover:text-namava"
+                className="hidden md:flex items-center  text-sm gap-x-2 text-white hover:text-milafilm"
               >
                 <GrCircleInformation className="text-3xl" />
                 اطلاعات بیشتر

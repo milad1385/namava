@@ -121,7 +121,7 @@ function Register() {
 
         <Button
           type="submit"
-          className={`h-[44px] ${isValid ? "bg-namava" : "bg-slate-500"}`}
+          className={`h-[44px] ${isValid ? "bg-milafilm" : "bg-slate-500"}`}
         >
           {isLoading ? <Spinner /> : "ثبت نام"}
         </Button>

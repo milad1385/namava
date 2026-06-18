@@ -25,7 +25,7 @@ function Comments({ isKid, user, movieId, comments, movieLink }: TComments) {
     <>
       <div
         className={`w-full px-6 py-10 xl:max-w-[1000px] ${
-          isKid ? "bg-[#f2f2f2] text-black" : "bg-namavaBlack text-white"
+          isKid ? "bg-[#f2f2f2] text-black" : "bg-milafilmBlack text-white"
         } rounded-lg mx-auto mt-20`}
       >
         <h3
@@ -49,7 +49,7 @@ function Comments({ isKid, user, movieId, comments, movieLink }: TComments) {
               <Button
                 className={`!m-0 bg-white !w-[108px] text-xs ${
                   isKid
-                    ? "!bg-namava hover:!bg-sky-600 text-white"
+                    ? "!bg-milafilm hover:!bg-sky-600 text-white"
                     : "text-zinc-700"
                 }`}
                 onClick={() => router.push("/register")}
@@ -91,7 +91,7 @@ function Comments({ isKid, user, movieId, comments, movieLink }: TComments) {
               <input
                 placeholder="نظرتان درباره این فیلم چیست ؟"
                 name="content"
-                className="w-full h-[40px] md:h-[52px] text-black  outline-none placeholder:text-namavaBlack text-xs md:text-sm px-3 md:px-6 py-3 rounded-xl"
+                className="w-full h-[40px] md:h-[52px] text-black  outline-none placeholder:text-milafilmBlack text-xs md:text-sm px-3 md:px-6 py-3 rounded-xl"
               />
               <button type="submit">
                 <Send />

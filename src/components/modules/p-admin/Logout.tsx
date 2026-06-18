@@ -8,7 +8,7 @@ function Logout() {
   const router = useRouter();
   return (
     <HiArrowLeftOnRectangle
-      className="text-namava text-2xl"
+      className="text-milafilm text-2xl"
       onClick={async () => {
         await logout();
         router.replace("/");

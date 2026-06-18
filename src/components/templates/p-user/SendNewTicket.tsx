@@ -4,7 +4,7 @@ import { FaPlusCircle } from "react-icons/fa";
 
 function SendNewTicket() {
   return (
-    <Link href={`/p-user/tickets/new`} className="bg-namavaBlack flex items-center gap-x-3 md:gap-x-4 border border-gray-800 rounded-lg shadow px-2 py-2 md:px-[1.6rem] md:py-[1rem]">
+    <Link href={`/p-user/tickets/new`} className="bg-milafilmBlack flex items-center gap-x-3 md:gap-x-4 border border-gray-800 rounded-lg shadow px-2 py-2 md:px-[1.6rem] md:py-[1rem]">
       <div
         className={`flex-center h-[2.5rem] w-[2.5rem] md:w-[4rem] flex-shrink-0 md:h-[4rem] rounded-full bg-sky-600`}
       >

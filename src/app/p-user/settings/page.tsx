@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 async function page() {
   const user = await authUser();
   return (
-    <div className="bg-namavaBlack p-8 w-full  rounded-md md:w-1/2 mx-auto text-white">
+    <div className="bg-milafilmBlack p-8 w-full  rounded-md md:w-1/2 mx-auto text-white">
       <ul className="w-full text-sm space-y-6">
         {user.profiles.map((profile: any , index : number) => (
           <li className="flex items-center justify-between" key={profile._id}>
@@ -27,7 +27,7 @@ async function page() {
                 {profile.name} <span className="text-[#aaa]">{index === 0 ? "(پیش فرض)" :""}</span>
               </span>
             </div>
-            <Link href={`/profile-list-edit/${profile._id}`} className="text-namava">
+            <Link href={`/profile-list-edit/${profile._id}`} className="text-milafilm">
               ویرایش پروفایل
             </Link>
           </li>

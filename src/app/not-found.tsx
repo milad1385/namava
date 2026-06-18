@@ -12,7 +12,7 @@ function NotFound() {
         برای دیدن هزاران فیلم و سریال، به صفحه اصلی میلا فیلم بروید.
       </p>
       <Link href={"/"} className="w-[240px] block">
-        <Button className="bg-white text-xs md:text-base w-[240px] text-namavaBlack mt-8">
+        <Button className="bg-white text-xs md:text-base w-[240px] text-milafilmBlack mt-8">
           رفتن به خانه
         </Button>
       </Link>

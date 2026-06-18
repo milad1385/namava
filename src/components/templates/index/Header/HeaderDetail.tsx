@@ -108,7 +108,7 @@ function HeaderDetail({
                     isKid,
                     episodeId,
                   )}
-                  className="bg-white hover:bg-namava hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
+                  className="bg-white hover:bg-milafilm hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
                 >
                   <FaPlay />
                   {subscription?.hasSubscription
@@ -246,7 +246,7 @@ function HeaderDetail({
                     isKid,
                     episodeId,
                   )}
-                  className="bg-white hover:bg-namava hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
+                  className="bg-white hover:bg-milafilm hover:text-white flex items-center gap-x-2 justify-between text-xs py-3 px-5 rounded-xl"
                 >
                   <FaPlay />
                   {subscription?.hasSubscription
@@ -319,7 +319,7 @@ function HeaderDetail({
               ) : (
                 <Link
                   href={`/${info.type === "film" ? "movie" : "series"}/${info.link}`}
-                  className="hidden md:flex items-center  text-sm gap-x-2 text-white hover:text-namava"
+                  className="hidden md:flex items-center  text-sm gap-x-2 text-white hover:text-milafilm"
                 >
                   <GrCircleInformation className="text-3xl" />
                   اطلاعات بیشتر

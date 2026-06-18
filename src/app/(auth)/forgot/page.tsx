@@ -11,19 +11,19 @@ export type ForgotProps = {
 
 function ForgotPage({ searchParams }: ForgotProps) {
   return (
-    <div className="bg-namavaBlack md:bg-[#121212] flex items-center justify-center min-h-screen text-white">
-      <div className="login-form relative  md:shadow w-[500px] max-h-[641px] bg-namavaBlack px-[40px] md:px-[60px] py-[20px] md:py-[30px] rounded-lg">
-        <Logo className="fill-namava !w-[96px] !h-[61px] mx-auto" />
+    <div className="bg-milafilmBlack md:bg-[#121212] flex items-center justify-center min-h-screen text-white">
+      <div className="login-form relative  md:shadow w-[500px] max-h-[641px] bg-milafilmBlack px-[40px] md:px-[60px] py-[20px] md:py-[30px] rounded-lg">
+        <Logo className="fill-milafilm !w-[96px] !h-[61px] mx-auto" />
         <Link
           href={"/register"}
-          className="text-namava absolute left-10 md:left-20 top-10 md:top-12"
+          className="text-milafilm absolute left-10 md:left-20 top-10 md:top-12"
         >
           ثبت نام
         </Link>
         {searchParams?.type === "verify" && (
           <>
             <VerifyOtp />
-            <div className="flex-center flex-col text-xs md:text-sm text-namava space-y-6 !mt-8">
+            <div className="flex-center flex-col text-xs md:text-sm text-milafilm space-y-6 !mt-8">
               <Link href={"?type=forgot"}>شماره را اشتباه وارد کردید ؟</Link>
             </div>
           </>

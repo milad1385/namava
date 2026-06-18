@@ -9,7 +9,7 @@ function RegisterForm({ searchParams }: { searchParams: any }) {
       {searchParams?.type === "verify" && (
         <>
           <VerifyOtp />
-          <div className="flex-center flex-col text-xs md:text-sm text-namava space-y-6 !mt-8">
+          <div className="flex-center flex-col text-xs md:text-sm text-milafilm space-y-6 !mt-8">
             <a href={"/register"}>شماره را اشتباه وارد کردید ؟</a>
           </div>
         </>

@@ -18,7 +18,7 @@ async function page() {
     checkUserSubscription(),
   ]);
   return (
-    <div className="bg-namavaBlack rounded-md p-6 text-white">
+    <div className="bg-milafilmBlack rounded-md p-6 text-white">
       <div className="flex items-center justify-between">
         <h1
           className={`text-xl ${

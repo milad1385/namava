@@ -10,12 +10,12 @@ export type ResgisterProps = {
 
 function RegisterPage({ searchParams }: ResgisterProps) {
   return (
-    <div className="bg-namavaBlack md:bg-[#121212] flex-center min-h-screen text-white py-10">
-      <div className="login-form relative  md:shadow w-[500px]  bg-namavaBlack px-[40px] md:px-[60px] py-[20px] md:py-[30px] rounded-lg">
-        <Logo className="fill-namava !w-[96px] !h-[61px] mx-auto" />
+    <div className="bg-milafilmBlack md:bg-[#121212] flex-center min-h-screen text-white py-10">
+      <div className="login-form relative  md:shadow w-[500px]  bg-milafilmBlack px-[40px] md:px-[60px] py-[20px] md:py-[30px] rounded-lg">
+        <Logo className="fill-milafilm !w-[96px] !h-[61px] mx-auto" />
         <Link
           href={"/login"}
-          className="text-namava absolute left-10 md:left-20 top-10 md:top-12"
+          className="text-milafilm absolute left-10 md:left-20 top-10 md:top-12"
         >
           ورود
         </Link>

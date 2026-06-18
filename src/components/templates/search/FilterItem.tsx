@@ -115,14 +115,14 @@ function FilterItem({
         <div className="flex items-center gap-x-2.5">
           <span>{title}</span>
           {searchParams.get(slug) && type !== "selectBox" && (
-            <span className="bg-namava flex-center w-5 h-5 font-Dana text-xs rounded-md">
+            <span className="bg-milafilm flex-center w-5 h-5 font-Dana text-xs rounded-md">
               <span className="mt-0.5">{searchParams.getAll(slug).length}</span>
             </span>
           )}
 
           {slug === "year" &&
             (searchParams.get("from") || searchParams.get("to")) && (
-              <span className="bg-namava flex-center px-2 py-1 font-Dana text-xs rounded-md">
+              <span className="bg-milafilm flex-center px-2 py-1 font-Dana text-xs rounded-md">
                 <span className="mt-0.5">
                   {searchParams.get("from")} - {searchParams.get("to")}
                 </span>
@@ -263,7 +263,7 @@ function FilterItem({
                       انتخاب شما
                     </span>
                     <FaTrash
-                      className="text-namava"
+                      className="text-milafilm"
                       onClick={deleteUserFilter}
                     />
                   </div>

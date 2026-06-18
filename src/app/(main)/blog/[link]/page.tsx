@@ -19,7 +19,7 @@ async function ArticlePage({ params }: TParams) {
   const articleCreatedTime = new Date(article.createdAt);
   return (
     <>
-      <div className="max-w-[800px] mx-auto shadow-2xl bg-namavaBlack text-white mt-28 rounded-md">
+      <div className="max-w-[800px] mx-auto shadow-2xl bg-milafilmBlack text-white mt-28 rounded-md">
         <h3 className="text-base md:text-xl font-IranMedium p-5">
           {article.title}
         </h3>
@@ -42,7 +42,7 @@ async function ArticlePage({ params }: TParams) {
             />
             <div className="flex items-center flex-wrap gap-y-2 gap-x-2">
               <span>نویسنده : </span>
-              <Link href="/" className="text-namava">
+              <Link href="/" className="text-milafilm">
                 {article.creator.name}
               </Link>
               <span>{articleCreatedTime.toLocaleDateString("fa-IR")}</span>
@@ -65,7 +65,7 @@ async function ArticlePage({ params }: TParams) {
             href={`/${article.movie.type === "film" ? "movie" : "series"}/${
               article.movie.link
             }`}
-            className="border flex-center w-[300px] text-sm text-namava hover:bg-namava transition-all hover:text-white border-namava px-2 py-2 rounded-md mt-5"
+            className="border flex-center w-[300px] text-sm text-milafilm hover:bg-milafilm transition-all hover:text-white border-milafilm px-2 py-2 rounded-md mt-5"
           >
             تماشا {article.movie.title} در میلا فیلم
           </Link>
@@ -105,7 +105,7 @@ async function ArticlePage({ params }: TParams) {
         </div>
       </div>
 
-      <div className="max-w-[800px] flex items-center gap-x-4 mx-auto shadow-2xl bg-namavaBlack text-white my-10  rounded-md p-5">
+      <div className="max-w-[800px] flex items-center gap-x-4 mx-auto shadow-2xl bg-milafilmBlack text-white my-10  rounded-md p-5">
         <Image
           src={article.movie.mainImage}
           alt={article.movie.title}

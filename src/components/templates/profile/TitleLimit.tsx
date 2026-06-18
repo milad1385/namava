@@ -40,7 +40,7 @@ function TitleLimit({ movies, limitedMovie, limites, setLimites }: any) {
   };
 
   return (
-    <div className="max-w-[700px] mx-auto text-white flex flex-col items-center md:items-start gap-x-3 md:gap-x-8 px-4 md:px-10 py-6 md:py-[30px] bg-namavaBlack rounded-xl my-10">
+    <div className="max-w-[700px] mx-auto text-white flex flex-col items-center md:items-start gap-x-3 md:gap-x-8 px-4 md:px-10 py-6 md:py-[30px] bg-milafilmBlack rounded-xl my-10">
       <div className="w-full">
         <h2 className="border-b text-lg border-b-gray-500 pb-5">
           محدود کردن در پخش عناوین خاص

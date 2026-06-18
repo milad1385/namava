@@ -10,7 +10,7 @@ function VerifyOtp() {
   return (
     <>
       <div className="flex items-center gap-x-4 mt-5">
-        <FaEnvelope className="text-xl text-namava" />
+        <FaEnvelope className="text-xl text-milafilm" />
         <span className="text-white text-sm md:text-base">
           ثبت نام با شماره تلفن همراه
         </span>

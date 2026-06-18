@@ -298,7 +298,7 @@ async function AboutUs() {
             </div>
 
             <div className="text-white my-24 px-4 md:px-0 flex-col md:flex-row flex gap-10 max-w-[1216px] mx-auto">
-              <div className="bg-namavaBlack w-full rounded-xl flex items-center pt-10 px-10 flex-col space-y-4">
+              <div className="bg-milafilmBlack w-full rounded-xl flex items-center pt-10 px-10 flex-col space-y-4">
                 <h3 className="font-IranMedium text-base md:text-2xl">
                   میلا فیلم تی‌وی
                 </h3>
@@ -317,7 +317,7 @@ async function AboutUs() {
                   className="w-[464px]"
                 />
               </div>
-              <div className="bg-namavaBlack h-[372px] md:h-[470px] overflow-hidden w-full rounded-xl relative flex items-center pt-10 px-10 flex-col space-y-4">
+              <div className="bg-milafilmBlack h-[372px] md:h-[470px] overflow-hidden w-full rounded-xl relative flex items-center pt-10 px-10 flex-col space-y-4">
                 <h3 className="font-IranMedium text-base md:text-2xl">
                   میلا فیلم مگ
                 </h3>
@@ -342,7 +342,7 @@ async function AboutUs() {
               <h3 className="text-lg md:text-2xl font-IranMedium text-center">
                 پشتیبانی ۲۴ ساعته
               </h3>
-              <div className="px-[46px] py-[24px] rounded-xl space-y-6 bg-namavaBlack max-w-[592px] mx-auto mt-10">
+              <div className="px-[46px] py-[24px] rounded-xl space-y-6 bg-milafilmBlack max-w-[592px] mx-auto mt-10">
                 <h2 className="text-base md:text-xl mx-auto text-center">
                   هفت روز هفته، ۲۴ ساعت شبانه‌روز پاسخگوی شما هستیم.
                 </h2>

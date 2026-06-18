@@ -13,7 +13,7 @@ function ArticleBox({ title, image, createdAt, readingTime, link }: TArticle) {
         height={1080}
         className="rounded-t-md"
       />
-      <div className="bg-namavaBlack rounded-b-md p-3 text-white text-sm space-y-2">
+      <div className="bg-milafilmBlack rounded-b-md p-3 text-white text-sm space-y-2">
         <div className="font-Dana text-xs text-[#aaa] flex items-center justify-between">
           <span>{createdAt}</span>
           <span>{readingTime as string} دقیقه</span>

@@ -20,7 +20,7 @@ function MobileNavbar({ isOpen, onOpen, user }: IMobileNavbar) {
       <div
         className={`block md:hidden fixed top-0 bottom-0 ${
           isOpen ? "right-0" : "-right-64"
-        } w-64 bg-namavaBlack z-[100] px-4 py-2 transition-all`}
+        } w-64 bg-milafilmBlack z-[100] px-4 py-2 transition-all`}
       >
         <div className="flex items-center justify-between border-b-2 border-b-gray-600">
           <Logo />

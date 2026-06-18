@@ -90,7 +90,7 @@ function Navbar({ user, userSubscription, menus }: any) {
               {isKid ? <KidLogo /> : <Logo />}
             </Link>
           </div>
-          <ul className="hidden md:flex child:block items-center md:gap-x-5 lg:gap-x-8 text-xs hover:child:text-namava">
+          <ul className="hidden md:flex child:block items-center md:gap-x-5 lg:gap-x-8 text-xs hover:child:text-milafilm">
             {!isKid ? (
               <Menus menus={menus} category={category} user={user} />
             ) : (

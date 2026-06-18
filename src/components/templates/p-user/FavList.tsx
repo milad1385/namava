@@ -33,7 +33,7 @@ function FavList({ movies, count }: IWishList) {
     return toast.error(`${res?.message}`);
   };
   return (
-    <div className="users-list  overflow-hidden bg-namavaBlack  rounded-md">
+    <div className="users-list  overflow-hidden bg-milafilmBlack  rounded-md">
       <Table>
         <Table.Header>
           <th>شماره</th>

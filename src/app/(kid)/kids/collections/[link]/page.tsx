@@ -36,10 +36,10 @@ async function page({ params }: TParams) {
             alt={title}
             className="w-[150px] md:w-[200px] h-[150px] md:h-[200px] rounded-full mb-2 mx-auto md:mx-0 md:mb-10"
           />
-          <h1 className="text-lg text-center md:text-right md:text-3xl text-namavaBlack">
+          <h1 className="text-lg text-center md:text-right md:text-3xl text-milafilmBlack">
             مجموعه فیلم های {title}
           </h1>
-          <p className="hidden md:block text-justify text-namavaBlack line-clamp-3 md:line-clamp-6 max-w-[673px] pt-5 text-sm md:text-base/[28px]">
+          <p className="hidden md:block text-justify text-milafilmBlack line-clamp-3 md:line-clamp-6 max-w-[673px] pt-5 text-sm md:text-base/[28px]">
             {description}
           </p>
         </div>

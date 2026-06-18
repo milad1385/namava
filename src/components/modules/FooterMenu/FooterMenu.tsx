@@ -27,7 +27,7 @@ function FooterMenu() {
   return (
     <div
       className={`block md:hidden sticky bottom-0 h-[60px] left-0 right-0 px-4 py-2 z-30 footer-menu ${
-        isKid ? "bg-white text-black" : "bg-namavaBlack text-white"
+        isKid ? "bg-white text-black" : "bg-milafilmBlack text-white"
       }`}
     >
       <ul className="flex items-center justify-between  ">

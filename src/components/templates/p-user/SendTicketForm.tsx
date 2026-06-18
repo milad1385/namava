@@ -61,7 +61,7 @@ function SendTicketForm({ departments }: any) {
   return (
     <form
       onSubmit={handleSubmit(sendNewTicketHandler)}
-      className="bg-namavaBlack text-white  rounded-md shadow p-[18px] mt-6 space-y-6"
+      className="bg-milafilmBlack text-white  rounded-md shadow p-[18px] mt-6 space-y-6"
     >
       <div className="relative flex flex-col">
         <label htmlFor="department" className="font-DanaDemiBold text-lg">

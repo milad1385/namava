@@ -38,7 +38,7 @@ function Pagination({ count = 10 }: { count?: number }) {
         <button
           disabled={!hasNext || query}
           onClick={() => handleChangePage("next")}
-          className="flex-center disabled:cursor-not-allowed font-IranMedium w-[60px] md:w-[80px] hover:bg-namava transition-all gap-x-2 py-1 rounded-md flex items-center"
+          className="flex-center disabled:cursor-not-allowed font-IranMedium w-[60px] md:w-[80px] hover:bg-milafilm transition-all gap-x-2 py-1 rounded-md flex items-center"
         >
           <HiChevronRight />
           بعدی
@@ -46,7 +46,7 @@ function Pagination({ count = 10 }: { count?: number }) {
         <button
           disabled={!hasPrev}
           onClick={() => handleChangePage("prev")}
-          className="flex-center disabled:cursor-not-allowed font-IranMedium w-[60px] md:w-[80px] hover:bg-namava transition-all gap-x-2 py-1 rounded-md flex items-center"
+          className="flex-center disabled:cursor-not-allowed font-IranMedium w-[60px] md:w-[80px] hover:bg-milafilm transition-all gap-x-2 py-1 rounded-md flex items-center"
         >
           قبلی
           <HiChevronLeft />

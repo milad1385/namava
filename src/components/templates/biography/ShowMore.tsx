@@ -15,7 +15,7 @@ function ShowMore({ bio }: { bio: string }) {
       </button>
       <Overlay isOpen={isOpen} onClose={setIsOpen} />
       <div
-        className={`h-1/2 bg-namavaBlack fixed left-0 right-0 z-50 ${
+        className={`h-1/2 bg-milafilmBlack fixed left-0 right-0 z-50 ${
           isOpen ? "bottom-0" : "-bottom-[50%]"
         } transition-all p-4`}
       >

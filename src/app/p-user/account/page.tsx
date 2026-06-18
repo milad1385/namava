@@ -13,10 +13,10 @@ async function page() {
 
   return (
     <>
-      <div className="bg-namavaBlack rounded-md p-6 text-white">
+      <div className="bg-milafilmBlack rounded-md p-6 text-white">
         <div className="flex items-center justify-between">
           <h1 className="text-xl">اطلاعات شخصی</h1>
-          <Link href={"account/information"} className="text-namava">
+          <Link href={"account/information"} className="text-milafilm">
             ویرایش اطلاعات
           </Link>
         </div>
@@ -54,10 +54,10 @@ async function page() {
           </ul>
         </div>
       </div>
-      <div className="bg-namavaBlack rounded-md p-6 text-white mt-5 ">
+      <div className="bg-milafilmBlack rounded-md p-6 text-white mt-5 ">
         <div className="flex items-center justify-between">
           <h1 className="text-xl">اطلاعات کاربری</h1>
-          <Link href={"account/information"} className="text-namava">
+          <Link href={"account/information"} className="text-milafilm">
             ویرایش اطلاعات کاربری
           </Link>
         </div>

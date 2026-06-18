@@ -29,7 +29,7 @@ async function page() {
         <p className="text-[#aaa] text-xs md:text-base">
           به مبالغ فوق ۱۰٪ بابت مالیات بر ارزش افزوده اضافه می‌شود.
         </p>
-        <div className="py-4 px-5 rounded-lg bg-namavaBlack space-y-3">
+        <div className="py-4 px-5 rounded-lg bg-milafilmBlack space-y-3">
           <h2 className="text-sm md:text-lg">
             با خرید اشتراک به امکانات زیر دسترسی خواهید داشت:
           </h2>
@@ -52,7 +52,7 @@ async function page() {
             </h5>
           </div>
         </div>
-        <div className="py-4 px-5 rounded-lg bg-namava space-y-3">
+        <div className="py-4 px-5 rounded-lg bg-milafilm space-y-3">
           <h4 className="text-sm md:text-base">
             هفت روز هفته، ۲۴ ساعت شبانه‌روز پاسخگوی شما هستیم.
           </h4>
@@ -60,7 +60,7 @@ async function page() {
             <a href="tel:02191000111" className="font-Dana">
               021-91000111
             </a>
-            <a href="mailto:support@namava.ir">support@namava.ir</a>
+            <a href="mailto:support@milafilm.ir">support@milafilm.ir</a>
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@ function TicketsList({ tickets, ticketsCount, filter }: IUserTicket) {
     ticketList = tickets.filter((ticket) => !ticket.isOpen);
   }
   return (
-    <div className="users-list mt-5 overflow-hidden bg-namavaBlack  rounded-md">
+    <div className="users-list mt-5 overflow-hidden bg-milafilmBlack  rounded-md">
       <Table>
         <Table.Header>
           <th>شماره</th>
@@ -63,7 +63,7 @@ function TicketsList({ tickets, ticketsCount, filter }: IUserTicket) {
               <td>
                 <div className="flex items-center justify-center gap-x-3 md:gap-x-6 child:cursor-pointer">
                   <Link href={`/p-user/tickets/${ticket._id}`}>
-                    <FaEye className="text-namava text-base md:text-lg" />
+                    <FaEye className="text-milafilm text-base md:text-lg" />
                   </Link>
                 </div>
               </td>

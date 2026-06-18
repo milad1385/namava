@@ -38,7 +38,7 @@ function DurationChart({ orders }: any) {
   const windowWidth: any = typeof window !== "undefined" && window.innerWidth;
 
   return (
-    <div className="bg-namavaBlack duration-chart  rounded-md border border-gray-800 shadow py-4 md:py-6 px-8">
+    <div className="bg-milafilmBlack duration-chart  rounded-md border border-gray-800 shadow py-4 md:py-6 px-8">
       <h2 className="text-xl">تعداد خرید اشتراک</h2>
       <ResponsiveContainer height={267}>
         <PieChart>

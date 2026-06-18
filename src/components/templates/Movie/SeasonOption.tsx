@@ -24,12 +24,12 @@ function SeasonOption({ seasons }: any) {
       <FaChevronDown className="text-base md:text-lg" />
 
       <div className="absolute flex py-4 opacity-0 shadow invisible group-hover:opacity-100 group-hover:visible transition-all delay-75 justify-center bg-white top-12 right-0 z-20 w-[150px] rounded-md">
-        <ul className="flex flex-col gap-y-4 justify-between cursor-pointer hover:child:text-namava">
+        <ul className="flex flex-col gap-y-4 justify-between cursor-pointer hover:child:text-milafilm">
           {seasons.map((season: any, index: number) => (
             <li
               key={season._id}
               className={
-                activeSeason === season.seasonNumber ? "text-namava" : ""
+                activeSeason === season.seasonNumber ? "text-milafilm" : ""
               }
               onClick={() => chnageSeasonHandler(season.seasonNumber)}
             >

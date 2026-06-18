@@ -9,12 +9,12 @@ async function LastFavList() {
   const { movies }: IWishList = await getLikesMovies();
 
   return (
-    <div className="bg-namavaBlack rounded-md border border-gray-800 shadow py-4 md:pb-6 md:pt-5 px-3 md:px-6">
+    <div className="bg-milafilmBlack rounded-md border border-gray-800 shadow py-4 md:pb-6 md:pt-5 px-3 md:px-6">
       <div className="text-white flex items-center justify-between border-b border-gray-600 pb-1">
         <span className="pb-2 font-IranMedium">مورد علاقه های اخیر</span>
         <Link
           href="/p-user/favlist"
-          className="flex items-center gap-x-2 text-namava text-sm"
+          className="flex items-center gap-x-2 text-milafilm text-sm"
         >
           همه مورد علاقه ها
           <IoMdArrowRoundBack className="text-lg" />
@@ -25,7 +25,7 @@ async function LastFavList() {
           {movies.length ? movies.map((movie) => (
             <LastFavItem key={movie._id} movie={movie} />
           )) : (
-            <div className="bg-namava flex-center  lg:mt-[40px] flex-col gap-y-4 py-12 lg:py-28 text-white rounded-md shadow">
+            <div className="bg-milafilm flex-center  lg:mt-[40px] flex-col gap-y-4 py-12 lg:py-28 text-white rounded-md shadow">
               <FaHeart className="text-2xl md:text-3xl lg:text-4xl"/>
              <p className="text-sm md:text-base"> هیچ فیلم یا سریالی را به مورد علاقه ها اضافه نکردید</p>
             </div>

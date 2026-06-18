@@ -24,7 +24,7 @@ async function page() {
           <p className="text-base md:text-lg font-IranMedium">آخرین مطالب</p>
           <Link
             href={""}
-            className="flex items-center gap-x-2 hover:bg-namava hover:text-white px-3 py-1.5 rounded-md transition-all"
+            className="flex items-center gap-x-2 hover:bg-milafilm hover:text-white px-3 py-1.5 rounded-md transition-all"
           >
             مشاهده بیشتر
             <FaChevronLeft />
@@ -37,7 +37,7 @@ async function page() {
           <p className="text-base md:text-lg font-IranMedium">مطالب پر مخاطب</p>
           <Link
             href={""}
-            className="flex items-center gap-x-2 hover:bg-namava hover:text-white px-3 py-1.5 rounded-md transition-all"
+            className="flex items-center gap-x-2 hover:bg-milafilm hover:text-white px-3 py-1.5 rounded-md transition-all"
           >
             مشاهده بیشتر
             <FaChevronLeft />

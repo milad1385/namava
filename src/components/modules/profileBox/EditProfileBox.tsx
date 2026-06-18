@@ -48,7 +48,7 @@ function EditProfileBox({ profile }: any) {
             <FaPencil className="text-3xl" />
           </div>
           {profile.password && (
-            <div className="absolute -right-1 bottom-0 w-10 h-10 bg-namavaBlack rounded-full flex-center">
+            <div className="absolute -right-1 bottom-0 w-10 h-10 bg-milafilmBlack rounded-full flex-center">
               <IoIosLock className="text-xl" />
             </div>
           )}

@@ -95,10 +95,10 @@ function Recommends({ categories }: { categories: ICategory[] }) {
       </div>
 
       {aiResponse && (
-        <div className="bg-namavaBlack  rounded-2xl p-6 mb-8">
+        <div className="bg-milafilmBlack  rounded-2xl p-6 mb-8">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-2xl">🤖</span>
-            <h3 className="font-semibold text-base md:text-lg text-namava">
+            <h3 className="font-semibold text-base md:text-lg text-milafilm">
               گفتگوی هوش مصنوعی:
             </h3>
           </div>

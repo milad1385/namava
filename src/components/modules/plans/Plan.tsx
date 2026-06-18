@@ -5,13 +5,13 @@ function Plan({ subscription }: any) {
   return (
     <Link
       href={`/plans/${subscription._id}`}
-      className="bg-namavaBlack cursor-pointer flex items-center justify-between py-4 px-5 rounded-lg"
+      className="bg-milafilmBlack cursor-pointer flex items-center justify-between py-4 px-5 rounded-lg"
     >
       <div className="space-y-3">
         <h3 className="text-base md:text-lg">{subscription.title}</h3>
 
         {subscription.discount > 0 && (
-          <div className="bg-namava font-Dana text-xs md:text-sm text-white px-3 py-1 rounded-2xl">
+          <div className="bg-milafilm font-Dana text-xs md:text-sm text-white px-3 py-1 rounded-2xl">
             {subscription.discount} % تخفیف ویژه خرید اشتراک
           </div>
         )}
@@ -26,7 +26,7 @@ function Plan({ subscription }: any) {
             <span className="block absolute w-[1.5px] h-20 md:h-28 bg-red-600/80 top-1/2 left-1/2 -translate-y-1/2 rotate-[70deg]"></span>
           </span>
         )}
-        <span className="font-Dana text-namava">
+        <span className="font-Dana text-milafilm">
           <span className="font-bold">
             {(
               subscription.price -
