@@ -103,7 +103,7 @@ async function AboutUs() {
 
               <div className="space-y-5 md:space-y-12 flex-center md:block flex-col">
                 <Image
-                  src={"/images/milaFilm.png"}
+                  src={"/images/milafilm.png"}
                   alt="milafilmLive.svg"
                   width={1920}
                   height={1080}
@@ -350,7 +350,7 @@ async function AboutUs() {
                   شماره تماس : ۹۱۰۰۰۱۱۱-۰۲۱
                 </h4>
                 <h6 className="text-base md:text-lg mx-auto text-center">
-                  ایمیل : support@milaFilm.ir
+                  ایمیل : support@milafilm.ir
                 </h6>
               </div>
             </div>

@@ -191,13 +191,13 @@ function Footer() {
                 دارد.
               </p>
               <div className="flex items-center gap-x-7">
-                <Link href={"https://twitter.com/MilaFilm.ir"}>
+                <Link href={"https://twitter.com/milafilm.ir"}>
                   <Tiwter className="hover:fill-milafilm transition-all" />
                 </Link>
-                <Link href={"https://instagram.com/MilaFilm.ir"}>
+                <Link href={"https://instagram.com/milafilm.ir"}>
                   <Instagram className="hover:fill-milafilm transition-all" />
                 </Link>
-                <Link href={"https://telegram.me/MilaFilm.ir"}>
+                <Link href={"https://telegram.me/milafilm.ir"}>
                   <Telegram className="hover:fill-milafilm transition-all" />
                 </Link>
               </div>
