@@ -1,16 +1,16 @@
 "use client";
 
+import { chatButtonLimitedRoute } from "@/public/db";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaRobot, FaTimes } from "react-icons/fa";
 import ChatWidget from "./ChatWidget";
-import { usePathname } from "next/navigation";
-import { limitedRoute } from "@/public/db";
 
 export default function ChatButton() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  const result = limitedRoute.some((route) => pathname.includes(route));
+  const result = chatButtonLimitedRoute.some((route) => pathname.includes(route));
   if (result) {
     return null;
   }
