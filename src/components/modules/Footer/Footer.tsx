@@ -12,9 +12,12 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaChevronUp } from "react-icons/fa6";
 import Overlay from "../Overlay/Overlay";
+import { IFooter } from "@/src/libs/types";
+import { useAuth } from "@/src/context/AuthContextProvider";
 
-function Footer() {
+function Footer({ subscription }: IFooter) {
   const [isShowMoreMenu, setIsShowMoreMenu] = useState(false);
+  const { isLogin } = useAuth();
 
   const pathname = usePathname();
   if (
@@ -46,9 +49,19 @@ function Footer() {
           <li className="hover:text-white">
             <Link href={"/about"}>تبلیغات در میلا فیلم</Link>
           </li>
-          <li className="hover:text-white">
-            <Link href={"/plans"}>خرید اشتراک</Link>
-          </li>
+          {!subscription && isLogin ? (
+            <li className="hover:text-white">
+              <Link href={"/plans"}>خرید اشتراک</Link>
+            </li>
+          ) : isLogin ? (
+            <li className="hover:text-white">
+              <Link href={"/p-user"}>پنل کاربری</Link>
+            </li>
+          ) : (
+            <li className="hover:text-white">
+              <Link href={"/login"}>ورود</Link>
+            </li>
+          )}
           <li className="hover:text-white">
             <Link href={""}>کارت هدیه</Link>
           </li>
@@ -154,15 +167,15 @@ function Footer() {
                   درباره میلا فیلم
                 </h4>
                 <p className="text-[#aaaaaa] text-xs/[26px] mt-2 max-w-[812px]">
-                  سرزمین فیلم و سریال در سایت میلافیلم امکان پخش آنلاین فیلم‌ها و سریال‌های
-                  محبوبتان را در اختیار شما کاربران گرامی قرار می‌دهد. مشاهده
-                  پیش‌نمایش فیلم و سریال‌ها، جستجوی سریع مجموعه انتخابی، دانلود
-                  درون‌برنامه‌ای، حساب چند کاربره، تنظیمات کودک، آرشیوی کامل از پرطرفدارترین فیلم‌ها
-                  و سریال‌ها از جمله قابلیت‌های میلا فیلم ، به‌روزترین سایت تماشای
-                  فیلم و سریال است. میلا فیلم این امکان را برای کاربران خود فراهم
-                  کرده است تا در سریع‌ترین زمان ممکن و تنها با چند کلیک،
-                  سریال‌ها و فیلم‌های مورد علاقه خود را به صورت آنلاین و آفلاین
-                  مشاهده کنند.
+                  سرزمین فیلم و سریال در سایت میلافیلم امکان پخش آنلاین فیلم‌ها
+                  و سریال‌های محبوبتان را در اختیار شما کاربران گرامی قرار
+                  می‌دهد. مشاهده پیش‌نمایش فیلم و سریال‌ها، جستجوی سریع مجموعه
+                  انتخابی، دانلود درون‌برنامه‌ای، حساب چند کاربره، تنظیمات کودک،
+                  آرشیوی کامل از پرطرفدارترین فیلم‌ها و سریال‌ها از جمله
+                  قابلیت‌های میلا فیلم ، به‌روزترین سایت تماشای فیلم و سریال
+                  است. میلا فیلم این امکان را برای کاربران خود فراهم کرده است تا
+                  در سریع‌ترین زمان ممکن و تنها با چند کلیک، سریال‌ها و فیلم‌های
+                  مورد علاقه خود را به صورت آنلاین و آفلاین مشاهده کنند.
                 </p>
               </section>
               <section className="flex items-center flex-row-reverse gap-x-6">
@@ -186,9 +199,9 @@ function Footer() {
             </div>
             <div className="py-4 flex items-center justify-between flex-col md:flex-row  gap-y-4 md:gap-y-0">
               <p className="text-[10px]/[22px] text-[#aaa]">
-                خدمات ارائه شده در میلا فیلم، دارای مجوزهای لازم از مراجع مربوطه است
-                و هر گونه بهره‌برداری و سوءاستفاده از محتوای میلا فیلم، پیگرد قانونی
-                دارد.
+                خدمات ارائه شده در میلا فیلم، دارای مجوزهای لازم از مراجع مربوطه
+                است و هر گونه بهره‌برداری و سوءاستفاده از محتوای میلا فیلم،
+                پیگرد قانونی دارد.
               </p>
               <div className="flex items-center gap-x-7">
                 <Link href={"https://twitter.com/milafilm.ir"}>
