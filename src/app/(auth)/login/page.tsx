@@ -1,4 +1,3 @@
-
 import LoginForm from "@/src/components/templates/auth/Login/LoginForm";
 import SendOtpCode from "@/src/components/templates/auth/Login/OtpLogin";
 import VerifyOtp from "@/src/components/templates/auth/Login/VerifyOtp";
@@ -21,13 +20,15 @@ function Login({ searchParams }: LoginProps) {
         >
           ثبت نام
         </Link>
-        {searchParams?.type === "verify" && <VerifyOtp />}
-        {searchParams?.type === "otp" && <SendOtpCode />}
-        {(!searchParams?.type ) && (
-          <LoginForm />
-        )}
+        {/* {searchParams?.type === "verify" && <VerifyOtp />} */}
+        {/* {searchParams?.type === "otp" && <SendOtpCode />} */}
+        {!searchParams?.type && <LoginForm />}
 
-        {searchParams?.type !== "verify" && (
+        <p className="text-center text-blue-600 mt-5 text-sm">
+          کاربر گرامی ، خوشحالیم دوباره شما را میبینیم
+        </p>
+
+        {/* {searchParams?.type !== "verify" && (
           <div className="flex-center flex-col text-xs md:text-sm text-milafilm space-y-6 !mt-8">
             {searchParams?.type !== "otp" && (
               <Link href={"?type=forgot"}>رمز عبور خود را فراموش کرده ام.</Link>
@@ -41,7 +42,7 @@ function Login({ searchParams }: LoginProps) {
               </Link>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
@@ -49,9 +50,7 @@ function Login({ searchParams }: LoginProps) {
 
 export async function generateMetadata({ searchParams }: LoginProps) {
   const loginType =
-    searchParams?.type === "otp"
-      ? "کد یکبار مصرف"
-      :"اطلاعات هویتی"
+    searchParams?.type === "otp" ? "کد یکبار مصرف" : "اطلاعات هویتی";
 
   return {
     title: `ورود از طریق ${loginType}`,
