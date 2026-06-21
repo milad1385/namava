@@ -4,6 +4,8 @@ import VerifyOtp from "@/src/components/templates/auth/Login/VerifyOtp";
 import Logo from "@/src/icons/Logo";
 import Link from "next/link";
 import React from "react";
+import ForgotPage from "../forgot/page";
+import ChangePassword from "@/src/components/templates/auth/forgot/ChangePassword";
 
 export type LoginProps = {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -24,25 +26,25 @@ function Login({ searchParams }: LoginProps) {
         {/* {searchParams?.type === "otp" && <SendOtpCode />} */}
         {!searchParams?.type && <LoginForm />}
 
-        <p className="text-center text-blue-600 mt-5 text-sm">
+        <p className="text-center text-milafilm mt-5 text-sm">
           کاربر گرامی ، خوشحالیم دوباره شما را میبینیم
         </p>
 
-        {/* {searchParams?.type !== "verify" && (
+        {searchParams?.type !== "verify" && (
           <div className="flex-center flex-col text-xs md:text-sm text-milafilm space-y-6 !mt-8">
             {searchParams?.type !== "otp" && (
-              <Link href={"?type=forgot"}>رمز عبور خود را فراموش کرده ام.</Link>
+              <Link href={"/forgot"}>رمز عبور خود را فراموش کرده ام.</Link>
             )}
-            <div className="flex items-center gap-x-6">
+            {/* <div className="flex items-center gap-x-6">
               <Link
                 href={"?type=otp"}
                 className={searchParams?.type === "otp" ? "text-white" : ""}
               >
                 ورود با کد یکبار مصرف
               </Link>
-            </div>
+            </div> */}
           </div>
-        )} */}
+        )}
       </div>
     </div>
   );
