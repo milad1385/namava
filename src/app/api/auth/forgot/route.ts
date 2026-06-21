@@ -11,7 +11,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "ایمیل الزامی است" }, { status: 400 });
     }
 
+    console.log(email);
+    
     const user = await UserModel.findOne({ email });
+
+    console.log(user);
+    
 
     if (!user) {
       return NextResponse.json(
