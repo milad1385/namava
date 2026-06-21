@@ -1,16 +1,45 @@
 import mongoose from "mongoose";
+
+let cached = (global as any).mongoose;
+
+if (!cached) {
+  cached = (global as any).mongoose = { conn: null, promise: null };
+}
+
 const connectToDB = async () => {
   try {
-    if (mongoose.connections[0].readyState) {
-      return false;
+    if (cached.conn) {
+      return cached.conn;
     }
-    await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URL, {
+    if (mongoose.connection.readyState === 1) {
+      console.log("✅ Already connected to MongoDB");
+      cached.conn = mongoose.connection;
+      return cached.conn;
+    }
+
+    if (mongoose.connection.readyState === 2) {
+      console.log("⏳ Connection is in progress...");
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      return mongoose.connection;
+    }
+
+    console.log("🔄 Connecting to MongoDB...");
+
+    const conn = await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URL!, {
       authSource: "admin",
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
+      maxPoolSize: 10,
+      family: 4,
     });
-    console.log("Connected to db successFully :)");
+
+    cached.conn = conn;
+    console.log("✅ Connected to db successfully :)");
+    return conn;
   } catch (err) {
-    console.log(err);
-    console.log("Connected to db is faild please try again !!!");
+    console.error("❌ Connection failed:", err);
+    cached.conn = null;
+    throw err;
   }
 };
 
