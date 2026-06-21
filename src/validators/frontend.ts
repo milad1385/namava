@@ -301,7 +301,9 @@ export const Article = z.object({
   shortDesc: z
     .string()
     .min(5, { message: "توضیحات کوتاه حداقل باید 5 کارکتر باشد" })
-    .max(1000, { message: "توضیحات کوتاه باید حداکثر  1000 کاراکتر داشته باشد" }),
+    .max(1000, {
+      message: "توضیحات کوتاه باید حداکثر  1000 کاراکتر داشته باشد",
+    }),
   link: z
     .string()
     .min(3, { message: "لینک  حداقل باید 3 کارکتر باشد" })
@@ -478,3 +480,47 @@ export const NewTicket = z.object({
 });
 
 export type TNewTicket = z.infer<typeof NewTicket>;
+
+export const passwordSchema = z
+  .object({
+    password: z
+      .string({ message: "پسورد را وارد کنید" })
+      .min(1, "رمز عبور جدید الزامی است")
+      .min(8, "رمز عبور باید حداقل ۸ کاراکتر باشد")
+      .max(32, "رمز عبور نباید بیشتر از ۳۲ کاراکتر باشد")
+      .regex(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+        "رمز عبور باید شامل یک حرف بزرگ، یک حرف کوچک و عدد باشد",
+      )
+      .regex(
+        /^[A-Za-z\d@$!%*?&]+$/,
+        "رمز عبور فقط می‌تواند شامل حروف انگلیسی، اعداد و کاراکترهای @$!%*?& باشد",
+      )
+      .refine(
+        (val) =>
+          !["12345678", "password", "123456789", "qwerty123"].includes(val),
+        "رمز عبور بسیار ضعیف است",
+      ),
+
+    confirmPassword: z
+      .string({ message: "تکرار پسورد را وارد کنید" })
+      .min(1, "تکرار رمز عبور الزامی است"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "رمز عبور و تکرار آن مطابقت ندارند",
+    path: ["confirmPassword"],
+  });
+
+export const emailSchema = z.object({
+  email: z
+    .string()
+    .min(1, "ایمیل الزامی است")
+    .email("ایمیل وارد شده معتبر نیست")
+    .regex(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "فرمت ایمیل وارد شده صحیح نیست",
+    ),
+});
+
+export type PasswordFormData = z.infer<typeof passwordSchema>;
+export type EmailFormData = z.infer<typeof emailSchema>;
