@@ -183,25 +183,25 @@ export const sendResetPasswordEmail = async (
 ): Promise<ActionResponse> => {
   const email = formData.get("email");
   try {
-    if (emailRegex.test(email as string)) {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/forgot`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        },
-      );
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/forgot`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      },
+    );
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        return { message: "خطا در ارسال لینک بازیابی", error: true };
-      }
-      return { message: "ایمیل با موفقیت برای شما ارسال شد", success: true };
-    } else {
-      return { message: "ایمیل معتبر نیست", error: true };
+    if (response.status === 404) {
+      return { message: "کاربری با این ایمیل یافت نشد", error: true };
     }
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { message: "خطا در ارسال لینک بازیابی", error: true };
+    }
+    return { message: "ایمیل با موفقیت برای شما ارسال شد", success: true };
   } catch (error) {
     return { message: "سرور با مشکل مواجه شده", error: true };
   }
