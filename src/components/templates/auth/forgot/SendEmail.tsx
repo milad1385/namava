@@ -4,11 +4,11 @@ import Input from "@/src/components/modules/auth/Input/Input";
 import Label from "@/src/components/modules/auth/Label/Label";
 import Desc from "@/src/components/modules/auth/desc/desc";
 import Remember from "@/src/icons/Remember";
-import React, { useState } from "react";
-import { FiPhone } from "react-icons/fi";
+import { useState } from "react";
+import { FaEnvelope } from "react-icons/fa6";
 
-function SendPhone() {
-  const [isActiveMobileNumber, setIsActiveMobileNumber] = useState(false);
+function SendEmail() {
+  const [isActiveEmail, setIsActiveEmail] = useState(false);
   return (
     <>
       <div className="flex items-center gap-x-4 mt-5">
@@ -17,10 +17,10 @@ function SendPhone() {
           بازیابی رمز عبور
         </span>
       </div>
-      <Desc title="کاربر گرامی ، لطفا شما همراه خود را با دقت وارد نمایید"/>
+      <Desc title="کاربر گرامی ، لطفا ایمیل خود را با دقت وارد نمایید" />
       <div className="space-y-[24px]">
         <div className="flex flex-col gap-y-3">
-          <Label title="شماره تلفن همراه"/>
+          <Label title="ایمیل" />
           <div
             className={`bg-[#121212] rounded-xl flex items-center justify-between gap-x-2`}
           >
@@ -28,24 +28,24 @@ function SendPhone() {
               type="text"
               minLength={11}
               maxLength={11}
-              placeholder="شماره تلفن همراه خود را انتخاب کنید. "
+              placeholder="ایمیل خود را وارد کنید ..."
               onChange={(e) => {
                 if (e.target.value.trim()) {
-                  setIsActiveMobileNumber(true);
+                  setIsActiveEmail(true);
                 } else {
-                  setIsActiveMobileNumber(false);
+                  setIsActiveEmail(false);
                 }
               }}
-              dir={isActiveMobileNumber ? "ltr" : "rtl"}
-              className={isActiveMobileNumber ? "text-left" : "text-right"}
+              dir={isActiveEmail ? "ltr" : "rtl"}
+              className={isActiveEmail ? "text-left" : "text-right"}
             />
-            <FiPhone className={`text-xl ml-4`} />
+            <FaEnvelope className={`text-xl ml-4`} />
           </div>
         </div>
-        <Button>دریافت رمز یکبار مصرف</Button>
+        <Button>ارسال درخواست</Button>
       </div>
     </>
   );
 }
 
-export default SendPhone;
+export default SendEmail;
