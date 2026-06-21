@@ -10,6 +10,7 @@ import { cookies } from "next/headers";
 import connectToDB from "@/src/configs/db";
 import { Login, User } from "@/src/validators/frontend";
 import { redirect } from "next/navigation";
+import { ActionResponse } from "../types";
 
 interface ISignup {
   name?: string;
@@ -171,5 +172,37 @@ export const logout = async () => {
       message: "سرور با مشکل مواجه شده",
       error: true,
     };
+  }
+};
+
+const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/g;
+
+export const sendResetPasswordEmail = async (
+  _prevState: ActionResponse | null,
+  formData: FormData,
+): Promise<ActionResponse> => {
+  const email = formData.get("email");
+  try {
+    if (emailRegex.test(email as string)) {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/forgot`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { message: "خطا در ارسال لینک بازیابی", error: true };
+      }
+      return { message: "ایمیل با موفقیت برای شما ارسال شد", success: true };
+    } else {
+      return { message: "ایمیل معتبر نیست", error: true };
+    }
+  } catch (error) {
+    return { message: "سرور با مشکل مواجه شده", error: true };
   }
 };
