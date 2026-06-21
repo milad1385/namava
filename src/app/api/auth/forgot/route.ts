@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendResetEmail, generateResetToken } from "@/src/libs/mailer";
 import UserModel from "@/src/models/user";
+import connectToDB from "@/src/configs/db";
 export async function POST(request: NextRequest) {
   try {
+    await connectToDB();
     const { email } = await request.json();
 
     if (!email) {

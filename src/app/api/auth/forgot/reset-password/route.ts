@@ -2,9 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyResetToken } from "@/src/libs/mailer";
 import UserModel from "@/src/models/user";
 import { hashPassword } from "@/src/utils/auth";
+import connectToDB from "@/src/configs/db";
 
 export async function POST(request: NextRequest) {
   try {
+    await connectToDB();
     const { token, newPassword } = await request.json();
 
     if (!token || !newPassword) {
