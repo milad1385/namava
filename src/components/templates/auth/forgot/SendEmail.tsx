@@ -11,7 +11,7 @@ import { useState, useTransition } from "react";
 import { useFormState } from "react-dom";
 import { FaEnvelope } from "react-icons/fa6";
 
-function SendEmail() {
+function SendEmail({ error }: { error: string }) {
   const [isActiveEmail, setIsActiveEmail] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [state, formAction] = useFormState(sendResetPasswordEmail, null);
@@ -56,6 +56,12 @@ function SendEmail() {
             className={`text-sm mt-2 ${state.success ? "text-green-500" : "text-red-500"}`}
           >
             {state.message}
+          </div>
+        )}
+
+        {error === "invalid-token" && (
+          <div className={`text-sm md:text-base mt-2  text-red-500 text-center`}>
+            لینک تغییر رمز عبور معتبر نیست
           </div>
         )}
 
