@@ -21,7 +21,7 @@ function ChangePassword() {
       <Desc title="لطفا اطلاعات زیر را تکمیل کنید"/>
       <div className="space-y-[24px]">
         <div className="flex flex-col gap-y-3">
-          <Label title="رمز عبور"/>
+          <Label title="رمز عبور جدید"/>
           <div className="bg-[#121212] rounded-xl flex items-center justify-between">
             <Input
               type={isShowPass ? "password" : "text"}
@@ -33,7 +33,7 @@ function ChangePassword() {
                 }
               }}
               dir={isActivePassword ? "ltr" : "rtl"}
-              placeholder="رمز عبور خود را وارد کنید."
+              placeholder="رمز عبور جدید را وارد کنید."
               className={isActivePassword ? "text-left" : "text-right"}
             />
             {isShowPass ? (
