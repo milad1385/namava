@@ -14,7 +14,8 @@ export const metadata: Metadata = {
   title: "فراموشی رمز ، ارسال درخواست",
 };
 
-function ForgotPage() {
+function ForgotPage({ searchParams }: ForgotProps) {
+  const errMsg = searchParams.error;
   return (
     <div className="bg-milafilmBlack md:bg-[#121212] flex items-center justify-center min-h-screen text-white">
       <div className="login-form relative  md:shadow w-[500px] max-h-[641px] bg-milafilmBlack px-[40px] md:px-[60px] py-[20px] md:py-[30px] rounded-lg">
@@ -25,7 +26,7 @@ function ForgotPage() {
         >
           ثبت نام
         </Link>
-        <SendEmail />
+        <SendEmail error={errMsg as string} />
       </div>
     </div>
   );
