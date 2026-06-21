@@ -98,4 +98,4 @@ const schema = new Schema<IUser>(
 
 const model = mongoose.models?.User || mongoose.model<IUser>("User", schema);
 
-export default model as any;
+export default model
