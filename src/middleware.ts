@@ -56,7 +56,12 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  if (pathname.startsWith("/login") || pathname.startsWith("/register")) {
+  if (
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/register") ||
+    pathname.startsWith("/forgot") ||
+    pathname.startsWith("/reset-password")
+  ) {
     if (accessToken) {
       return NextResponse.redirect(new URL("/", request.url));
     } else {
@@ -71,6 +76,8 @@ export const config = {
     "/plans/:path*",
     "/p-user/:path*",
     "/login",
+    "/forgot",
+    "/reset-password/:path*",
     "/register",
     "/profile-list-edit/:path*",
     "/movie/:path*",
