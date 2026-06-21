@@ -18,6 +18,12 @@ export interface IFooter {
   subscription?: boolean;
 }
 
+export type ActionResponse = {
+  message: string;
+  error?: boolean;
+  success?: boolean;
+};
+
 export type THeaderDetails = {
   isKid: boolean | undefined;
   info: any;
