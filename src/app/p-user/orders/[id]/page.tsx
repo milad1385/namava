@@ -10,7 +10,7 @@ async function page({ params }: TParams) {
   const orderStatusStyle =
     order.status === "pay" ? "text-green-600" : "text-red-600";
   return (
-    <div className="bg-milafilmBlack text-sm md:text-base w-full px-[28] rounded-md py-6 md:w-1/2 mx-auto text-white">
+    <div className="bg-milafilmBlack text-sm md:text-base w-full px-[28px] rounded-md py-6 md:w-1/2 mx-auto text-white">
       <h1 className="text-base md:text-lg font-IranMedium text-center">
         جزییات سفارش
       </h1>
