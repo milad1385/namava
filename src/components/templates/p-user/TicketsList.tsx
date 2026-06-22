@@ -1,10 +1,9 @@
 "use client";
 import Pagination from "@/src/components/modules/pagination/Pagination";
 import Table from "@/src/components/modules/table/Table";
-import { ILastTicket, IUserTicket } from "@/src/libs/types";
+import { IUserTicket } from "@/src/libs/types";
 import { formatDate } from "@/src/utils/funcs";
 import Link from "next/link";
-import React from "react";
 import { FaEye } from "react-icons/fa6";
 import EmptyBox from "../../modules/p-admin/EmptyBox";
 
