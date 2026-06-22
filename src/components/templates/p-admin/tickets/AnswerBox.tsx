@@ -12,7 +12,7 @@ function AnswerBox({
         isFromUserPanel
           ? "bg-gray-100 text-zinc-700 "
           : "bg-blue-600 text-white mr-auto"
-      }   p-4 rounded-2xl rounded-tr-sm`}
+      }   p-4  ${isFromUserPanel ? "rounded-tr-sm" :"rounded-tl-sm"} rounded-2xl`}
     >
       <h4
         className={`font-DanaMedium text-sm md:text-xl mb-1 ${
