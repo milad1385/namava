@@ -15,7 +15,7 @@ function StatBox({ title, value, icon, color }: TStat) {
         {icon}
       </div>
       <div className="flex flex-col gap-2.5">
-        <h2 className="text-sm md:text-lg text-gray-200 line-clamp-1">{title}</h2>
+        <h2 className="text-xs md:text-lg text-gray-200 line-clamp-1">{title}</h2>
         <h1 className="font-Dana  text-gray-400 line-clamp-1 text-xs md:text-base">{value.toLocaleString("fa-IR")}</h1>
       </div>
     </div>
