@@ -15,13 +15,13 @@ async function page() {
     <>
       <div className="bg-milafilmBlack rounded-md p-6 text-white">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl">اطلاعات شخصی</h1>
-          <Link href={"account/information"} className="text-milafilm">
+          <h1 className="text-base md:text-xl">اطلاعات شخصی</h1>
+          <Link href={"account/information"} className="text-milafilm text-sm md:text-base">
             ویرایش اطلاعات
           </Link>
         </div>
         <div className="mt-8">
-          <ul className="space-y-5 text-base">
+          <ul className="space-y-5 text-sm md:text-base">
             <li>
               <span className="text-[#d4d4d4]">نام : </span>
               <span>{user.name.split(" ")[0]}</span>
@@ -56,13 +56,13 @@ async function page() {
       </div>
       <div className="bg-milafilmBlack rounded-md p-6 text-white mt-5 ">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl">اطلاعات کاربری</h1>
-          <Link href={"account/information"} className="text-milafilm">
+          <h1 className="text-base md:text-xl">اطلاعات کاربری</h1>
+          <Link href={"account/information"} className="text-milafilm text-sm md:text-base">
             ویرایش اطلاعات کاربری
           </Link>
         </div>
         <div className="mt-8">
-          <ul className="space-y-5 text-base">
+          <ul className="space-y-5 text-sm md:text-base">
             <li>
               <span className="text-[#d4d4d4]">شماره تلفن : </span>
               <span className="font-Dana">{user.phone}</span>
