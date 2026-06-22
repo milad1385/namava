@@ -8,9 +8,8 @@ import React from "react";
 import { FaShop } from "react-icons/fa6";
 
 export const metadata: Metadata = {
-  title :"وضعیت اشتراک"
-}
-
+  title: "وضعیت اشتراک",
+};
 
 async function page() {
   const [user, subscription]: any = await Promise.all([
@@ -21,8 +20,8 @@ async function page() {
     <div className="bg-milafilmBlack rounded-md p-6 text-white">
       <div className="flex items-center justify-between">
         <h1
-          className={`text-xl ${
-            subscription.hasSubscription ? "text-green-600" : "text-red-600"
+          className={`text-lg md:text-xl px-3 py-2 rounded-md ${
+            subscription.hasSubscription ? "bg-green-600" : "bg-red-600"
           }`}
         >
           {subscription.hasSubscription
@@ -32,7 +31,7 @@ async function page() {
       </div>
       <div className="mt-8">
         {subscription.hasSubscription ? (
-          <ul className="space-y-5 text-base">
+          <ul className="space-y-5 text-sm md:text-base">
             <li>
               <span className="text-[#d4d4d4]">تاریخ فعال سازی : </span>
               <span>{formatDate(user.subscriptionStart)}</span>
@@ -46,7 +45,9 @@ async function page() {
               <span className="text-[#d4d4d4]">
                 تعداد روز های باقی مانده :{" "}
               </span>
-              <span>{subscription.remainingDays.toLocaleString("fa-IR")} روز</span>
+              <span>
+                {subscription.remainingDays.toLocaleString("fa-IR")} روز
+              </span>
             </li>
             <li>
               <span className="text-[#d4d4d4]">خریدار : </span>
@@ -59,7 +60,7 @@ async function page() {
           </ul>
         ) : (
           <div className="flex-center flex-col gap-y-12 mt-16">
-            <FaShop className="text-[50px] md:text-[100px]"/>
+            <FaShop className="text-[50px] md:text-[100px]" />
             <p>شما در حال حاضر اشتراک فعالی ندارید.</p>
             <Link href={"/plans"}>
               <Button className="!w-[200px]">خرید اشتراک</Button>
