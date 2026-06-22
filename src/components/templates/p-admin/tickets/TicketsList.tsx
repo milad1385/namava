@@ -28,7 +28,7 @@ function TicketsList({ tickets, ticketsCount }: IPanelTicket) {
           <th>شماره</th>
           <th>نام</th>
           <th>دپارتمان</th>
-          <th>زیر مجموعه</th>
+          {/* <th>زیر مجموعه</th> */}
           <th>اولویت</th>
           <th>تاریخ</th>
           <th>وضعیت</th>
@@ -46,7 +46,7 @@ function TicketsList({ tickets, ticketsCount }: IPanelTicket) {
               </td>
               <td>{ticket.user.name}</td>
               <td>{ticket.department.title}</td>
-              <td>{ticket.subDepartment.title}</td>
+              {/* <td>{ticket.subDepartment.title}</td> */}
 
               <td>
                 {ticket.priority === 1 && "زیاد"}
