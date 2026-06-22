@@ -968,7 +968,7 @@ export const getLastUserTickets = async () => {
     const user = await authUser();
     const tickets = await TicketModel.find({ isAnswer: false, user: user._id })
       .sort({ _id: -1 })
-      .populate("department subDepartment user", "name title")
+      .populate("department  user", "name title")
       .lean();
 
     return tickets;
@@ -986,14 +986,11 @@ export const getAllUserTicket = async (page: number) => {
       isFromUserPanel: true,
       isAnswer: false,
     })
-      .populate("subDepartment", "title")
       .populate("department user", "name title")
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1))
       .sort({ createdAt: -1 })
       .lean();
-
-    console.log(tickets);
 
     const ticketsCount = await TicketModel.countDocuments({
       user: user._id,
@@ -1095,7 +1092,7 @@ export const getAllTickets = async (page: number) => {
   try {
     connectToDB();
     const tickets = await TicketModel.find({ isAnswer: false })
-      .populate("user department subDepartment", "name username title")
+      .populate("user department", "name username title")
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1))
       .sort({ createdAt: -1 });
