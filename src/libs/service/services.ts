@@ -979,13 +979,15 @@ export const getLastUserTickets = async () => {
 
 export const getAllUserTicket = async (page: number) => {
   try {
+    await connectToDB();
     const user = await authUser();
     const tickets = await TicketModel.find({
       user: user._id,
       isFromUserPanel: true,
       isAnswer: false,
     })
-      .populate("department subDepartment user", "name title")
+      .populate("subDepartment", "title")
+      .populate("department user", "name title")
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1))
       .sort({ createdAt: -1 })
