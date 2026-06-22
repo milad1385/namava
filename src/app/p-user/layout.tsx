@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 function UserLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex  gap-x-5 container my-28">
+    <div className="flex  gap-x-5 container my-28 min-h-[70vh]">
       <Sidebar />
       <div className="w-full rounded-md">{children}</div>
     </div>
