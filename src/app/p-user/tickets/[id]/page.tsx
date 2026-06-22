@@ -3,17 +3,21 @@ import SendAnswerToTicket from "@/src/components/templates/p-user/SendAnswerToTi
 import { getSpecificTicketInfo } from "@/src/libs/service/services";
 import { TParams } from "@/src/libs/types";
 import { Metadata } from "next";
-import React from "react";
+import { notFound } from "next/navigation";
 
 async function page({ params }: TParams) {
   const { ticketInfo, tickets }: any = await getSpecificTicketInfo(
-    params?.id as string
+    params?.id as string,
   );
+
+  if (!ticketInfo?.title) {
+    return notFound();
+  }
 
   return (
     <div className="bg-milafilmBlack text-white rounded-md  p-[18px] shadow h-full">
       <h3 className="text-xl font-DanaDemiBold border-b border-b-gray-500 pb-4">
-        {ticketInfo.title}
+        {ticketInfo?.title}
       </h3>
       {/* start question box */}
       <div className="mt-7 space-y-5">
@@ -56,8 +60,8 @@ async function page({ params }: TParams) {
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
   const { ticketInfo }: any = await getSpecificTicketInfo(params?.id as string);
   return {
-    title: `${ticketInfo.title}`,
-    description: `برای مشاهده و ادامه بحث با ${ticketInfo.title}`,
+    title: `${ticketInfo?.title ?? "یافت نشد"}`,
+    description: `برای مشاهده و ادامه بحث با ${ticketInfo?.title ?? "یافت نشد"}`,
   };
 }
 
