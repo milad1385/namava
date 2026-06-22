@@ -22,6 +22,8 @@ function Footer({ subscription }: IFooter) {
   const pathname = usePathname();
   if (
     pathname.includes("/login") ||
+    pathname.includes("/forgot") ||
+    pathname.includes("/reset-password") ||
     pathname.includes("/register") ||
     pathname.includes("/profile-list") ||
     pathname.includes("/add-profile") ||
