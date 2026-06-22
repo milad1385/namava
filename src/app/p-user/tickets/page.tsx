@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 }
 
 async function page({ searchParams }: TSearchParams) {
-  const { tickets, ticketsCount, answeredCount, pendingCount, closeCount } =
+  const { tickets = [], ticketsCount, answeredCount, pendingCount, closeCount } =
     (await getAllUserTicket(+searchParams?.page || 1)) as IUserTicket;
   return (
     <div>
