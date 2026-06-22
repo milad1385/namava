@@ -12,13 +12,13 @@ async function LastTickets() {
   return (
     <div className="bg-milafilmBlack rounded-md border  border-gray-800 shadow py-4 md:pb-6 md:pt-5 px-3 md:px-6">
       <div className="text-white flex items-center justify-between border-b border-gray-600 pb-1">
-        <span className="pb-2 font-IranMedium">تیکت های اخیر</span>
+        <span className="text-sm md:text-base pb-2 font-IranMedium">تیکت های اخیر</span>
         <Link
           href="/p-user/tickets"
-          className="flex items-center gap-x-2 text-milafilm text-sm"
+          className="flex items-center gap-x-1 md:gap-x-2 text-milafilm text-sm"
         >
           همه تیکت ها
-          <IoMdArrowRoundBack className="text-lg" />
+          <IoMdArrowRoundBack className="text-sm md:text-lg" />
         </Link>
       </div>
       <div className="overflow-hidden max-h-[225px] md:max-h-[365px] recent-box overflow-y-auto">
@@ -30,7 +30,7 @@ async function LastTickets() {
           ) : (
             <div className="bg-milafilm flex-center  lg:mt-[40px] flex-col gap-y-4 py-12 lg:py-28 text-white rounded-md shadow">
               <FaTicket className="text-2xl md:text-3xl lg:text-4xl" />
-              <p className="text-sm md:text-base">
+              <p className="text-xs md:text-base">
                 هیچ تیکتی تاکنون توسط شما ارسال نشده است
               </p>
             </div>
