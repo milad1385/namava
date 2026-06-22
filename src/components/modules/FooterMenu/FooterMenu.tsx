@@ -14,6 +14,8 @@ function FooterMenu() {
   if (
     pathname.includes("/login") ||
     pathname.includes("/register") ||
+    pathname.includes("/reset-password") ||
+    pathname.includes("/forgot") ||
     pathname.includes("/profile-list") ||
     pathname.includes("/add-profile") ||
     pathname.includes("/pin-lock") ||
@@ -22,7 +24,6 @@ function FooterMenu() {
   ) {
     return null;
   }
-  
 
   return (
     <div
