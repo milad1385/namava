@@ -11,6 +11,7 @@ import Button from "../../modules/auth/Button/Button";
 import { sendNewTicket } from "@/src/libs/actions/ticket";
 import toast from "react-hot-toast";
 import Spinner from "../../modules/spinner/Spinner";
+import { useRouter } from "next/navigation";
 
 function SendTicketForm({ departments }: any) {
   const {
@@ -22,9 +23,12 @@ function SendTicketForm({ departments }: any) {
     resolver: zodResolver(NewTicket),
   });
   const [departmentId, setDepartmentId] = useState<String | null>(null);
-  const [subDepartmentId, setSubDepartmentId] = useState<String | null>(null);
+  const [subDepartmentId, setSubDepartmentId] = useState<String | null>(
+    "660d6e5dede53eadb7b17165",
+  );
   const [subDepartments, setSubDepartments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const sendNewTicketHandler = async (data: any) => {
     setIsLoading(true);
@@ -37,6 +41,7 @@ function SendTicketForm({ departments }: any) {
     if (res.status === 201) {
       reset();
       setIsLoading(false);
+      router.back();
       return toast.success(`${res.message}`);
     }
     reset();
@@ -55,8 +60,6 @@ function SendTicketForm({ departments }: any) {
 
     getAllSubdepartments();
   }, [departmentId]);
-
-
 
   return (
     <form
