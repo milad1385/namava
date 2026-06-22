@@ -42,6 +42,7 @@ const schema = new Schema<ITicket>(
     subDepartment: {
       type: Schema.Types.ObjectId,
       ref: "SubDepartment",
+      required: false,
     },
     user: {
       type: Schema.Types.ObjectId,
@@ -70,9 +71,10 @@ const schema = new Schema<ITicket>(
       required: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const model = mongoose.models.Ticket || mongoose.model<ITicket>("Ticket", schema);
+const model =
+  mongoose.models.Ticket || mongoose.model<ITicket>("Ticket", schema);
 
 export default model as any;
