@@ -54,7 +54,7 @@ function TicketsList({ tickets, ticketsCount, filter }: IUserTicket) {
                 <div
                   className={`${
                     ticket.status === "answered" ? "bg-green-600" : "bg-red-600"
-                  } py-2 rounded-md font-IranMedium`}
+                  } py-2 px-2 rounded-md font-IranMedium text-xs md:text-sm`}
                 >
                   {ticket.status === "answered" && "پاسخ داده شده"}
                   {ticket.status === "pending" && "در انتظار پاسخ"}
