@@ -980,16 +980,20 @@ export const getLastUserTickets = async () => {
 export const getAllUserTicket = async (page: number) => {
   try {
     const user = await authUser();
-    const tickets = await TicketModel.find({ isAnswer: false, user: user._id })
-      .sort({ _id: -1 })
+    const tickets = await TicketModel.find({
+      user: user._id,
+      isFromUserPanel: true,
+      isAnswer: false,
+    })
       .populate("department subDepartment user", "name title")
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1))
       .sort({ createdAt: -1 })
       .lean();
 
+    console.log(tickets);
+
     const ticketsCount = await TicketModel.countDocuments({
-      isAnswer: false,
       user: user._id,
     });
 
