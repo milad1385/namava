@@ -9,15 +9,17 @@ function LastFavItem({ movie }: { movie: TWish }) {
       href={`/${movie.type === "film" ? "movie" : "series"}/${movie.link}`}
       className="text-white bg-[#121212] p-4 rounded-md flex items-center justify-between"
     >
-      <div className="space-y-3">
+      <div className="space-y-3 text-sm md:text-base">
         <h4>{movie.title}</h4>
-        <div className="bg-white w-[90px] text-[#121212] flex-center py-2 rounded-md">
+        <div className="bg-white text-xs md:text-sm w-[90px] text-[#121212] flex-center py-2 rounded-md">
           {movie.category.title}
         </div>
       </div>
       <div className="text-center space-y-3">
-        <h5 className="font-Dana">{formatDate(movie.createdAt)}</h5>
-        <p>
+        <h5 className="font-Dana text-sm md:text-base">
+          {formatDate(movie.createdAt)}
+        </h5>
+        <p className="text-xs md:text-sm">
           سال ساخت : <span className="font-Dana">{movie.showTime}</span>
         </p>
       </div>
