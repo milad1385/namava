@@ -12,7 +12,7 @@ async function page({ params }: TParams) {
 
   return (
     <>
-      <div className="relative z-20 kid-layout min-h-[65vh] md:min-h-[100vh] text-white mt-16">
+      <div className="relative z-20 kid-layout min-h-[65vh] md:min-h-[100vh] text-white pt-16">
         <Image
           className={`w-full title-image hidden lg:block`}
           src={desktopBanner}
