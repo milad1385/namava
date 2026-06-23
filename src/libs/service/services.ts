@@ -326,7 +326,7 @@ export const getAllSlidersMovies = async (type?: string) => {
 export const getMovie = async (link: any) => {
   try {
     connectToDB();
-    const movie = await MovieModel.findOne({ link })
+    let movie = await MovieModel.findOne({ link })
       .populate("category actors", "link image title name")
       .populate({
         path: "comments",
@@ -337,6 +337,20 @@ export const getMovie = async (link: any) => {
         },
       })
       .lean();
+
+    let categories: any = {};
+
+    const category = await CategoryModel.findById(movie.category._id).lean();
+
+    const parrentCategory = await CategoryModel.find({
+      _id: category.parrent,
+    }).lean();
+
+    categories = {
+      allCategories: [...parrentCategory, category],
+    };
+
+    movie.categories = categories.allCategories;
 
     return movie;
   } catch (error) {
