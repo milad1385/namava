@@ -61,8 +61,13 @@ async function page({ params, searchParams }: TParams) {
         />
         <div className="absolute inset-0 title-overlay"></div>
       </section>
+
+      <section className="text-white mt-0 md:mt-6 container relative bottom-16 md:bottom-24 z-20 space-y-6">
+        <Details info={movie} />
+      </section>
+
       {/* season of Season */}
-      <section className="mt-10 container flex flex-col gap-y-4 md:flex-row md:items-center gap-x-4 relative bottom-6 md:bottom-28 z-20 space-y-6">
+      <section className="md:mt-16 container flex flex-col gap-y-4 md:flex-row md:items-center gap-x-4 relative bottom-6 md:bottom-28 z-20 space-y-6">
         <SeasonOption seasons={JSON.parse(JSON.stringify(seasons))} />
         <div className="bg-milafilmBlack rounded-md flex items-center gap-x-2 py-2 px-3 text-white text-xs md:text-sm !mt-0">
           <div className="flex items-center gap-x-2">
@@ -76,7 +81,7 @@ async function page({ params, searchParams }: TParams) {
         </div>
       </section>
 
-      <section className="container mb-20 grid grid-cols-1 gap-3 md:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <section className="container mb-20 md:-mt-[50px] grid grid-cols-1 gap-3 md:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {seasonEpisodes.episodes.map((episode: any) => (
           <Session
             key={episode._id}
@@ -86,9 +91,6 @@ async function page({ params, searchParams }: TParams) {
             info={JSON.parse(JSON.stringify(movie))}
           />
         ))}
-      </section>
-      <section className="text-white mt-10 container relative bottom-16 md:bottom-12 z-10 space-y-6">
-        <Details info={movie} />
       </section>
 
       <section className="text-white">
