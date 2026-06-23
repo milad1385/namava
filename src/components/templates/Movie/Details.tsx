@@ -15,7 +15,7 @@ function Details({ info, article }: any) {
             alt={image}
             width={190}
             height={140}
-            className="rounded-md"
+            className="rounded-md w-[106px] md:w-[190px]  md:h-[140px] h-[80px]"
           />
         ))}
       </div>
@@ -42,7 +42,7 @@ function Details({ info, article }: any) {
         )}
 
         <h3 className="text-base md:text-lg font-IranMedium">
-          درباره فیلم {info.title}
+          درباره {info.type === "film" ? "فیلم" : "سریال"} {info.title}
         </h3>
         <p className="text-justify text-xs/6 md:text-sm/8 mt-3 text-[#ccc]">
           {info.longDesc}
