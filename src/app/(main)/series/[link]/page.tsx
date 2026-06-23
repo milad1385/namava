@@ -35,11 +35,11 @@ async function page({ params, searchParams }: TParams) {
     ]);
 
   const userMoviesBookmark = userBookmarks.map(
-    (bookmark: any) => bookmark.movie._id
+    (bookmark: any) => bookmark.movie._id,
   );
 
   const seasonEpisodes = seasons.find(
-    (season: any) => season.seasonNumber == activeSeason
+    (season: any) => season.seasonNumber == activeSeason,
   );
 
   if (!movie) {
@@ -55,9 +55,9 @@ async function page({ params, searchParams }: TParams) {
           img={movie.deskBanner}
           mobileImage={movie.mobileBanner}
           info={JSON.parse(JSON.stringify(movie))}
-          subscription={JSON.parse(JSON.stringify(subscription))}
-          bookmarks={JSON.parse(JSON.stringify(userMoviesBookmark))}
-          user={JSON.parse(JSON.stringify(userInfo))}
+          bookmarks={JSON.parse(JSON.stringify(userMoviesBookmark ?? []))}
+          user={JSON.parse(JSON.stringify(userInfo ?? null))}
+          subscription={JSON.parse(JSON.stringify(subscription ?? false))}
         />
         <div className="absolute inset-0 title-overlay"></div>
       </section>
@@ -81,7 +81,7 @@ async function page({ params, searchParams }: TParams) {
           <Session
             key={episode._id}
             episode={JSON.parse(JSON.stringify(episode))}
-            user={JSON.parse(JSON.stringify(userInfo._id))}
+            user={JSON.parse(JSON.stringify(userInfo._id ?? null))}
             link={params.link}
             info={JSON.parse(JSON.stringify(movie))}
           />
