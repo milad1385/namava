@@ -41,9 +41,9 @@ async function SearchPage({ searchParams }: TParams) {
     <div className="flex container pt-24 pb-20 gap-x-8 min-h-screen text-white">
       <Filter
         categories={JSON.parse(JSON.stringify(formatedCategories))}
-        className="hidden md:block"
+        className="hidden md:block mt-5"
       />
-      <div className="w-full  md:mr-[350px]">
+      <div className="w-full  md:mr-[350px] mt-5">
         <SearchBox
           categories={JSON.parse(JSON.stringify(formatedCategories))}
           movies={JSON.parse(JSON.stringify(movies))}
