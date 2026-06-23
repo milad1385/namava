@@ -13,7 +13,7 @@ function Logout({ onShow }: any) {
         await logout();
         toast.success("شما با موفقیت خارج شدید");
         onShow(false);
-        router.push("/");
+        window.location.href = "/";
       }}
     >
       <Power />
