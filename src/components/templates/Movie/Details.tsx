@@ -48,7 +48,18 @@ function Details({ info, article }: any) {
           {info.longDesc}
         </p>
         <div className="mt-7 text-xs md:text-sm font-IranMedium space-y-3">
-          <p>دسته بندی : کمدی ، ماجراجویی ، پردیس میلا فیلم ، فیلم ایرانی</p>
+          <p className="flex items-center gap-x-2">
+            دسته بندی :{" "}
+            {info.categories.map((category) => (
+              <Link href={`/category/${info.categories[0]._id}`}>
+                {category.title}
+              </Link>
+            ))}
+          </p>
+          <p>
+            تگ ها :{" "}
+            {info.categories.flatMap((category) => category.tags).join(" ، ")}
+          </p>
           <p>صدا : {info.language}</p>
         </div>
       </div>
