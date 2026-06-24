@@ -1,5 +1,6 @@
 import { TUser } from "@/src/libs/types";
 import { formatDate } from "@/src/utils/funcs";
+import Image from "next/image";
 import React from "react";
 import { FaEye, FaTrash, FaUser } from "react-icons/fa6";
 
@@ -24,10 +25,12 @@ function RecentUser({ users }: { users: TUser[] }) {
                 <tr key={user._id}>
                   <td className="font-Dana">{index + 1}</td>
                   <td>
-                    <img
+                    <Image
                       src="/images/user.png"
                       className="w-8 md:w-10 h-8 md:h-10 rounded-full mx-auto"
-                      alt=""
+                      alt="user-image"
+                      width={1920}
+                      height={1080}
                     />
                   </td>
                   <td>{user.name}</td>
