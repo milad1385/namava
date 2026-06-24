@@ -17,7 +17,7 @@ function useCategoryName() {
     if (id) {
       getCategoryName();
     }
-  }, [pathname]);
+  }, [pathname, id]);
 
   if (category) {
     return category;
