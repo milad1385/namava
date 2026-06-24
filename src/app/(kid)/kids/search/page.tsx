@@ -43,6 +43,7 @@ async function SearchPage({ searchParams }: TParams) {
         categories={JSON.parse(JSON.stringify(formatedCategories))}
         className="hidden md:block mt-5"
       />
+      {/* search box */}
       <div className="w-full  md:mr-[350px] mt-5">
         <SearchBox
           categories={JSON.parse(JSON.stringify(formatedCategories))}
