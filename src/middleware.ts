@@ -18,6 +18,37 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  if (pathname.includes("/kids")) {
+    console.log(profileId);
+    if (profileId && accessToken) {
+      try {
+        console.log("test => ", profileId);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile?id=${profileId}`,
+          {
+            headers: {
+              Cookie: request.headers.get("cookie") || "",
+            },
+          },
+        );
+
+        if (!res.ok) {
+          console.error("Failed to fetch profile");
+          return NextResponse.next();
+        }
+
+        const data = await res.json();
+
+        if (data?.profile?.type === "adult") {
+          return NextResponse.redirect(new URL("/", request.url));
+        }
+        return NextResponse.next();
+      } catch (error) {
+        console.error("Middleware error on home page:", error);
+        return NextResponse.next();
+      }
+    }
+  }
   if (
     pathname === "/" ||
     pathname.includes("/movie") ||
@@ -40,14 +71,9 @@ export async function middleware(request: NextRequest) {
         }
 
         const data = await res.json();
-        console.log("Profile type on home page:", data?.profile?.type);
-
-        // اگه نوع پروفایل بزرگسال نیست (یعنی کودک هست) و مسیر kids نیست
         if (data?.profile?.type !== "adult") {
           return NextResponse.redirect(new URL("/kids", request.url));
         }
-
-        // اگه بزرگسال هست، اجازه بده بمونه تو صفحه اصلی
         return NextResponse.next();
       } catch (error) {
         console.error("Middleware error on home page:", error);
@@ -76,6 +102,7 @@ export const config = {
     "/plans/:path*",
     "/p-user/:path*",
     "/login",
+    "/kids",
     "/forgot",
     "/reset-password/:path*",
     "/register",

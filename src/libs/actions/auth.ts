@@ -84,6 +84,15 @@ export const signUp = async (body: ISignup) => {
 
     await user.save();
 
+    const profileID = user.profiles[0];
+
+    cookies().set({
+      name: "profile",
+      value: profileID,
+      path: "/",
+      maxAge: 432000,
+    });
+
     cookies().set({
       name: "accessToken",
       value: `${accessToken}`,
@@ -143,6 +152,15 @@ export const signIn = async (body: ISignin) => {
 
     const accessToken = generateAccessToken({ email: user.email });
 
+    const profileID = user.profiles[0];
+
+    cookies().set({
+      name: "profile",
+      value: profileID,
+      path: "/",
+      maxAge: 432000,
+    });
+    
     cookies().set({
       name: "accessToken",
       value: `${accessToken}`,
