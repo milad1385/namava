@@ -13,15 +13,18 @@ function Menu({ menu, category }) {
     }
     return menu.link;
   }
+  const isCategoryPage =
+    pathname?.includes("/category") || pathname?.includes("/categories");
+
   return (
     <li key={menu._id}>
       <Link
         href={`/${getHref()}`}
         className={pathname.includes(`/${menu.link}`) ? "active" : ""}
       >
-        {menu.title}{" "}
-        {menu.title === "دسته بندی ها" && category?.title
-          ? `(${category.title})`
+        {menu.title}
+        {menu.title === "دسته بندی ها" && category?.title && isCategoryPage
+          ? ` (${category.title})`
           : ""}
       </Link>
     </li>
