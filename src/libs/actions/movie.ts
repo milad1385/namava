@@ -206,7 +206,9 @@ export const likeMovie = async (
         },
       );
 
-      revalidatePath(`/movie/${movieLink}`);
+      if (!isSlider) {
+        revalidatePath(`/movie/${movieLink}`);
+      }
 
       return {
         message: "از لایک ها  حذف شد",
@@ -223,8 +225,10 @@ export const likeMovie = async (
       );
     }
 
-    revalidatePath(`/movie/${movieLink}`);
-    revalidatePath("/bookmarks");
+    if (!isSlider) {
+      revalidatePath(`/movie/${movieLink}`);
+      revalidatePath("/bookmarks");
+    }
 
     return {
       message: "با موفقیت لایک شد",
@@ -281,7 +285,9 @@ export const dislikeMovie = async (
         },
       );
 
-      revalidatePath(`/movie/${movieLink}`);
+      if (!isSlider) {
+        revalidatePath(`/movie/${movieLink}`);
+      }
 
       return {
         message: "از دیس لایک ها  حذف شد",
@@ -316,8 +322,10 @@ export const dislikeMovie = async (
       );
     }
 
-    revalidatePath(`/movie/${movieLink}`);
-    revalidatePath("/bookmarks");
+    if (!isSlider) {
+      revalidatePath(`/movie/${movieLink}`);
+      revalidatePath("/bookmarks");
+    }
 
     return {
       message: "با موفقیت دیس لایک شد",

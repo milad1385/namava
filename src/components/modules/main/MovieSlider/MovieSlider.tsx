@@ -50,7 +50,7 @@ function MovieSlider({
 
     setDisliked(!disliked);
 
-    const res = await dislikeMovie(id, user._id, movieDetail.link , true);
+    const res = await dislikeMovie(id, user._id, movieDetail.link, true);
     if (res.status === 200) {
       toast.success(`${res.message}`);
     }
@@ -63,7 +63,7 @@ function MovieSlider({
       router.push("/login");
     }
     setLiked(!liked);
-    const res = await likeMovie(id, user._id, movieDetail.link , true);
+    const res = await likeMovie(id, user._id, movieDetail.link, true);
 
     if (res.status === 200) {
       toast.success(`${res.message}`);
@@ -74,7 +74,7 @@ function MovieSlider({
   useEffect(() => {
     setLiked(movieDetail?.liked?.includes(user?._id));
     setDisliked(movieDetail?.dislike?.includes(user?._id));
-  }, [movieDetail]);
+  }, [movieDetail, user?._id]);
 
   useEffect(() => {
     if (movieId && previewBoxRef.current) {
@@ -94,7 +94,7 @@ function MovieSlider({
     };
 
     getSeriesEpisode();
-  }, [movieId]);
+  }, [movieId, movieDetail?.type]);
 
   return (
     <div>
