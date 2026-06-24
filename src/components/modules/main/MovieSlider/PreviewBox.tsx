@@ -22,6 +22,7 @@ function PreviewBox({
   handleDislike,
   episodeId,
   isRecommendation,
+  isBookmarked
 }) {
   const { subscripton, isLogin } = useAuth();
   return (
@@ -74,7 +75,7 @@ function PreviewBox({
               </Link>
               <>
                 {!isRecommendation && isLogin ? (
-                  !bookmarks.includes(movieDetail._id) ? (
+                  !isBookmarked ? (
                     <button
                       onClick={handleAddToBookmark}
                       className="flex-center py-3 px-3  bg-gray-500/35  rounded-full text-[13px]"
