@@ -29,7 +29,7 @@ export default async function Home() {
       />
       <Slider slides={JSON.parse(JSON.stringify(slides))} />
       {/* <Suspense fallback={<MiniSpinner />}> */}
-      <MainSlider />
+        <MainSlider />
       {/* </Suspense> */}
     </>
   );
