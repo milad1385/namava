@@ -7,7 +7,7 @@ function MobileMenu({ link, icon, title }) {
   return (
     <li>
       <Link
-        href={link}
+        href={title === "کودکان" ? "/profile-list" : link}
         className={`flex items-center gap-x-3 text-lg ${
           pathname === link ? "active" : ""
         }`}
