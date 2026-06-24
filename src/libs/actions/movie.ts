@@ -206,9 +206,7 @@ export const likeMovie = async (
         },
       );
 
-      if (!isSlider) {
-        revalidatePath(`/movie/${movieLink}`);
-      }
+      revalidatePath(`/movie/${movieLink}`);
 
       return {
         message: "از لایک ها  حذف شد",
@@ -225,10 +223,10 @@ export const likeMovie = async (
       );
     }
 
-    if (!isSlider) {
+  
       revalidatePath(`/movie/${movieLink}`);
       revalidatePath("/bookmarks");
-    }
+   
 
     return {
       message: "با موفقیت لایک شد",
@@ -285,9 +283,9 @@ export const dislikeMovie = async (
         },
       );
 
-      if (!isSlider) {
+
         revalidatePath(`/movie/${movieLink}`);
-      }
+  
 
       return {
         message: "از دیس لایک ها  حذف شد",
@@ -322,10 +320,10 @@ export const dislikeMovie = async (
       );
     }
 
-    if (!isSlider) {
+
       revalidatePath(`/movie/${movieLink}`);
       revalidatePath("/bookmarks");
-    }
+ 
 
     return {
       message: "با موفقیت دیس لایک شد",
