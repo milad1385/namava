@@ -66,7 +66,7 @@ function PaymentStatus() {
     };
 
     verifyPayment();
-  }, [pathname]);
+  }, [pathname, orderId, trackId, success, status]);
 
   if (isLoading) {
     return (
