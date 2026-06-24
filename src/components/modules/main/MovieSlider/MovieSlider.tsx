@@ -2,7 +2,7 @@
 import { addOrDeleteBookmark } from "@/src/libs/actions/bookmark";
 import { dislikeMovie, likeMovie } from "@/src/libs/actions/movie";
 import { TMovieSlider } from "@/src/libs/types";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import "swiper/css";
@@ -28,6 +28,8 @@ function MovieSlider({
   const [disliked, setDisliked] = useState(false);
   const previewBoxRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const pathname = usePathname();
+  const isRecommendation = pathname.includes("/recommends");
 
   const handleAddToBookmark = async () => {
     setBookmarks([...bookmarks, movieId]);
@@ -147,6 +149,7 @@ function MovieSlider({
             liked={liked}
             movieDetail={movieDetail}
             episodeId={episodeId}
+            isRecommendation={isRecommendation}
           />
         </div>
       )}
