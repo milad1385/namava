@@ -59,7 +59,7 @@ export const createNewMovie = async (data: FormData, stars: TStar[]) => {
 
     const desktopBannerPath = path.join(
       process.cwd(),
-      "public" + deskBannerText
+      "public" + deskBannerText,
     );
     const desktopBuffer = Buffer.from(await deskBanner.arrayBuffer());
     writeFileSync(desktopBannerPath, desktopBuffer as any);
@@ -70,7 +70,7 @@ export const createNewMovie = async (data: FormData, stars: TStar[]) => {
 
     const mobileBannerPath = path.join(
       process.cwd(),
-      "public" + mobileBannerText
+      "public" + mobileBannerText,
     );
     const mobileBuffer = Buffer.from(await mobileBanner.arrayBuffer());
     writeFileSync(mobileBannerPath, mobileBuffer as any);
@@ -165,7 +165,7 @@ export const deleteMovie = async (id: string) => {
 export const likeMovie = async (
   movieId: string,
   userId: string,
-  movieLink: string
+  movieLink: string,
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -194,39 +194,53 @@ export const likeMovie = async (
       disliked: { $in: userId },
     });
 
-    if (isDisLiked || isLiked) {
+    let message = "";
+
+    // ✅ اگر قبلاً لایک کرده بود => حذف لایک
+    if (isLiked) {
       await MovieModel.findOneAndUpdate(
         { _id: movieId },
         {
           $pull: {
             liked: userId,
+          },
+        },
+      );
+      message = "از لایک ها حذف شد";
+    }
+    // ✅ اگر قبلاً دیسلایک کرده بود => حذف دیسلایک + اضافه لایک
+    else if (isDisLiked) {
+      await MovieModel.findOneAndUpdate(
+        { _id: movieId },
+        {
+          $pull: {
             disliked: userId,
           },
-        }
+          $push: {
+            liked: userId,
+          },
+        },
       );
-
-      revalidatePath(`/movie/${movieLink}`);
-
-      return {
-        message: "از لایک ها  حذف شد",
-        status: 200,
-      };
-    } else {
+      message = "با موفقیت لایک شد";
+    }
+    // ✅ اگر هیچکدام نبود => اضافه لایک
+    else {
       await MovieModel.findOneAndUpdate(
         { _id: movieId },
         {
           $push: {
             liked: userId,
           },
-        }
+        },
       );
+      message = "با موفقیت لایک شد";
     }
 
     revalidatePath(`/movie/${movieLink}`);
     revalidatePath("/bookmarks");
 
     return {
-      message: "با موفقیت لایک شد",
+      message,
       status: 200,
     };
   } catch (error) {
@@ -236,11 +250,10 @@ export const likeMovie = async (
     };
   }
 };
-
 export const dislikeMovie = async (
   movieId: string,
   userId: string,
-  movieLink: string
+  movieLink: string,
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -269,6 +282,9 @@ export const dislikeMovie = async (
       disliked: { $in: userId },
     });
 
+    let message = "";
+
+    // ✅ اگر قبلاً دیسلایک کرده بود => حذف دیسلایک
     if (isDisLiked) {
       await MovieModel.findOneAndUpdate(
         { _id: movieId },
@@ -276,49 +292,43 @@ export const dislikeMovie = async (
           $pull: {
             disliked: userId,
           },
-        }
+        },
       );
-
-      revalidatePath(`/movie/${movieLink}`);
-
-      return {
-        message: "از دیس لایک ها  حذف شد",
-        status: 200,
-      };
-    } else if (isLiked) {
+      message = "از دیس لایک ها حذف شد";
+    }
+    // ✅ اگر قبلاً لایک کرده بود => حذف لایک + اضافه دیسلایک
+    else if (isLiked) {
       await MovieModel.findOneAndUpdate(
         { _id: movieId },
         {
           $pull: {
             liked: userId,
           },
-        }
+          $push: {
+            disliked: userId,
+          },
+        },
       );
-
+      message = "با موفقیت دیس لایک شد";
+    }
+    // ✅ اگر هیچکدام نبود => اضافه دیسلایک
+    else {
       await MovieModel.findOneAndUpdate(
         { _id: movieId },
         {
           $push: {
             disliked: userId,
           },
-        }
+        },
       );
-    } else {
-      await MovieModel.findOneAndUpdate(
-        { _id: movieId },
-        {
-          $push: {
-            disliked: userId,
-          },
-        }
-      );
+      message = "با موفقیت دیس لایک شد";
     }
 
     revalidatePath(`/movie/${movieLink}`);
     revalidatePath("/bookmarks");
 
     return {
-      message: "با موفقیت دیس لایک شد",
+      message,
       status: 200,
     };
   } catch (error) {
@@ -331,7 +341,7 @@ export const dislikeMovie = async (
 
 export const deleteUserLike = async (
   movieId: string,
-  userId: string
+  userId: string,
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -348,7 +358,7 @@ export const deleteUserLike = async (
         $pull: {
           liked: userId,
         },
-      }
+      },
     );
 
     revalidatePath("/p-user/favlist");
