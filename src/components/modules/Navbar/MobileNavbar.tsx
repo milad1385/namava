@@ -14,7 +14,9 @@ function MobileNavbar({ isOpen, onOpen, user }: IMobileNavbar) {
 
   useEffect(() => {
     onOpen(false);
-  }, [pathname]);
+    console.log("mobile => open");
+    
+  }, [pathname, onOpen]);
   return (
     <>
       <div
