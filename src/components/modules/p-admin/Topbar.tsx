@@ -6,6 +6,7 @@ import { RiMovie2Line } from "react-icons/ri";
 import HambergerMenu from "./HambergerMenu";
 import { authUser } from "@/src/utils/serverHelper";
 import Logout from "./Logout";
+import Image from "next/image";
 
 async function TopBar() {
   const auth = await authUser();
@@ -24,10 +25,12 @@ async function TopBar() {
         <Logo className="w-[60px]" />
       </div>
       <div className="hidden md:flex items-center gap-x-4 text-gray-300">
-        <img
+        <Image
           src="/images/user.png"
           className="w-[36px] h-[36px] rounded-full"
           alt="default-user.jpg"
+          width={1920}
+          height={1080}
         />
         <div>
           <h2>{auth.name} ، خوش آمدید</h2>
