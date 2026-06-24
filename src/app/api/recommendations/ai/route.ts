@@ -33,7 +33,8 @@ export async function POST(req: NextRequest) {
     if (subCategoryTitles.length === 0) {
       return Response.json({
         movies: [],
-        aiMessage: "متأسفانه هیچ فیلمی در ژانر مورد علاقه شما یافت نشد. لطفاً ژانر های دیگر را تست کنید ، به زودی مجموعه فیلم و سریال آپدیت می شود.",
+        aiMessage:
+          "متأسفانه هیچ فیلمی در ژانر مورد علاقه شما یافت نشد. لطفاً ژانر های دیگر را تست کنید ، به زودی مجموعه فیلم و سریال آپدیت می شود.",
       });
     }
 
@@ -49,7 +50,7 @@ export async function POST(req: NextRequest) {
     const formattedMovies = movies.map((movie: any) => ({
       title: movie.title,
       genre: movie.category?.title || "نامشخص",
-      rating: movie.IMDB || 0,
+      IMDB: movie.IMDB || 0,
       year: movie.showTime,
       director: movie.director,
       description: movie.longDesc?.substring(0, 150) || "",
@@ -71,14 +72,22 @@ export async function POST(req: NextRequest) {
     }
 
     const sortedMovies = [...filteredMovies].sort(
-      (a, b) => b.rating - a.rating,
+      (a, b) => b.IMDB - a.IMDB,
     );
-    const topMovies = sortedMovies.slice(0, 8);
+    const topMovies = sortedMovies;
 
     const sortedAllMovies = [...filtredAllMovies].sort(
-      (a, b) => b.rating - a.rating,
+      (a, b) => b.IMDB - a.IMDB,
     );
-    const topAllMovies = sortedAllMovies.slice(0, 8);
+    const topAllMovies = [...sortedAllMovies].filter(
+      (movie) => movie.type === "film",
+    );
+
+    const topAllSeries = [...sortedAllMovies].filter(
+      (movie) => movie.type === "series",
+    );
+    console.log(topAllSeries);
+    
 
     const mainGenre = subCategoryTitles.slice(0, 3).join("، ");
 
@@ -88,7 +97,7 @@ export async function POST(req: NextRequest) {
 تو یک دستیار حرفه‌ای فیلم و سریال هستی.
 
 لیست فیلم‌های موجود در سایت ما در ژانر "${mainGenre}":
-${topMovies.map((m) => `- ${m.title} (${m.year}) - کارگردان: ${m.director} - امتیاز: ${m.rating}`).join("\n")}
+${topMovies.map((m) => `- ${m.title} (${m.year}) - کارگردان: ${m.director} - امتیاز: ${m.IMDB}`).join("\n")}
 
 لطفاً یک پیام دوستانه و جذاب (حداکثر ۲ خط) برای کاربر بنویس که:
 1. بهش بگی چه فیلم‌هایی در این ژانر داری
@@ -123,10 +132,10 @@ ${topMovies.map((m) => `- ${m.title} (${m.year}) - کارگردان: ${m.directo
       const aiData = await aiResponse.json();
       aiMessage =
         aiData.choices?.[0]?.message?.content ||
-        `✨ بهترین فیلم‌های ژانر های ${mainGenre}  شامل این فیلم ها می شود : ${topMovies.map((m) => m.title).join("    ،    ")}. پیشنهاد ویژه من "${topMovies[0]?.title}" است! 🎬`;
+        `✨ بهترین فیلم ها و سریال های ژانر های ${mainGenre}  شامل این فیلم ها می شود : ${topMovies.map((m) => m.title).join("    ،    ")}. پیشنهاد ویژه من "${topMovies[0]?.title}" است! 🎬`;
     } catch (aiError) {
       console.error("AI Error:", aiError);
-      aiMessage = `✨ فیلم‌های ژانر "${mainGenre}": ${topMovies.map((m) => m.title).join("، ")}. پیشنهاد ویژه من "${topMovies[0]?.title}" است! 🎬`;
+      aiMessage = `✨ فیلم ها و سریال های ژانر "${mainGenre}": ${topMovies.map((m) => m.title).join("، ")}. پیشنهاد ویژه من "${topMovies[0]?.title}" است! 🎬`;
     }
 
     return Response.json({
@@ -134,6 +143,7 @@ ${topMovies.map((m) => `- ${m.title} (${m.year}) - کارگردان: ${m.directo
       aiMessage: aiMessage,
       total: filteredMovies.length,
       allMovies: topAllMovies,
+      allSeries: topAllSeries,
     });
   } catch (error) {
     console.error("Error:", error);

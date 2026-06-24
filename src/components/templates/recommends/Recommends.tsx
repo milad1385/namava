@@ -10,6 +10,7 @@ import MovieSlider from "../../modules/main/MovieSlider/MovieSlider";
 function Recommends({ categories }: { categories: ICategory[] }) {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [recommendations, setRecommendations] = useState(null);
+  const [seriesRecommendation, setSeriesRecommendation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [aiResponse, setAiResponse] = useState("");
@@ -54,6 +55,9 @@ function Recommends({ categories }: { categories: ICategory[] }) {
         setError(data.error);
       } else {
         setRecommendations(data.allMovies);
+        console.log(data.allSeries);
+
+        setSeriesRecommendation(data.allSeries);
         setAiResponse(data.aiMessage);
       }
     } catch (err) {
@@ -116,6 +120,20 @@ function Recommends({ categories }: { categories: ICategory[] }) {
 
           <MovieSlider
             movies={recommendations}
+            userBookmarks={[]}
+            title=""
+            user={null}
+          />
+        </div>
+      )}
+      {seriesRecommendation?.length > 0 && (
+        <div className="md:p-6 mt-10">
+          <h2 className="text-base md:text-2xl font-bold mb-6 text-right border-b pb-4">
+            🎥 سریال های پیشنهادی هوش مصنوعی
+          </h2>
+
+          <MovieSlider
+            movies={seriesRecommendation}
             userBookmarks={[]}
             title=""
             user={null}
