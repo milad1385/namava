@@ -1,3 +1,6 @@
+"use client";
+import { addOrDeleteBookmark } from "@/src/libs/actions/bookmark";
+import { dislikeMovie, likeMovie } from "@/src/libs/actions/movie";
 import { useAuth } from "@/src/context/AuthContextProvider";
 import ActiveLike from "@/src/icons/ActiveLike";
 import Dislike from "@/src/icons/Dislike";
@@ -7,35 +10,207 @@ import Plus from "@/src/icons/Plus";
 import { userSubscriptionHref } from "@/src/utils/funcs";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState, useMemo, useLayoutEffect } from "react";
+import toast from "react-hot-toast";
 import { FaPlay } from "react-icons/fa6";
 import { GrCircleInformation } from "react-icons/gr";
 import { IoCheckmarkSharp } from "react-icons/io5";
 
 function PreviewBox({
-  movieDetail,
-  bookmarks,
-  handleAddToBookmark,
-  handleRemoveFromBookmark,
-  handleLike,
-  liked,
-  disliked,
-  handleDislike,
-  episodeId,
+  movieDetail: initialMovieDetail,
+  user,
+  userBookmarks,
   isRecommendation,
 }) {
   const { subscripton, isLogin } = useAuth();
+  const router = useRouter();
+  const [movieDetail, setMovieDetail] = useState(initialMovieDetail);
+  const [bookmarks, setBookmarks] = useState(userBookmarks || []);
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [episodeId, setEpisodeId] = useState("");
+  const previewBoxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!initialMovieDetail) return;
+
+    setMovieDetail(initialMovieDetail);
+
+    if (!user?._id) {
+      setLiked(false);
+      setDisliked(false);
+      return;
+    }
+
+    setLiked(initialMovieDetail?.liked?.includes(user._id) ?? false);
+    setDisliked(initialMovieDetail?.disliked?.includes(user._id) ?? false);
+  }, [initialMovieDetail, user?._id]);
+
+  useEffect(() => {
+    const getSeriesEpisode = async () => {
+      if (movieDetail?.type !== "series" || !movieDetail?._id) return;
+      try {
+        const res = await fetch(`/api/episode/${movieDetail._id}`);
+        const episode = await res.json();
+        setEpisodeId(episode._id);
+      } catch (error) {
+        console.error("Error fetching episode:", error);
+      }
+    };
+    getSeriesEpisode();
+  }, [movieDetail?._id, movieDetail?.type]);
+
+  // ✅ اسکرول به PreviewBox - درست شده با useLayoutEffect
+  useLayoutEffect(() => {
+    if (previewBoxRef.current) {
+      // ✅ اجرا با تاخیر کم برای اطمینان از رندر کامل
+      const timer = setTimeout(() => {
+        previewBoxRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 50);
+
+      return () => clearTimeout(timer);
+    }
+  }, [movieDetail?._id]); // ✅ وابسته به _id فیلم
+
+  // ... بقیه کدها مثل قبل
+  const handleAddToBookmark = async () => {
+    if (!isLogin) {
+      router.push("/login");
+      return;
+    }
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+      const res = await addOrDeleteBookmark(movieDetail._id);
+      if (res.status === 201) {
+        setBookmarks([...bookmarks, movieDetail._id]);
+        toast.success(res.message || "با موفقیت اضافه شد");
+      } else if (res.status === 200) {
+        setBookmarks(bookmarks.filter((id: string) => id !== movieDetail._id));
+        toast.success(res.message || "با موفقیت حذف شد");
+      }
+    } catch (error) {
+      toast.error("خطا در ارتباط با سرور");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleRemoveFromBookmark = async () => {
+    if (!isLogin) {
+      router.push("/login");
+      return;
+    }
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+      const res = await addOrDeleteBookmark(movieDetail._id);
+      if (res.status === 200) {
+        setBookmarks(bookmarks.filter((id: string) => id !== movieDetail._id));
+        toast.success(res.message || "با موفقیت حذف شد");
+      }
+    } catch (error) {
+      toast.error("خطا در ارتباط با سرور");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleLike = async () => {
+    if (!isLogin) {
+      router.push("/login");
+      return;
+    }
+    if (isLoading) return;
+    setIsLoading(true);
+
+    const prevLiked = liked;
+    const prevDisliked = disliked;
+
+    setLiked(!prevLiked);
+    setDisliked(false);
+
+    try {
+      const res = await likeMovie(movieDetail._id, user._id, movieDetail?.link);
+
+      if (res.status === 200) {
+        toast.success(res.message);
+      } else {
+        setLiked(prevLiked);
+        if (prevDisliked) setDisliked(true);
+        toast.error(res.message || "خطا در ثبت نظر");
+      }
+    } catch (error) {
+      setLiked(prevLiked);
+      if (prevDisliked) setDisliked(true);
+      toast.error("خطا در ارتباط با سرور");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDislike = async () => {
+    if (!isLogin) {
+      router.push("/login");
+      return;
+    }
+    if (isLoading) return;
+    setIsLoading(true);
+
+    const prevDisliked = disliked;
+    const prevLiked = liked;
+
+    setDisliked(!prevDisliked);
+    setLiked(false);
+
+    try {
+      const res = await dislikeMovie(
+        movieDetail._id,
+        user._id,
+        movieDetail?.link,
+      );
+
+      if (res.status === 200) {
+        toast.success(res.message);
+      } else {
+        setDisliked(prevDisliked);
+        if (prevLiked) setLiked(true);
+        toast.error(res.message || "خطا در ثبت نظر");
+      }
+    } catch (error) {
+      setDisliked(prevDisliked);
+      if (prevLiked) setLiked(true);
+      toast.error("خطا در ارتباط با سرور");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const isBookmarked = useMemo(() => {
+    return bookmarks.includes(movieDetail?._id);
+  }, [bookmarks, movieDetail?._id]);
+
+  if (!movieDetail) return null;
+
   return (
-    <div className="my-10 hidden md:block">
+    <div ref={previewBoxRef} className="my-10 hidden md:block">
       <div className="flex items-end justify-between flex-row-reverse relative movie-perview">
         <Image
-          className="md:h-[539px] aspect-video  w-[75%]  object-cover static"
+          className="md:h-[539px] aspect-video w-[75%] object-cover static"
           src={movieDetail.deskBanner}
           width={1519}
           height={534}
           sizes="75vw"
           alt={movieDetail.title}
         />
-        <div className="w-[25%]  z-20 right-10 md:h-[539px] rigth-side">
+        <div className="w-[25%] z-20 right-10 md:h-[539px] rigth-side">
           <div className="relative top-[23%] right-10">
             <span className="block text-white text-center md:text-right text-base md:text-[22px]">
               {movieDetail.title}
@@ -51,10 +226,10 @@ function PreviewBox({
                 <span className="mt-0.5">{movieDetail.IMDB}</span>
               </div>
             </div>
-            <p className="hidden md:block static w-[614px]  text-white text-xs leading-6 mt-5">
+            <p className="hidden md:block static w-[614px] text-white text-xs leading-6 mt-5">
               {movieDetail.shortDesc}
             </p>
-            <p className="my-3 text-white text-xs/6  text-center md:text-right">
+            <p className="my-3 text-white text-xs/6 text-center md:text-right">
               تماشای اختصاصی در میلا فیلم با بروزترین فیلم و سریال های جهان
             </p>
             <div className="flex items-center justify-center w-[500px] md:justify-start gap-x-4 mt-4">
@@ -72,73 +247,79 @@ function PreviewBox({
                   ? `تماشا ${movieDetail.type === "film" ? "فیلم" : "سریال"}`
                   : " خرید اشتراک"}
               </Link>
-              <>
-                {!isRecommendation && isLogin ? (
-                  !bookmarks.includes(movieDetail._id) ? (
+
+              {!isRecommendation && isLogin && (
+                <>
+                  {!isBookmarked ? (
                     <button
                       onClick={handleAddToBookmark}
-                      className="flex-center py-3 px-3  bg-gray-500/35  rounded-full text-[13px]"
+                      disabled={isLoading}
+                      className="flex-center py-3 px-3 bg-gray-500/35 rounded-full text-[13px] hover:bg-gray-500/50 transition-colors"
                     >
                       <Plus />
                     </button>
                   ) : (
                     <button
                       onClick={handleRemoveFromBookmark}
-                      className="flex-center py-3 px-3 w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
+                      disabled={isLoading}
+                      className="flex-center py-3 px-3 w-[49px] h-[49px] bg-gray-500/35 rounded-full text-[13px] hover:bg-gray-500/50 transition-colors"
                     >
                       <IoCheckmarkSharp className="text-xl" />
                     </button>
-                  )
-                ) : (
-                  ""
-                )}
-                {!isRecommendation && isLogin ? (
-                  <>
-                    {liked ? (
-                      <button
-                        onClick={() => handleLike(movieDetail._id)}
-                        className="flex-center w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
-                      >
-                        <ActiveLike className="fill-white stroke-white !w-[25px] !h-[25px]" />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => handleLike(movieDetail._id)}
-                        className="flex-center w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
-                      >
-                        <Like className="fill-white stroke-white" />
-                      </button>
-                    )}
-                    {disliked ? (
-                      <button
-                        onClick={() => handleDislike(movieDetail._id)}
-                        className="flex-center w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
-                      >
-                        <ActiveLike
-                          isDislike
-                          className="fill-white stroke-white !w-[25px] !h-[25px]"
-                        />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => handleDislike(movieDetail._id)}
-                        className="flex-center w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
-                      >
-                        <Dislike className=" fill-white stroke-white" />
-                      </button>
-                    )}
-                  </>
-                ) : (
-                  ""
-                )}
-              </>
+                  )}
+                </>
+              )}
+
+              {!isRecommendation && isLogin && (
+                <>
+                  {liked ? (
+                    <button
+                      onClick={handleLike}
+                      disabled={isLoading}
+                      className="flex-center w-[49px] h-[49px] bg-gray-500/35 rounded-full text-[13px] hover:bg-gray-500/50 transition-colors"
+                    >
+                      <ActiveLike className="fill-white stroke-white !w-[25px] !h-[25px]" />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleLike}
+                      disabled={isLoading}
+                      className="flex-center w-[49px] h-[49px] bg-gray-500/35 rounded-full text-[13px] hover:bg-gray-500/50 transition-colors"
+                    >
+                      <Like className="fill-white stroke-white" />
+                    </button>
+                  )}
+
+                  {disliked ? (
+                    <button
+                      onClick={handleDislike}
+                      disabled={isLoading}
+                      className="flex-center w-[49px] h-[49px] bg-gray-500/35 rounded-full text-[13px] hover:bg-gray-500/50 transition-colors"
+                    >
+                      <ActiveLike
+                        isDislike
+                        className="fill-white stroke-white !w-[25px] !h-[25px]"
+                      />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleDislike}
+                      disabled={isLoading}
+                      className="flex-center w-[49px] h-[49px] bg-gray-500/35 rounded-full text-[13px] hover:bg-gray-500/50 transition-colors"
+                    >
+                      <Dislike className="fill-white stroke-white" />
+                    </button>
+                  )}
+                </>
+              )}
+
               <Link
                 href={
                   movieDetail.type === "film"
                     ? `/movie/${movieDetail.link}`
                     : `/series/${movieDetail.link}`
                 }
-                className="hidden md:flex items-center  text-sm gap-x-2 text-white hover:text-milafilm"
+                className="hidden md:flex items-center text-sm gap-x-2 text-white hover:text-milafilm transition-colors"
               >
                 <GrCircleInformation className="text-3xl" />
                 اطلاعات بیشتر
@@ -146,12 +327,12 @@ function PreviewBox({
             </div>
             <div className="text-xs hidden md:flex text-[#ccc] mt-5 items-center gap-x-1">
               ستارگان :{" "}
-              <div className="flex items-center">
-                {movieDetail.actors.slice(0, 4).map((actor: any) => (
+              <div className="flex items-center flex-wrap">
+                {movieDetail.actors?.slice(0, 4).map((actor: any) => (
                   <Link
                     key={actor._id}
                     href={`/biography/${actor.link}`}
-                    className="ml-2 block"
+                    className="ml-2 block hover:text-white transition-colors"
                   >
                     {actor.name}
                   </Link>
