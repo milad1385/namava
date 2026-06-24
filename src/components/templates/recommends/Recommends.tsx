@@ -38,6 +38,7 @@ function Recommends({ categories }: { categories: ICategory[] }) {
     setIsLoading(true);
 
     setRecommendations([]);
+    setSeriesRecommendation([]);
     setError("");
     setError("");
     setAiResponse("");
@@ -55,8 +56,6 @@ function Recommends({ categories }: { categories: ICategory[] }) {
         setError(data.error);
       } else {
         setRecommendations(data.allMovies);
-        console.log(data.allSeries);
-
         setSeriesRecommendation(data.allSeries);
         setAiResponse(data.aiMessage);
       }

@@ -278,6 +278,7 @@ export interface IMovie {
   type: string;
   showTime: string;
   contentType?: "adult" | "kid";
+  category?: string;
 }
 
 export type TProfileMenu = {
