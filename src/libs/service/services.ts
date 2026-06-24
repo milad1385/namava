@@ -867,10 +867,9 @@ export const getUserBookmarks = async () => {
   try {
     connectToDB();
     const user = await authUser();
-    const bookmarks = await BookmarkModel.find({ user: user._id }).populate(
-      "movie",
-      "link title mainImage type showTime contentType",
-    );
+    const bookmarks = await BookmarkModel.find({ user: user._id })
+      .populate("movie", "link title mainImage type showTime contentType")
+      .sort({ createdAt: -1 });
 
     return bookmarks || [];
   } catch (error) {
@@ -885,7 +884,7 @@ export const getAllUserLikesMovie = async () => {
 
     const likesMovie = await MovieModel.find({
       liked: { $in: user._id },
-    });
+    }).sort({ createdAt: -1 });
     return likesMovie;
   } catch (error) {
     return error;
