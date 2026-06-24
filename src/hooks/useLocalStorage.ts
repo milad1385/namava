@@ -14,7 +14,7 @@ function useLocalStorage<T>(key: string, initialValue: T) {
 
   useEffect(() => {
     if (!ISSERVER) localStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
+  }, [key, value, ISSERVER]);
 
   return [value, setValue] as [typeof value, typeof setValue];
 }
