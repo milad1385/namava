@@ -193,8 +193,11 @@ function HeaderDetail({
           <Link
             href={`/${info?.type === "film" ? "movie" : "series"}/${info?.link}`}
           >
-            <img
+            <Image
               src={info?.logo}
+              width={1920}
+              height={1080}
+              alt="image-logo"
               className="max-w-[140px] md:max-w-[200px]  max-h-[160px] mx-auto md:mx-0 "
             />
           </Link>
