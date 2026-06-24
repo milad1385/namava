@@ -21,6 +21,7 @@ function PreviewBox({
   disliked,
   handleDislike,
   episodeId,
+  isRecommendation,
 }) {
   const { subscripton, isLogin } = useAuth();
   return (
@@ -71,64 +72,66 @@ function PreviewBox({
                   ? `تماشا ${movieDetail.type === "film" ? "فیلم" : "سریال"}`
                   : " خرید اشتراک"}
               </Link>
-              {isLogin ? (
-                !bookmarks.includes(movieDetail._id) ? (
-                  <button
-                    onClick={handleAddToBookmark}
-                    className="flex-center py-3 px-3  bg-gray-500/35  rounded-full text-[13px]"
-                  >
-                    <Plus />
-                  </button>
+              <>
+                {!isRecommendation && isLogin ? (
+                  !bookmarks.includes(movieDetail._id) ? (
+                    <button
+                      onClick={handleAddToBookmark}
+                      className="flex-center py-3 px-3  bg-gray-500/35  rounded-full text-[13px]"
+                    >
+                      <Plus />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleRemoveFromBookmark}
+                      className="flex-center py-3 px-3 w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
+                    >
+                      <IoCheckmarkSharp className="text-xl" />
+                    </button>
+                  )
                 ) : (
-                  <button
-                    onClick={handleRemoveFromBookmark}
-                    className="flex-center py-3 px-3 w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
-                  >
-                    <IoCheckmarkSharp className="text-xl" />
-                  </button>
-                )
-              ) : (
-                ""
-              )}
-              {isLogin ? (
-                <>
-                  {liked ? (
-                    <button
-                      onClick={() => handleLike(movieDetail._id)}
-                      className="flex-center w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
-                    >
-                      <ActiveLike className="fill-white stroke-white !w-[25px] !h-[25px]" />
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => handleLike(movieDetail._id)}
-                      className="flex-center w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
-                    >
-                      <Like className="fill-white stroke-white" />
-                    </button>
-                  )}
-                  {disliked ? (
-                    <button
-                      onClick={() => handleDislike(movieDetail._id)}
-                      className="flex-center w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
-                    >
-                      <ActiveLike
-                        isDislike
-                        className="fill-white stroke-white !w-[25px] !h-[25px]"
-                      />
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => handleDislike(movieDetail._id)}
-                      className="flex-center w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
-                    >
-                      <Dislike className=" fill-white stroke-white" />
-                    </button>
-                  )}
-                </>
-              ) : (
-                ""
-              )}
+                  ""
+                )}
+                {!isRecommendation && isLogin ? (
+                  <>
+                    {liked ? (
+                      <button
+                        onClick={() => handleLike(movieDetail._id)}
+                        className="flex-center w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
+                      >
+                        <ActiveLike className="fill-white stroke-white !w-[25px] !h-[25px]" />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleLike(movieDetail._id)}
+                        className="flex-center w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
+                      >
+                        <Like className="fill-white stroke-white" />
+                      </button>
+                    )}
+                    {disliked ? (
+                      <button
+                        onClick={() => handleDislike(movieDetail._id)}
+                        className="flex-center w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
+                      >
+                        <ActiveLike
+                          isDislike
+                          className="fill-white stroke-white !w-[25px] !h-[25px]"
+                        />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleDislike(movieDetail._id)}
+                        className="flex-center w-[49px] h-[49px]  bg-gray-500/35  rounded-full text-[13px]"
+                      >
+                        <Dislike className=" fill-white stroke-white" />
+                      </button>
+                    )}
+                  </>
+                ) : (
+                  ""
+                )}
+              </>
               <Link
                 href={
                   movieDetail.type === "film"
