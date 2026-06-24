@@ -59,7 +59,7 @@ export const createNewMovie = async (data: FormData, stars: TStar[]) => {
 
     const desktopBannerPath = path.join(
       process.cwd(),
-      "public" + deskBannerText,
+      "public" + deskBannerText
     );
     const desktopBuffer = Buffer.from(await deskBanner.arrayBuffer());
     writeFileSync(desktopBannerPath, desktopBuffer as any);
@@ -70,7 +70,7 @@ export const createNewMovie = async (data: FormData, stars: TStar[]) => {
 
     const mobileBannerPath = path.join(
       process.cwd(),
-      "public" + mobileBannerText,
+      "public" + mobileBannerText
     );
     const mobileBuffer = Buffer.from(await mobileBanner.arrayBuffer());
     writeFileSync(mobileBannerPath, mobileBuffer as any);
@@ -165,8 +165,7 @@ export const deleteMovie = async (id: string) => {
 export const likeMovie = async (
   movieId: string,
   userId: string,
-  movieLink: string,
-  isSlider?: boolean,
+  movieLink: string
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -203,12 +202,10 @@ export const likeMovie = async (
             liked: userId,
             disliked: userId,
           },
-        },
+        }
       );
 
-      if (!isSlider) {
-        revalidatePath(`/movie/${movieLink}`);
-      }
+      revalidatePath(`/movie/${movieLink}`);
 
       return {
         message: "از لایک ها  حذف شد",
@@ -221,14 +218,12 @@ export const likeMovie = async (
           $push: {
             liked: userId,
           },
-        },
+        }
       );
     }
 
-    if (!isSlider) {
-      revalidatePath(`/movie/${movieLink}`);
-      revalidatePath("/bookmarks");
-    }
+    revalidatePath(`/movie/${movieLink}`);
+    revalidatePath("/bookmarks");
 
     return {
       message: "با موفقیت لایک شد",
@@ -245,8 +240,7 @@ export const likeMovie = async (
 export const dislikeMovie = async (
   movieId: string,
   userId: string,
-  movieLink: string,
-  isSlider?: boolean,
+  movieLink: string
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -282,12 +276,10 @@ export const dislikeMovie = async (
           $pull: {
             disliked: userId,
           },
-        },
+        }
       );
 
-      if (!isSlider) {
-        revalidatePath(`/movie/${movieLink}`);
-      }
+      revalidatePath(`/movie/${movieLink}`);
 
       return {
         message: "از دیس لایک ها  حذف شد",
@@ -300,7 +292,7 @@ export const dislikeMovie = async (
           $pull: {
             liked: userId,
           },
-        },
+        }
       );
 
       await MovieModel.findOneAndUpdate(
@@ -309,7 +301,7 @@ export const dislikeMovie = async (
           $push: {
             disliked: userId,
           },
-        },
+        }
       );
     } else {
       await MovieModel.findOneAndUpdate(
@@ -318,14 +310,12 @@ export const dislikeMovie = async (
           $push: {
             disliked: userId,
           },
-        },
+        }
       );
     }
 
-    if (!isSlider) {
-      revalidatePath(`/movie/${movieLink}`);
-      revalidatePath("/bookmarks");
-    }
+    revalidatePath(`/movie/${movieLink}`);
+    revalidatePath("/bookmarks");
 
     return {
       message: "با موفقیت دیس لایک شد",
@@ -341,7 +331,7 @@ export const dislikeMovie = async (
 
 export const deleteUserLike = async (
   movieId: string,
-  userId: string,
+  userId: string
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -358,7 +348,7 @@ export const deleteUserLike = async (
         $pull: {
           liked: userId,
         },
-      },
+      }
     );
 
     revalidatePath("/p-user/favlist");
