@@ -32,7 +32,7 @@ function ProfileMenu({
 
   useEffect(() => {
     onShow(false);
-  }, [url]);
+  }, [url, onShow]);
 
   const profiles = user.profiles
     .slice(1, 3)
