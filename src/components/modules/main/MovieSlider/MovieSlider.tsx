@@ -50,7 +50,7 @@ function MovieSlider({
 
     setDisliked(!disliked);
 
-    const res = await dislikeMovie(id, user._id, movieDetail.link);
+    const res = await dislikeMovie(id, user._id, movieDetail.link , true);
     if (res.status === 200) {
       toast.success(`${res.message}`);
     }
@@ -63,7 +63,7 @@ function MovieSlider({
       router.push("/login");
     }
     setLiked(!liked);
-    const res = await likeMovie(id, user._id, movieDetail.link);
+    const res = await likeMovie(id, user._id, movieDetail.link , true);
 
     if (res.status === 200) {
       toast.success(`${res.message}`);
