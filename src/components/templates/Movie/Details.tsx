@@ -51,7 +51,7 @@ function Details({ info, article }: any) {
           <p className="flex items-center gap-x-2">
             دسته بندی :{" "}
             {info.categories.map((category) => (
-              <Link href={`/category/${info.categories[0]._id}`}>
+              <Link key={category._id} href={`/category/${info.categories[0]._id}`}>
                 {category.title}
               </Link>
             ))}
