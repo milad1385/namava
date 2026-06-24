@@ -74,7 +74,7 @@ function MovieSlider({
   useEffect(() => {
     setLiked(movieDetail?.liked?.includes(user?._id));
     setDisliked(movieDetail?.dislike?.includes(user?._id));
-  }, [movieDetail, user?._id]);
+  }, [movieId, movieDetail, user?._id]);
 
   useEffect(() => {
     if (movieId && previewBoxRef.current) {

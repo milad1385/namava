@@ -6,7 +6,7 @@ import { authUser } from "@/src/utils/serverHelper";
 import { revalidatePath } from "next/cache";
 
 export const addOrDeleteBookmark = async (
-  movieId: string
+  movieId: string,
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -29,14 +29,14 @@ export const addOrDeleteBookmark = async (
         user: user._id,
         movie: movieId,
       });
-      // revalidatePath("/bookmarks");
+      revalidatePath("/bookmarks");
       return {
         message: "با موفقیت به بوک مارک ها اضافه شد",
         status: 201,
       };
     } else {
       await BookmarkModel.findOneAndDelete({ user: user._id, movie: movieId });
-      // revalidatePath("/bookmarks");
+      revalidatePath("/bookmarks");
       return {
         message: "این بوک مارک با موفقیت حذف شد",
         status: 200,
