@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 function KidLayout({ children }: { children: React.ReactNode }) {
-  return <div className="!bg-white min-h-screen">{children}</div>;
+  return <div className="!bg-white min-h-screen pb-10">{children}</div>;
 }
 
 export default KidLayout;
