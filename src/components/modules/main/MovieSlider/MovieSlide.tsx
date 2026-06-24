@@ -31,6 +31,7 @@ function MovieSlide({ movie, setMovieId, setMovieDetail, movieId }) {
           isLink={pathname.includes("/kids")}
           type={movie.type}
           showTime={movie.showTime}
+          category={movie.category.title}
         />
       </div>
     </div>
