@@ -62,10 +62,9 @@ function PreviewBox({
     getSeriesEpisode();
   }, [movieDetail?._id, movieDetail?.type]);
 
-  // ✅ اسکرول به PreviewBox - درست شده با useLayoutEffect
+
   useLayoutEffect(() => {
     if (previewBoxRef.current) {
-      // ✅ اجرا با تاخیر کم برای اطمینان از رندر کامل
       const timer = setTimeout(() => {
         previewBoxRef.current?.scrollIntoView({
           behavior: "smooth",
@@ -75,9 +74,9 @@ function PreviewBox({
 
       return () => clearTimeout(timer);
     }
-  }, [movieDetail?._id]); // ✅ وابسته به _id فیلم
+  }, [movieDetail?._id]);
 
-  // ... بقیه کدها مثل قبل
+
   const handleAddToBookmark = async () => {
     if (!isLogin) {
       router.push("/login");
