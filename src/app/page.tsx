@@ -1,8 +1,6 @@
 import HeaderSlider from "@/src/components/templates/index/Header/Slider";
 import Slider from "@/src/components/templates/index/Slider/Slider";
 import { redirect } from "next/navigation";
-import { Suspense } from "react";
-import MiniSpinner from "../components/modules/spinner/MiniSpinner";
 import MainSlider from "../components/templates/index/mainSlider/MainSlider";
 import {
   checkUserProfile,
@@ -28,9 +26,8 @@ export default async function Home() {
         slides={JSON.parse(JSON.stringify(slides))}
       />
       <Slider slides={JSON.parse(JSON.stringify(slides))} />
-      <Suspense fallback={<MiniSpinner />}>
-        <MainSlider />
-      </Suspense>
+
+      <MainSlider />
     </>
   );
 }
