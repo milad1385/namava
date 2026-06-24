@@ -29,7 +29,7 @@ async function page({ params }: TParams) {
         />
         <div className="title-overlay absolute inset-0"></div>
         <div className="bottom-8 md:bottom-16 absolute z-30 container px-10">
-          <img
+          <Image
             src={mainImage}
             width={1920}
             height={1080}

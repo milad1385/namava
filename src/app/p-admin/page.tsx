@@ -8,6 +8,7 @@ import { getAllOrders, getAllStats } from "@/src/libs/service/services";
 import { TSearchParams, TStats } from "@/src/libs/types";
 import { authUser } from "@/src/utils/serverHelper";
 import { subDays } from "date-fns";
+import Image from "next/image";
 import { HiOutlineBanknotes, HiOutlineBriefcase } from "react-icons/hi2";
 import { LuUsers } from "react-icons/lu";
 import { RiMovie2Line } from "react-icons/ri";
@@ -30,10 +31,12 @@ async function MainPage({ searchParams }: TSearchParams) {
     <div className="text-white">
       <div className="flex flex-col md:flex-row gap-y-6 items-center justify-between">
         <div className="flex md:hidden items-center gap-x-4 text-gray-300">
-          <img
+          <Image
             src={user?.profiles[0].image}
             className="w-[36px] h-[36px] rounded-full"
             alt={user.name}
+            width={1920}
+            height={1080}
           />
           <div>
             <h2>{user.name}</h2>
