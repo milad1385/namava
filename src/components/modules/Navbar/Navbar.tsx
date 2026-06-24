@@ -59,7 +59,7 @@ function Navbar({ user, userSubscription, menus }: any) {
     return () => {
       document.removeEventListener("scroll", scrollHandler);
     };
-  }, [pathname]);
+  }, [pathname, isKid]);
 
   const result = limitedRoute.some((route) => pathname.includes(route));
   if (result) {
