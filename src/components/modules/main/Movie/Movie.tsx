@@ -13,6 +13,7 @@ function Movie({
   isLink,
   type,
   showTime,
+  category,
 }: IMovie) {
   const router = useRouter();
   const pathname = usePathname();
@@ -73,7 +74,10 @@ function Movie({
           <div className="flex !text-white text-xs md:text-sm transition-all group-hover:opacity-100 group-hover:visible duration-100 opacity-0 invisible justify-end flex-col absolute inset-0 movie-overlay rounded-md">
             <div className="pb-6 px-2 space-y-2 md:space-y-3">
               <p className="text-xs md:text-[13px] !text-white">
-                {type === "film" ? "فیلم" : "سریال"} -{" "}
+                <span className="font-Dana text-white">
+                  {type === "film" ? "فیلم" : "سریال"} -{" "}
+                </span>
+                <span className="font-Dana text-white">{category} - </span>
                 <span className="font-Dana text-white">{showTime}</span>
               </p>
               <div className="flex text-xs md:text-[13px] gap-x-1">
@@ -107,7 +111,9 @@ function Movie({
           <div className="flex text-xs md:text-sm transition-all group-hover:opacity-100 group-hover:visible duration-100 opacity-0 invisible justify-end flex-col absolute inset-0 movie-overlay rounded-md">
             <div className="pb-6 px-2 space-y-2 md:space-y-3">
               <p className="text-xs md:text-[13px] text-white">
-                <span>{type === "film" ? "فیلم" : "سریال"} - </span>
+                <span className="font-Dana text-white">
+                  {type === "film" ? "فیلم" : "سریال"} -{" "}
+                </span>
                 <span className="font-Dana text-white">{showTime}</span>
               </p>
               <div className="flex gap-x-1">
