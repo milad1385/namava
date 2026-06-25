@@ -114,7 +114,7 @@ function Movie({
       >
         <div className="relative">
           {!isImageLoaded && (
-            <div className="absolute inset-0 bg-gray-700 rounded-md overflow-hidden">
+            <div className={`absolute inset-0 ${bgColor} rounded-md overflow-hidden`}>
               <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
             </div>
           )}
