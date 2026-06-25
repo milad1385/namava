@@ -31,14 +31,22 @@ const config: Config = {
       },
       colors: {
         milafilm: "#1993ff",
-        milafilmBlack :"#1A1A1A",
-        milafilmGreen :"#15bc15"
+        milafilmBlack: "#1A1A1A",
+        milafilmGreen: "#15bc15",
       },
     },
     fontFamily: {
       Iran: "Iran",
       Dana: "Dana",
       IranMedium: "IranMedium",
+    },
+    animation: {
+      shimmer: "shimmer 1.5s infinite",
+    },
+    keyframes: {
+      shimmer: {
+        "100%": { transform: "translateX(100%)" },
+      },
     },
   },
   plugins: [

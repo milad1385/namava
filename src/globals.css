@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   user-select: none;
 }
@@ -245,7 +244,7 @@ body {
   width: 15px;
   height: 15px;
   appearance: none;
-  
+
   border-radius: 3px;
 }
 .film-checkbox:checked,
@@ -525,7 +524,14 @@ input:checked + .slider:before {
 .duration-chart .recharts-wrapper {
   @apply !min-h-[360px] md:!min-h-[250px];
 }
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 /* key frames */
 @keyframes loading {
   0% {
