@@ -4,6 +4,7 @@ import { IMovie } from "@/src/libs/types";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 
 function Movie({
   image,
@@ -17,6 +18,7 @@ function Movie({
 }: IMovie) {
   const router = useRouter();
   const pathname = usePathname();
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const getHref = () => {
     if (type === "film") {
@@ -62,14 +64,19 @@ function Movie({
     <>
       <Wrapper>
         <div className="relative">
+          {/* اسکلتون در زمان لود */}
+          {!isImageLoaded && (
+            <div className="absolute inset-0 bg-gray-700 animate-pulse rounded-md"></div>
+          )}
           <Image
             src={image}
             alt={title}
             width={1920}
             height={1080}
-            className={`rounded-md shadow w-full lg:w-full lg:h-[280px] object-cover md:w-auto h-[160px] md:h-auto ${
-              pathname.includes("/kids/collections") ? "lg:h-[401px]" : ""
-            }`}
+            onLoad={() => setIsImageLoaded(true)}
+            className={`rounded-md shadow w-full lg:w-full lg:h-[280px] object-cover md:w-auto h-[160px] md:h-auto transition-opacity duration-300 ${
+              isImageLoaded ? "opacity-100" : "opacity-0"
+            } ${pathname.includes("/kids/collections") ? "lg:h-[401px]" : ""}`}
           />
           <div className="flex !text-white text-xs md:text-sm transition-all group-hover:opacity-100 group-hover:visible duration-100 opacity-0 invisible justify-end flex-col absolute inset-0 movie-overlay rounded-md">
             <div className="pb-6 px-2 space-y-2 md:space-y-3">
@@ -101,12 +108,18 @@ function Movie({
         className="transition-all block lg:hidden group cursor-pointer"
       >
         <div className="relative">
+          {!isImageLoaded && (
+            <div className="absolute inset-0 bg-gray-700 animate-pulse rounded-md"></div>
+          )}
           <Image
             src={image}
             alt={title}
             width={490}
             height={500}
-            className="rounded-md w-full lg:w-full lg:h-[270px] object-cover md:w-auto h-[170px] md:h-auto"
+            onLoad={() => setIsImageLoaded(true)}
+            className={`rounded-md w-full lg:w-full lg:h-[270px] object-cover md:w-auto h-[170px] md:h-auto transition-opacity duration-300 ${
+              isImageLoaded ? "opacity-100" : "opacity-0"
+            }`}
           />
           <div className="flex text-xs md:text-sm transition-all group-hover:opacity-100 group-hover:visible duration-100 opacity-0 invisible justify-end flex-col absolute inset-0 movie-overlay rounded-md">
             <div className="pb-6 px-2 space-y-2 md:space-y-3">

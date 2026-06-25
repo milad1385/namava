@@ -12,7 +12,7 @@ function SliderSkeleton() {
           >
             <div className="relative">
               <div
-                className={`w-full z-50 h-[150px] md:h-[186px] rounded-xl ${bgColor} overflow-hidden relative`}
+                className={`w-full z-30 h-[150px] md:h-[186px] rounded-xl ${bgColor} overflow-hidden relative`}
               >
                 <div
                   className={`absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent ${shimmerColor} to-transparent`}
