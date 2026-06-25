@@ -25,7 +25,7 @@ function MovieSlider({
 
   return (
     <div>
-      <div className="container mt-[30px] md:mt-5">
+      <div className="container mb-[35px] md:mb-0 md:mt-5">
         <SliderTitle title={title} link={link} />
         <div className="mt-10 md:h-[21rem]">
           <Swiper
@@ -38,7 +38,7 @@ function MovieSlider({
             breakpoints={{
               0: {
                 slidesPerView: 3,
-                spaceBetween: 10,
+                spaceBetween: 12,
               },
               568: {
                 slidesPerView: 3,
