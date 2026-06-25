@@ -20,7 +20,7 @@ async function Bookmarks() {
   );
 
   return (
-    <div className="py-24 container text-white">
+    <div className="py-28 container text-white">
       <Bookmark bookmarks={JSON.parse(JSON.stringify(kidBookmarks))} />
     </div>
   );

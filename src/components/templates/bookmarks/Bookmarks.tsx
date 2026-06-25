@@ -9,6 +9,7 @@ import { FaBookmark, FaHeart } from "react-icons/fa6";
 function Bookmarks({ bookmarks, likesMovies }: any) {
   const [showStatus, setShowStatus] = useState("bookmark");
   const pathname = usePathname();
+  const isKid = pathname.includes("/kids");
   return (
     <>
       {/* bookmark header */}
@@ -56,6 +57,7 @@ function Bookmarks({ bookmarks, likesMovies }: any) {
                 link={bookmark.movie.link}
                 type={bookmark.movie.type}
                 showTime={bookmark.movie.showTime}
+                contentType={isKid ? "kid" : "adult"}
                 isLink
               />
             ))}
@@ -84,6 +86,7 @@ function Bookmarks({ bookmarks, likesMovies }: any) {
                 link={movie.link}
                 type={movie.type}
                 showTime={movie.showTime}
+                contentType={isKid ? "kid" : "adult"}
                 isLink
               />
             ))}
