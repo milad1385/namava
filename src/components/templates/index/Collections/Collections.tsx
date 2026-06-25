@@ -10,7 +10,7 @@ interface Collections {
 }
 function Collections({ title, collections }: Collections) {
   return (
-    <div className="container pb-10 md:pt-10 md:pb-20">
+    <div className="container pb-10 md:pt-10 md:pb-20 text-white">
       <h3 className="font-IranMedium text-base md:text-lg">{title}</h3>
       <Swiper
         slidesPerView={4}

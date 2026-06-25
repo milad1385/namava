@@ -1,5 +1,4 @@
 import HeaderSlider from "@/src/components/templates/index/Header/Slider";
-import Slider from "@/src/components/templates/index/Slider/Slider";
 import { redirect } from "next/navigation";
 import MainSlider from "../components/templates/index/mainSlider/MainSlider";
 import {
@@ -25,8 +24,6 @@ export default async function Home() {
         subscription={JSON.parse(JSON.stringify(subscription))}
         slides={JSON.parse(JSON.stringify(slides))}
       />
-      <Slider slides={JSON.parse(JSON.stringify(slides))} />
-
       <MainSlider />
     </>
   );

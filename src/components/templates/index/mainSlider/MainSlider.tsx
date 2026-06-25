@@ -1,19 +1,23 @@
-import StarsSlider from "@/src/components/modules/main/StarsSlider/StarsSlider";
-import React from "react";
-import Collections from "../Collections/Collections";
 import MovieSlider from "@/src/components/modules/main/MovieSlider/MovieSlider";
+import StarsSlider from "@/src/components/modules/main/StarsSlider/StarsSlider";
+import MainSliderSkeleton from "@/src/components/modules/Skeleton/MainSliderSkeleton";
+import Slider from "@/src/components/templates/index/Slider/Slider";
 import {
   getAllCollectionSlider,
+  getAllSlidersMovies,
   getMovies,
   getStars,
   getUserBookmarks,
 } from "@/src/libs/service/services";
-import { authUser } from "@/src/utils/serverHelper";
 import { TMainSlider } from "@/src/libs/types";
+import { authUser } from "@/src/utils/serverHelper";
+import { Suspense } from "react";
+import Collections from "../Collections/Collections";
 
-async function MainSlider({ categoryId, type }: TMainSlider) {
-  const [allStars, movies, collections, userBookmarks, userInfo]: any =
+async function MainSliderContent({ categoryId, type }: TMainSlider) {
+  const [slides, allStars, movies, collections, userBookmarks, userInfo]: any =
     await Promise.all([
+      getAllSlidersMovies(),
       getStars(),
       getMovies("adult", categoryId, type),
       getAllCollectionSlider("adult"),
@@ -22,13 +26,15 @@ async function MainSlider({ categoryId, type }: TMainSlider) {
     ]);
 
   const userMoviesBookmark = userBookmarks.map(
-    (bookmark: any) => bookmark.movie._id
+    (bookmark: any) => bookmark.movie._id,
   );
+
   return (
-    <div className="text-white">
-      {Object.keys(movies).map(async (category, index) => {
+    <>
+      <Slider slides={JSON.parse(JSON.stringify(slides))} />
+      {Object.keys(movies).map((category) => {
         return (
-          <div key={category}>
+          <div key={category} className="text-white">
             <MovieSlider
               movies={JSON.parse(JSON.stringify(movies[category]))}
               userBookmarks={JSON.parse(JSON.stringify(userMoviesBookmark))}
@@ -38,12 +44,21 @@ async function MainSlider({ categoryId, type }: TMainSlider) {
           </div>
         );
       })}
+
       <StarsSlider allStars={allStars} title="ستارگان" />
       <Collections
         collections={JSON.parse(JSON.stringify(collections))}
         title="مجموعه فیلم ها"
       />
-    </div>
+    </>
+  );
+}
+
+function MainSlider(props: TMainSlider) {
+  return (
+    <Suspense fallback={<MainSliderSkeleton />}>
+      <MainSliderContent {...props} />
+    </Suspense>
   );
 }
 
