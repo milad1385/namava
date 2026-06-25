@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import Link from "next/link";
+import Slider from "./Slider";
 
 function AnimsSlider({ collections }: any) {
   return (
@@ -37,15 +38,7 @@ function AnimsSlider({ collections }: any) {
       >
         {collections.map((collection: any) => (
           <SwiperSlide key={collection._id}>
-            <Link title={collection.title} href={`/kids/collections/${collection.link}`}>
-              <Image
-                src={collection.mainImage}
-                alt={collection.title}
-                width={500}
-                height={500}
-                className="w-[300px]  anim-collection h-auto  rounded-full shadow-sm"
-              />
-            </Link>
+            <Slider collection={collection} />
           </SwiperSlide>
         ))}
       </Swiper>
