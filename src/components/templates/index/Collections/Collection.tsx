@@ -20,7 +20,7 @@ function Collection({ image, title, link }: Collection) {
     >
       <div className="relative">
         {!isImageLoaded && (
-          <div className="w-full md:w-[360px] h-[90px] md:h-[189px] bg-gray-700 rounded-md overflow-hidden relative">
+          <div className="w-full md:w-[350px] h-[90px] md:h-[189px] bg-gray-700 rounded-md overflow-hidden relative">
             <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
           </div>
         )}
