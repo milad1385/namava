@@ -2,6 +2,9 @@ import connectToDB from "@/src/configs/db";
 import CategoryModel from "@/src/models/category";
 import MovieModel from "@/src/models/movie";
 import { NextResponse } from "next/server";
+import '@/src/models/category';
+import '@/src/models/stars'; 
+import '@/src/models/comments';
 
 export async function GET(req: Request, { params }) {
   try {
