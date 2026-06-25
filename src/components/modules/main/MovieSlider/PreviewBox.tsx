@@ -1,27 +1,30 @@
 "use client";
-import { addOrDeleteBookmark } from "@/src/libs/actions/bookmark";
-import { dislikeMovie, likeMovie } from "@/src/libs/actions/movie";
 import { useAuth } from "@/src/context/AuthContextProvider";
 import ActiveLike from "@/src/icons/ActiveLike";
 import Dislike from "@/src/icons/Dislike";
 import IMBD from "@/src/icons/IMBD";
 import Like from "@/src/icons/Like";
 import Plus from "@/src/icons/Plus";
+import { addOrDeleteBookmark } from "@/src/libs/actions/bookmark";
+import { dislikeMovie, likeMovie } from "@/src/libs/actions/movie";
 import { userSubscriptionHref } from "@/src/utils/funcs";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState, useMemo, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { FaPlay } from "react-icons/fa6";
 import { GrCircleInformation } from "react-icons/gr";
 import { IoCheckmarkSharp } from "react-icons/io5";
+import PreviewSkeleton from "./PreviewSkeleton";
 
 function PreviewBox({
   movieDetail: initialMovieDetail,
   user,
   userBookmarks,
   isRecommendation,
+  movieId,
+  loading,
 }) {
   const { subscripton, isLogin } = useAuth();
   const router = useRouter();
@@ -62,20 +65,14 @@ function PreviewBox({
     getSeriesEpisode();
   }, [movieDetail?._id, movieDetail?.type]);
 
-
   useLayoutEffect(() => {
     if (previewBoxRef.current) {
-      const timer = setTimeout(() => {
-        previewBoxRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }, 50);
-
-      return () => clearTimeout(timer);
+      previewBoxRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     }
-  }, [movieDetail?._id]);
-
+  }, [movieId, movieDetail?._id]);
 
   const handleAddToBookmark = async () => {
     if (!isLogin) {
@@ -196,7 +193,9 @@ function PreviewBox({
     return bookmarks.includes(movieDetail?._id);
   }, [bookmarks, movieDetail?._id]);
 
-  if (!movieDetail) return null;
+  if (!movieDetail || loading) {
+    return <PreviewSkeleton ref={previewBoxRef} />;
+  }
 
   return (
     <div ref={previewBoxRef} className="my-10 hidden md:block">
