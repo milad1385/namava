@@ -15,7 +15,6 @@ function MovieSlide({ movie, setMovieId, setMovieDetail, movieId }) {
         }
         setMovieId(movie._id);
         setMovieDetail(movie);
-        window.scrollBy({ top: 500, behavior: "smooth" });
       }}
       className="movie-slide"
     >
