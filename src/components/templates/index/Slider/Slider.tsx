@@ -55,9 +55,9 @@ function Slider({ slides }: any) {
                   }`}
                   className="relative block"
                 >
-                  <div className="relative">
+                  <div className="relative w-full aspect-[490/186]">
                     {!isLoaded && (
-                      <div className="w-full h-[150px] md:h-auto bg-gray-700 rounded-xl overflow-hidden relative">
+                      <div className="absolute inset-0 bg-gray-700 rounded-xl overflow-hidden">
                         <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
                       </div>
                     )}
@@ -68,7 +68,7 @@ function Slider({ slides }: any) {
                       width={490}
                       height={186}
                       onLoad={() => handleImageLoad(slide._id)}
-                      className={`rounded-xl h-[150px] md:h-auto transition-opacity duration-300 ${
+                      className={`rounded-xl w-full h-full object-cover transition-opacity duration-300 ${
                         isLoaded ? "opacity-100" : "opacity-0"
                       }`}
                     />
