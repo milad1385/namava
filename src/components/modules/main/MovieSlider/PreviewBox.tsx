@@ -340,6 +340,17 @@ function PreviewBox({
             <p className="text-xs hidden md:block text-[#ccc] mt-5">
               کارگردان : {movieDetail.director}
             </p>
+            <p className="text-xs hidden md:block text-[#ccc] mt-5">
+              دسته بندی :{" "}
+              {movieDetail.categories.map((category) => (
+                <Link
+                  key={category._id}
+                  href={`/category/${movieDetail.categories[0]._id}`}
+                >
+                  {category.title} {" "}
+                </Link>
+              ))}
+            </p>
           </div>
         </div>
       </div>
