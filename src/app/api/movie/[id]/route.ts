@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request, { params }) {
   try {
-    connectToDB();
+    await connectToDB();
     let movie = await MovieModel.findOne({ _id: params.id })
       .populate("category actors", "link image title name")
       .populate({
