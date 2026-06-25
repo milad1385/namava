@@ -35,6 +35,6 @@ export async function GET(req: Request, { params }) {
     return NextResponse.json(movie);
   } catch (error) {
     console.log(error);
-    return Response.json({ error: "خطا در دریافت فیلم" }, { status: 500 });
+    return Response.json({ error: error }, { status: 500 });
   }
 }
