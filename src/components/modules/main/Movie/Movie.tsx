@@ -64,9 +64,10 @@ function Movie({
     <>
       <Wrapper>
         <div className="relative">
-          {/* اسکلتون در زمان لود */}
           {!isImageLoaded && (
-            <div className="absolute inset-0 bg-gray-700 animate-pulse rounded-md"></div>
+            <div className="absolute inset-0 bg-gray-700 rounded-md overflow-hidden">
+              <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+            </div>
           )}
           <Image
             src={image}
@@ -109,7 +110,9 @@ function Movie({
       >
         <div className="relative">
           {!isImageLoaded && (
-            <div className="absolute inset-0 bg-gray-700 animate-pulse rounded-md"></div>
+            <div className="absolute inset-0 bg-gray-700 rounded-md overflow-hidden">
+              <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+            </div>
           )}
           <Image
             src={image}
