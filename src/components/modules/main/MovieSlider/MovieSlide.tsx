@@ -2,19 +2,30 @@ import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import Movie from "../Movie/Movie";
 
-function MovieSlide({ movie, setMovieId, setMovieDetail, movieId }) {
+function MovieSlide({
+  movie,
+  setMovieId,
+  setMovieDetail,
+  movieId,
+  setIsLoading,
+}) {
   const pathname = usePathname();
   const router = useRouter();
   return (
     <div
-      onClick={() => {
+      onClick={async () => {
         if (pathname.includes("/kids")) {
           return router.push(
             `/kids/${movie.type === "film" ? "movie" : "series"}/${movie.link}`,
           );
         }
         setMovieId(movie._id);
-        setMovieDetail(movie);
+        setMovieDetail(null);
+        setIsLoading(true);
+        const res = await fetch(`/api/movie/${movie._id}`);
+        const movieData = await res.json();
+        setMovieDetail(movieData);
+        setIsLoading(false);
       }}
       className="movie-slide"
     >
