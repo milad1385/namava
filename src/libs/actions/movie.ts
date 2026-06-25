@@ -4,7 +4,7 @@ import MovieModel from "@/src/models/movie";
 import { authUser } from "@/src/utils/serverHelper";
 import { writeFileSync } from "fs";
 import { isValidObjectId } from "mongoose";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import path from "path";
 import { TResponse } from "../types";
 
@@ -196,7 +196,6 @@ export const likeMovie = async (
 
     let message = "";
 
-    // ✅ اگر قبلاً لایک کرده بود => حذف لایک
     if (isLiked) {
       await MovieModel.findOneAndUpdate(
         { _id: movieId },
@@ -207,9 +206,7 @@ export const likeMovie = async (
         },
       );
       message = "از لایک ها حذف شد";
-    }
-    // ✅ اگر قبلاً دیسلایک کرده بود => حذف دیسلایک + اضافه لایک
-    else if (isDisLiked) {
+    } else if (isDisLiked) {
       await MovieModel.findOneAndUpdate(
         { _id: movieId },
         {
@@ -222,9 +219,7 @@ export const likeMovie = async (
         },
       );
       message = "با موفقیت لایک شد";
-    }
-    // ✅ اگر هیچکدام نبود => اضافه لایک
-    else {
+    } else {
       await MovieModel.findOneAndUpdate(
         { _id: movieId },
         {
@@ -236,8 +231,8 @@ export const likeMovie = async (
       message = "با موفقیت لایک شد";
     }
 
-    revalidatePath(`/movie/${movieLink}`);
-    revalidatePath("/bookmarks");
+    // revalidatePath(`/movie/${movieLink}`);
+    // revalidatePath("/bookmarks");
 
     return {
       message,
@@ -284,7 +279,6 @@ export const dislikeMovie = async (
 
     let message = "";
 
-    // ✅ اگر قبلاً دیسلایک کرده بود => حذف دیسلایک
     if (isDisLiked) {
       await MovieModel.findOneAndUpdate(
         { _id: movieId },
@@ -295,9 +289,7 @@ export const dislikeMovie = async (
         },
       );
       message = "از دیس لایک ها حذف شد";
-    }
-    // ✅ اگر قبلاً لایک کرده بود => حذف لایک + اضافه دیسلایک
-    else if (isLiked) {
+    } else if (isLiked) {
       await MovieModel.findOneAndUpdate(
         { _id: movieId },
         {
@@ -310,9 +302,7 @@ export const dislikeMovie = async (
         },
       );
       message = "با موفقیت دیس لایک شد";
-    }
-    // ✅ اگر هیچکدام نبود => اضافه دیسلایک
-    else {
+    } else {
       await MovieModel.findOneAndUpdate(
         { _id: movieId },
         {
@@ -324,8 +314,8 @@ export const dislikeMovie = async (
       message = "با موفقیت دیس لایک شد";
     }
 
-    revalidatePath(`/movie/${movieLink}`);
-    revalidatePath("/bookmarks");
+    // revalidatePath(`/movie/${movieLink}`);
+    // revalidatePath("/bookmarks");
 
     return {
       message,
