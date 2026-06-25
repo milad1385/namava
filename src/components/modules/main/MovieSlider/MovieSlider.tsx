@@ -161,7 +161,7 @@
 "use client";
 import { TMovieSlider } from "@/src/libs/types";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Autoplay, Navigation } from "swiper/modules";
@@ -178,6 +178,7 @@ function MovieSlider({
   user,
 }: TMovieSlider) {
   const [movieId, setMovieId] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
   const [movieDetail, setMovieDetail] = useState<any>(null);
   const pathname = usePathname();
   const isRecommendation = pathname.includes("/recommends");
@@ -217,6 +218,7 @@ function MovieSlider({
                   movieId={movieId}
                   setMovieDetail={setMovieDetail}
                   setMovieId={setMovieId}
+                  setIsLoading={setIsLoading}
                 />
               </SwiperSlide>
             ))}
@@ -229,6 +231,8 @@ function MovieSlider({
           user={user}
           userBookmarks={userBookmarks}
           isRecommendation={isRecommendation}
+          movieId={movieId}
+          loading={isLoading}
         />
       )}
     </div>
