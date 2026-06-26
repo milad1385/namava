@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Button from "@/src/components/modules/auth/Button/Button";
 import Input from "@/src/components/modules/p-admin/Input";
 import { TUpdateUser, UpdateUser } from "@/src/validators/frontend";
@@ -7,9 +7,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { FaInfo, FaUser } from "react-icons/fa6";
 import SelectBox from "@/src/components/modules/p-admin/SelectBox";
-import { day, generateMonth, year } from "@/public/db";
+import { day, generateMonth, provineData, year } from "@/public/db";
+import { IUpdateUser } from "@/src/libs/types";
+import { updateUserInfo } from "@/src/libs/actions/user";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import Spinner from "../../modules/spinner/Spinner";
 
-function EditUser() {
+function EditUser({ user }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -17,21 +24,38 @@ function EditUser() {
     formState: { errors, isValid },
   } = useForm<TUpdateUser>({
     resolver: zodResolver(UpdateUser),
+    defaultValues: {
+      name: user?.name,
+      biography: user?.biography,
+      birthDay: user?.birthday?.split("-")[2] || "",
+      birthMouth: user?.birthday?.split("-")[1] || "",
+      birthYear: user?.birthday?.split("-")[0] || "",
+      province: user?.province || "",
+    },
   });
 
-  const updateUserInfo = async (data: TUpdateUser) => {
-
+  const updateUserHandler = async (data: TUpdateUser) => {
+    const birthday = `${data?.birthYear}-${data?.birthMouth}-${data?.birthDay}`;
+    const userData: IUpdateUser = {
+      name: data?.name || user?.name,
+      province: data?.province || user?.province,
+      biography: data?.biography || user?.province,
+      birthday: birthday || user?.birthDay,
+    };
+    setIsLoading(true);
+    const res = await updateUserInfo(userData);
+    setIsLoading(false);
+    if (res.status === 200) {
+      toast.success("اطلاعات شما با موفقیت آپدیت شد");
+      router.refresh();
+    } else {
+      toast.error(`${res?.message}`);
+    }
   };
-
-  const fakeOptions = [
-    { id: 1, label: "البرز", value: "alborz" },
-    { id: 2, label: "تهران", value: "tehran" },
-    { id: 3, label: "گیلان", value: "gilan" },
-  ];
 
   return (
     <form
-      onSubmit={handleSubmit(updateUserInfo)}
+      onSubmit={handleSubmit(updateUserHandler)}
       className="bg-milafilmBlack rounded-lg p-6 shadow grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 md:gap-y-6"
     >
       <Input
@@ -50,7 +74,7 @@ function EditUser() {
         errors={errors}
         register={register}
         icon={<FaInfo className={`text-xl`} />}
-        name="bio"
+        name="biography"
         title="بیوگرافی خلاصه"
       />
 
@@ -58,7 +82,7 @@ function EditUser() {
         register={register}
         errors={errors}
         name="province"
-        options={fakeOptions}
+        options={provineData}
         title="استان (اختیاری)"
       />
 
@@ -90,10 +114,14 @@ function EditUser() {
       </div>
 
       <div className="flex items-center gap-x-3 md:gap-x-8 mt-5 text-white">
-        <Button type="submit" className={`${isValid ? "" : "!bg-slate-600 "}`}>
-          ویرایش کردن
+        <Button
+          type="submit"
+          disabled={isLoading}
+          className={`${isValid ? "" : "!bg-slate-600 "} h-[46px]`}
+        >
+          {isLoading ? <Spinner /> : " ویرایش کردن"}
         </Button>
-        <Button className="bg-red-700" onClick={() => reset()}>
+        <Button className="bg-red-700 h-[46px]" onClick={() => reset()}>
           لغو
         </Button>
       </div>
