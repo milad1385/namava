@@ -1,4 +1,5 @@
 import { checkUserSubscription } from "@/src/libs/service/services";
+import { getProvinceData } from "@/src/utils/auth";
 import { formatDate } from "@/src/utils/funcs";
 import { authUser } from "@/src/utils/serverHelper";
 import { Metadata } from "next";
@@ -11,12 +12,16 @@ async function page() {
     checkUserSubscription(),
   ]);
 
+  const birthday = user?.birthday?.split("-") || "";
   return (
     <>
       <div className="bg-milafilmBlack rounded-md p-6 text-white">
         <div className="flex items-center justify-between">
           <h1 className="text-base md:text-xl">اطلاعات شخصی</h1>
-          <Link href={"account/information"} className="text-milafilm text-sm md:text-base">
+          <Link
+            href={"account/information"}
+            className="text-milafilm text-sm md:text-base"
+          >
             ویرایش اطلاعات
           </Link>
         </div>
@@ -45,11 +50,13 @@ async function page() {
             </li>
             <li>
               <span className="text-[#d4d4d4]">تاریخ تولد : </span>
-              <span>1385/03/19 </span>
+              <span className="text-left">
+                {birthday[2]} / {birthday[1]} / {birthday[0]}
+              </span>
             </li>
             <li>
               <span className="text-[#d4d4d4]">استان : </span>
-              <span>کرج</span>
+              <span>{getProvinceData(user?.province as string)}</span>
             </li>
           </ul>
         </div>
@@ -57,7 +64,10 @@ async function page() {
       <div className="bg-milafilmBlack rounded-md p-6 text-white mt-5 ">
         <div className="flex items-center justify-between">
           <h1 className="text-base md:text-xl">اطلاعات کاربری</h1>
-          <Link href={"account/information"} className="text-milafilm text-sm md:text-base">
+          <Link
+            href={"account/information"}
+            className="text-milafilm text-sm md:text-base"
+          >
             ویرایش اطلاعات کاربری
           </Link>
         </div>

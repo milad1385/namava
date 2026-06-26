@@ -6,14 +6,14 @@ import {
 import { LiaComments } from "react-icons/lia";
 import { MdArticle } from "react-icons/md";
 
-import { FaRegCircleUser, FaRegHeart, FaRobot, FaStar } from "react-icons/fa6";
 import Folder2 from "@/src/icons/Folder2";
-import Star from "@/src/icons/Star";
 import Gift from "@/src/icons/gift";
-import User from "@/src/icons/User";
 import Phone from "@/src/icons/Phone";
-import { GiFilmStrip } from "react-icons/gi";
+import Star from "@/src/icons/Star";
+import User from "@/src/icons/User";
+import { FaRegCircleUser, FaRegHeart, FaRobot, FaStar } from "react-icons/fa6";
 import { FiBook, FiFilm, FiYoutube } from "react-icons/fi";
+import { GiFilmStrip } from "react-icons/gi";
 import { LuBaby, LuPopcorn } from "react-icons/lu";
 export const day: any = [];
 export const year: any = [];
