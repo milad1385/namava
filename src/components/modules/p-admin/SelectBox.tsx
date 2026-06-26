@@ -4,7 +4,7 @@ import Select from "react-select";
 
 type TOption = {
   id: any;
-  value: string;
+  value: string | number;
   label: string;
 };
 
