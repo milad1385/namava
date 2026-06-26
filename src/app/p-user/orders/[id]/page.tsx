@@ -53,7 +53,7 @@ async function page({ params }: TParams) {
         </li>
         <Link
           href="/p-user/orders"
-          className={`block mt-10 ${order.status === "pay" ? "" : "!bg-red-600"}`}
+          className={`block mt-10 ${order.status === "pay" ? "" : "!bg-red-600"} rounded-xl`}
         >
           <Button>بازگشت</Button>
         </Link>
