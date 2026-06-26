@@ -6,8 +6,8 @@ import { revalidatePath } from "next/cache";
 import { isValidObjectId } from "mongoose";
 import { TUser, User } from "@/src/validators/frontend";
 import { hashPassword } from "@/src/utils/auth";
-import { checkIsAdmin } from "@/src/utils/serverHelper";
-import { TResponse } from "../types";
+import { authUser, checkIsAdmin } from "@/src/utils/serverHelper";
+import { IUpdateUser, TResponse } from "../types";
 
 export const deleteUser = async (userId: string) => {
   try {
@@ -133,7 +133,7 @@ export const changeUserRole = async (id: string, role: string) => {
         $set: {
           role: role === "ADMIN" ? "USER" : "ADMIN",
         },
-      }
+      },
     );
 
     revalidatePath("/p-admin/users");
@@ -152,7 +152,7 @@ export const changeUserRole = async (id: string, role: string) => {
 
 export const updateUser = async (
   userId: string,
-  data: any
+  data: any,
 ): Promise<TResponse> => {
   try {
     if (!isValidObjectId(userId)) {
@@ -175,7 +175,7 @@ export const updateUser = async (
           phone: data.phone,
           biography: data.biography,
         },
-      }
+      },
     );
 
     if (!user) {
@@ -189,6 +189,42 @@ export const updateUser = async (
 
     return {
       message: "کاربر مورد نظر با موفقیت آپدیت شد",
+      status: 200,
+    };
+  } catch (error) {
+    return {
+      message: "اتصال اینترنت خود را بررسی کنید",
+      status: 500,
+    };
+  }
+};
+
+export const updateUserInfo = async (data: IUpdateUser): Promise<TResponse> => {
+  try {
+    await connectToDB();
+    const { name, province, biography, birthday } = data;
+    const user = await authUser();
+    if (!user) {
+      return {
+        message: "برای انجام آپدیت ابتدا لاگین کنید",
+        status: 403,
+      };
+    }
+
+    await UserModel.findOneAndUpdate(
+      { _id: user?._id },
+      {
+        $set: {
+          name,
+          province,
+          biography,
+          birthday,
+        },
+      },
+    );
+
+    return {
+      message: "اطلاعات کاربر با موفقیت آپدیت شد",
       status: 200,
     };
   } catch (error) {
