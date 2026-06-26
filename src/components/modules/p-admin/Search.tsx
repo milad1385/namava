@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import { FaMagnifyingGlass, FaXmark } from "react-icons/fa6";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -17,7 +17,9 @@ function Search() {
     } else {
       params.delete("q");
     }
-    router.replace(`${pathname}?${params}`);
+    router.replace(`${pathname}?${params}`, {
+      scroll: false,
+    });
   }, 300);
 
   const deleteSearchParam = () => {
