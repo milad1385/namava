@@ -354,7 +354,7 @@ export const UpdateUser = z.object({
     .string()
     .min(5, { message: "نام و نام خانوادگی حداقل باید 5 کارکتر باشد" })
     .max(30, { message: "نام و نام خانوادگی باید 30 کاراکتر داشته باشد" }),
-  bio: z
+  biography: z
     .string()
     .min(1, { message: "بیوگرافی خودتان را وارد کنید" })
     .max(1000, { message: "حداکثر تعداد کارکتر بیو 1000 کاراکتر است" }),
