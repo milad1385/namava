@@ -281,6 +281,13 @@ export interface IMovie {
   category?: string;
 }
 
+export interface IUpdateUser {
+  name: string;
+  province: string;
+  birthday: string;
+  biography: string;
+}
+
 export type TProfileMenu = {
   isShow: boolean;
   onShow: React.Dispatch<React.SetStateAction<boolean>>;
