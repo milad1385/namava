@@ -218,7 +218,7 @@ export const generateMonth = () => {
   return monthName.map((month, index) => ({
     id: index + 1,
     label: month,
-    value: month,
+    value: index + 1,
   }));
 };
 
@@ -293,6 +293,39 @@ export const mobileMenuNavbar = [
   { id: 7, title: "میلا فیلم مگ", icon: <GiFilmStrip />, link: "/blog" },
   { id: 8, title: "درباره ما", icon: <FiBook />, link: "/about" },
   { id: 9, title: "تماس با ما", icon: <Phone />, link: "/contact-us" },
+];
+export const provineData = [
+  { id: 1, label: "آذربایجان شرقی", value: "azarbaijan-sharghi" },
+  { id: 2, label: "آذربایجان غربی", value: "azarbaijan-gharbi" },
+  { id: 3, label: "اردبیل", value: "ardabil" },
+  { id: 4, label: "اصفهان", value: "isfahan" },
+  { id: 5, label: "البرز", value: "alborz" },
+  { id: 6, label: "ایلام", value: "ilam" },
+  { id: 7, label: "بوشهر", value: "bushehr" },
+  { id: 8, label: "تهران", value: "tehran" },
+  { id: 9, label: "چهارمحال و بختیاری", value: "chaharmahal-bakhtiari" },
+  { id: 10, label: "خراسان جنوبی", value: "khorasan-jonubi" },
+  { id: 11, label: "خراسان رضوی", value: "khorasan-razavi" },
+  { id: 12, label: "خراسان شمالی", value: "khorasan-shomali" },
+  { id: 13, label: "خوزستان", value: "khuzestan" },
+  { id: 14, label: "زنجان", value: "zanjan" },
+  { id: 15, label: "سمنان", value: "semnan" },
+  { id: 16, label: "سیستان و بلوچستان", value: "sistan-baluchestan" },
+  { id: 17, label: "فارس", value: "fars" },
+  { id: 18, label: "قزوین", value: "qazvin" },
+  { id: 19, label: "قم", value: "qom" },
+  { id: 20, label: "کردستان", value: "kordestan" },
+  { id: 21, label: "کرمان", value: "kerman" },
+  { id: 22, label: "کرمانشاه", value: "kermanshah" },
+  { id: 23, label: "کهگیلویه و بویراحمد", value: "kohgiluyeh-boyerahmad" },
+  { id: 24, label: "گلستان", value: "golestan" },
+  { id: 25, label: "گیلان", value: "gilan" },
+  { id: 26, label: "لرستان", value: "lorestan" },
+  { id: 27, label: "مازندران", value: "mazandaran" },
+  { id: 28, label: "مرکزی", value: "markazi" },
+  { id: 29, label: "هرمزگان", value: "hormozgan" },
+  { id: 30, label: "همدان", value: "hamedan" },
+  { id: 31, label: "یزد", value: "yazd" },
 ];
 
 generateMiladi();
