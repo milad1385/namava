@@ -94,7 +94,7 @@ async function page() {
             </li>
             <li>
               <span className="text-[#d4d4d4]">ژانر مورد علاقه : </span>
-              <span>اکشن و ماجراجویی</span>
+              <span>{user?.favGenre?.title ?? "نامشخص"}</span>
             </li>
           </ul>
         </div>
