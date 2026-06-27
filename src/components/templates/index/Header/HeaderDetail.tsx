@@ -78,12 +78,11 @@ function HeaderDetail({
       {isKid ? (
         <div className="max-w-[90%] flex items-center justify-center flex-col mx-auto md:mx-0 md:max-w-[590px] space-y-4 !h-[456px] md:!h-[480px] p-4  rounded-md kid-title top-64 md:top-44 md:right-10 relative z-20">
           <Image
-            src={info.logo}
+            src={info?.logo}
             width={1920}
             height={1080}
-            alt={info.title}
-            sizes="75vw"
-            className="max-w-[160px] md:max-w-[200px]  max-h-[200px] mx-auto object-cover static"
+            alt="image-logo"
+            className="max-w-[160px] md:max-w-[250px] object-contain mb-2.5 max-h-[160px] mx-auto md:mx-0 "
           />
 
           <h2 className="text-center font-IranMedium text-lg md:text-xl">
@@ -198,7 +197,7 @@ function HeaderDetail({
               width={1920}
               height={1080}
               alt="image-logo"
-              className="max-w-[140px] md:max-w-[200px]  max-h-[160px] mx-auto md:mx-0 "
+              className="max-w-[160px] md:max-w-[250px] object-contain mb-2.5 max-h-[160px] mx-auto md:mx-0 "
             />
           </Link>
           <div className="py-6">
