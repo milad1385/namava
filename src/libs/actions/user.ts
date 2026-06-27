@@ -7,7 +7,7 @@ import { isValidObjectId } from "mongoose";
 import { TUser, User } from "@/src/validators/frontend";
 import { hashPassword } from "@/src/utils/auth";
 import { authUser, checkIsAdmin } from "@/src/utils/serverHelper";
-import { IUpdateUser, TResponse } from "../types";
+import { IUpdateUser, IUpdateUserWithFavGenre, TResponse } from "../types";
 
 export const deleteUser = async (userId: string) => {
   try {
@@ -225,6 +225,43 @@ export const updateUserInfo = async (data: IUpdateUser): Promise<TResponse> => {
 
     return {
       message: "اطلاعات کاربر با موفقیت آپدیت شد",
+      status: 200,
+    };
+  } catch (error) {
+    return {
+      message: "اتصال اینترنت خود را بررسی کنید",
+      status: 500,
+    };
+  }
+};
+
+export const editUserInfoWithFavGenre = async (
+  data: IUpdateUserWithFavGenre,
+): Promise<TResponse> => {
+  try {
+    await connectToDB();
+    const user = await authUser();
+    if (!user) {
+      return {
+        message: "برای انجام آپدیت ابتدا لاگین کنید",
+        status: 403,
+      };
+    }
+    const { email, phone, favGenre } = data;
+
+    await UserModel.findOneAndUpdate(
+      { _id: user._id },
+      {
+        $set: {
+          email,
+          phone,
+          favGenre,
+        },
+      },
+    );
+
+    return {
+      message: "اطلاعات شما با موفقیت آپدیت شد",
       status: 200,
     };
   } catch (error) {
