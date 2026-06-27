@@ -262,7 +262,7 @@ function PreviewBox({
                       disabled={isLoading}
                       className="flex-center py-3 px-3 w-[49px] h-[49px] bg-gray-500/35 rounded-full text-[13px] hover:bg-gray-500/50 transition-colors"
                     >
-                      <IoCheckmarkSharp className="text-xl" />
+                      <IoCheckmarkSharp className="text-xl text-white" />
                     </button>
                   )}
                 </>
