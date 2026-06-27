@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { FaChevronLeft } from "react-icons/fa6";
 
@@ -7,9 +8,13 @@ interface SliderTitle {
   link?: string;
 }
 function SiderTitle({ title, link }: SliderTitle) {
+  const pathname = usePathname();
+  const textColor = pathname.includes("/kids") ? "text-black" : "text-white";
   return (
     <div className="flex items-center gap-x-4 group md:cursor-pointer">
-      <h1 className="font-IranMedium text-base md:text-lg">{title}</h1>
+      <h1 className={`font-IranMedium text-base md:text-lg ${textColor}`}>
+        {title}
+      </h1>
       {link && (
         <Link
           href={link}
