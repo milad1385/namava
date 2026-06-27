@@ -2,14 +2,20 @@
 import Button from "@/src/components/modules/auth/Button/Button";
 import Input from "@/src/components/modules/p-admin/Input";
 import SelectBox from "@/src/components/modules/p-admin/SelectBox";
-import { generateFavriteGenres } from "@/public/db";
-import { TUserAccount, UpdateUser, UserAccount } from "@/src/validators/frontend";
+import { editUserInfoWithFavGenre } from "@/src/libs/actions/user";
+import { IUpdateUserWithFavGenre } from "@/src/libs/types";
+import { TUserAccount, UserAccount } from "@/src/validators/frontend";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaEnvelope, FaLock, FaPhone } from "react-icons/fa6";
+import toast from "react-hot-toast";
+import { FaEnvelope, FaPhone } from "react-icons/fa6";
+import Spinner from "../../modules/spinner/Spinner";
 
-function EditUserInfo() {
+function EditUserInfo({ user, subCategories }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -17,8 +23,28 @@ function EditUserInfo() {
     formState: { errors, isValid },
   } = useForm<TUserAccount>({
     resolver: zodResolver(UserAccount),
+    defaultValues: {
+      phone: user?.phone,
+      email: user?.email,
+      favGenre: user?.favGenre,
+    },
   });
-  const updateUserAccount = async (data: TUserAccount) => {};
+  const updateUserAccount = async (data: TUserAccount) => {
+    const userData: IUpdateUserWithFavGenre = {
+      email: data?.email || user?.email,
+      favGenre: data?.favGenre || user?.favGenre,
+      phone: data?.phone || user?.phone,
+    };
+    setIsLoading(true);
+    const res = await editUserInfoWithFavGenre(userData);
+    setIsLoading(false);
+    if (res.status === 200) {
+      toast.success(res?.message);
+      router.refresh();
+    } else {
+      toast.error(res?.message);
+    }
+  };
   return (
     <form
       onSubmit={handleSubmit(updateUserAccount)}
@@ -47,34 +73,20 @@ function EditUserInfo() {
       <SelectBox
         register={register}
         errors={errors}
-        name="genre"
-        options={generateFavriteGenres()}
+        name="favGenre"
+        options={subCategories}
         title="ژانر مورد علاقه"
       />
 
-      <Input
-        type="password"
-        placeholder="رمز عبور فعلی را وارد کنید"
-        errors={errors}
-        register={register}
-        icon={<FaLock className={`text-lg md:text-2xl`} />}
-        name="curPassword"
-        title="رمز عبور"
-      />
-      <Input
-        type="password"
-        placeholder="رمز عبور جدید را وارد کنید"
-        errors={errors}
-        register={register}
-        icon={<FaLock className={`text-lg md:text-2xl`} />}
-        name="newPassword"
-        title="رمز عبور جدید"
-      />
       <div className="hidden md:block"></div>
 
       <div className="flex items-center gap-x-3 md:gap-x-8 mt-5 text-white">
-        <Button type="submit" className={`${isValid ? "" : "!bg-slate-600 "}`}>
-          ویرایش کردن
+        <Button
+          type="submit"
+          disabled={isLoading}
+          className={`${isValid ? "" : "!bg-slate-600 "} h-[46px]`}
+        >
+          {isLoading ? <Spinner /> : " ویرایش کردن"}
         </Button>
         <Button className="bg-red-700" onClick={() => reset()}>
           لغو
