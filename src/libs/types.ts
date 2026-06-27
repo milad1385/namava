@@ -288,6 +288,12 @@ export interface IUpdateUser {
   biography: string;
 }
 
+export interface IUpdateUserWithFavGenre {
+  phone: string;
+  email: string;
+  favGenre: string;
+}
+
 export type TProfileMenu = {
   isShow: boolean;
   onShow: React.Dispatch<React.SetStateAction<boolean>>;
