@@ -29,9 +29,23 @@ async function MainSliderContent({ categoryId, type }: TMainSlider) {
     (bookmark: any) => bookmark.movie._id,
   );
 
+  const userFavMovies = [...(movies?.[userInfo?.favGenre?.title] || [])].sort(
+    () => Math.random() - 0.5,
+  );
+
   return (
     <>
       <Slider slides={JSON.parse(JSON.stringify(slides))} />
+
+      {userInfo?.favGenre && (
+        <MovieSlider
+          movies={JSON.parse(JSON.stringify(userFavMovies))}
+          userBookmarks={JSON.parse(JSON.stringify(userMoviesBookmark))}
+          title={`مورد علاقه شما - ${userInfo?.favGenre?.title}`}
+          user={JSON.parse(JSON.stringify(userInfo))}
+        />
+      )}
+
       {Object.keys(movies).map((category) => {
         return (
           <div key={category} className="text-white">
