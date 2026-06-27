@@ -13,6 +13,7 @@ import { TMainSlider } from "@/src/libs/types";
 import { authUser } from "@/src/utils/serverHelper";
 import { Suspense } from "react";
 import Collections from "../Collections/Collections";
+import WatchListSection from "@/src/components/modules/main/WatchHistory/WatchListSection";
 
 async function MainSliderContent({ categoryId, type }: TMainSlider) {
   const [slides, allStars, movies, collections, userBookmarks, userInfo]: any =
@@ -37,6 +38,7 @@ async function MainSliderContent({ categoryId, type }: TMainSlider) {
     <>
       <Slider slides={JSON.parse(JSON.stringify(slides))} />
 
+      <WatchListSection />
       {userInfo?.favGenre && (
         <MovieSlider
           movies={JSON.parse(JSON.stringify(userFavMovies))}
