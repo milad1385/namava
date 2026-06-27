@@ -21,6 +21,7 @@ import { authUser, checkIsAdmin } from "@/src/utils/serverHelper";
 import { isValidObjectId } from "mongoose";
 import { ICategory, IOrders, IWishList, TArticle } from "../types";
 import { cookies } from "next/headers";
+import WatchHistoryModel from "@/src/models/watchHistory";
 
 // get all site stat
 
@@ -466,6 +467,42 @@ export const getMovies = async (
     return error;
   }
 };
+
+export async function getWatchHistory() {
+  await connectToDB();
+  const user = await authUser();
+
+  if (!user) return [];
+
+  const history = await WatchHistoryModel.find({ user: user._id })
+    .populate({
+      path: "movie",
+      select: "title link deskBanner mobileBanner type category showTime",
+      populate: { path: "category", select: "title" },
+    })
+    .sort({ lastWatched: -1 })
+    .limit(20)
+    .lean();
+
+  const result = history
+    .filter((item) => item.movie)
+    .map((item) => {
+      const movie = item.movie;
+      const cleanLink = movie.link.includes('/') 
+        ? movie.link.split('/')[0] 
+        : movie.link;
+      
+      return {
+        ...item,
+        movie: {
+          ...movie,
+          link: cleanLink,
+        },
+      };
+    });
+
+  return result;
+}
 
 // get all movies with out any pagination
 
