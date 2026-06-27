@@ -380,9 +380,7 @@ export const UserAccount = z.object({
     .max(11, {
       message: "شماره تلفن باید حداکثر 11 کاراکتر داشته باشد",
     }),
-  genre: z.string(),
-  curPassword: z.string().optional(),
-  newPassword: z.string().optional(),
+  favGenre: z.string().optional(),
 });
 
 export type TUserAccount = z.infer<typeof UserAccount>;
