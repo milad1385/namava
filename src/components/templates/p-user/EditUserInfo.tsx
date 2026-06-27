@@ -26,7 +26,7 @@ function EditUserInfo({ user, subCategories }) {
     defaultValues: {
       phone: user?.phone,
       email: user?.email,
-      favGenre: user?.favGenre,
+      favGenre: user?.favGenre?._id,
     },
   });
   const updateUserAccount = async (data: TUserAccount) => {
