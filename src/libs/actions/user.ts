@@ -255,7 +255,7 @@ export const editUserInfoWithFavGenre = async (
         $set: {
           email,
           phone,
-          favGenre,
+          favGenre: favGenre !== "-1" ? favGenre : null,
         },
       },
     );

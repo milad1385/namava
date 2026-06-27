@@ -51,7 +51,7 @@ function SelectBox({
             {dateName ? (
               <option value="">{dateName}</option>
             ) : (
-              <option value="">گزینه مورد نظر را انتخاب کنید</option>
+              <option value="-1">گزینه مورد نظر را انتخاب کنید</option>
             )}
             {options.map((option) => (
               <option value={option.value} key={option.value}>
