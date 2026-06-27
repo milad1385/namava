@@ -26,8 +26,16 @@ const authUser = async () => {
   const user = await UserModel.findOne(
     { email: tokenPayload?.email },
     "-password",
-  ).populate("profiles");
-
+  )
+    .populate("profiles")
+    .populate({
+      path: "favGenre",
+      select: "_id title",
+      populate: {
+        path: "parrent",
+        select: "_id title link image",
+      },
+    });
   return user;
 };
 
