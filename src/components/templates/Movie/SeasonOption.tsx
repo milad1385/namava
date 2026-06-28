@@ -7,19 +7,23 @@ import { FaChevronDown } from "react-icons/fa6";
 function SeasonOption({ seasons }: any) {
   const searchParams = useSearchParams();
   const [activeSeason, setActiveSeason] = useState(
-    Number(searchParams.get("season") || 1)
+    Number(searchParams.get("season") || 1),
   );
   const pathname = usePathname();
   const params = new URLSearchParams(searchParams);
   const { push } = useRouter();
-
-  const chnageSeasonHandler = (seasonNumber: number) => {
+  const isKid = pathname.includes("/kids");
+  const changeSeasonHandler = (seasonNumber: number) => {
     setActiveSeason(seasonNumber);
     params.set("season", String(seasonNumber));
-    push(`${pathname}?${params}`);
+    push(`${pathname}?${params}`, {
+      scroll: false,
+    });
   };
   return (
-    <div className="bg-white relative group text-black flex items-center justify-center  rounded-md py-2 px-2 gap-x-4 w-[100px]">
+    <div
+      className={`${isKid ? "bg-black text-white" : "bg-white text-black"} relative group flex items-center justify-center  rounded-md py-2 px-2 gap-x-4 w-[100px]`}
+    >
       <p className="font-Dana text-sm md:text-base">فصل {activeSeason}</p>
       <FaChevronDown className="text-base md:text-lg" />
 
@@ -28,10 +32,8 @@ function SeasonOption({ seasons }: any) {
           {seasons.map((season: any, index: number) => (
             <li
               key={season._id}
-              className={
-                activeSeason === season.seasonNumber ? "text-milafilm" : ""
-              }
-              onClick={() => chnageSeasonHandler(season.seasonNumber)}
+              className={`text-black ${activeSeason === season.seasonNumber ? "text-milafilm" : ""}`}
+              onClick={() => changeSeasonHandler(season.seasonNumber)}
             >
               فصل {season.seasonNumber}
             </li>
