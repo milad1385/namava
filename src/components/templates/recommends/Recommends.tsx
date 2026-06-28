@@ -6,6 +6,9 @@ import Titles from "./Titles";
 import ButtonSpinner from "../../modules/spinner/ButtonSpinner";
 import toast from "react-hot-toast";
 import MovieSlider from "../../modules/main/MovieSlider/MovieSlider";
+import Spinner from "../../modules/spinner/Spinner";
+import { FaFilm } from "react-icons/fa6";
+import { LuPopcorn } from "react-icons/lu";
 
 function Recommends({ categories }: { categories: ICategory[] }) {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -84,15 +87,15 @@ function Recommends({ categories }: { categories: ICategory[] }) {
         <button
           onClick={getRecommendationsFromAI}
           disabled={!selectedGenres || isLoading}
-          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl text-sm md:text-lg font-semibold hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-md"
+          className="bg-gradient-to-r w-[285px] h-[44px] md:w-[350px] md:h-[60px] from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl text-sm md:text-lg font-semibold hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-md"
         >
           {isLoading ? (
             <span className="flex items-center gap-2 text-sm md:text-lg">
-              <ButtonSpinner />
-              هوش مصنوعی در حال تحلیل فیلم‌ها...
+              هوش مصنوعی در حال تحلیل
+              <Spinner />
             </span>
           ) : (
-            "دریافت پیشنهاد از هوش مصنوعی 🤖"
+            "دریافت پیشنهاد از هوش مصنوعی"
           )}
         </button>
       </div>
@@ -113,9 +116,12 @@ function Recommends({ categories }: { categories: ICategory[] }) {
 
       {recommendations?.length > 0 && (
         <div className="md:p-6 mt-10">
-          <h2 className="text-base md:text-2xl font-bold mb-6 text-right border-b pb-4">
-            🎥 فیلم‌های پیشنهادی هوش مصنوعی
-          </h2>
+          <div className="flex items-center gap-x-3 md:gap-x-4 border-b border-white">
+            <FaFilm className="text-xl md:text-2xl mb-10" />
+            <h2 className="text-base md:text-2xl font-bold mb-6 text-right  pb-4">
+              فیلم‌های پیشنهادی هوش مصنوعی
+            </h2>
+          </div>
 
           <MovieSlider
             movies={recommendations}
@@ -127,9 +133,12 @@ function Recommends({ categories }: { categories: ICategory[] }) {
       )}
       {seriesRecommendation?.length > 0 && (
         <div className="md:p-6 mt-10">
-          <h2 className="text-base md:text-2xl font-bold mb-6 text-right border-b pb-4">
-            🎥 سریال های پیشنهادی هوش مصنوعی
-          </h2>
+          <div className="flex items-center gap-x-3 md:gap-x-4 border-b border-white">
+            <LuPopcorn className="text-xl md:text-2xl mb-10" />
+            <h2 className="text-base md:text-2xl font-bold mb-6 text-right  pb-4">
+              سریال های پیشنهادی هوش مصنوعی
+            </h2>
+          </div>
 
           <MovieSlider
             movies={seriesRecommendation}
