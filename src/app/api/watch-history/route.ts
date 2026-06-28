@@ -1,9 +1,11 @@
-// app/api/watch-history/route.ts
 import connectToDB from "@/src/configs/db";
 import WatchHistoryModel from "@/src/models/watchHistory";
 import { authUser } from "@/src/utils/serverHelper";
 import { NextResponse } from "next/server";
 import { Types } from "mongoose";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 interface WatchHistoryBody {
   movieId: string;
@@ -44,16 +46,21 @@ export async function GET(req: Request): Promise<NextResponse> {
     }
 
     const history = await WatchHistoryModel.findOne(query).lean();
-    
-    if (history?.isCompleted) {
-      return NextResponse.json({
-        ...history,
-        currentTime: 0,
-        isCompleted: true,
-      });
-    }
 
-    return NextResponse.json(history || null);
+    const response = NextResponse.json(
+      history?.isCompleted
+        ? { ...history, currentTime: 0, isCompleted: true }
+        : history || null,
+    );
+
+    response.headers.set(
+      "Cache-Control",
+      "no-cache, no-store, must-revalidate",
+    );
+    response.headers.set("Pragma", "no-cache");
+    response.headers.set("Expires", "0");
+
+    return response;
   } catch (error) {
     console.error("Error getting watch history:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
@@ -104,7 +111,15 @@ export async function POST(req: Request): Promise<NextResponse> {
       },
     );
 
-    return NextResponse.json({ success: true, history });
+    const response = NextResponse.json({ success: true, history });
+    response.headers.set(
+      "Cache-Control",
+      "no-cache, no-store, must-revalidate",
+    );
+    response.headers.set("Pragma", "no-cache");
+    response.headers.set("Expires", "0");
+
+    return response;
   } catch (error) {
     console.error("Error saving watch history:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
