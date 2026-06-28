@@ -9,14 +9,16 @@ interface WatchHistoryItemProps {
 }
 
 function WatchHistoryItem({ item }: WatchHistoryItemProps): React.ReactElement {
+  console.log(item);
+  
   const router = useRouter();
   const movie = item.movie;
   const progress = item.progress || 0;
   const isCompleted = item.isCompleted || progress >= 95;
 
+  const basePath = movie.type === "film" ? "movie" : "series";
   const handleClick = useCallback(() => {
-    const basePath = movie.type === "film" ? "movie" : "series";
-    const link = `/${basePath}/${movie.link}/session`;
+    const link = `/${basePath}/${movie.link}/session/${basePath === "series" ? item?.episode?._id : ""}`;
     router.push(isCompleted ? `${link}?start=0` : link);
   }, [movie, isCompleted, router]);
 
@@ -37,7 +39,7 @@ function WatchHistoryItem({ item }: WatchHistoryItemProps): React.ReactElement {
       <div className="relative rounded-lg overflow-hidden bg-milafilmBlack">
         <div className="relative aspect-[3/2]">
           <Image
-            src={movie.deskBanner || movie.mobileBanner}
+            src={basePath === "movie" ? movie.deskBanner || movie.mobileBanner : item?.episode?.image}
             alt={movie.title}
             fill
             className="object-cover"
@@ -80,7 +82,7 @@ function WatchHistoryItem({ item }: WatchHistoryItemProps): React.ReactElement {
         {/* اطلاعات فیلم */}
         <div className="p-2 my-2 space-y-2">
           <h3 className="text-xs md:text-sm font-medium text-white line-clamp-1">
-            {movie.title}
+            {basePath === "movie" ? movie.title : item?.episode?.title}
           </h3>
           <div className="flex items-center justify-between mt-1">
             <span className="text-xs text-gray-400">
