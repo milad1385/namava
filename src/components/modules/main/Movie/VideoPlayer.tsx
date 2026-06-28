@@ -290,11 +290,18 @@ const VideoPlayer = ({
       player.on("seeked", handleSeeked);
 
       const backupInterval = setInterval(() => {
-        const currentTime = player?.currentTime?.();
-        const duration = player.duration();
-        if (duration > 0 && currentTime > 0) {
-          saveProgress(currentTime, duration);
-        }
+        try {
+          if (!player || !player.tech_ || player.isDisposed()) {
+            return;
+          }
+
+          const currentTime = player.currentTime();
+          const duration = player.duration();
+
+          if (duration > 0 && currentTime > 0) {
+            saveProgress(currentTime, duration);
+          }
+        } catch (error) {}
       }, 10000);
 
       console.log("✅ Player created successfully!");
