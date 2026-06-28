@@ -347,3 +347,26 @@ export interface Message {
   role: "user" | "assistant";
   content: string;
 }
+
+interface WatchHistoryItemType {
+  _id: string;
+  movie: {
+    _id: string;
+    title: string;
+    link: string;
+    deskBanner: string;
+    mobileBanner: string;
+    type: "film" | "series";
+    category: { title: string };
+    showTime: string;
+  };
+  currentTime: number;
+  duration: number;
+  progress: number;
+  lastWatched: string;
+  isCompleted: boolean;
+}
+
+export interface WatchHistoryListProps {
+  history: WatchHistoryItemType[];
+}
