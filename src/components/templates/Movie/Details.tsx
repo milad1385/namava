@@ -3,10 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function Details({ info, article }: any) {
+function Details({ info, article, isKid = false }: any) {
+  const textColor = isKid ? "text-zinc-800" : "text-[#aaa]";
   return (
     <>
-      <h3 className="text-base md:text-lg font-IranMedium">تصاویر و جزییات</h3>
+      <h3 className={`text-base md:text-lg font-IranMedium text-black md:text-white`}>
+        تصاویر و جزییات
+      </h3>
       <div className="grid gap-3 grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 md:cursor-pointer">
         {info.detailImage.map((image: any) => (
           <Image
@@ -44,18 +47,23 @@ function Details({ info, article }: any) {
         <h3 className="text-base md:text-lg font-IranMedium">
           درباره {info.type === "film" ? "فیلم" : "سریال"} {info.title}
         </h3>
-        <p className="text-justify text-xs/6 md:text-sm/8 mt-3 text-[#ccc]">
+        <p className={`text-justify text-xs/6 md:text-sm/8 mt-3 ${textColor}`}>
           {info.longDesc}
         </p>
         <div className="mt-7 text-xs md:text-sm font-IranMedium space-y-3">
-          <p className="flex items-center gap-x-2">
-            دسته بندی :{" "}
-            {info.categories.map((category) => (
-              <Link key={category._id} href={`/category/${info.categories[0]._id}`}>
-                {category.title}
-              </Link>
-            ))}
-          </p>
+          {!isKid && (
+            <p className="flex items-center gap-x-2">
+              دسته بندی :{" "}
+              {info.categories.map((category) => (
+                <Link
+                  key={category._id}
+                  href={`/category/${info.categories[0]._id}`}
+                >
+                  {category.title}
+                </Link>
+              ))}
+            </p>
+          )}
           <p>
             تگ ها :{" "}
             {info.categories.flatMap((category) => category.tags).join(" ، ")}
