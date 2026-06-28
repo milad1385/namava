@@ -9,6 +9,7 @@ import MovieSlider from "../../modules/main/MovieSlider/MovieSlider";
 import Spinner from "../../modules/spinner/Spinner";
 import { FaFilm } from "react-icons/fa6";
 import { LuPopcorn } from "react-icons/lu";
+import AiRecommendationTitle from "./AiRecommendationTitle";
 
 function Recommends({ categories }: { categories: ICategory[] }) {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -116,12 +117,10 @@ function Recommends({ categories }: { categories: ICategory[] }) {
 
       {recommendations?.length > 0 && (
         <div className="md:p-6 mt-10">
-          <div className="flex items-center gap-x-3 md:gap-x-4 border-b border-white">
-            <FaFilm className="text-xl md:text-2xl mb-10" />
-            <h2 className="text-base md:text-2xl font-bold mb-6 text-right  pb-4">
-              فیلم‌های پیشنهادی هوش مصنوعی
-            </h2>
-          </div>
+          <AiRecommendationTitle
+            title="فیلم‌های پیشنهادی هوش مصنوعی"
+            icon={<FaFilm className="text-xl md:text-2xl  mb-4 md:mb-6" />}
+          />
 
           <MovieSlider
             movies={recommendations}
@@ -133,12 +132,10 @@ function Recommends({ categories }: { categories: ICategory[] }) {
       )}
       {seriesRecommendation?.length > 0 && (
         <div className="md:p-6 mt-10">
-          <div className="flex items-center gap-x-3 md:gap-x-4 border-b border-white">
-            <LuPopcorn className="text-xl md:text-2xl mb-10" />
-            <h2 className="text-base md:text-2xl font-bold mb-6 text-right  pb-4">
-              سریال های پیشنهادی هوش مصنوعی
-            </h2>
-          </div>
+          <AiRecommendationTitle
+            title="سریال های پیشنهادی هوش مصنوعی"
+            icon={<LuPopcorn className="text-xl md:text-2xl mb-4 md:mb-6" />}
+          />
 
           <MovieSlider
             movies={seriesRecommendation}
