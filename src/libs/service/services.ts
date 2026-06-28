@@ -502,7 +502,7 @@ export async function getWatchHistory() {
       };
     });
 
-  return result?.slice(1, 10) || [];
+  return result
 }
 
 // get all movies with out any pagination
