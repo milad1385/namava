@@ -87,7 +87,6 @@ const VideoPlayer = ({
   const isSavingRef = useRef<boolean>(false);
   const isUnmountingRef = useRef<boolean>(false);
 
-  //  دریافت موقعیت ذخیره شده از سرور
   useEffect(() => {
     const fetchHistory = async () => {
       try {
@@ -209,11 +208,11 @@ const VideoPlayer = ({
           clearInterval(saveIntervalRef.current);
         }
 
-        saveIntervalRef.current = setInterval(() => {
+        saveIntervalRef.current = setInterval(async () => {
           const currentTime = player.currentTime();
           const duration = player.duration();
           if (duration > 0 && currentTime > 0) {
-            saveProgress(currentTime, duration);
+            await saveProgress(currentTime, duration);
           }
         }, 5000);
       };
@@ -270,26 +269,26 @@ const VideoPlayer = ({
       window.addEventListener("pagehide", handlePageHide);
 
       //  ذخیره موقعیت هنگام pause
-      const handlePause = () => {
+      const handlePause = async () => {
         const currentTime = player.currentTime();
         const duration = player.duration();
         if (duration > 0 && currentTime > 0) {
-          saveProgress(currentTime, duration);
+          await saveProgress(currentTime, duration);
         }
       };
       player.on("pause", handlePause);
 
       //  ذخیره موقعیت هنگام seeked (وقتی کاربر روی تایم‌لاین کلیک میکنه)
-      const handleSeeked = () => {
+      const handleSeeked = async () => {
         const currentTime = player.currentTime();
         const duration = player.duration();
         if (duration > 0 && currentTime > 0) {
-          saveProgress(currentTime, duration);
+          await saveProgress(currentTime, duration);
         }
       };
       player.on("seeked", handleSeeked);
 
-      const backupInterval = setInterval(() => {
+      const backupInterval = setInterval(async () => {
         try {
           if (!player || !player.tech_ || player.isDisposed()) {
             return;
@@ -299,7 +298,7 @@ const VideoPlayer = ({
           const duration = player.duration();
 
           if (duration > 0 && currentTime > 0) {
-            saveProgress(currentTime, duration);
+            await saveProgress(currentTime, duration);
           }
         } catch (error) {}
       }, 10000);
