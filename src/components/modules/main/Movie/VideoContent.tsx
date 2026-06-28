@@ -93,7 +93,7 @@ function VideoContent({
         poster={movie.deskBanner}
         movieId={movie._id}
         subtitles={subtitleList}
-        episodeId={movie._id}
+        episodeId={episode?._id ?? null}
       />
 
       <div className="flex flex-col md:flex-row items-start gap-y-4 md:items-center justify-between mt-8">
