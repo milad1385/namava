@@ -1,6 +1,7 @@
 import MovieSlider from "@/src/components/modules/main/MovieSlider/MovieSlider";
 import Comments from "@/src/components/templates/Comments/Comments";
 import Header from "@/src/components/templates/index/Header/Header";
+import Details from "@/src/components/templates/Movie/Details";
 import {
   checkUserSubscription,
   getMovie,
@@ -19,13 +20,13 @@ async function KidSinglePage({ params }: TParams) {
       authUser(),
       getUserBookmarks(),
       checkUserSubscription(),
-    ]
+    ],
   );
 
   const realatedMovies: any = await getRealedMovies(movie.category, movie._id);
 
   const userMoviesBookmark = userBookmarks.map(
-    (bookmark: any) => bookmark.movie._id
+    (bookmark: any) => bookmark.movie._id,
   );
 
   if (!movie) {
@@ -48,12 +49,15 @@ async function KidSinglePage({ params }: TParams) {
         <div className="absolute inset-0 title-overlay"></div>
       </section>
 
-      <section className="pt-0 pb-10 md:py-10">
+      <section className="mt-20 md:mt-10 container relative bottom-16 md:bottom-24 z-20 space-y-6">
+        <Details info={movie} article={null} isKid />
+      </section>
+
+      <section className="pt-0 pb-10 md:pt-5">
         {realatedMovies.length > 0 && (
           <MovieSlider
             movies={JSON.parse(JSON.stringify(realatedMovies))}
             title={`بر اساس ${movie.title}`}
-            link="/"
             userBookmarks={JSON.parse(JSON.stringify(userMoviesBookmark))}
             user={JSON.parse(JSON.stringify(userInfo))}
           />
