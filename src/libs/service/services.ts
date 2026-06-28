@@ -480,6 +480,7 @@ export async function getWatchHistory() {
       select: "title link deskBanner mobileBanner type category showTime",
       populate: { path: "category", select: "title" },
     })
+    .populate("episode", "_id title image")
     .sort({ lastWatched: -1 })
     .limit(20)
     .lean();
@@ -488,10 +489,10 @@ export async function getWatchHistory() {
     .filter((item) => item.movie)
     .map((item) => {
       const movie = item.movie;
-      const cleanLink = movie.link.includes('/') 
-        ? movie.link.split('/')[0] 
+      const cleanLink = movie.link.includes("/")
+        ? movie.link.split("/")[0]
         : movie.link;
-      
+
       return {
         ...item,
         movie: {
@@ -501,7 +502,7 @@ export async function getWatchHistory() {
       };
     });
 
-  return result;
+  return result?.slice(1, 10) || [];
 }
 
 // get all movies with out any pagination
