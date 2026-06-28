@@ -1,6 +1,6 @@
 // components/modules/main/WatchHistory/WatchHistoryItem.tsx
 "use client";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -9,12 +9,11 @@ interface WatchHistoryItemProps {
 }
 
 function WatchHistoryItem({ item }: WatchHistoryItemProps): React.ReactElement {
-  console.log(item);
-  
   const router = useRouter();
   const movie = item.movie;
   const progress = item.progress || 0;
   const isCompleted = item.isCompleted || progress >= 95;
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const basePath = movie.type === "film" ? "movie" : "series";
   const handleClick = useCallback(() => {
@@ -31,20 +30,35 @@ function WatchHistoryItem({ item }: WatchHistoryItemProps): React.ReactElement {
       .padStart(2, "0")}`;
   };
 
+  const imageSrc = basePath === "movie" 
+    ? movie.deskBanner || movie.mobileBanner 
+    : item?.episode?.image || movie.deskBanner || movie.mobileBanner;
+
   return (
     <div
       onClick={handleClick}
-      className="group cursor-pointer transition-transform"
+      className="group cursor-pointer transition-transform hover:scale-105"
     >
       <div className="relative rounded-lg overflow-hidden bg-milafilmBlack">
         <div className="relative aspect-[3/2]">
+          {!isImageLoaded && (
+            <div className="absolute inset-0 bg-gray-700 rounded-lg overflow-hidden">
+              <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+            </div>
+          )}
+
           <Image
-            src={basePath === "movie" ? movie.deskBanner || movie.mobileBanner : item?.episode?.image}
+            src={imageSrc}
             alt={movie.title}
             fill
-            className="object-cover"
+            onLoad={() => setIsImageLoaded(true)}
+            className={`object-cover transition-opacity duration-500 ${
+              isImageLoaded ? "opacity-100" : "opacity-0"
+            }`}
           />
+          
           <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition" />
+          
           {!isCompleted && progress > 0 && (
             <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-700">
               <div
@@ -82,7 +96,7 @@ function WatchHistoryItem({ item }: WatchHistoryItemProps): React.ReactElement {
         {/* اطلاعات فیلم */}
         <div className="p-2 my-2 space-y-2">
           <h3 className="text-xs md:text-sm font-medium text-white line-clamp-1">
-            {basePath === "movie" ? movie.title : item?.episode?.title}
+            {basePath === "movie" ? movie.title : item?.episode?.title || movie.title}
           </h3>
           <div className="flex items-center justify-between mt-1">
             <span className="text-xs text-gray-400">
