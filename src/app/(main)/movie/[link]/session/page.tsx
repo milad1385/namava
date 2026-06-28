@@ -50,13 +50,9 @@ async function page({
     notFound();
   }
 
-  const startFromBeginning = searchParams?.start === "0";
-
   return (
     <div className="my-28 container px-2">
-      <VideoContent
-        movie={JSON.parse(JSON.stringify(movie))}
-      />
+      <VideoContent movie={JSON.parse(JSON.stringify(movie))} />
     </div>
   );
 }
