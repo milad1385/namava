@@ -5,45 +5,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import { WatchHistoryListProps } from "@/src/libs/types";
 
-interface WatchHistoryItemType {
-  _id: string;
-  movie: {
-    _id: string;
-    title: string;
-    link: string;
-    deskBanner: string;
-    mobileBanner: string;
-    type: "film" | "series";
-    category: { title: string };
-    showTime: string;
-  };
-  currentTime: number;
-  duration: number;
-  progress: number;
-  lastWatched: string;
-  isCompleted: boolean;
-}
-
-interface WatchHistoryListProps {
-  history: WatchHistoryItemType[];
-}
-
-// ✅ سرور کامپوننت
 function WatchHistoryList({
   history,
 }: WatchHistoryListProps): React.ReactElement {
   if (!history || history.length === 0) {
-    return (
-      <div className="text-center py-8 text-gray-400">
-        <p>هنوز فیلم یا سریالی تماشا نکرده‌اید</p>
-        <Link href="/" className="text-blue-500 hover:underline mt-2 block">
-          شروع تماشا
-        </Link>
-      </div>
-    );
+    return null;
   }
-
+  const historyLength = history?.length > 5;
   const inProgressCount = history.filter((item) => !item.isCompleted).length;
 
   return (
@@ -63,7 +33,7 @@ function WatchHistoryList({
         autoplay={true}
         className="mySwiper"
         modules={[Autoplay]}
-        navigation={true}
+        navigation={historyLength}
         breakpoints={{
           0: {
             slidesPerView: 2,
