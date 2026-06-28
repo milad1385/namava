@@ -1,6 +1,7 @@
 import MovieSlider from "@/src/components/modules/main/MovieSlider/MovieSlider";
 import SeriesEpisode from "@/src/components/modules/main/series/SeriesEpisode";
 import Comments from "@/src/components/templates/Comments/Comments";
+import Details from "@/src/components/templates/Movie/Details";
 import SeasonOption from "@/src/components/templates/Movie/SeasonOption";
 import Header from "@/src/components/templates/index/Header/Header";
 import {
@@ -60,8 +61,13 @@ async function page({ params, searchParams }: TParams) {
         />
         <div className="absolute inset-0 title-overlay"></div>
       </section>
+
+      <section className="mt-20 md:mt-10 container relative bottom-16 md:bottom-24 z-20 space-y-6">
+        <Details info={movie} article={null} isKid />
+      </section>
+
       {/* season of Season */}
-      <section className="mt-14 container flex flex-col gap-y-4 md:flex-row md:items-center gap-x-4 relative bottom-6 md:bottom-28 z-20 space-y-6">
+      <section className="mt-5 md:mt-14 container flex flex-col gap-y-4 md:flex-row md:items-center gap-x-4 relative bottom-6 md:bottom-28 z-20 space-y-6">
         <SeasonOption seasons={JSON.parse(JSON.stringify(seasons))} />
         <div className="bg-milafilmBlack rounded-md flex items-center gap-x-2 py-2 px-3 text-white text-xs md:text-sm !mt-0">
           <div className="flex items-center gap-x-2">
