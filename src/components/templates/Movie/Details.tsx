@@ -7,7 +7,9 @@ function Details({ info, article, isKid = false }: any) {
   const textColor = isKid ? "text-zinc-800" : "text-[#aaa]";
   return (
     <>
-      <h3 className={`text-base md:text-lg font-IranMedium text-black md:text-white`}>
+      <h3
+        className={`text-base md:text-lg font-IranMedium ${isKid ? "text-black" : "text-white"} md:text-white`}
+      >
         تصاویر و جزییات
       </h3>
       <div className="grid gap-3 grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 md:cursor-pointer">
