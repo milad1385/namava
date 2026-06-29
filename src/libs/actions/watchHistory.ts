@@ -15,7 +15,7 @@ export async function getWatchHistoryFresh() {
     .populate({
       path: "movie",
       select: "title link deskBanner mobileBanner type category showTime _id",
-      populate: { path: "category", select: "title" },
+      populate: { path: "category", select: "title parrent" },
     })
     .populate("episode", "_id title image")
     .sort({ lastWatched: -1 })
