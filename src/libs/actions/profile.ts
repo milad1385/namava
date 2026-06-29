@@ -8,6 +8,13 @@ import connectToDB from "@/src/configs/db";
 import { revalidatePath } from "next/cache";
 import { TResponse } from "../types";
 import { hashPassword, verifyPassword } from "@/src/utils/auth";
+import { cookies } from 'next/headers';
+
+export async function getProfileCookie() {
+  const cookieStore = cookies();
+  const profileId = cookieStore.get('profile')?.value;
+  return profileId || null;
+}
 export const addNewProfile = async (formData: FormData) => {
   try {
     connectToDB();
