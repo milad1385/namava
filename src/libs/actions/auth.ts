@@ -160,7 +160,7 @@ export const signIn = async (body: ISignin) => {
       path: "/",
       maxAge: 432000,
     });
-    
+
     cookies().set({
       name: "accessToken",
       value: `${accessToken}`,
@@ -184,6 +184,7 @@ export const signIn = async (body: ISignin) => {
 export const logout = async () => {
   try {
     cookies().set({ name: "accessToken", value: "", maxAge: 0 });
+    cookies().delete("profile");
     redirect("/");
   } catch (error) {
     return {

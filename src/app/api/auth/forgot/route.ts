@@ -7,18 +7,18 @@ export async function POST(request: NextRequest) {
     await connectToDB();
     const { email } = await request.json();
 
-    // if (!email) {
-    //   return NextResponse.json({ error: "ایمیل الزامی است" }, { status: 400 });
-    // }
+    if (!email) {
+      return NextResponse.json({ error: "ایمیل الزامی است" }, { status: 400 });
+    }
 
-    // const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email });
 
-    // if (!user) {
-    //   return NextResponse.json(
-    //     { message: "کاربری با این ایمیل یافت نشد" },
-    //     { status: 404 },
-    //   );
-    // }
+    if (!user) {
+      return NextResponse.json(
+        { message: "کاربری با این ایمیل یافت نشد" },
+        { status: 404 },
+      );
+    }
 
     const token = generateResetToken(email);
 

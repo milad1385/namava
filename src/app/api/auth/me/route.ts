@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
   try {
-    connectToDB();
+    await connectToDB();
 
     const user = await authUser();
 
