@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "nex-agi/nex-n2-pro:free",
+        model: "nvidia/nemotron-3-ultra-550b-a55b:free",
         messages: [
           {
             role: "system",
