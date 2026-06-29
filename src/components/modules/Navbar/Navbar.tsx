@@ -15,9 +15,9 @@ import MobileNavbar from "./MobileNavbar";
 import { limitedRoute } from "@/public/db";
 import Menus from "./Menus";
 function Navbar({ user, userSubscription, menus }: any) {
-  const { activeProfile } = useAuth();
+  let { activeProfile } = useAuth();
   const category: any = useCategoryName();
-
+  activeProfile = user?.profiles?.[0];
   const pathname = usePathname();
   const [isShowProfile, setIsShowProfile] = useState(false);
   let navBar = useRef<any>("");
