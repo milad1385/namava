@@ -11,8 +11,6 @@ async function WatchListSection({ categoryId }: { categoryId: string }) {
     );
   }
 
-  console.log(history);
-
   return (
     <div>
       <WatchHistoryList history={JSON.parse(JSON.stringify(history))} />
