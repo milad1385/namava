@@ -37,7 +37,7 @@ function WatchHistoryItem({ item }: WatchHistoryItemProps): React.ReactElement {
   return (
     <div
       onClick={handleClick}
-      className="group cursor-pointer transition-transform hover:scale-105"
+      className="group cursor-pointer transition-transform"
     >
       <div className="relative rounded-lg overflow-hidden bg-milafilmBlack">
         <div className="relative aspect-[3/2]">
