@@ -71,9 +71,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const sortedMovies = [...filteredMovies].sort(
-      (a, b) => b.IMDB - a.IMDB,
-    );
+    const sortedMovies = [...filteredMovies].sort((a, b) => b.IMDB - a.IMDB);
     const topMovies = sortedMovies;
 
     const sortedAllMovies = [...filtredAllMovies].sort(
@@ -86,8 +84,6 @@ export async function POST(req: NextRequest) {
     const topAllSeries = [...sortedAllMovies].filter(
       (movie) => movie.type === "series",
     );
-    console.log(topAllSeries);
-    
 
     const mainGenre = subCategoryTitles.slice(0, 3).join("، ");
 
@@ -110,11 +106,11 @@ ${topMovies.map((m) => `- ${m.title} (${m.year}) - کارگردان: ${m.directo
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            model: "nex-agi/nex-n2-pro:free",
+            model: "poolside/laguna-m.1:free",
             messages: [
               {
                 role: "system",
@@ -130,9 +126,10 @@ ${topMovies.map((m) => `- ${m.title} (${m.year}) - کارگردان: ${m.directo
       );
 
       const aiData = await aiResponse.json();
+      
       aiMessage =
-        aiData.choices?.[0]?.message?.content ||
-        `✨ بهترین فیلم ها و سریال های ژانر های ${mainGenre}  شامل این فیلم ها می شود : ${topMovies.map((m) => m.title).join("    ،    ")}. پیشنهاد ویژه من "${topMovies[0]?.title}" است! 🎬`;
+      aiData.choices?.[0]?.message?.content ||
+      `✨ بهترین فیلم ها و سریال های ژانر های ${mainGenre}  شامل این فیلم ها می شود : ${topMovies.map((m) => m.title).join("    ،    ")}. پیشنهاد ویژه من "${topMovies[0]?.title}" است! 🎬`;
     } catch (aiError) {
       console.error("AI Error:", aiError);
       aiMessage = `✨ فیلم ها و سریال های ژانر "${mainGenre}": ${topMovies.map((m) => m.title).join("، ")}. پیشنهاد ویژه من "${topMovies[0]?.title}" است! 🎬`;
