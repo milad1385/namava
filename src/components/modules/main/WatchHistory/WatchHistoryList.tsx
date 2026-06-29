@@ -23,7 +23,7 @@ function WatchHistoryList({
           تاریخچه تماشا
         </h2>
         <span className="text-sm text-gray-400">
-          {inProgressCount} در حال تماشا
+          {inProgressCount} عنوان در حال تماشا
         </span>
       </div>
 
