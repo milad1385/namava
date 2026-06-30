@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { baseURL, UserAuthContextType } from "../libs/types";
 import { usePathname } from "next/navigation";
+import { getProfileCookie } from "../libs/actions/profile";
 
 const UserAuthContext = createContext({} as UserAuthContextType);
 
@@ -21,12 +22,10 @@ function AuthContextProvider({ children }: TAuthContextProvider) {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/me`,
       );
-
       if (res.status === 200) {
         const userData = await res.json();
         setUserInfo(userData.user);
         setSubscription(userData.subscription);
-        setActiveProfile(userData.currentProfile);
         setIsLogin(true);
       } else {
         setUserInfo(null);
@@ -34,7 +33,15 @@ function AuthContextProvider({ children }: TAuthContextProvider) {
       }
     };
 
+    const getActiveProfile = async () => {
+      const id = await getProfileCookie();
+      const res = await fetch(`/api/profile?id=${id}`);
+      const activeProfile = await res?.json();
+      setActiveProfile(activeProfile.profile);
+    };
+
     getUserInfo();
+    getActiveProfile();
   }, [pathname]);
 
   return (

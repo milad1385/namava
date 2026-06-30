@@ -22,19 +22,11 @@ function ProfileMenu({
   userSubscription,
 }: TProfileMenu) {
   const [profileId, setProfileId] = useState("");
-  const [active, setActive] = useState(null);
   const url = usePathname();
 
   const { ref } = useCloseOutSideClick(() => onShow(false), false);
 
   useEffect(() => {
-    const getActiveProfile = async () => {
-      const id = await getProfileCookie();
-      const res = await fetch(`/api/profile?id=${id}`);
-      const activeProfile = await res.json();
-      setActive(activeProfile.profile);
-    };
-    getActiveProfile();
     const id = document.cookie.split("=")[1];
     setProfileId(id);
   }, []);
@@ -85,14 +77,14 @@ function ProfileMenu({
               >
                 <div className="flex items-center gap-x-2">
                   <Image
-                    src={active?.image ?? "/images/user.png"}
+                    src={activeProfile?.image ?? "/images/user.png"}
                     alt="user-profile"
                     width={30}
                     height={30}
                     priority={false}
                     className="rounded-full"
                   />
-                  <span>{active?.name}</span>
+                  <span>{activeProfile?.name}</span>
                 </div>
                 <div className="flex items-center gap-x-1">
                   <LuSettings className="text-lg text-gray-600 group-hover:text-blue-600" />

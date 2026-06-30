@@ -17,6 +17,7 @@ export async function GET(req: NextRequest) {
     }
 
     const profileId = cookies().get("profile")?.value;
+
     const profileModel = ProfileModel as any;
     let currentProfile = null;
     if (profileId) {
