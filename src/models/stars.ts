@@ -25,4 +25,4 @@ const schema = new Schema<IStars>(
 
 const model = mongoose.models?.Stars || mongoose.model<IStars>("Stars", schema);
 
-export default model;
+export default model as any;

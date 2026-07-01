@@ -77,4 +77,4 @@ const schema = new Schema<ITicket>(
 const model =
   mongoose.models.Ticket || mongoose.model<ITicket>("Ticket", schema);
 
-export default model;
+export default model as any;

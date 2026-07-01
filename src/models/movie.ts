@@ -182,4 +182,4 @@ schema.virtual("comments", {
 
 const model = mongoose.models?.Movie || mongoose.model<IMovie>("Movie", schema);
 
-export default model;
+export default model as any;

@@ -52,4 +52,4 @@ const schema = new mongoose.Schema<IComment>(
 const model =
   mongoose.models?.Comment || mongoose.model<IComment>("Comment", schema);
 
-export default model;
+export default model as any;

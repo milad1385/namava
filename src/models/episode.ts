@@ -65,4 +65,4 @@ const schema = new Schema<IEpisode>(
 
 const model = mongoose.models?.Episode || mongoose.model<IEpisode>("Episode", schema);
 
-export default model;
+export default model as any;

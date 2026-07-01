@@ -66,4 +66,4 @@ const WatchHistoryModel: Model<IWatchHistory> =
   mongoose.models.WatchHistory ||
   mongoose.model<IWatchHistory>("WatchHistory", watchHistorySchema);
 
-export default WatchHistoryModel;
+export default WatchHistoryModel as any;

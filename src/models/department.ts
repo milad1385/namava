@@ -18,4 +18,4 @@ const schema = new Schema<IDepartment>(
 
 const model = mongoose.models.Department || mongoose.model<IDepartment>("Department", schema);
 
-export default model;
+export default model as any;

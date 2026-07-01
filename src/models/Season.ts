@@ -34,4 +34,4 @@ const schema = new Schema<ISeason>(
 
 const model = mongoose.models?.Season || mongoose.model<ISeason>("Season", schema);
 
-export default model;
+export default model as any;
