@@ -12,6 +12,7 @@ function MobileNavbar({ isOpen, onOpen, user }: IMobileNavbar) {
   const pathname = usePathname();
   const isUserPanel = pathname.includes("/p-user");
 
+
   useEffect(() => {
     onOpen(false);
   }, [pathname, onOpen]);
