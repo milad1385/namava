@@ -6,7 +6,7 @@ import Logo from "@/src/icons/Logo";
 import Search from "@/src/icons/Search";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { HiMiniBars3 } from "react-icons/hi2";
 import Button from "../auth/Button/Button";
@@ -14,10 +14,12 @@ import ProfileMenu from "../profileMenu/ProfileMenu";
 import MobileNavbar from "./MobileNavbar";
 import { limitedRoute } from "@/public/db";
 import Menus from "./Menus";
+import { FaArrowLeft } from "react-icons/fa6";
 function Navbar({ user, userSubscription, menus }: any) {
   let { activeProfile } = useAuth();
   const category: any = useCategoryName();
   const pathname = usePathname();
+  const router = useRouter();
   const [isShowProfile, setIsShowProfile] = useState(false);
   let navBar = useRef<any>("");
 
@@ -166,6 +168,11 @@ function Navbar({ user, userSubscription, menus }: any) {
             >
               ورود | ثبت نام
             </Link>
+          )}
+          {pathname !== "/" && (
+            <div onClick={() => router.back()}>
+              <FaArrowLeft className="text-xl md:text-2xl md:cursor-pointer text-white" />
+            </div>
           )}
         </div>
       </div>
