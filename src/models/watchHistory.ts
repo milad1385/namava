@@ -5,6 +5,7 @@ import { IEpisode } from "./episode";
 import MovieModel from "./movie";
 import UserModel from "./user";
 import EpisodeModel from "./episode";
+import CategoryModel from "./category";
 
 export interface IWatchHistoryPopulated {
   user: IUser;

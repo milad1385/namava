@@ -3,6 +3,7 @@ import WatchHistoryModel from "@/src/models/watchHistory";
 import { authUser } from "@/src/utils/serverHelper";
 import { NextResponse } from "next/server";
 import { Types } from "mongoose";
+import "@/src/models/category";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
