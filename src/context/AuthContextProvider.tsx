@@ -35,6 +35,7 @@ function AuthContextProvider({ children }: TAuthContextProvider) {
 
     const getActiveProfile = async () => {
       const id = await getProfileCookie();
+      if (!id) return;
       const res = await fetch(`/api/profile?id=${id}`);
       const activeProfile = await res?.json();
       setActiveProfile(activeProfile.profile);
