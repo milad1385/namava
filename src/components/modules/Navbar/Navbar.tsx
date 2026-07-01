@@ -90,6 +90,18 @@ function Navbar({ user, userSubscription, menus }: any) {
             <Link href={isKid ? "/kids" : "/"}>
               {isKid ? <KidLogo /> : <Logo />}
             </Link>
+            <div className="block md:hidden">
+              {isKid &&
+                (user ? (
+                  <Link href="/kids/bookmarks" className="text-sm">
+                    لیست من
+                  </Link>
+                ) : (
+                  <Link href="/login" className="text-sm">
+                    ورود | ثبت نام
+                  </Link>
+                ))}
+            </div>
           </div>
           <ul className="hidden md:flex child:block items-center md:gap-x-5 lg:gap-x-8 text-xs hover:child:text-milafilm">
             {!isKid ? (
@@ -169,9 +181,11 @@ function Navbar({ user, userSubscription, menus }: any) {
               ورود | ثبت نام
             </Link>
           )}
-          {pathname !== "/" && (
+          {pathname !== "/" && pathname !== "/kids" && (
             <div onClick={() => router.back()}>
-              <FaArrowLeft className="text-xl md:text-2xl md:cursor-pointer text-white" />
+              <FaArrowLeft
+                className={`text-xl md:text-2xl md:cursor-pointer ${isKid ? "text-zinc-600" : "text-white"}`}
+              />
             </div>
           )}
         </div>
