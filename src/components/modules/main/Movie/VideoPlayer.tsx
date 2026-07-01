@@ -94,14 +94,14 @@ const VideoPlayer = ({
           `/api/watch-history?movieId=${movieId}&episodeId=${episodeId || ""}`,
         );
         const data = await res.json();
-        console.log("📊 History data:", data);
+        // console.log("📊 History data:", data);
 
         if (data && data.currentTime > 5) {
           setSavedTime(data.currentTime);
           lastSavedTimeRef.current = data.currentTime;
-          console.log("⏱️ Saved time loaded:", data.currentTime);
+          // console.log("⏱️ Saved time loaded:", data.currentTime);
         } else {
-          console.log("⏱️ No saved time found, starting from beginning");
+          // console.log("⏱️ No saved time found, starting from beginning");
           setSavedTime(0);
           lastSavedTimeRef.current = 0;
         }
