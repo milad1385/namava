@@ -5,14 +5,23 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import LockModal from "../modals/LockModal";
+import { useAuth } from "@/src/context/AuthContextProvider";
 
 function ProfileBox({ profile }: any) {
   const [isShowLockModal, setIsShowLockModal] = useState(false);
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { activeProfile } = useAuth();
 
   const handleNavigation = async () => {
+    if (profile?._id === activeProfile?._id) {
+      if (activeProfile?.type === "kid") {
+        return router.push("/kids");
+      } else {
+        return router.push("/");
+      }
+    }
     if (profile.isLock) {
       setIsShowLockModal(true);
     } else {
