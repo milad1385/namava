@@ -78,4 +78,4 @@ const schema = new Schema<IArticle>(
 // 📌 تعریف مدل با تایپ صحیح
 const ArticleModel: Model<IArticle> = models.Article || mongoose.model<IArticle>("Article", schema);
 
-export default ArticleModel as any;
+export default ArticleModel;

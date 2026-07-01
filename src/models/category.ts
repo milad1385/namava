@@ -51,4 +51,4 @@ const schema = new Schema<ICategory>(
 const CategoryModel: Model<ICategory> =
   models.Category || mongoose.model<ICategory>("Category", schema);
 
-export default CategoryModel as any;
+export default CategoryModel;

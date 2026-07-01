@@ -57,4 +57,4 @@ const schema = new Schema<IOrder>(
 
 const model = mongoose.models.Order || mongoose.model<IOrder>("Order", schema);
 
-export default model as any;
+export default model;

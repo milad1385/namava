@@ -31,4 +31,4 @@ const schema = new Schema<IMenu>(
 
 const model = mongoose.models?.Menu || mongoose.model<IMenu>("Menu", schema);
 
-export default model as any;
+export default model;

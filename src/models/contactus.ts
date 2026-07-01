@@ -27,4 +27,4 @@ const schema = new Schema<IContact>(
 const model =
   mongoose.models.Contact || mongoose.model<IContact>("Contact", schema);
 
-export default model as any;
+export default model;

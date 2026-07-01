@@ -63,4 +63,4 @@ const model =
   mongoose.models.Collection ||
   mongoose.model<ICollection>("Collection", schema);
 
-export default model as any;
+export default model;

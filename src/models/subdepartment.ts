@@ -26,4 +26,4 @@ const model =
   mongoose.models.SubDepartment ||
   mongoose.model<ISubDepartment>("SubDepartment", schema);
 
-export default model as any;
+export default model;
