@@ -15,10 +15,10 @@ import { Suspense } from "react";
 import Collections from "../Collections/Collections";
 import WatchListSection from "@/src/components/modules/main/WatchHistory/WatchListSection";
 
-async function MainSliderContent({ categoryId, type }: TMainSlider) {
+async function MainSliderContent({ categoryId, type = null }: TMainSlider) {
   const [slides, allStars, movies, collections, userBookmarks, userInfo]: any =
     await Promise.all([
-      getAllSlidersMovies(null ,categoryId),
+      getAllSlidersMovies(type, categoryId),
       getStars(),
       getMovies("adult", categoryId, type),
       getAllCollectionSlider("adult"),
