@@ -33,6 +33,18 @@ export type THeaderDetails = {
   episodeId?: string;
 };
 
+export interface ICategoryGroup {
+  _id: string;
+  title: string;
+  link?: string;
+  parrent?: {
+    _id: string;
+    title: string;
+    link?: string;
+  } | null;
+  movies: any[];
+}
+
 export type TMovieSlider = {
   title: string;
   link?: string;
