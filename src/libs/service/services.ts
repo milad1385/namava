@@ -18,7 +18,7 @@ import TicketModel from "@/src/models/ticket";
 import UserModel from "@/src/models/user";
 import OrderModel from "@/src/models/order";
 import { authUser, checkIsAdmin } from "@/src/utils/serverHelper";
-import { isValidObjectId } from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 import { ICategory, IOrders, IWishList, TArticle } from "../types";
 import { cookies } from "next/headers";
 import WatchHistoryModel from "@/src/models/watchHistory";
@@ -306,17 +306,43 @@ export const getAllMovies = async (page: number, search: string) => {
 
 // get sliders for home page
 
-export const getAllSlidersMovies = async (type?: string) => {
+export const getAllSlidersMovies = async (
+  type?: string,
+  categoryId?: string,
+) => {
   try {
-    let filterObj = {};
+    await connectToDB();
+
+    let filterObj: any = { isSlider: true };
+
     if (type) {
-      filterObj = { type };
+      filterObj.type = type;
     }
-    connectToDB();
-    return await MovieModel.find({ isSlider: true, ...filterObj }).populate(
-      "actors",
-      "name link",
-    );
+
+    if (categoryId) {
+      const subCategories = await CategoryModel.find({
+        parrent: categoryId,
+      });
+
+      const allCategoryIds = [
+        categoryId,
+        ...subCategories.map((cat) => cat._id),
+      ];
+
+      filterObj.category = { $in: allCategoryIds };
+    }
+
+    return await MovieModel.find(filterObj)
+      .populate({
+        path: "category",
+        select: "title link parrent",
+        populate: {
+          path: "parrent",
+          select: "title link",
+        },
+      })
+      .populate("actors", "name link")
+      // .sort({ createdAt: -1 });
   } catch (error) {
     return error;
   }
@@ -407,7 +433,7 @@ export const getMovies = async (
   type?: "film" | "series",
 ) => {
   try {
-    await connectToDB(); 
+    await connectToDB();
 
     let filterObj: any = {};
 
@@ -419,68 +445,105 @@ export const getMovies = async (
       filterObj = { ...filterObj, type };
     }
 
-    let allMovies = null;
-
-    const populateConfig = [
+    const pipeline: any[] = [
+      { $match: filterObj },
+      { $sort: { createdAt: -1 } },
       {
-        path: "category",
-        select: "title link parrent",
-        populate: {
-          path: "parrent",
-          select: "title link",
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "category",
+        },
+      },
+      { $unwind: "$category" },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category.parrent",
+          foreignField: "_id",
+          as: "category.parrent",
         },
       },
       {
-        path: "actors",
-        select: "name link",
+        $unwind: {
+          path: "$category.parrent",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "actors",
+          localField: "actors",
+          foreignField: "_id",
+          as: "actors",
+        },
       },
     ];
 
-    if (!categoryId) {
-      allMovies = await MovieModel.find(filterObj).populate(populateConfig);
-    } else {
-      const movies = await MovieModel.find(filterObj).populate(populateConfig);
-
-      allMovies = movies.filter(
-        (movie) =>
-          String(movie.category?._id) === categoryId ||
-          String(movie.category?.parrent?._id) === categoryId,
-      );
+    if (categoryId) {
+      pipeline.push({
+        $match: {
+          $or: [
+            { "category._id": new mongoose.Types.ObjectId(categoryId) },
+            { "category.parrent._id": new mongoose.Types.ObjectId(categoryId) },
+          ],
+        },
+      });
     }
 
-    const categorizeFilms = (films: any[]) => {
-      const categorized: any = {};
+    pipeline.push({
+      $group: {
+        _id: "$category._id",
+        title: { $first: "$category.title" },
+        link: { $first: "$category.link" },
+        parrent: { $first: "$category.parrent" },
+        movies: { $push: "$$ROOT" },
+        lastMovieDate: { $max: "$createdAt" },
+        movieCount: { $sum: 1 },
+      },
+    });
+    pipeline.push({
+      $match: {
+        movieCount: { $gt: 0 },
+      },
+    });
 
-      films.forEach((film: any) => {
-        const category = film.category;
-        if (!category) return;
+    pipeline.push({
+      $sort: { lastMovieDate: -1 },
+    });
 
-        const categoryId = category._id.toString();
+    pipeline.push({
+      $project: {
+        _id: 1,
+        title: 1,
+        link: 1,
+        parrent: 1,
+        movies: { $slice: ["$movies", 12] },
+        lastMovieDate: 1,
+      },
+    });
 
-        if (!categorized[categoryId]) {
-          categorized[categoryId] = {
-            _id: category._id,
-            title: category.title,
-            link: category.link,
-            parrent: category.parrent,
-            movies: [],
-          };
-        }
+    const result = await MovieModel.aggregate(pipeline);
 
-        categorized[categoryId].movies.push(film);
-      });
+    const categorized: any = {};
+    result.forEach((item: any) => {
+      const id = item._id.toString();
+      categorized[id] = {
+        _id: item._id,
+        title: item.title,
+        link: item.link,
+        parrent: item.parrent,
+        movies: item.movies,
+      };
+    });
 
-      return categorized;
-    };
-
-    const result = categorizeFilms(allMovies);
-    return result;
+    return categorized;
   } catch (error) {
     console.error("Error in getMovies:", error);
     return {};
   }
 };
-
 export async function getWatchHistory() {
   await connectToDB();
   const user = await authUser();

@@ -18,7 +18,7 @@ import WatchListSection from "@/src/components/modules/main/WatchHistory/WatchLi
 async function MainSliderContent({ categoryId, type }: TMainSlider) {
   const [slides, allStars, movies, collections, userBookmarks, userInfo]: any =
     await Promise.all([
-      getAllSlidersMovies(),
+      getAllSlidersMovies(null ,categoryId),
       getStars(),
       getMovies("adult", categoryId, type),
       getAllCollectionSlider("adult"),
