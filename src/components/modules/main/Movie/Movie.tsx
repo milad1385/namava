@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { FaMicrophone } from "react-icons/fa6";
 
 function Movie({
   image,
@@ -16,6 +17,7 @@ function Movie({
   showTime,
   category,
   isMain,
+  language,
 }: IMovie) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const router = useRouter();
@@ -97,6 +99,12 @@ function Movie({
                 <Heart className="!text-white" />
                 <span className="font-Dana mt-[1px] !text-white">%80</span>
               </div>
+              <div className="flex text-xs md:text-[13px] gap-x-1">
+                <FaMicrophone className="!text-white text-lg" />
+                <span className="font-Dana mt-[1px] !text-white">
+                  {language}
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -142,6 +150,12 @@ function Movie({
               <div className="flex gap-x-1">
                 <Heart className="!text-white" />
                 <span className="font-Dana mt-[1px] text-white">%80</span>
+              </div>
+              <div className="flex text-xs md:text-[13px] gap-x-1">
+                <FaMicrophone className="!text-white text-lg" />
+                <span className="font-Dana mt-[1px] !text-white">
+                  {language}
+                </span>
               </div>
             </div>
           </div>

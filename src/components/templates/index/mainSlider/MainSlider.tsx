@@ -49,8 +49,9 @@ async function MainSliderContent({ categoryId, type = null }: TMainSlider) {
         <MovieSlider
           movies={JSON.parse(JSON.stringify(userFavMovies))}
           userBookmarks={JSON.parse(JSON.stringify(userMoviesBookmark))}
-          title={`مورد علاقه شما - ${userInfo?.favGenre?.title}`}
+          title={`مورد علاقه شما  ${userInfo?.favGenre?.parrent?.title} - ${userInfo?.favGenre?.title}`}
           user={JSON.parse(JSON.stringify(userInfo))}
+          link={`/movie/all/${userInfo?.favGenre?.parrent?._id}`}
         />
       )}
 

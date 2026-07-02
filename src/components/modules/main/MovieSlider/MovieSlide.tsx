@@ -49,6 +49,7 @@ function MovieSlide({
           showTime={movie.showTime}
           category={movie.category.title}
           isMain={isMain}
+          language={movie?.language}
         />
       </div>
     </div>

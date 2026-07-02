@@ -300,6 +300,7 @@ export interface IMovie {
   contentType?: "adult" | "kid";
   category?: string;
   isMain?: boolean;
+  language?: string;
 }
 
 export interface IUpdateUser {
