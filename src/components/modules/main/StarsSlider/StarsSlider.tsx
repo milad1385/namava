@@ -7,7 +7,7 @@ interface StarsSlider {
 
 async function StarsSlider({ title, allStars }: StarsSlider) {
   return (
-    <div className="container mt-10 text-white">
+    <div className="container md:mb-16 text-white">
       <h3 className="font-IranMedium text-base md:text-lg">{title}</h3>
       <div className="my-10">
         <Slider stars={JSON.parse(JSON.stringify(allStars))} />
