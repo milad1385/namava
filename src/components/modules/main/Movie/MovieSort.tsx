@@ -15,7 +15,7 @@ function MovieSort() {
   };
 
   return (
-    <div className="hidden lg:flex items-center gap-x-2">
+    <div className="flex items-center gap-1.5 md:gap-x-2 mt-5 lg:mt-0">
       {filterMovieStatus.map((status) => (
         <div
           className={`sort-item ${status.slug === statusName ? "active-sort" : ""}`}
