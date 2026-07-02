@@ -20,7 +20,7 @@ async function ActorsPage({ searchParams }: TAdminPage) {
   return (
     <div>
       <Title name="ایجاد بازیگر" />
-      <AddNewActor />
+      <AddNewActor status="create"/>
       <div className="flex items-start md:items-center justify-between flex-col md:flex-row gap-y-3">
         <Title name="لیست بازیگران و ستارگان" />
         <Search />
