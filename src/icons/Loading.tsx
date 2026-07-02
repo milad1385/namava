@@ -7,6 +7,7 @@ function Loading() {
   const bgColor = !pathname.includes("/kids")
     ? "bg-milafilmBlack text-white"
     : "bg-white text-black";
+    
   const fillColor = !pathname.includes("/kids") ? "#222327" : "#8a8a8e";
   return (
     <div className={`${bgColor} z-50  fixed inset-0 flex-center`}>
