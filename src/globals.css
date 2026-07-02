@@ -457,6 +457,14 @@ input:checked + .slider:before {
     @apply opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all;
   }
 
+  .sort-item {
+    @apply w-[100px] flex-center py-2 text-sm rounded-lg md:cursor-pointer hover:bg-milafilm transition-all bg-black;
+  }
+
+  .active-sort{
+    @apply bg-milafilm
+  }
+
   .toggle-menu {
     left: 10px;
     width: 24px;
