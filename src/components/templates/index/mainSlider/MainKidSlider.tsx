@@ -14,15 +14,20 @@ async function KidsContent() {
     <div>
       <AnimsSlider collections={JSON.parse(JSON.stringify(collections))} />
       <div className="space-y-12">
-        {Object.keys(movies).map((category) => {
-          const movieData = JSON.parse(JSON.stringify(movies[category]));
+        {Object.values(movies).map((category: any) => {
+          const parentTitle = category?.parrent?.title || "";
+          const categoryTitle = category?.title || "دسته‌بندی نشده";
+          const displayTitle = parentTitle
+            ? `${parentTitle} - ${categoryTitle}`
+            : categoryTitle;
+
           return (
-            <div key={category}>
+            <div key={category._id}>
               <MovieSlider
-                movies={movieData}
+                movies={JSON.parse(JSON.stringify(category.movies || []))}
                 userBookmarks={[]}
-                title={`${category}`}
-                user={[]}
+                title={displayTitle}
+                user={null}
               />
             </div>
           );
