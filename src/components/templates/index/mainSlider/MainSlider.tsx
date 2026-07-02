@@ -9,7 +9,7 @@ import {
   getStars,
   getUserBookmarks,
 } from "@/src/libs/service/services";
-import { TMainSlider } from "@/src/libs/types";
+import { ICategoryGroup, TMainSlider } from "@/src/libs/types";
 import { authUser } from "@/src/utils/serverHelper";
 import { Suspense } from "react";
 import Collections from "../Collections/Collections";
@@ -30,9 +30,15 @@ async function MainSliderContent({ categoryId, type }: TMainSlider) {
     (bookmark: any) => bookmark.movie._id,
   );
 
-  const userFavMovies = [...(movies?.[userInfo?.favGenre?.title] || [])].sort(
-    () => Math.random() - 0.5,
-  );
+  const moviesData = movies as Record<string, ICategoryGroup>;
+
+  const favGenreTitle = userInfo?.favGenre?.title;
+  const userFavMovies =
+    favGenreTitle && moviesData
+      ? Object.values(moviesData)
+          .find((cat: ICategoryGroup) => cat?.title === favGenreTitle)
+          ?.movies?.sort(() => Math.random() - 0.5) || []
+      : [];
 
   return (
     <>
@@ -48,13 +54,19 @@ async function MainSliderContent({ categoryId, type }: TMainSlider) {
         />
       )}
 
-      {Object.keys(movies).map((category) => {
+      {Object.values(movies).map((category: any) => {
+        const parentTitle = category?.parrent?.title || "";
+        const categoryTitle = category?.title || "دسته‌بندی نشده";
+        const displayTitle = parentTitle
+          ? `${parentTitle} - ${categoryTitle}`
+          : categoryTitle;
+
         return (
-          <div key={category} className="text-white">
+          <div key={category._id} className="text-white">
             <MovieSlider
-              movies={JSON.parse(JSON.stringify(movies[category]))}
+              movies={JSON.parse(JSON.stringify(category.movies))}
               userBookmarks={JSON.parse(JSON.stringify(userMoviesBookmark))}
-              title={`${category}`}
+              title={displayTitle}
               user={JSON.parse(JSON.stringify(userInfo))}
             />
           </div>
