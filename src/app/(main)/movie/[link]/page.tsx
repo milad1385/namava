@@ -23,7 +23,7 @@ async function page({ params }: TParams) {
       authUser(),
       getUserBookmarks(),
       checkUserSubscription(),
-    ]
+    ],
   );
 
   const [realatedMovies, relatedArticle]: any = await Promise.all([
@@ -32,7 +32,7 @@ async function page({ params }: TParams) {
   ]);
 
   const userMoviesBookmark = userBookmarks.map(
-    (bookmark: any) => bookmark.movie._id
+    (bookmark: any) => bookmark.movie._id,
   );
 
   if (!movie) {
@@ -68,7 +68,7 @@ async function page({ params }: TParams) {
           <MovieSlider
             movies={JSON.parse(JSON.stringify(realatedMovies))}
             title={`بر اساس ${movie.title}`}
-            link="/"
+            link={`/movie/all/${realatedMovies[0]?.category.parrent._id}`}
             userBookmarks={JSON.parse(JSON.stringify(userMoviesBookmark))}
             user={JSON.parse(JSON.stringify(userInfo))}
           />
@@ -88,11 +88,11 @@ async function page({ params }: TParams) {
 }
 
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
-  const movie : any = await  getMovie(params.link);
+  const movie: any = await getMovie(params.link);
   return {
     title: `${movie.title}`,
     description: `${movie.shortDesc}`,
-    keywords:`فیلم ، سریال ، میلا فیلم ، ${movie.title}`,
+    keywords: `فیلم ، سریال ، میلا فیلم ، ${movie.title}`,
   };
 }
 

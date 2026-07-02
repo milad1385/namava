@@ -23,7 +23,7 @@ async function KidSinglePage({ params }: TParams) {
     ],
   );
 
-  const realatedMovies: any = await getRealedMovies(movie.category, movie._id);
+  const realatedMovies: any = await getRealedMovies(movie.category, movie._id , "kid");
 
   const userMoviesBookmark = userBookmarks.map(
     (bookmark: any) => bookmark.movie._id,
@@ -60,6 +60,7 @@ async function KidSinglePage({ params }: TParams) {
             title={`بر اساس ${movie.title}`}
             userBookmarks={JSON.parse(JSON.stringify(userMoviesBookmark))}
             user={JSON.parse(JSON.stringify(userInfo))}
+            link={`/kids/movie/all/${realatedMovies[0]?.category.parrent._id}`}
           />
         )}
       </section>
