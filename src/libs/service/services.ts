@@ -402,7 +402,16 @@ export const getRealedMovies = async (
       category,
       _id: { $ne: id },
       ...filterObj,
-    }).populate("actors", "link name");
+    })
+      .populate("actors", "link name")
+      .populate({
+        path: "category",
+        select: "title parrent",
+        populate: {
+          path: "parrent",
+          select: "title _id",
+        },
+      });
 
     return relatedMovies;
   } catch (error) {
