@@ -341,8 +341,8 @@ export const getAllSlidersMovies = async (
           select: "title link",
         },
       })
-      .populate("actors", "name link")
-      // .sort({ createdAt: -1 });
+      .populate("actors", "name link");
+    // .sort({ createdAt: -1 });
   } catch (error) {
     return error;
   }
@@ -1274,25 +1274,42 @@ export const checkUserProfile = async () => {
     return error;
   }
 };
-
-export const getMoviesByCategory = async (categoryId: string) => {
+export const getMoviesByCategory = async (
+  categoryId: string,
+  status?: string,
+) => {
   try {
-    const movies = await MovieModel.find({ isSlider: true })
-      .populate("actors", "name link")
+    await connectToDB();
+
+    const subCategories = await CategoryModel.find({ parrent: categoryId });
+    const allCategoryIds = [
+      new mongoose.Types.ObjectId(categoryId),
+      ...subCategories.map((cat) => cat._id),
+    ];
+
+    let filterObj: any = {
+      category: { $in: allCategoryIds },
+    };
+
+    const [feild, direction] = status ? status.split("-") : [];
+    const sort = direction === "asc" ? 1 : -1;
+
+    const movies = await MovieModel.find(filterObj)
       .populate({
         path: "category",
+        select: "title link parrent",
         populate: {
           path: "parrent",
+          select: "title link",
         },
-      });
+      })
+      .populate("actors", "name link")
+      .sort(status !== "default" ? { [feild]: sort } : {});
 
-    const allMovies = movies.filter(
-      (movie) => String(movie.category.parrent._id) === categoryId,
-    );
-
-    return allMovies;
+    return movies;
   } catch (error) {
-    return error;
+    console.error("Error in getMoviesByCategory:", error);
+    return [];
   }
 };
 
