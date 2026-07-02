@@ -124,6 +124,14 @@ export let orderType = [
   { name: "سال ساخت (قدیمی ترین)", id: 5, slug: "createdAt-asc" },
 ];
 
+export const filterMovieStatus = [
+  { name: "پیش فرض", id: 1, slug: "default" },
+  { name: "تازه ترین", id: 2, slug: "showTime-desc" },
+  { name: "امتیاز IMDB", id: 3, slug: "IMDB-desc" },
+  { name: "جدید ترین", id: 4, slug: "createdAt-desc" },
+  { name: "قدیمی ترین", id: 5, slug: "createdAt-asc" },
+];
+
 export let date: { shamsi: number[]; miladi: number[] } = {
   shamsi: [],
   miladi: [],

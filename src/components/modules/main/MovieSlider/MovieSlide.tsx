@@ -1,6 +1,8 @@
+"use client";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import Movie from "../Movie/Movie";
+import { IMovieSlider } from "@/src/libs/types";
 
 function MovieSlide({
   movie,
@@ -8,7 +10,8 @@ function MovieSlide({
   setMovieDetail,
   movieId,
   setIsLoading,
-}) {
+  isMain,
+}: IMovieSlider) {
   const pathname = usePathname();
   const router = useRouter();
   return (
@@ -19,6 +22,9 @@ function MovieSlide({
             `/kids/${movie.type === "film" ? "movie" : "series"}/${movie.link}`,
           );
         }
+
+        if (isMain) return false;
+
         setMovieId(movie._id);
         setMovieDetail(null);
         setIsLoading(true);
@@ -42,6 +48,7 @@ function MovieSlide({
           type={movie.type}
           showTime={movie.showTime}
           category={movie.category.title}
+          isMain={isMain}
         />
       </div>
     </div>

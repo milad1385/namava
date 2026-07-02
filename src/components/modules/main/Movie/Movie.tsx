@@ -15,12 +15,13 @@ function Movie({
   type,
   showTime,
   category,
+  isMain,
 }: IMovie) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const isKid = pathname.includes("/kids");
-  const bgColor = isKid ? "bg-gray-300" : "bg-gray-700"
+  const bgColor = isKid ? "bg-gray-300" : "bg-gray-700";
 
   const getHref = () => {
     if (type === "film") {
@@ -41,7 +42,7 @@ function Movie({
   };
 
   const Wrapper = ({ children }) => {
-    if (isLink) {
+    if (isLink || isMain) {
       return (
         <Link
           href={getHref()}
@@ -114,7 +115,9 @@ function Movie({
       >
         <div className="relative">
           {!isImageLoaded && (
-            <div className={`absolute inset-0 ${bgColor} rounded-md overflow-hidden`}>
+            <div
+              className={`absolute inset-0 ${bgColor} rounded-md overflow-hidden`}
+            >
               <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
             </div>
           )}
