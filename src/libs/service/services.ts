@@ -401,16 +401,15 @@ export const getStarMovies = async (starId: string) => {
 };
 
 // get all movies
-
 export const getMovies = async (
   contentType: "adult" | "kid",
   categoryId?: string,
   type?: "film" | "series",
 ) => {
   try {
-    connectToDB();
+    await connectToDB(); 
 
-    let filterObj = {};
+    let filterObj: any = {};
 
     if (contentType === "kid") {
       filterObj = { contentType };
@@ -421,50 +420,64 @@ export const getMovies = async (
     }
 
     let allMovies = null;
+
+    const populateConfig = [
+      {
+        path: "category",
+        select: "title link parrent",
+        populate: {
+          path: "parrent",
+          select: "title link",
+        },
+      },
+      {
+        path: "actors",
+        select: "name link",
+      },
+    ];
+
     if (!categoryId) {
-      allMovies = await MovieModel.find(filterObj).populate(
-        "category actors",
-        "title link parrent link name",
-      );
+      allMovies = await MovieModel.find(filterObj).populate(populateConfig);
     } else {
-      const movies = await MovieModel.find(filterObj)
-        .populate("category actors", "title link parrent link name")
-        .populate({
-          path: "category",
-          populate: {
-            path: "parrent",
-          },
-        });
+      const movies = await MovieModel.find(filterObj).populate(populateConfig);
 
       allMovies = movies.filter(
-        (movie) => String(movie.category.parrent._id) === categoryId,
+        (movie) =>
+          String(movie.category?._id) === categoryId ||
+          String(movie.category?.parrent?._id) === categoryId,
       );
     }
 
-    const categorizeFilms = (films: any) => {
+    const categorizeFilms = (films: any[]) => {
       const categorized: any = {};
 
       films.forEach((film: any) => {
-        const categoryTitle = film.category.title;
+        const category = film.category;
+        if (!category) return;
 
-        // اگر دسته‌بندی وجود ندارد، یک آرایه جدید ایجاد کن
-        if (!categorized[categoryTitle]) {
-          categorized[categoryTitle] = [];
+        const categoryId = category._id.toString();
+
+        if (!categorized[categoryId]) {
+          categorized[categoryId] = {
+            _id: category._id,
+            title: category.title,
+            link: category.link,
+            parrent: category.parrent,
+            movies: [],
+          };
         }
 
-        // فیلم را به دسته‌بندی مربوطه اضافه کن
-        categorized[categoryTitle].push(film);
+        categorized[categoryId].movies.push(film);
       });
 
       return categorized;
     };
 
-    // استفاده از تابع
     const result = categorizeFilms(allMovies);
-
     return result;
   } catch (error) {
-    return error;
+    console.error("Error in getMovies:", error);
+    return {};
   }
 };
 
@@ -502,7 +515,7 @@ export async function getWatchHistory() {
       };
     });
 
-  return result
+  return result;
 }
 
 // get all movies with out any pagination
