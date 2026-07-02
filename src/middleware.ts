@@ -19,10 +19,8 @@ export async function middleware(request: NextRequest) {
   }
 
   if (pathname.includes("/kids")) {
-    console.log(profileId);
     if (profileId && accessToken) {
       try {
-        console.log("test => ", profileId);
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile?id=${profileId}`,
           {
