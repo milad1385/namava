@@ -68,6 +68,7 @@ async function MainSliderContent({ categoryId, type = null }: TMainSlider) {
               userBookmarks={JSON.parse(JSON.stringify(userMoviesBookmark))}
               title={displayTitle}
               user={JSON.parse(JSON.stringify(userInfo))}
+              link={`/movie/all/${category?.parrent?._id}`}
             />
           </div>
         );
