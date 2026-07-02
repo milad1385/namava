@@ -18,6 +18,7 @@ function MovieSort() {
     <div className="flex items-center gap-1.5 md:gap-x-2 mt-5 lg:mt-0">
       {filterMovieStatus.map((status) => (
         <div
+          key={status.id}
           className={`sort-item ${status.slug === statusName ? "active-sort" : ""}`}
           onClick={() => handleSort(status.slug)}
         >

@@ -27,7 +27,11 @@ async function page({ params, searchParams }: TParams) {
       </div>
       <div className="mt-10 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-5">
         {movies.map((movie: any) => (
-          <MovieSlide movie={JSON.parse(JSON.stringify(movie))} isMain />
+          <MovieSlide
+            key={movie._id}
+            movie={JSON.parse(JSON.stringify(movie))}
+            isMain
+          />
         ))}
       </div>
     </div>
