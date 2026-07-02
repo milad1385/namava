@@ -458,7 +458,7 @@ input:checked + .slider:before {
   }
 
   .sort-item {
-    @apply w-[100px] flex-center py-2 text-sm rounded-lg md:cursor-pointer hover:bg-milafilm transition-all bg-black;
+    @apply w-[80px] md:w-[100px] flex-center py-2 text-[11px] md:text-sm rounded-lg md:cursor-pointer hover:bg-milafilm transition-all bg-black;
   }
 
   .active-sort{

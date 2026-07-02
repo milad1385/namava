@@ -15,7 +15,7 @@ async function page({ params, searchParams }: TParams) {
   }
   return (
     <div className="my-24 md:my-28 text-white container">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between">
         <h1 className="text-base md:text-xl">
           <span className="hidden md:inline-block"> تمام فیلم و سریال </span>{" "}
           <span>
