@@ -10,11 +10,12 @@ async function page({ params, searchParams }: TParams) {
     params.category as string,
     searchParams.status,
   );
-  if (!movies) {
+
+  if (!movies.length) {
     notFound();
   }
   return (
-    <div className="my-24 md:my-28 text-white container">
+    <div className="py-24 md:py-28 text-white container">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between">
         <h1 className="text-base md:text-xl">
           <span className="hidden md:inline-block"> تمام فیلم و سریال </span>{" "}

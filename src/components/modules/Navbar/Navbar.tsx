@@ -15,6 +15,7 @@ import MobileNavbar from "./MobileNavbar";
 import { limitedRoute } from "@/public/db";
 import Menus from "./Menus";
 import { FaArrowLeft } from "react-icons/fa6";
+import BackBtn from "./BackBtn";
 function Navbar({ user, userSubscription, menus }: any) {
   let { activeProfile } = useAuth();
   const category: any = useCategoryName();
@@ -182,11 +183,7 @@ function Navbar({ user, userSubscription, menus }: any) {
             </Link>
           )}
           {pathname !== "/" && pathname !== "/kids" && (
-            <div onClick={() => router.back()}>
-              <FaArrowLeft
-                className={`text-xl md:text-2xl md:cursor-pointer ${isKid ? "text-zinc-600" : "text-white"}`}
-              />
-            </div>
+            <BackBtn isKid={isKid} />
           )}
         </div>
       </div>

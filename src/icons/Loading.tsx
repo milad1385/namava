@@ -1,8 +1,15 @@
+"use client";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 function Loading() {
+  const pathname = usePathname();
+  const bgColor = !pathname.includes("/kids")
+    ? "bg-milafilmBlack text-white"
+    : "bg-white text-black";
+  const fillColor = !pathname.includes("/kids") ? "#222327" : "#8a8a8e";
   return (
-    <div className="bg-milafilmBlack z-50 text-white fixed inset-0 flex-center">
+    <div className={`${bgColor} z-50  fixed inset-0 flex-center`}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="100"
@@ -11,7 +18,7 @@ function Loading() {
         stroke="#fff"
         className="svg-s1 Component-root-0-1-29 Component-loading-0-1-31"
       >
-        <circle cx="22" cy="22" r="1" fill="#222327" >
+        <circle cx="22" cy="22" r="1" fill={fillColor}>
           <animate
             attributeName="r"
             begin="0"
@@ -35,7 +42,7 @@ function Loading() {
             strokeWidth="2"
           ></animate>
         </circle>
-        <circle cx="22" cy="22" r="1" fill="#222327" >
+        <circle cx="22" cy="22" r="1" fill={fillColor}>
           <animate
             attributeName="r"
             begin="-0.9s"

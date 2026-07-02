@@ -28,6 +28,7 @@ async function KidsContent() {
                 userBookmarks={[]}
                 title={displayTitle}
                 user={null}
+                link={`/kids/movie/all/${category?.parrent?._id}`}
               />
             </div>
           );
@@ -39,7 +40,7 @@ async function KidsContent() {
 
 function MainKidSlider() {
   return (
-    <Suspense fallback={<KidMovieSliderSkeleton/>}>
+    <Suspense fallback={<KidMovieSliderSkeleton />}>
       <KidsContent />
     </Suspense>
   );
