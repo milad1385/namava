@@ -26,7 +26,7 @@ function MovieSlider({
   return (
     <div>
       <div className="container mb-[35px] md:mb-0 md:mt-5">
-        <SliderTitle title={title} link={link} />
+        {link !== "/" && <SliderTitle title={title} link={link} />}
         <div className="mt-10 md:h-[21rem]">
           <Swiper
             slidesPerView={3}

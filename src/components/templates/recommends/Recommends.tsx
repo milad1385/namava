@@ -127,6 +127,7 @@ function Recommends({ categories }: { categories: ICategory[] }) {
             userBookmarks={[]}
             title=""
             user={null}
+            link="/"
           />
         </div>
       )}
@@ -142,6 +143,7 @@ function Recommends({ categories }: { categories: ICategory[] }) {
             userBookmarks={[]}
             title=""
             user={null}
+            link="/"
           />
         </div>
       )}
