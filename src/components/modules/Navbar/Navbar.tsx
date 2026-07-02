@@ -1,4 +1,5 @@
 "use client";
+import { limitedRoute } from "@/public/db";
 import { useAuth } from "@/src/context/AuthContextProvider";
 import useCategoryName from "@/src/hooks/useCategoryName";
 import KidLogo from "@/src/icons/KidLogo";
@@ -11,11 +12,9 @@ import { useEffect, useRef, useState } from "react";
 import { HiMiniBars3 } from "react-icons/hi2";
 import Button from "../auth/Button/Button";
 import ProfileMenu from "../profileMenu/ProfileMenu";
-import MobileNavbar from "./MobileNavbar";
-import { limitedRoute } from "@/public/db";
-import Menus from "./Menus";
-import { FaArrowLeft } from "react-icons/fa6";
 import BackBtn from "./BackBtn";
+import Menus from "./Menus";
+import MobileNavbar from "./MobileNavbar";
 function Navbar({ user, userSubscription, menus }: any) {
   let { activeProfile } = useAuth();
   const category: any = useCategoryName();
