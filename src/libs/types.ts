@@ -240,6 +240,14 @@ export interface IUserTicket {
   filter: string;
 }
 
+export interface IMovieSlider {
+  movie: any;
+  setMovieId?: any;
+  setMovieDetail?: any;
+  movieId?: string;
+  isMain?: boolean;
+  setIsLoading?: any;
+}
 export interface IPanelTicket {
   tickets: ILastTicket[];
   ticketsCount: number;
@@ -291,6 +299,7 @@ export interface IMovie {
   showTime: string;
   contentType?: "adult" | "kid";
   category?: string;
+  isMain?: boolean;
 }
 
 export interface IUpdateUser {
