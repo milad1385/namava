@@ -38,7 +38,7 @@ function AddNewFilm({ stars, subCategories }: any) {
   });
 
   const subCategoriesOptions = subCategories.map((category: any) => ({
-    label: category.title,
+    label: `${category?.parrent?.title}\t- ${category.title}`,
     value: category._id,
     id: category._id,
   }));
@@ -211,6 +211,7 @@ function AddNewFilm({ stars, subCategories }: any) {
       <SelectBox
         register={register}
         errors={errors}
+        placeholder="بازیگران را انتخاب کنید"
         name="stars"
         options={starsOption}
         title="بازیگران"
