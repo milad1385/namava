@@ -1,6 +1,7 @@
 import React from "react";
 import Label from "../auth/Label/Label";
 import Select from "react-select";
+import { customStyles } from "@/public/db";
 
 type TOption = {
   id: any;
@@ -77,18 +78,36 @@ function SelectBox({
           title={title}
           className="!text-base md:!text-lg min-h-[28px] text-white"
         />
-        <div
-          className={`bg-[#121212]  h-[52px] px-2.5 rounded-xl flex items-center justify-between gap-x-2`}
-        >
-          <Select
-            defaultValue={selected}
-            className="w-full"
-            isMulti={multiple}
-            options={options}
-            onChange={handleSelectChange}
-            placeholder={placeholder}
-          />
-        </div>
+
+        <Select
+          defaultValue={selected}
+          className="w-full"
+          classNamePrefix="react-select"
+          isMulti={multiple}
+          noOptionsMessage={() => "موردی یافت نشد"}
+          options={options}
+          onChange={handleSelectChange}
+          placeholder={placeholder}
+          styles={customStyles}
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 14,
+            colors: {
+              ...theme.colors,
+              primary: "#121212",
+              primary25: "#1a1a2e",
+              primary50: "#121212",
+              neutral0: "#000000",
+              neutral5: "#1a1a2e",
+              neutral10: "#2a2a4e",
+              neutral20: "#333333",
+              neutral30: "#444444",
+              neutral40: "#888888",
+              neutral50: "#aaaaaa",
+              neutral80: "#ffffff",
+            },
+          })}
+        />
       </div>
     );
   }
