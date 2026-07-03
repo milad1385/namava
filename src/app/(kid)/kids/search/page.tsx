@@ -17,7 +17,7 @@ async function SearchPage({ searchParams }: TParams) {
   const { q, type, genre, voice, country, order, from, to } = searchParams;
   const [movies, categories]: any = await Promise.all([
     searchMovies(
-      (q) ?? "",
+      q ?? "",
       type,
       genre,
       voice,
@@ -63,6 +63,8 @@ async function SearchPage({ searchParams }: TParams) {
                 showTime={movie.showTime}
                 contentType={"kid"}
                 isLink
+                language={movie.language}
+                category={movie.category.title}
               />
             ))}
           </div>
