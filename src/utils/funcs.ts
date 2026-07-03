@@ -71,3 +71,7 @@ export const getDateWithTime = (time: Date) => {
 
   return persianDate;
 };
+
+export const formateData = (data) => {
+  return JSON.parse(JSON.stringify(data));
+};
