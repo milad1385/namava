@@ -132,6 +132,101 @@ export const filterMovieStatus = [
   { name: "قدیمی ترین", id: 5, slug: "createdAt-asc" },
 ];
 
+export const customStyles = {
+  control: (provided: any, state: any) => ({
+    ...provided,
+    backgroundColor: "#121212",
+    borderRadius: "8px",
+    padding: "6.5px 4px",
+    borderColor: "transparent",
+    borderWidth: "0px",
+    boxShadow: "none",
+    "&:hover": {
+      borderColor: "transparent",
+    },
+    ...(state.isFocused && {
+      borderColor: "transparent",
+      boxShadow: "none",
+    }),
+    "@media (max-width: 576px)": {
+      fontSize: "12px",
+      padding: "4px 2px",
+    },
+  }),
+  menu: (provided: any) => ({
+    ...provided,
+    backgroundColor: "#121212",
+    border: "1px solid #333333",
+    borderRadius: "14px",
+    marginTop: "4px",
+    "@media (max-width: 576px)": {
+      fontSize: "12px",
+    },
+  }),
+  option: (provided: any, state: any) => ({
+    ...provided,
+    backgroundColor: state.isFocused ? "#1a1a2e" : "#121212",
+    color: state.isSelected ? "#ffd700" : "#ffffff",
+    padding: "10px 12px",
+    cursor: "pointer",
+    "&:hover": {
+      backgroundColor: "#1a1a2e",
+    },
+    "@media (max-width: 576px)": {
+      fontSize: "14px",
+    },
+  }),
+  singleValue: (provided: any) => ({
+    ...provided,
+    color: "#ffffff",
+  }),
+  multiValue: (provided: any) => ({
+    ...provided,
+    backgroundColor: "#1a1a2e",
+    borderRadius: "4px",
+  }),
+  multiValueLabel: (provided: any) => ({
+    ...provided,
+    color: "#ffffff",
+    padding: "2px 6px",
+  }),
+  multiValueRemove: (provided: any) => ({
+    ...provided,
+    color: "#ffffff",
+    "&:hover": {
+      backgroundColor: "#ff4444",
+      color: "#ffffff",
+      borderRadius: "4px",
+    },
+  }),
+  placeholder: (provided: any) => ({
+    ...provided,
+    color: "#ffffff",
+  }),
+  input: (provided: any) => ({
+    ...provided,
+    color: "#ffffff",
+  }),
+  indicatorSeparator: (provided: any) => ({
+    ...provided,
+    backgroundColor: "transparent", // حذف خط جداکننده
+  }),
+  dropdownIndicator: (provided: any) => ({
+    ...provided,
+    color: "#ffffff",
+    "&:hover": {
+      color: "#ffd700", // طلایی در هاور
+    },
+  }),
+  clearIndicator: (provided: any) => ({
+    ...provided,
+    color: "#888888",
+    "&:hover": {
+      color: "#ff4444",
+    },
+  }),
+};
+
 export let date: { shamsi: number[]; miladi: number[] } = {
   shamsi: [],
   miladi: [],
