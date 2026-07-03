@@ -224,8 +224,8 @@ function HeaderDetail({
               >
                 {info.ageRange}+
               </span>
-              <span>{info.showTime}</span>
-              <span>{info.time} دقیقه</span>
+              <span>سال {" "}{info.showTime}</span>
+              {info.type === "film" && <span>{info.time} دقیقه</span>}
               <div className="flex items-center gap-x-1">
                 <IMBD />
                 <span className="mt-0.5">{info.IMDB}</span>
