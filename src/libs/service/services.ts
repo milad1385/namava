@@ -184,7 +184,10 @@ export const getAllStars = async (page: number, search: string) => {
 export const getAllSubcategories = async () => {
   try {
     connectToDB();
-    const allCategoeies = await CategoryModel.find({});
+    const allCategoeies = await CategoryModel.find({}).populate(
+      "parrent",
+      "_id title",
+    );
 
     return allCategoeies.filter((category) => category.parrent !== null);
   } catch (error) {
