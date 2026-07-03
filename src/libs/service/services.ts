@@ -11,17 +11,17 @@ import DepartmentModel from "@/src/models/department";
 import EpisodeModel from "@/src/models/episode";
 import MenuModel from "@/src/models/menu";
 import MovieModel from "@/src/models/movie";
+import OrderModel from "@/src/models/order";
 import ProfileModel from "@/src/models/profile";
 import StarModel from "@/src/models/stars";
 import SubscriptionModel from "@/src/models/subscription";
 import TicketModel from "@/src/models/ticket";
 import UserModel from "@/src/models/user";
-import OrderModel from "@/src/models/order";
+import WatchHistoryModel from "@/src/models/watchHistory";
 import { authUser, checkIsAdmin } from "@/src/utils/serverHelper";
 import mongoose, { isValidObjectId } from "mongoose";
-import { ICategory, IOrders, IWishList, TArticle } from "../types";
 import { cookies } from "next/headers";
-import WatchHistoryModel from "@/src/models/watchHistory";
+import { IOrders, IWishList } from "../types";
 
 // get all site stat
 
@@ -332,7 +332,7 @@ export const getAllSlidersMovies = async (
       filterObj.category = { $in: allCategoryIds };
     }
 
-    return await MovieModel.find(filterObj)
+    const movies = await MovieModel.find(filterObj)
       .populate({
         path: "category",
         select: "title link parrent",
@@ -341,8 +341,10 @@ export const getAllSlidersMovies = async (
           select: "title link",
         },
       })
-      .populate("actors", "name link");
-    // .sort({ createdAt: -1 });
+      .populate("actors", "name link")
+      .sort({ createdAt: -1 });
+
+    return movies?.sort(() => Math.random() - 0.5);
   } catch (error) {
     return error;
   }
@@ -724,6 +726,89 @@ export const getArticle = async (link: string) => {
 
 // search between movies and some filters based on movie detail
 
+// export const searchMovies = async (
+//   search: string,
+//   types: string,
+//   categoryNames: string,
+//   voices: string,
+//   countries: string,
+//   order: string,
+//   range: { from: String; to: String },
+//   isKid?: boolean,
+// ) => {
+//   try {
+//     await connectToDB();
+
+//     let filter = {};
+
+//     if (isKid) {
+//       filter = {
+//         contentType: "kid",
+//       };
+//     }
+
+//     if (categoryNames?.length) {
+//       const categories = await CategoryModel.find({
+//         title: { $in: categoryNames },
+//       });
+
+//       let categoryIds = categories.map((category) => category._id);
+//       filter = {
+//         ...filter,
+//         category: { $in: categoryIds },
+//       };
+//     }
+
+//     if (voices?.length) {
+//       filter = {
+//         ...filter,
+//         language: { $in: voices },
+//       };
+//     }
+
+//     if (types?.length) {
+//       filter = {
+//         ...filter,
+//         type: { $in: types },
+//       };
+//     }
+
+//     if (countries?.length) {
+//       filter = {
+//         ...filter,
+//         country: {
+//           $in: typeof countries === "string" ? Array(countries) : countries,
+//         },
+//       };
+//     }
+
+//     if (range.from && range.to) {
+//       filter = {
+//         ...filter,
+//         showTime: { $gte: range.from, $lte: range.to },
+//       };
+//     }
+
+//     const [feild, direction] = order ? order.split("-") : [];
+//     const sort = direction === "asc" ? 1 : -1;
+
+//     const regex = new RegExp(search, "i");
+//     const movies = await MovieModel.find({
+//       $or: [
+//         { title: { $regex: regex } },
+//         { longDesc: { $regex: regex } },
+//         { shortDesc: { $regex: regex } },
+//       ],
+//       ...filter,
+//     })
+//       .populate("category", "title _id")
+//       .sort(order !== "default" ? { [feild]: sort } : {});
+
+//     return movies;
+//   } catch (error) {
+//     return error;
+//   }
+// };
 export const searchMovies = async (
   search: string,
   types: string,
@@ -733,6 +818,8 @@ export const searchMovies = async (
   order: string,
   range: { from: String; to: String },
   isKid?: boolean,
+  page: number = 1,
+  limit: number = 18,
 ) => {
   try {
     await connectToDB();
@@ -740,35 +827,23 @@ export const searchMovies = async (
     let filter = {};
 
     if (isKid) {
-      filter = {
-        contentType: "kid",
-      };
+      filter = { contentType: "kid" };
     }
 
     if (categoryNames?.length) {
       const categories = await CategoryModel.find({
         title: { $in: categoryNames },
       });
-
-      let categoryIds = categories.map((category) => category._id);
-      filter = {
-        ...filter,
-        category: { $in: categoryIds },
-      };
+      const categoryIds = categories.map((category) => category._id);
+      filter = { ...filter, category: { $in: categoryIds } };
     }
 
     if (voices?.length) {
-      filter = {
-        ...filter,
-        language: { $in: voices },
-      };
+      filter = { ...filter, language: { $in: voices } };
     }
 
     if (types?.length) {
-      filter = {
-        ...filter,
-        type: { $in: types },
-      };
+      filter = { ...filter, type: { $in: types } };
     }
 
     if (countries?.length) {
@@ -791,18 +866,31 @@ export const searchMovies = async (
     const sort = direction === "asc" ? 1 : -1;
 
     const regex = new RegExp(search, "i");
-    const movies = await MovieModel.find({
+    const query = {
       $or: [
         { title: { $regex: regex } },
         { longDesc: { $regex: regex } },
         { shortDesc: { $regex: regex } },
       ],
       ...filter,
-    }).sort(order !== "default" ? { [feild]: sort } : {});
+    };
+
+    const skip = (page - 1) * limit;
+
+    const movies = await MovieModel.find(query)
+      .populate("category", "title _id")
+      .sort(order !== "default" ? { [feild]: sort } : {})
+      .skip(skip)
+      .limit(limit)
+      .lean();
 
     return movies;
   } catch (error) {
-    return error;
+    return {
+      movies: [],
+      pagination: null,
+      error: error.message,
+    };
   }
 };
 
