@@ -217,7 +217,7 @@ function PreviewBox({
               <span className="bg-orange-400 text-sm rounded-full px-1.5">
                 {movieDetail.ageRange}+
               </span>
-              <span>{movieDetail.showTime}</span>
+              <span>سال {" "}{movieDetail.showTime}</span>
               <span>{movieDetail.time} دقیقه</span>
               <div className="flex items-center gap-x-1">
                 <IMBD />
