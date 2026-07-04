@@ -7,11 +7,12 @@ import Category from "@/src/icons/Category";
 import Magni from "@/src/icons/Magni";
 import Home from "@/src/icons/Home";
 import { usePathname } from "next/navigation";
+import { FaRobot } from "react-icons/fa6";
 
 function FooterMenu() {
   const pathname = usePathname();
   const isKid = pathname.includes("/kids");
-  
+
   const isActive = (path) => {
     if (path === "/") {
       return pathname === "/";
@@ -33,7 +34,7 @@ function FooterMenu() {
     return null;
   }
 
-  const activeColor = "#1993ff"; 
+  const activeColor = "#1993ff";
   const inactiveColor = isKid ? "#6d6c6c" : "#aaa";
 
   return (
@@ -51,7 +52,11 @@ function FooterMenu() {
             <Home fill={isActive("/") ? activeColor : inactiveColor} />
             <span
               className={`block text-[10px] mb-2 absolute -bottom-8 ${
-                isActive("/") ? "text-milafilm" : isKid ? "text-gray-500" : "text-gray-400"
+                isActive("/")
+                  ? "text-milafilm"
+                  : isKid
+                    ? "text-gray-500"
+                    : "text-gray-400"
               }`}
             >
               خانه
@@ -78,7 +83,9 @@ function FooterMenu() {
             href="/category"
             className="flex items-center flex-col text-lg relative"
           >
-            <Category fill={isActive("/category") ? activeColor : inactiveColor} />
+            <Category
+              fill={isActive("/category") ? activeColor : inactiveColor}
+            />
             <span
               className={`block text-[10px] mb-2 absolute -bottom-8 w-[50px] ${
                 isActive("/category") ? "text-milafilm" : "text-gray-400"
@@ -93,7 +100,9 @@ function FooterMenu() {
             href="/bookmarks"
             className="flex items-center flex-col text-lg relative"
           >
-            <Folder fill={isActive("/bookmarks") ? activeColor : inactiveColor} />
+            <Folder
+              fill={isActive("/bookmarks") ? activeColor : inactiveColor}
+            />
             <span
               className={`block text-[10px] w-[40px] mb-2 absolute -bottom-8 ${
                 isActive("/bookmarks") ? "text-milafilm" : "text-gray-400"
@@ -105,16 +114,19 @@ function FooterMenu() {
         </li>
         <li>
           <Link
-            href="/p-user"
+            href="/recommends"
             className="flex items-center flex-col text-lg relative"
           >
-            <More fill={isActive("/p-user") ? activeColor : inactiveColor} />
+            {/* <More fill={isActive("/p-user") ? activeColor : inactiveColor} /> */}
+            <FaRobot
+              className={`text-[${isActive("/recommends") ? activeColor : inactiveColor}]`}
+            />
             <span
-              className={`block text-[10px] mb-2 absolute -bottom-8 ${
+              className={`block text-[10px] w-[70px] mb-1 absolute -bottom-8 ${
                 isActive("/p-user") ? "text-milafilm" : "text-gray-400"
               }`}
             >
-              بیشتر
+              هوش مصنوعی
             </span>
           </Link>
         </li>
