@@ -18,7 +18,7 @@ const generateAccessToken = (data: { email: string }) => {
     { ...data },
     process.env.NEXT_PUBLIC_AccessTokenSecretKey as string,
     {
-      expiresIn: "5d",
+      expiresIn: "2d",
     },
   );
   return token;
