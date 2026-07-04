@@ -12,7 +12,7 @@ import Button from "../auth/Button/Button";
 import Logout from "./Logout";
 import ProfileBox from "./ProfileBox";
 import ProfileLink from "./ProfileLink";
-import { getProfileCookie } from "@/src/libs/actions/profile";
+import { useAuth } from "@/src/context/AuthContextProvider";
 
 function ProfileMenu({
   isShow,
@@ -23,7 +23,7 @@ function ProfileMenu({
 }: TProfileMenu) {
   const [profileId, setProfileId] = useState("");
   const url = usePathname();
-
+  const { subscripton } = useAuth();
   const { ref } = useCloseOutSideClick(() => onShow(false), false);
 
   useEffect(() => {
@@ -102,7 +102,11 @@ function ProfileMenu({
             <div className="space-y-4 mt-4 mb-2">
               {!url.includes("/kids") &&
                 profileLinks.map((link) => (
-                  <ProfileLink {...link} key={link.id} />
+                  <ProfileLink
+                    {...link}
+                    hasSubscription={subscripton?.hasSubscription}
+                    key={link.id}
+                  />
                 ))}
               <Logout onShow={onShow} />
             </div>
