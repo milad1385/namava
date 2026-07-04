@@ -296,10 +296,10 @@ export const sidebarLinks = [
 ];
 
 export const profileLinks = [
-  { id: 1, title: "لیست من", icon: <Folder2 />, link: "bookmarks" },
-  { id: 2, title: "خرید اشتراکی", icon: <Star />, link: "plans" },
-  { id: 3, title: "کارت هدیه", icon: <Gift />, link: "plans" },
-  { id: 4, title: "حساب کاربری", icon: <User />, link: "p-user" },
+  { id: 1, title: "حساب کاربری", icon: <User />, link: "p-user" },
+  { id: 2, title: "لیست من", icon: <Folder2 />, link: "bookmarks" },
+  { id: 3, title: "خرید اشتراک", icon: <Star />, link: "plans" },
+  { id: 4, title: "کارت هدیه", icon: <Gift />, link: "plans" },
   { id: 5, title: "تماس با ما", icon: <Phone />, link: "contact-us" },
 ];
 
