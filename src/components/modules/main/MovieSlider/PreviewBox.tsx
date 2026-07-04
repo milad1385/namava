@@ -7,7 +7,7 @@ import Like from "@/src/icons/Like";
 import Plus from "@/src/icons/Plus";
 import { addOrDeleteBookmark } from "@/src/libs/actions/bookmark";
 import { dislikeMovie, likeMovie } from "@/src/libs/actions/movie";
-import { userSubscriptionHref } from "@/src/utils/funcs";
+import { getAgeRange, userSubscriptionHref } from "@/src/utils/funcs";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -214,10 +214,12 @@ function PreviewBox({
               {movieDetail.title}
             </span>
             <div className="hidden md:flex items-center gap-x-5 font-Dana text-white text-sm mt-5">
-              <span className="bg-orange-400 text-sm rounded-full px-1.5">
+              <span
+                className={`${getAgeRange(movieDetail.ageRange)} text-black flex-center text-sm rounded-full px-1.5`}
+              >
                 {movieDetail.ageRange}+
               </span>
-              <span>سال {" "}{movieDetail.showTime}</span>
+              <span>سال {movieDetail.showTime}</span>
               <span>{movieDetail.time} دقیقه</span>
               <div className="flex items-center gap-x-1">
                 <IMBD />
@@ -347,7 +349,7 @@ function PreviewBox({
                   key={category._id}
                   href={`/category/${movieDetail.categories[0]._id}`}
                 >
-                  {category.title} {" "}
+                  {category.title}{" "}
                 </Link>
               ))}
             </p>
