@@ -54,7 +54,7 @@ async function page({ params }: TParams) {
             type={movie.type}
             showTime={movie.showTime}
             isLink
-            contentType={movie.contentType}
+            contentType={"adult"}
             language={movie?.language}
             category={movie?.category?.title}
           />
