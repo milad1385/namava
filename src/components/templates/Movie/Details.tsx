@@ -33,7 +33,7 @@ function Details({ info, article, isKid = false }: any) {
             <div className="bg-milafilmBlack max-w-[577px] my-5 rounded-md shadow py-6">
               <Article />
               <div className="px-5 mt-4">
-                <h3 className="">{article.title}</h3>
+                <h3 className="text-sm/[28px] md:text-base">{article.title}</h3>
                 <p className="min-h-[127px] mt-5 text-sm/[26px] text-[#aaa]">
                   {article.shortDesc}
                 </p>

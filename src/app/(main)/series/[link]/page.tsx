@@ -103,7 +103,7 @@ async function page({ params, searchParams }: TParams) {
           <MovieSlider
             movies={JSON.parse(JSON.stringify(realatedMovies))}
             title={`بر اساس ${movie.title}`}
-            link="/"
+            link={`/movie/all/${realatedMovies[0]?.category.parrent._id}`}
             userBookmarks={JSON.parse(JSON.stringify(userMoviesBookmark))}
             user={JSON.parse(JSON.stringify(userInfo))}
           />
