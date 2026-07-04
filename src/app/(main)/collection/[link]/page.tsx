@@ -7,7 +7,7 @@ import React from "react";
 
 async function page({ params }: TParams) {
   const collcetion = await getCollection(params.link as string);
-  const { title, description, desktopBanner, movies, mobileBanner , logo } =
+  const { title, description, desktopBanner, movies, mobileBanner, logo } =
     collcetion;
   return (
     <>
@@ -55,6 +55,8 @@ async function page({ params }: TParams) {
             showTime={movie.showTime}
             isLink
             contentType={movie.contentType}
+            language={movie?.language}
+            category={movie?.category?.title}
           />
         ))}
       </div>

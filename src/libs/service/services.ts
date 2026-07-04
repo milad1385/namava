@@ -1051,10 +1051,15 @@ export const getAllCollcetions = async (page: number, search: string) => {
 export const getCollection = async (link: string) => {
   try {
     connectToDB();
-    const collection = await CollcetionModel.findOne({ link }).populate(
-      "movies",
-      "link title mainImage type showTime contentType",
-    );
+    const collection = await CollcetionModel.findOne({ link }).populate({
+      path: "movies",
+      select:
+        "link title mainImage type showTime contentType language category",
+      populate: {
+        path: "category",
+        select: "title",
+      },
+    });
 
     return collection;
   } catch (error) {
