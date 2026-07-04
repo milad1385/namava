@@ -7,7 +7,7 @@ import Plus from "@/src/icons/Plus";
 import { addOrDeleteBookmark } from "@/src/libs/actions/bookmark";
 import { dislikeMovie, likeMovie } from "@/src/libs/actions/movie";
 import { THeaderDetails } from "@/src/libs/types";
-import { userSubscriptionHref } from "@/src/utils/funcs";
+import { getAgeRange, userSubscriptionHref } from "@/src/utils/funcs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -170,17 +170,7 @@ function HeaderDetail({
 
           <div className="flex items-center gap-x-2 mt-5">
             <span
-              className={`${
-                age === 3
-                  ? "three"
-                  : age === 7
-                    ? "seven"
-                    : age === 12
-                      ? "twelve"
-                      : age === 15
-                        ? "fifteen"
-                        : "eighteen"
-              } flex-center text-sm rounded-full text-black font-bold px-1.5`}
+              className={`${getAgeRange(age)} flex-center text-sm rounded-full text-black font-bold px-1.5`}
             >
               {info.ageRange}+
             </span>
@@ -210,21 +200,11 @@ function HeaderDetail({
             </Link>
             <div className="hidden md:flex items-center gap-x-5 font-Dana text-white text-sm mt-5">
               <span
-                className={`${
-                  age === 3
-                    ? "three"
-                    : age === 7
-                      ? "seven"
-                      : age === 12
-                        ? "twelve"
-                        : age === 15
-                          ? "fifteen"
-                          : "eighteen"
-                } flex-center text-sm rounded-full text-black font-bold px-1.5`}
+                className={`${getAgeRange(age)} flex-center text-sm rounded-full text-black font-bold px-1.5`}
               >
                 {info.ageRange}+
               </span>
-              <span>سال {" "}{info.showTime}</span>
+              <span>سال {info.showTime}</span>
               {info.type === "film" && <span>{info.time} دقیقه</span>}
               <div className="flex items-center gap-x-1">
                 <IMBD />
