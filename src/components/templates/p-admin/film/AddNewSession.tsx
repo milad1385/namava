@@ -6,7 +6,7 @@ import Spinner from "@/src/components/modules/spinner/Spinner";
 import { createNewEpisode } from "@/src/libs/actions/episode";
 import { Session, TSession } from "@/src/validators/frontend";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaLink } from "react-icons/fa";
@@ -17,11 +17,14 @@ import { RiMovie2Line } from "react-icons/ri";
 
 function AddNewSession({ series }: any) {
   const [isLoading, setIsLoading] = useState(false);
+  const [seasonsData, setSeasonsData] = useState([]);
+  const [isLoadingSeason, setIsLoadingSeason] = useState(false);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isValid },
+    watch,
   } = useForm<TSession>({
     resolver: zodResolver(Session),
   });
@@ -31,15 +34,6 @@ function AddNewSession({ series }: any) {
     value: movie._id,
     label: movie.title,
   }));
-
-  const fakeSeason = [
-    { id: 1, value: "1", label: "فصل 1" },
-    { id: 2, value: "2", label: "فصل 2" },
-    { id: 3, value: "3", label: "فصل 3" },
-    { id: 4, value: "4", label: "فصل 4" },
-    { id: 5, value: "5", label: "فصل 5" },
-    { id: 6, value: "6", label: "فصل 6" },
-  ];
 
   const createNewSession = async (data: TSession) => {
     const episodeData = new FormData();
@@ -62,6 +56,27 @@ function AddNewSession({ series }: any) {
     toast.error(`${res?.message}`);
     reset();
   };
+
+  const selectedSerial = watch("serial");
+  useEffect(() => {
+    const getSeasonsNumbers = async () => {
+      setIsLoadingSeason(true);
+      const res = await fetch(`/api/series/${selectedSerial}`);
+      const seaesonData = await res.json();
+      const { season } = seaesonData;
+      let seasons = [];
+      for (let i = 1; i <= Number(season); i++) {
+        seasons.push({ id: i, value: `${i}`, label: `فصل ${i}` });
+      }
+      setSeasonsData(seasons);
+      setIsLoadingSeason(false);
+    };
+
+    if (selectedSerial) {
+      getSeasonsNumbers();
+    }
+  }, [selectedSerial]);
+
   return (
     <form
       onSubmit={handleSubmit(createNewSession)}
@@ -143,9 +158,9 @@ function AddNewSession({ series }: any) {
         register={register}
         errors={errors}
         name="season"
-        options={fakeSeason}
+        options={seasonsData}
         title="فصل"
-        disable={isLoading}
+        disable={isLoadingSeason || isLoading}
       />
 
       <div className="flex items-center gap-x-8 mt-5 text-white">
