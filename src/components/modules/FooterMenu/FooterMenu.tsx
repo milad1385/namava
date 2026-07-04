@@ -122,11 +122,11 @@ function FooterMenu() {
               className={`text-[${isActive("/recommends") ? activeColor : inactiveColor}]`}
             />
             <span
-              className={`block text-[10px] w-[70px] mb-1 absolute -bottom-8 ${
+              className={`block text-[10px] mb-1 absolute -bottom-8 ${
                 isActive("/p-user") ? "text-milafilm" : "text-gray-400"
               }`}
             >
-              هوش مصنوعی
+              پیشنهاد
             </span>
           </Link>
         </li>
