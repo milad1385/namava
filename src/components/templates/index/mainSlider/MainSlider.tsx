@@ -40,12 +40,15 @@ async function MainSliderContent({ categoryId, type = null }: TMainSlider) {
           ?.movies?.sort(() => Math.random() - 0.5) || []
       : [];
 
+  const watchListType =
+    type === null ? "all" : type === "film" ? "film" : "series";
+
   return (
     <>
       <Slider slides={JSON.parse(JSON.stringify(slides))} />
 
-      <WatchListSection categoryId={categoryId as string} />
-      {!categoryId && userInfo?.favGenre && (
+      <WatchListSection type={watchListType} categoryId={categoryId as string} />
+      {!categoryId && userInfo?.favGenre && userFavMovies.length > 0 && (
         <MovieSlider
           movies={JSON.parse(JSON.stringify(userFavMovies))}
           userBookmarks={JSON.parse(JSON.stringify(userMoviesBookmark))}
