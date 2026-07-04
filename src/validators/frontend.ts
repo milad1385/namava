@@ -459,6 +459,12 @@ export const Collcetion = z.object({
     },
     { message: "بنر موبایل باید آپلود شود" },
   ),
+  logo: z.any().refine(
+    (file) => {
+      return file && file[0] instanceof File;
+    },
+    { message: "بنر موبایل باید آپلود شود" },
+  ),
 
   type: z.string().min(1, { message: "نوع محتوا این اثر را انتخاب کنید" }),
 });
