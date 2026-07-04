@@ -41,6 +41,7 @@ function AddNewCollection({ movies }: any) {
     formData.append("mainImage", data.mainImage[0]);
     formData.append("deskBanner", data.deskBanner[0]);
     formData.append("mobileBanner", data.mobileBanner[0]);
+    formData.append("logo", data.logo[0]);
     setIsLoading(true);
     const res = await createCollection(formData, selectedOption);
     if (res.status === 201) {
@@ -131,6 +132,15 @@ function AddNewCollection({ movies }: any) {
       <Input
         register={register}
         errors={errors}
+        name="logo"
+        title="لوگو"
+        type="file"
+        disable={isLoading}
+      />
+
+      <Input
+        register={register}
+        errors={errors}
         name="deskBanner"
         title="بنر دسکتاپ"
         type="file"
@@ -147,6 +157,7 @@ function AddNewCollection({ movies }: any) {
         icon={<FaRegFileImage className={`text-xl md:text-2xl`} />}
         disable={isLoading}
       />
+      <div></div>
 
       <div className="flex items-center gap-x-3 md:gap-x-8 mt-5 text-white">
         <Button

@@ -10,7 +10,7 @@ import { revalidatePath } from "next/cache";
 
 export const createCollection = async (
   data: FormData,
-  movies: any
+  movies: any,
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -22,6 +22,7 @@ export const createCollection = async (
       mainImage,
       deskBanner,
       mobileBanner,
+      logo,
     } = Object.fromEntries(data);
 
     const moviesId = movies.map((movies: any) => movies.value);
@@ -50,22 +51,28 @@ export const createCollection = async (
     const mainImageFile = mainImage as File;
     const desktopBannerFile = deskBanner as File;
     const mobileBannerFile = mobileBanner as File;
+    const logoFile = logo as File;
 
     let mainImageText = `/uploads/${Date.now() + mainImageFile.name}`;
     let mobileBannerText = `/uploads/${Date.now() + mobileBannerFile.name}`;
     let deskBannerText = `/uploads/${Date.now() + desktopBannerFile.name}`;
+    let logoFileText = `/uploads/${Date.now() + logoFile.name}`;
 
     const mainPath = path.join(process.cwd(), "public" + mainImageText);
     const mainBuffer = Buffer.from(await mainImageFile.arrayBuffer());
-    writeFileSync(mainPath, mainBuffer);
+    writeFileSync(mainPath, mainBuffer as any);
 
     const mobilePath = path.join(process.cwd(), "public" + mobileBannerText);
     const mobileBuffer = Buffer.from(await mobileBannerFile.arrayBuffer());
-    writeFileSync(mobilePath, mobileBuffer);
+    writeFileSync(mobilePath, mobileBuffer as any);
 
     const deskPath = path.join(process.cwd(), "public" + deskBannerText);
     const deskBuffer = Buffer.from(await desktopBannerFile.arrayBuffer());
-    writeFileSync(deskPath, deskBuffer);
+    writeFileSync(deskPath, deskBuffer as any);
+
+    const logoPath = path.join(process.cwd(), "public" + logoFileText);
+    const logoBuffer = Buffer.from(await logoFile.arrayBuffer());
+    writeFileSync(logoPath, logoBuffer as any);
 
     await CollcetionModel.create({
       title,
@@ -75,6 +82,7 @@ export const createCollection = async (
       mainImage: mainImageText,
       desktopBanner: deskBannerText,
       mobileBanner: mobileBannerText,
+      logo: logoFileText,
       type,
     });
 

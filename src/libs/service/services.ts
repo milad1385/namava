@@ -1062,15 +1062,16 @@ export const getCollection = async (link: string) => {
   }
 };
 
-export const getAllCollectionSlider = async (type: "adult" | "kid") => {
+export const getAllCollectionSlider = async (type?: "adult" | "kid" | null) => {
   try {
     connectToDB();
-    let collections = null;
-    if (type === "adult") {
-      collections = await CollcetionModel.find({ type: "adult" });
-    } else {
-      collections = await CollcetionModel.find({ type: "kid" });
+    let filter: any = {};
+    if (type) {
+      filter.type = type;
     }
+    const collections = await CollcetionModel.find(filter).sort({
+      createdAt: -1,
+    });
     return collections;
   } catch (error) {
     return error;

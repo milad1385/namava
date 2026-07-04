@@ -7,6 +7,7 @@ export interface ICollection {
   description: string;
   movies?: mongoose.Types.ObjectId[];
   mainImage: string;
+  logo?: string;
   desktopBanner: string;
   mobileBanner: string;
   type?: "kid" | "adult";
@@ -47,6 +48,10 @@ const schema = new mongoose.Schema<ICollection>(
       required: true,
     },
     mobileBanner: {
+      type: String,
+      required: true,
+    },
+    logo: {
       type: String,
       required: true,
     },

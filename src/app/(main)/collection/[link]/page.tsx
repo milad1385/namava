@@ -7,7 +7,7 @@ import React from "react";
 
 async function page({ params }: TParams) {
   const collcetion = await getCollection(params.link as string);
-  const { title, description, desktopBanner, movies, mobileBanner } =
+  const { title, description, desktopBanner, movies, mobileBanner , logo } =
     collcetion;
   return (
     <>
@@ -28,10 +28,17 @@ async function page({ params }: TParams) {
         />
         <div className="title-overlay absolute inset-0"></div>
         <div className="bottom-24 absolute z-30 container px-10">
+          <Image
+            className="w-[135px] md:w-[200px] mb-10 mx-auto md:mx-0"
+            src={logo}
+            alt={title}
+            width={1920}
+            height={1080}
+          />
           <h1 className="text-lg text-center md:text-right md:text-3xl">
             {title}
           </h1>
-          <p className="text-justify line-clamp-3 md:line-clamp-6 max-w-[673px] pt-5 text-sm md:text-base/[28px]">
+          <p className="text-justify line-clamp-3 md:line-clamp-6 max-w-[673px] pt-5 text-xs/[26px] md:text-base/[28px]">
             {description}
           </p>
         </div>
