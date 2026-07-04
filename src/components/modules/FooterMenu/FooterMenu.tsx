@@ -1,13 +1,12 @@
 "use client";
-import Link from "next/link";
-import React from "react";
-import More from "@/src/icons/More";
-import Folder from "@/src/icons/Folder";
 import Category from "@/src/icons/Category";
-import Magni from "@/src/icons/Magni";
+import Folder from "@/src/icons/Folder";
 import Home from "@/src/icons/Home";
+import Magni from "@/src/icons/Magni";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaRobot } from "react-icons/fa6";
+import { LiaRobotSolid } from "react-icons/lia";
+import { RiRobot2Line } from "react-icons/ri";
 
 function FooterMenu() {
   const pathname = usePathname();
@@ -118,12 +117,12 @@ function FooterMenu() {
             className="flex items-center flex-col text-lg relative"
           >
             {/* <More fill={isActive("/p-user") ? activeColor : inactiveColor} /> */}
-            <FaRobot
-              className={`text-[${isActive("/recommends") ? activeColor : inactiveColor}]`}
+            <LiaRobotSolid
+              className={`text-2xl ${isActive("/recommends") ? "text-milafilm" : "text-gray-400"}`}
             />
             <span
-              className={`block text-[10px] mb-1 absolute -bottom-8 ${
-                isActive("/p-user") ? "text-milafilm" : "text-gray-400"
+              className={`block text-[10px] mb-2 absolute -bottom-8 ${
+                isActive("/recommends") ? "text-milafilm" : "text-gray-400"
               }`}
             >
               پیشنهاد
