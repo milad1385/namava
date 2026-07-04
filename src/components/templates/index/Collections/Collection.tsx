@@ -18,9 +18,9 @@ function Collection({ image, title, link }: Collection) {
       className="block"
       title={`مجموعه فیلم های ${title}`}
     >
-      <div className="relative w-full">
+      <div className="relative w-full aspect-[400/189]">
         {!isImageLoaded && (
-          <div className="w-full h-[90px] md:h-[170px] bg-gray-700 rounded-md overflow-hidden relative">
+          <div className="absolute inset-0 bg-gray-700 rounded-md overflow-hidden">
             <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
           </div>
         )}
@@ -28,11 +28,11 @@ function Collection({ image, title, link }: Collection) {
         <Image
           src={image}
           alt={title}
-          width={450}
+          width={400}
           height={189}
           onLoad={() => setIsImageLoaded(true)}
-          className={`w-full h-[90px] md:h-[170px] object-cover rounded-md transition-opacity duration-300 ${
-            isImageLoaded ? "opacity-100" : "opacity-0"
+          className={`w-full h-full object-cover rounded-md transition-opacity duration-300 ${
+            isImageLoaded ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         />
       </div>

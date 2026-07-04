@@ -38,7 +38,7 @@ function Collections({ title, collections }: Collections) {
         {collections.map((collection: any) => (
           <SwiperSlide key={collection._id}>
             <Collection
-              image={collection.mainImage}
+              image={collection.desktopBanner}
               title={collection.title}
               link={collection.link}
             />

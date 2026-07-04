@@ -21,7 +21,7 @@ async function MainSliderContent({ categoryId, type = null }: TMainSlider) {
       getAllSlidersMovies(type, categoryId),
       getStars(),
       getMovies("adult", categoryId, type),
-      getAllCollectionSlider("adult"),
+      getAllCollectionSlider(),
       getUserBookmarks(),
       authUser(),
     ]);
