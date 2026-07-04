@@ -75,3 +75,14 @@ export const getDateWithTime = (time: Date) => {
 export const formateData = (data) => {
   return JSON.parse(JSON.stringify(data));
 };
+
+export const getAgeRange = (age: number | undefined) => {
+  const ageMap: Record<number, string> = {
+    3: "three",
+    7: "seven",
+    12: "twelve",
+    15: "fifteen",
+    18: "eighteen",
+  };
+  return ageMap[age] || "eighteen";
+};
