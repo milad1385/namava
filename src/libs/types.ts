@@ -290,6 +290,13 @@ export interface IPaymentGateway {
   subscriptionId: string;
 }
 
+export interface IProfileLink {
+  icon: React.ReactNode;
+  title: string;
+  link: string;
+  hasSubscription: boolean;
+}
+
 export interface IMovie {
   image: string;
   title: string;
