@@ -1,7 +1,13 @@
 import { getWatchHistoryFresh } from "@/src/libs/actions/watchHistory";
 import WatchHistoryList from "./WatchHistoryList";
 
-async function WatchListSection({ categoryId }: { categoryId: string }) {
+async function WatchListSection({
+  type,
+  categoryId,
+}: {
+  type?: string;
+  categoryId: string;
+}) {
   const historyData = await getWatchHistoryFresh();
   let history = historyData?.data || [];
   if (categoryId) {
@@ -9,6 +15,10 @@ async function WatchListSection({ categoryId }: { categoryId: string }) {
       (movieData) =>
         String(movieData?.movie?.category.parrent) === String(categoryId),
     );
+  }
+
+  if (type !== "all") {
+    history = history.filter((movieData) => movieData.movie.type === type);
   }
 
   return (
