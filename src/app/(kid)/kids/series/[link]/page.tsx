@@ -4,6 +4,7 @@ import Comments from "@/src/components/templates/Comments/Comments";
 import Details from "@/src/components/templates/Movie/Details";
 import SeasonOption from "@/src/components/templates/Movie/SeasonOption";
 import Header from "@/src/components/templates/index/Header/Header";
+import Session from "@/src/components/templates/session/Session";
 import {
   checkUserSubscription,
   getMovie,

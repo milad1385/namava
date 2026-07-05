@@ -6,7 +6,6 @@ function SeriesEpisode({ movie, seasonEpisodes, userInfo, link }) {
   const { activeProfile } = useAuth();
 
   return (
-    activeProfile?.type === "kid" &&
     !activeProfile?.limitsMovies?.includes(movie._id) && (
       <section className="container mb-20 grid grid-cols-1 gap-3 md:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {seasonEpisodes.episodes.map((episode: any) => (
