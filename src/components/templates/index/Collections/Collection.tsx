@@ -18,7 +18,7 @@ function Collection({ image, title, link }: Collection) {
       className="block"
       title={`مجموعه فیلم های ${title}`}
     >
-      <div className="relative w-full aspect-[400/189]">
+      <div className="relative w-full aspect-[320/189] md:aspect-[400/189]">
         {!isImageLoaded && (
           <div className="absolute inset-0 bg-gray-700 rounded-md overflow-hidden">
             <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
