@@ -56,6 +56,8 @@ async function page({ params }: TParams) {
             showTime={movie.showTime}
             contentType={movie.contentType}
             isLink
+            language={movie.language}
+            category={movie?.category?.title}
           />
         ))}
       </div>

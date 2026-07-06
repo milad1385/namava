@@ -96,7 +96,7 @@ function Movie({
                 <span className="font-Dana text-white">{showTime}</span>
               </p>
               <div className="flex text-xs md:text-[13px] gap-x-1">
-                <Heart className="!text-white" />
+                <Heart className="!text-white !fill-white" />
                 <span className="font-Dana mt-[1px] !text-white">%80</span>
               </div>
               <div className="flex text-xs md:text-[13px] gap-x-1">
