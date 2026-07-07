@@ -25,7 +25,7 @@ function ProfileBox({ profile }: any) {
     if (profile.isLock) {
       setIsShowLockModal(true);
     } else {
-      document.cookie = `profile = ${profile._id}; path=/`;
+      document.cookie = `profile=${profile._id}; path=/; Secure; SameSite=Strict`;
       if (profile.type === "kid") {
         router.push("/kids");
       } else {
