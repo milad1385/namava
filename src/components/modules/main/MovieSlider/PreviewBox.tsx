@@ -220,7 +220,9 @@ function PreviewBox({
                 {movieDetail.ageRange}+
               </span>
               <span>سال {movieDetail.showTime}</span>
-              <span>{movieDetail.time} دقیقه</span>
+              {movieDetail?.type === "film" && (
+                <span>{movieDetail.time} دقیقه</span>
+              )}
               <div className="flex items-center gap-x-1">
                 <IMBD />
                 <span className="mt-0.5">{movieDetail.IMDB}</span>
