@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import MovieModel from "./movie";
 import UserModel from "@/src/models/user";
+import SeasonModel from "@/src/models/Season";
 
 export interface IEpisode {
   title: string;

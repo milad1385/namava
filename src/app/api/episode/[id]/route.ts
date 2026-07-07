@@ -5,7 +5,7 @@ import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest, { params }: TParams) {
   try {
-    connectToDB();
+    await connectToDB();
     const episode = await EpisodeModel.findOne({
       series: params.id,
     });

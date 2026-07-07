@@ -27,6 +27,8 @@ function PreviewBox({
   loading,
 }) {
   const { subscripton, isLogin } = useAuth();
+  console.log(subscripton);
+  
   const router = useRouter();
   const [movieDetail, setMovieDetail] = useState(initialMovieDetail);
   const [bookmarks, setBookmarks] = useState(userBookmarks || []);

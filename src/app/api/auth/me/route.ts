@@ -3,12 +3,14 @@ import { authUser } from "@/src/utils/serverHelper";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 import ProfileModel from "@/src/models/profile";
+import CategoryModel from "@/src/models/category";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
   try {
     await connectToDB();
+    const Category = CategoryModel;
 
     const user = await authUser();
 

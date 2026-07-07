@@ -47,7 +47,10 @@ async function MainSliderContent({ categoryId, type = null }: TMainSlider) {
     <>
       <Slider slides={JSON.parse(JSON.stringify(slides))} />
 
-      <WatchListSection type={watchListType} categoryId={categoryId as string} />
+      <WatchListSection
+        type={watchListType}
+        categoryId={categoryId as string}
+      />
       {!categoryId && userInfo?.favGenre && userFavMovies.length > 0 && (
         <MovieSlider
           movies={JSON.parse(JSON.stringify(userFavMovies))}

@@ -22,7 +22,6 @@ function MovieSlider({
   const [movieDetail, setMovieDetail] = useState<any>(null);
   const pathname = usePathname();
   const isRecommendation = pathname.includes("/recommends");
-
   return (
     <div>
       <div className="container mb-[35px] md:mb-0 md:mt-5">
