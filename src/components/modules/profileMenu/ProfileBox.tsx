@@ -13,6 +13,7 @@ function ProfileBox({ image, name, type, isLock, _id }: any) {
 
       window.location.href = "/kids";
     } else {
+      document.cookie = `profile = ${_id}; path=/`;
       window.location.href = "/";
     }
   };
