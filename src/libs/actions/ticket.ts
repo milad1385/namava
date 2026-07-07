@@ -40,6 +40,8 @@ export const sendNewTicket = async (data: any): Promise<TResponse> => {
       status,
     });
 
+    revalidatePath("/p-user/tickets");
+
     return {
       message: "تیکت با موفقیت ارسال شد",
       status: 201,
@@ -88,7 +90,7 @@ export const answerToTicket = async (data: any): Promise<TResponse> => {
           $set: {
             status: "answered",
           },
-        }
+        },
       );
     }
 
@@ -122,7 +124,7 @@ export const answerToTicket = async (data: any): Promise<TResponse> => {
 
 export const closeOrOpenTheTickets = async (
   id: string,
-  status: boolean
+  status: boolean,
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -140,7 +142,7 @@ export const closeOrOpenTheTickets = async (
         $set: {
           isOpen: status ? false : true,
         },
-      }
+      },
     );
 
     revalidatePath("/p-admin/tickets");
