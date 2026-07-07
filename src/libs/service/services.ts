@@ -33,7 +33,7 @@ export const getAllStats = async (startDate: string) => {
     // تبدیل startDate به Date
     if (startDate) {
       const start = new Date(startDate);
-      const end = new Date(); // تاریخ امروز
+      const end = new Date();
       filterByDate = {
         createdAt: {
           $gte: start,
