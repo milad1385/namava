@@ -9,11 +9,11 @@ function ProfileBox({ image, name, type, isLock, _id }: any) {
       return router.push("/profile-list");
     }
     if (type === "kid") {
-      document.cookie = `profile = ${_id}; path=/`;
+      document.cookie = `profile=${_id}; path=/; max-age=31536000`;
 
       window.location.href = "/kids";
     } else {
-      document.cookie = `profile = ${_id}; path=/`;
+      document.cookie = `profile=${_id}; path=/; max-age=31536000`;
       window.location.href = "/";
     }
   };
