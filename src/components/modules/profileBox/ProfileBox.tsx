@@ -25,7 +25,7 @@ function ProfileBox({ profile }: any) {
     if (profile.isLock) {
       setIsShowLockModal(true);
     } else {
-      document.cookie = `profile=${profile._id}; path=/; max-age=31536000`;
+      document.cookie = `profile=${profile._id}; path=/; max-age=${60 * 60 * 24 * 365}`;
       if (profile.type === "kid") {
         router.push("/kids");
       } else {
@@ -39,7 +39,7 @@ function ProfileBox({ profile }: any) {
     const res = await checkUserProfilePassword(profile._id, password);
     if (res?.status === 200) {
       setIsLoading(false);
-      document.cookie = `profile = ${profile._id}; path=/`;
+      document.cookie = `profile=${profile._id}; path=/; max-age=${60 * 60 * 24 * 365}`;
       if (profile.type === "kid") {
         router.push("/kids");
       } else {
