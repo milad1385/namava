@@ -90,6 +90,7 @@ export const signUp = async (body: ISignup) => {
       name: "profile",
       value: profileID,
       path: "/",
+      maxAge: 31536000,
     });
 
     cookies().set({
@@ -157,6 +158,7 @@ export const signIn = async (body: ISignin) => {
       name: "profile",
       value: profileID,
       path: "/",
+      maxAge: 31536000,
     });
     cookies().set({
       name: "accessToken",
