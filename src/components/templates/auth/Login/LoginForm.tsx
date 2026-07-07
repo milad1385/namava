@@ -30,7 +30,8 @@ function LoginForm() {
     setIsLoading(false);
     if (res?.status === 200) {
       toast.success(`${res.message}`);
-      return router.replace("/");
+      window.location.replace("/");
+      // return router.replace("/");
     }
 
     toast.error(`${res.message}`);
