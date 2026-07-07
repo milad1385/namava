@@ -10,11 +10,10 @@ function ProfileBox({ image, name, type, isLock, _id }: any) {
     }
     if (type === "kid") {
       document.cookie = `profile = ${_id}; path=/`;
-      router.push(`/kids`);
-      location.reload();
+
+      window.location.href = "/kids";
     } else {
-      router.push(`/`);
-      location.reload();
+      window.location.href = "/";
     }
   };
   return (
