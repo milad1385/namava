@@ -65,6 +65,8 @@ async function page({ params }: TParams) {
               showTime={movie.showTime}
               type={movie.type}
               contentType={"adult"}
+              language={movie.language}
+              category={movie.category.title}
             />
           ))}
         </div>

@@ -430,8 +430,8 @@ export const getStarMovies = async (starId: string) => {
   try {
     connectToDB();
     const movies = await MovieModel.find({ actors: { $in: starId } }).populate(
-      "actors",
-      "link name",
+      "actors category",
+      "link name title",
     );
 
     return movies;
