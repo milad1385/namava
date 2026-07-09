@@ -9,6 +9,7 @@ import AuthContextProvider from "../context/AuthContextProvider";
 import "@/src/globals.css";
 import NextTopLoader from "nextjs-toploader";
 import ChatButton from "../components/modules/chatbot/ChatButton";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://your-domain.com";
 
 export const metadata: Metadata = {
   title: {
@@ -19,6 +20,36 @@ export const metadata: Metadata = {
     "تماشای آنلاین فیلم و سریال در سایت فیلم میلا فیلم. دانلود و تماشای آنلاین جدیدترین فیلم و سریال ایرانی و خارجی با قابلیت دانلود رایگان در میلا فیلم.",
   icons: {
     icon: "/images/milafilmTitleLogo.png",
+  },
+  openGraph: {
+    title: "تماشای آنلاین فیلم و سریال | میلا فیلم",
+    description:
+      "تماشای آنلاین فیلم و سریال در سایت فیلم میلا فیلم. دانلود و تماشای آنلاین جدیدترین فیلم و سریال ایرانی و خارجی با قابلیت دانلود رایگان در میلا فیلم.",
+    url: baseUrl,
+    siteName: "میلا فیلم",
+    images: [
+      {
+        url: `${baseUrl}/images/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "میلا فیلم | تماشای آنلاین فیلم و سریال",
+      },
+    ],
+    locale: "fa_IR",
+    type: "website",
+  },
+  
+  twitter: {
+    card: "summary_large_image",
+    title: "تماشای آنلاین فیلم و سریال | میلا فیلم",
+    description:
+      "تماشای آنلاین فیلم و سریال در سایت فیلم میلا فیلم. دانلود و تماشای آنلاین جدیدترین فیلم و سریال ایرانی و خارجی با قابلیت دانلود رایگان در میلا فیلم.",
+    images: [`${baseUrl}/images/og-image.jpg`],
+    site: "@milafilm",
+    creator: "@milafilm",
+  },
+  alternates: {
+    canonical: baseUrl,
   },
 };
 
