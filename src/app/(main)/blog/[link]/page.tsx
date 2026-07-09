@@ -121,8 +121,7 @@ export async function generateMetadata({ params }: TParams): Promise<Metadata> {
     ? article.image 
     : `${baseUrl}${article.image?.startsWith('/') ? '' : '/'}${article.image}`;
   
-  const description = article.content?.substring(0, 160) || 
-                     `مطالعه مقاله ${article.title} در میلا فیلم`;
+  const description = `در میلا فیلم به تماشای مقاله ${article.title} بپردازید و از جدیدترین اخبار و نقدهای سینمایی لذت ببرید.`;
 
   return {
     title: article.title,
