@@ -4,14 +4,13 @@ import { TParams } from "@/src/libs/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { FaLink, FaTelegram, FaTwitter, FaWhatsapp } from "react-icons/fa6";
 import dynamic from "next/dynamic";
 import { Metadata } from "next";
+import Share from "@/src/components/templates/article/Share";
 const ArticleBody = dynamic(
   () => import("@/src/components/templates/article/ArticleBody"),
-  { ssr: false }
+  { ssr: false },
 );
-
 
 async function ArticlePage({ params }: TParams) {
   const article = await getArticle(params.link as string);
@@ -81,27 +80,11 @@ async function ArticlePage({ params }: TParams) {
             <p className="text-xs/[26px]">{article.tags.join(" , ")}</p>
           </div>
           {/* share */}
-          <div className="text-sm flex md:items-center gap-4 flex-col md:flex-row">
-            <span className="text-sm">اشتراک گذاری : </span>
-            <div className="flex items-center flex-wrap gap-4">
-              <div className="bg-[#121212] w-[120px] flex-center gap-x-2 py-3 rounded-md cursor-pointer">
-                <FaTelegram className="text-xl" />
-                تلگرام
-              </div>
-              <div className="bg-[#121212] w-[120px] flex-center gap-x-2 py-3 rounded-md cursor-pointer">
-                <FaWhatsapp className="text-xl" />
-                واتس اپ
-              </div>
-              <div className="bg-[#121212] w-[120px] flex-center gap-x-2 py-3 rounded-md cursor-pointer">
-                <FaTwitter className="text-xl" />
-                توییتر
-              </div>
-              <div className="bg-[#121212] w-[120px] flex-center gap-x-2 py-3 rounded-md cursor-pointer">
-                <FaLink className="text-xl" />
-                ارسال لینک
-              </div>
-            </div>
-          </div>
+          <Share
+            title="سایت فیلم و سریال میلا فیلم"
+            url={`${process.env.NEXT_PUBLIC_BASE_URL}/blog/${params.link}`}
+            description="تماشای آنلاین فیلم و سریال در سایت فیلم میلا فیلم. دانلود و تماشای آنلاین جدیدترین فیلم و سریال ایرانی و خارجی با قابلیت دانلود رایگان در میلا فیلم."
+          />
         </div>
       </div>
 
@@ -120,22 +103,61 @@ async function ArticlePage({ params }: TParams) {
           className="space-y-10 block"
         >
           <h3>{article.movie.title}</h3>
-          <Button className="!w-[150px] md:!w-[200px]">تماشا در میلا فیلم</Button>
+          <Button className="!w-[150px] md:!w-[200px]">
+            تماشا در میلا فیلم
+          </Button>
         </Link>
       </div>
     </>
   );
 }
 
-
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
   const article = await getArticle(params.link as string);
+  
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://your-domain.com';
+  const articleUrl = `${baseUrl}/blog/${params.link}`;
+  const imageUrl = article.image?.startsWith('http') 
+    ? article.image 
+    : `${baseUrl}${article.image?.startsWith('/') ? '' : '/'}${article.image}`;
+  
+  const description = article.content?.substring(0, 160) || 
+                     `مطالعه مقاله ${article.title} در میلا فیلم`;
+
   return {
-    title: `${article.title}`,
-    description: `محتوا مقاله مورد نظر در این صفحه قابل خواندن میباشد`,
-    keywords:"مقاله ، محتوا ، کلمات کلیدی ، نویسنده",
+    title: article.title,
+    description: description,
+    keywords: article.tags?.join(', ') || 'مقاله، فیلم، سریال، نقد',
+    openGraph: {
+      title: article.title,
+      description: description,
+      url: articleUrl,
+      siteName: 'میلا فیلم',
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+      locale: 'fa_IR',
+      type: 'article',
+      publishedTime: article.createdAt,
+      authors: [article.creator?.name || 'میلا فیلم'],
+    },
+    
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: description,
+      images: [imageUrl],
+    },
+    
+    alternates: {
+      canonical: articleUrl,
+    },
   };
 }
-
 
 export default ArticlePage;
