@@ -9,6 +9,7 @@ async function page({ params, searchParams }: TParams) {
   const movies = await getMoviesByCategory(
     params.category as string,
     searchParams.status,
+    "kid"
   );
 
   if (!movies.length) {

@@ -103,7 +103,7 @@ function Comments({ isKid, user, movieId, comments, movieLink }: TComments) {
                   id="spoil"
                   name="isSpoiled"
                   type="checkbox"
-                  className={`film-checkbox ${isKid ? "!border-black" : ""}`}
+                  className={`film-checkbox border-2 ${isKid ? "!border-black" : "!border-white"}`}
                 />
                 <label className="text-xs" htmlFor="spoil">
                   این نظر حاوی اسپویلر است و داستان فیلم را لو می‌دهد.

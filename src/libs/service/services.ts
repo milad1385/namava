@@ -1393,6 +1393,7 @@ export const checkUserProfile = async () => {
 export const getMoviesByCategory = async (
   categoryId: string,
   status?: string,
+  type?: string,
 ) => {
   try {
     await connectToDB();
@@ -1405,6 +1406,7 @@ export const getMoviesByCategory = async (
 
     let filterObj: any = {
       category: { $in: allCategoryIds },
+      contentType: type,
     };
 
     const [feild, direction] = status ? status.split("-") : [];
