@@ -89,10 +89,67 @@ async function page({ params }: TParams) {
 
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
   const movie: any = await getMovie(params.link);
+  
+  if (!movie) {
+    return {
+      title: "فیلم پیدا نشد | میلا فیلم",
+      description: "متاسفانه فیلم مورد نظر شما پیدا نشد.",
+    };
+  }
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://your-domain.com';
+  const movieUrl = `${baseUrl}/${movie.type === 'film' ? 'movie' : 'series'}/${movie.link}`;
+  
+  const imageUrl = movie.deskBanner?.startsWith('http')
+    ? movie.deskBanner
+    : `${baseUrl}${movie.deskBanner?.startsWith('/') ? '' : '/'}${movie.deskBanner || movie.poster}`;
+
+  const description = movie.shortDesc || 
+    `🎬 فیلم ${movie.title} به کارگردانی ${movie.director} را در میلا فیلم تماشا کنید و از جدیدترین فیلم های سینمایی لذت ببرید.`;
+
+  const keywords = [
+    movie.title,
+    'فیلم',
+    movie.type === 'film' ? 'سینمایی' : 'سریال',
+    movie.category?.title,
+    movie.director,
+    ...(movie.actors?.map((actor: any) => actor.name) || [])
+  ].filter(Boolean).join('، ');
+
   return {
-    title: `${movie.title}`,
-    description: `${movie.shortDesc}`,
-    keywords: `فیلم ، سریال ، میلا فیلم ، ${movie.title}`,
+    title: `${movie.title} | میلا فیلم`,
+    description: description,
+    keywords: keywords,
+    openGraph: {
+      title: `${movie.title} | میلا فیلم`,
+      description: description,
+      url: movieUrl,
+      siteName: 'میلا فیلم',
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${movie.title} - میلا فیلم`,
+        },
+      ],
+      locale: 'fa_IR',
+      type: 'video.movie',
+      directors: movie.director ? [movie.director] : undefined,
+      actors: movie.actors?.map((actor: any) => actor.name) || undefined,
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: `${movie.title} | میلا فیلم`,
+      description: description,
+      images: [imageUrl],
+      site: '@milafilm',
+      creator: '@milafilm',
+    },
+    alternates: {
+      canonical: movieUrl,
+    },
   };
 }
 
