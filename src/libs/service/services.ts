@@ -1088,7 +1088,15 @@ export const getUserBookmarks = async () => {
     connectToDB();
     const user = await authUser();
     const bookmarks = await BookmarkModel.find({ user: user._id })
-      .populate("movie", "link title mainImage type showTime contentType")
+      .populate({
+        path: "movie",
+        select:
+          "link title mainImage type showTime contentType category language",
+        populate: {
+          path: "category",
+          select: "title",
+        },
+      })
       .sort({ createdAt: -1 });
 
     return bookmarks || [];
@@ -1104,7 +1112,9 @@ export const getAllUserLikesMovie = async () => {
 
     const likesMovie = await MovieModel.find({
       liked: { $in: user._id },
-    }).sort({ createdAt: -1 });
+    })
+      .populate("category", "title")
+      .sort({ createdAt: -1 });
     return likesMovie;
   } catch (error) {
     return error;

@@ -58,6 +58,8 @@ function Bookmarks({ bookmarks, likesMovies }: any) {
                 type={bookmark.movie.type}
                 showTime={bookmark.movie.showTime}
                 contentType={isKid ? "kid" : "adult"}
+                language={bookmark.movie.language}
+                category={bookmark.movie.category.title}
                 isLink
               />
             ))}
@@ -87,6 +89,8 @@ function Bookmarks({ bookmarks, likesMovies }: any) {
                 type={movie.type}
                 showTime={movie.showTime}
                 contentType={isKid ? "kid" : "adult"}
+                language={movie.language}
+                category={movie.category.title}
                 isLink
               />
             ))}
