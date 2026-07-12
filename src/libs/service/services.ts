@@ -1085,7 +1085,7 @@ export const getAllCollectionSlider = async (type?: "adult" | "kid" | null) => {
 
 export const getUserBookmarks = async () => {
   try {
-    connectToDB();
+    await connectToDB();
     const user = await authUser();
     const bookmarks = await BookmarkModel.find({ user: user._id })
       .populate({
@@ -1107,7 +1107,7 @@ export const getUserBookmarks = async () => {
 
 export const getAllUserLikesMovie = async () => {
   try {
-    connectToDB();
+    await connectToDB();
     const user = await authUser();
 
     const likesMovie = await MovieModel.find({
