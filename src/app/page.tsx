@@ -8,16 +8,10 @@ import {
 } from "../libs/service/services";
 
 export default async function Home() {
-  const [slides, subscription, profile]: any = await Promise.all([
+  const [slides, subscription]: any = await Promise.all([
     getAllSlidersMovies(),
     checkUserSubscription(),
-    checkUserProfile(),
   ]);
-
-  if (profile.type === "kid") {
-    redirect("/kids");
-  }
-
   return (
     <>
       <HeaderSlider
