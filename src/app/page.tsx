@@ -1,14 +1,12 @@
 import HeaderSlider from "@/src/components/templates/index/Header/Slider";
-import { redirect } from "next/navigation";
 import MainSlider from "../components/templates/index/mainSlider/MainSlider";
 import {
-  checkUserProfile,
   checkUserSubscription,
-  getAllSlidersMovies,
+  getAllSlidersMovies
 } from "../libs/service/services";
 
 export default async function Home() {
-  const [slides, subscription]: any = await Promise.all([
+  const [slides, subscription] = await Promise.all([
     getAllSlidersMovies(),
     checkUserSubscription(),
   ]);
