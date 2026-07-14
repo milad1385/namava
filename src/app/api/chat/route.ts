@@ -1,4 +1,3 @@
-// app/api/chat/route.ts
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
