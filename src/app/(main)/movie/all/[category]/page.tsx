@@ -8,9 +8,9 @@ import React from "react";
 async function page({ params, searchParams }: TParams) {
   const movies = await getMoviesByCategory(
     params.category as string,
-    searchParams.status,
+    searchParams.status || "",
   );
-
+  
   if (!movies.length) {
     notFound();
   }

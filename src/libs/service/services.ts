@@ -1406,8 +1406,14 @@ export const getMoviesByCategory = async (
 
     let filterObj: any = {
       category: { $in: allCategoryIds },
-      contentType: type,
     };
+
+    if (type) {
+      filterObj = {
+        ...filterObj,
+        contentType: type,
+      };
+    }
 
     const [feild, direction] = status ? status.split("-") : [];
     const sort = direction === "asc" ? 1 : -1;
@@ -1423,6 +1429,8 @@ export const getMoviesByCategory = async (
       })
       .populate("actors", "name link")
       .sort(status !== "default" ? { [feild]: sort } : {});
+
+    console.log(movies);
 
     return movies;
   } catch (error) {
