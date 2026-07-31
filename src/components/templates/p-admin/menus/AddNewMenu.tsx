@@ -11,6 +11,7 @@ import SelectBox from "@/src/components/modules/p-admin/SelectBox";
 import { createNewMenu, updateMenu } from "@/src/libs/actions/menu";
 import toast from "react-hot-toast";
 import Spinner from "@/src/components/modules/spinner/Spinner";
+import { useRouter } from "next/navigation";
 
 type TMenuOption = {
   id: string;
@@ -26,7 +27,7 @@ type TAddNewMenuProps = {
 function AddNewMenu({ status, menu }: TAddNewMenuProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [menusOption, setMenusOption] = useState<TMenuOption[]>([]);
-
+  const router = useRouter();
   const { _id, ...info } = menu ?? {};
 
   const {
@@ -63,13 +64,7 @@ function AddNewMenu({ status, menu }: TAddNewMenuProps) {
         }));
 
         setMenusOption(options);
-
-        if (menu?.parrent?._id) {
-          const found = options.find((opt) => opt.value === menu.parrent._id);
-          if (found) {
-            setValue("parrent", found.value);
-          }
-        }
+        setValue("parrent", menu?.parrent?._id);
       } catch (error) {
         console.error("خطا در دریافت منوها:", error);
         toast.error("خطا در دریافت لیست منوها");
@@ -96,6 +91,7 @@ function AddNewMenu({ status, menu }: TAddNewMenuProps) {
       const res = await updateMenu(_id, data);
       if (res?.status === 200) {
         setIsLoading(false);
+        router.push("/p-admin/menus");
         return toast.success(`${res?.message}`);
       }
       reset();
@@ -137,7 +133,7 @@ function AddNewMenu({ status, menu }: TAddNewMenuProps) {
         name="parrent"
         options={menusOption}
         title="پرنت منو"
-        defaultValue={menu?.parrent._id}
+        defaultValue={menu?.parrent?._id}
         placeholder="انتخاب پرنت منو"
       />
 
