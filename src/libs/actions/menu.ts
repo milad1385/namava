@@ -34,6 +34,56 @@ export const createNewMenu = async (data: TMenu) => {
   }
 };
 
+
+export const updateMenu = async (id: string, data: TMenu) => {
+  try {
+    await connectToDB();
+
+    const { title, link, parrent } = data;
+
+    const validateFields = Menu.safeParse({ title, link, parrent });
+    if (!validateFields.success) {
+      return {
+        message: validateFields.error.flatten().fieldErrors,
+        status: 422,
+      };
+    }
+    console.log("api => " , id);
+    
+    const existingMenu = await MenuModel.findById(id);
+    if (!existingMenu) {
+      return {
+        message: "منو مورد نظر یافت نشد",
+        status: 404,
+      };
+    }
+
+    await MenuModel.findByIdAndUpdate(
+      id,
+      {
+        title,
+        link,
+        parrent: parrent || null,
+      },
+      { new: true, runValidators: true }
+    );
+
+    revalidatePath("/p-admin/menus");
+    revalidatePath("/"); 
+
+    return {
+      message: "منو با موفقیت بروزرسانی شد",
+      status: 200,
+    };
+  } catch (error) {
+    console.error("خطا در بروزرسانی منو:", error);
+    return {
+      message: "اتصال اینترنت خود را چک کنید",
+      status: 500,
+    };
+  }
+};
+
 export const deleteMenu = async (id: string) => {
   try {
     connectToDB();
