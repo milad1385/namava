@@ -79,8 +79,8 @@ function Movie({
           <Image
             src={image}
             alt={title}
-            width={1920}
-            height={1080}
+            width={490}
+            height={280}
             onLoad={() => setIsImageLoaded(true)}
             className={`rounded-md shadow w-full lg:w-full lg:h-[280px] object-cover md:w-auto h-[160px] md:h-auto transition-opacity duration-300 ${
               isImageLoaded ? "opacity-100" : "opacity-0"
