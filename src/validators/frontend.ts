@@ -427,6 +427,28 @@ export const Subscription = z.object({
 
 export type TSubscription = z.infer<typeof Subscription>;
 
+export const UpdateCollection = z.object({
+  title: z
+    .string()
+    .min(3, { message: "حداقل 3 کاراکتر برای عنوان الزامی است" }),
+  link: z
+    .string({ required_error: "لینک مجموعه را وارد کنید" })
+    .min(3, { message: "لینک مجموعه حداقل باید 3 کارکتر باشد" })
+    .max(30, { message: "لینک مجموعه باید 30 کاراکتر داشته باشد" }),
+  description: z
+    .string({ required_error: "توضیحات مجموعه را وارد کنید" })
+    .min(3, { message: "توضیحات مجموعه حداقل باید 3 کارکتر باشد" })
+    .max(1000, { message: "توضیحات مجموعه باید 1000 کاراکتر داشته باشد" }),
+  type: z.string().min(1, { message: "نوع محتوا این اثر را انتخاب کنید" }),
+
+  mainImage: z.any().optional(),
+  deskBanner: z.any().optional(),
+  mobileBanner: z.any().optional(),
+  logo: z.any().optional(),
+});
+
+export type TUpdateCollection = z.infer<typeof UpdateCollection>;
+
 export const Collcetion = z.object({
   title: z
     .string()
