@@ -5,6 +5,7 @@ import EmptyBox from "@/src/components/modules/p-admin/EmptyBox";
 import Pagination from "@/src/components/modules/pagination/Pagination";
 import Table from "@/src/components/modules/table/Table";
 import { deleteMenu } from "@/src/libs/actions/menu";
+import Link from "next/link";
 import { useOptimistic } from "react";
 import toast from "react-hot-toast";
 import { FaPencil, FaTrash } from "react-icons/fa6";
@@ -14,7 +15,7 @@ function MenusList({ menus, count }: { menus: any; count: number }) {
     menus,
     (allMenus, id) => {
       return allMenus.filter((menu: any) => menu._id !== id);
-    }
+    },
   );
 
   const deleteMenuHandler = async (id: string) => {
@@ -57,7 +58,9 @@ function MenusList({ menus, count }: { menus: any; count: number }) {
                       />
                     </Modal.Page>
                   </Modal>
-                  <FaPencil className="text-sky-600 text-base md:text-lg" />
+                  <Link href={`/p-admin/menus/${menu._id}`}>
+                    <FaPencil className="text-sky-600 text-base md:text-lg" />
+                  </Link>
                 </div>
               </td>
             </Table.Row>

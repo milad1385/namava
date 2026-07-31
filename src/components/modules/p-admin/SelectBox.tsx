@@ -21,6 +21,7 @@ type TSelectBox = {
   selected?: any;
   onSelected?: any;
   placeholder?: string;
+  defaultValue?: any; // ✅ اضافه شد
 };
 
 function SelectBox({
@@ -35,24 +36,30 @@ function SelectBox({
   selected,
   onSelected,
   placeholder = "placeholder",
+  defaultValue, // ✅ اضافه شد
 }: TSelectBox) {
-  if (!multiple && !selected) {
+  // ========== حالت غیر چندگانه (select معمولی) ==========
+  if (!multiple) {
+    // مقدار پیش‌فرض: اولویت با defaultValue، سپس selected
+    const defaultVal = defaultValue || selected || "";
+
     return (
       <div className="flex w-full flex-col gap-y-3 text-white relative">
         <Label title={title} className="!text-base md:!text-lg min-h-[28px]" />
         <div
-          className={`bg-[#121212]  h-[52px] px-2.5 rounded-xl flex items-center justify-between gap-x-2`}
+          className={`bg-[#121212] h-[52px] px-2.5 rounded-xl flex items-center justify-between gap-x-2`}
         >
           <select
             disabled={disable}
             className="bg-[#121212] outline-none w-full text-sm md:text-base"
             {...register(`${name}`)}
             name={name}
+            defaultValue={defaultVal} // ✅ مقداردهی
           >
             {dateName ? (
               <option value="">{dateName}</option>
             ) : (
-              <option value="-1">گزینه مورد نظر را انتخاب کنید</option>
+              <option value="">گزینه مورد نظر را انتخاب کنید</option>
             )}
             {options.map((option) => (
               <option value={option.value} key={option.value}>
@@ -68,49 +75,65 @@ function SelectBox({
         )}
       </div>
     );
-  } else {
-    const handleSelectChange = (e: any) => {
-      onSelected(e);
-    };
-    return (
-      <div className="flex w-full flex-col gap-y-3  relative">
-        <Label
-          title={title}
-          className="!text-base md:!text-lg min-h-[28px] text-white"
-        />
-
-        <Select
-          defaultValue={selected}
-          className="w-full"
-          classNamePrefix="react-select"
-          isMulti={multiple}
-          noOptionsMessage={() => "موردی یافت نشد"}
-          options={options}
-          onChange={handleSelectChange}
-          placeholder={placeholder}
-          styles={customStyles}
-          theme={(theme) => ({
-            ...theme,
-            borderRadius: 14,
-            colors: {
-              ...theme.colors,
-              primary: "#121212",
-              primary25: "#1a1a2e",
-              primary50: "#121212",
-              neutral0: "#000000",
-              neutral5: "#1a1a2e",
-              neutral10: "#2a2a4e",
-              neutral20: "#333333",
-              neutral30: "#444444",
-              neutral40: "#888888",
-              neutral50: "#aaaaaa",
-              neutral80: "#ffffff",
-            },
-          })}
-        />
-      </div>
-    );
   }
+
+  // ========== حالت چندگانه (react-select) ==========
+  const handleSelectChange = (e: any) => {
+    if (onSelected) {
+      onSelected(e);
+    }
+  };
+
+  // پیدا کردن مقدار پیش‌فرض برای react-select
+  const getDefaultValue = () => {
+    if (selected) return selected;
+    if (defaultValue) {
+      if (Array.isArray(defaultValue)) {
+        return options.filter((opt) => defaultValue.includes(opt.value));
+      }
+      return options.find((opt) => opt.value === defaultValue);
+    }
+    return null;
+  };
+
+  return (
+    <div className="flex w-full flex-col gap-y-3 relative">
+      <Label
+        title={title}
+        className="!text-base md:!text-lg min-h-[28px] text-white"
+      />
+
+      <Select
+        defaultValue={getDefaultValue()}
+        className="w-full"
+        classNamePrefix="react-select"
+        isMulti={multiple}
+        noOptionsMessage={() => "موردی یافت نشد"}
+        options={options}
+        onChange={handleSelectChange}
+        placeholder={placeholder}
+        styles={customStyles}
+        theme={(theme) => ({
+          ...theme,
+          borderRadius: 14,
+          colors: {
+            ...theme.colors,
+            primary: "#121212",
+            primary25: "#1a1a2e",
+            primary50: "#121212",
+            neutral0: "#000000",
+            neutral5: "#1a1a2e",
+            neutral10: "#2a2a4e",
+            neutral20: "#333333",
+            neutral30: "#444444",
+            neutral40: "#888888",
+            neutral50: "#aaaaaa",
+            neutral80: "#ffffff",
+          },
+        })}
+      />
+    </div>
+  );
 }
 
 export default SelectBox;
