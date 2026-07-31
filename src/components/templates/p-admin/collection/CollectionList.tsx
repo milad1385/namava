@@ -16,7 +16,7 @@ function CollectionList({ collections, counts }: any) {
     collections,
     (state, id) => {
       return state.filter((collection: any) => collection._id !== id);
-    }
+    },
   );
 
   const deleteCollectionHandler = async (id: string) => {
@@ -75,7 +75,9 @@ function CollectionList({ collections, counts }: any) {
                     </Modal.Page>
                   </Modal>
 
-                  <FaPencil className="text-sky-600 text-base md:text-lg" />
+                  <Link href={`/p-admin/collection/${collcetion.link}`}>
+                    <FaPencil className="text-sky-600 text-base md:text-lg" />
+                  </Link>
                 </div>
               </td>
             </Table.Row>
