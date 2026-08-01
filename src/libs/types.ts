@@ -14,6 +14,10 @@ export type THeader = {
   user?: any;
 };
 
+
+export type TFileInput = string | string[] | null | undefined;
+
+
 export interface IFooter {
   subscription?: boolean;
 }
