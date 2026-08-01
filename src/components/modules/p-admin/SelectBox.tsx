@@ -21,7 +21,8 @@ type TSelectBox = {
   selected?: any;
   onSelected?: any;
   placeholder?: string;
-  defaultValue?: any; // ✅ اضافه شد
+  defaultValue?: any;
+  isReactSelect?: boolean;
 };
 
 function SelectBox({
@@ -36,10 +37,10 @@ function SelectBox({
   selected,
   onSelected,
   placeholder = "placeholder",
-  defaultValue, // ✅ اضافه شد
+  defaultValue,
+  isReactSelect,
 }: TSelectBox) {
-  // ========== حالت غیر چندگانه (select معمولی) ==========
-  if (!multiple) {
+  if (!multiple && !isReactSelect) {
     // مقدار پیش‌فرض: اولویت با defaultValue، سپس selected
     const defaultVal = defaultValue || selected || "";
 
@@ -77,14 +78,12 @@ function SelectBox({
     );
   }
 
-  // ========== حالت چندگانه (react-select) ==========
   const handleSelectChange = (e: any) => {
     if (onSelected) {
       onSelected(e);
     }
   };
 
-  // پیدا کردن مقدار پیش‌فرض برای react-select
   const getDefaultValue = () => {
     if (selected) return selected;
     if (defaultValue) {
@@ -110,6 +109,7 @@ function SelectBox({
         isMulti={multiple}
         noOptionsMessage={() => "موردی یافت نشد"}
         options={options}
+        {...register(`${name}`)}
         onChange={handleSelectChange}
         placeholder={placeholder}
         styles={customStyles}
