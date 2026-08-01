@@ -15,14 +15,16 @@ export const metadata: Metadata = {
 };
 
 async function page({ params }: TParams) {
-  const [allStarts, allSubCategories , movie]: any = await Promise.all([
+  const [allStarts, allSubCategories, movie]: any = await Promise.all([
     getStars(),
     getAllSubcategories(),
     getMovie(params?.link as string),
   ]);
   return (
     <div>
-      <Title name="ویرایش" />
+      <Title
+        name={`ویرایش ${movie.type === "film" ? "فیلم" : "سریال"} ${movie.title}`}
+      />
       <EditMovie
         subCategories={JSON.parse(JSON.stringify(allSubCategories))}
         stars={JSON.parse(JSON.stringify(allStarts))}
