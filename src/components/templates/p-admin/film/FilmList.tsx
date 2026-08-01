@@ -16,7 +16,7 @@ function FilmList({ movies, counts }: { movies: any; counts: number }) {
     movies,
     (allMovies, id) => {
       return allMovies.filter((movie: any) => movie._id !== id);
-    }
+    },
   );
 
   const deleteMovieHandler = async (id: string) => {
@@ -92,15 +92,17 @@ function FilmList({ movies, counts }: { movies: any; counts: number }) {
                     <Modal.Open name="delete">
                       <FaTrash className="text-red-600 text-base md:text-lg" />
                     </Modal.Open>
-                    <Modal.Open name="edit">
-                      <FaPencil className="text-sky-600 text-base md:text-lg" />
-                    </Modal.Open>
+
                     <Modal.Page name="delete">
                       <ConfirmModal
                         id={movie._id}
                         onAction={deleteMovieHandler}
                       />
                     </Modal.Page>
+
+                    <Link href={`/p-admin/movies/${movie.link}`}>
+                      <FaPencil className="text-sky-600 text-base md:text-lg" />
+                    </Link>
                   </Modal>
                 </div>
               </td>

@@ -132,6 +132,170 @@ export const createNewMovie = async (data: FormData, stars: TStar[]) => {
   }
 };
 
+export const updateMovie = async (
+  id: string,
+  data: FormData,
+  stars: TStar[],
+) => {
+  try {
+    await connectToDB();
+
+    if (!(await checkIsAdmin())) {
+      return {
+        message: "شما دسترسی برای ویرایش فیلم یا سریال ندارید",
+        status: 403,
+      };
+    }
+
+    const existingMovie = await MovieModel.findById(id);
+    if (!existingMovie) {
+      return {
+        message: "اثر مورد نظر یافت نشد",
+        status: 404,
+      };
+    }
+
+    const mainImage = data.get("mainImage") as File | null;
+    const logo = data.get("logo") as File | null;
+    const video = data.get("video") as File | null;
+    const deskBanner = data.get("deskBanner") as File | null;
+    const mobileBanner = data.get("mobileBanner") as File | null;
+    const detailImages = data.getAll("detailImage") as File[];
+
+    const remainingDetailImagesRaw = data.get("remainingDetailImages") as
+      | string
+      | null;
+    const remainingDetailImages: string[] = remainingDetailImagesRaw
+      ? JSON.parse(remainingDetailImagesRaw)
+      : [];
+
+    const actors = stars.map((star) => star.value);
+
+    const uploadFile = (
+      file: File | null,
+      oldPath: string,
+      prefix: string,
+    ): string => {
+      if (!file || !(file instanceof File)) return oldPath;
+
+      if (oldPath) {
+        const oldFilePath = path.join(process.cwd(), "public", oldPath);
+        if (existsSync(oldFilePath)) {
+          unlinkSync(oldFilePath);
+        }
+      }
+
+      const fileName = `${prefix}_${Date.now()}_${file.name}`;
+      const filePath = `/uploads/${fileName}`;
+      const fullPath = path.join(process.cwd(), "public", filePath);
+      const buffer = Buffer.from(file.arrayBuffer() as any);
+      writeFileSync(fullPath, buffer as any);
+
+      return filePath;
+    };
+
+    let mainImageText = existingMovie.mainImage;
+    let logoText = existingMovie.logo;
+    let videoText = existingMovie.video;
+    let deskBannerText = existingMovie.deskBanner;
+    let mobileBannerText = existingMovie.mobileBanner;
+
+    // ========== ۱. حذف فایل‌های detailImage که از لیست حذف شدن ==========
+    const existingDetailImages = existingMovie.detailImage || [];
+    const detailImagesToDelete = existingDetailImages.filter(
+      (path: string) => !remainingDetailImages.includes(path),
+    );
+
+    for (const imagePath of detailImagesToDelete) {
+      const fullPath = path.join(process.cwd(), "public", imagePath);
+      if (existsSync(fullPath)) {
+        try {
+          unlinkSync(fullPath);
+        } catch (err) {
+          console.error(`خطا در حذف فایل ${imagePath}:`, err);
+        }
+      }
+    }
+
+    // ========== ۲. آپلود فایل‌های جدید ==========
+    if (mainImage) {
+      mainImageText = uploadFile(mainImage, mainImageText, "main");
+    }
+    if (logo) {
+      logoText = uploadFile(logo, logoText, "logo");
+    }
+    if (video) {
+      videoText = uploadFile(video, videoText, "video");
+    }
+    if (deskBanner) {
+      deskBannerText = uploadFile(deskBanner, deskBannerText, "desk");
+    }
+    if (mobileBanner) {
+      mobileBannerText = uploadFile(mobileBanner, mobileBannerText, "mobile");
+    }
+
+    // ========== ۳. اضافه کردن detailImage های جدید ==========
+    let finalDetailImages = [...remainingDetailImages];
+
+    if (detailImages.length > 0) {
+      for (const image of detailImages) {
+        if (image instanceof File) {
+          const fileName = `detail_${Date.now()}_${image.name}`;
+          const filePath = `/uploads/${fileName}`;
+          const fullPath = path.join(process.cwd(), "public", filePath);
+          const buffer = Buffer.from(await image.arrayBuffer());
+          writeFileSync(fullPath, buffer as any);
+          finalDetailImages.push(filePath);
+        }
+      }
+    }
+
+    // ========== ۴. بروزرسانی در دیتابیس ==========
+    await MovieModel.findByIdAndUpdate(
+      id,
+      {
+        title: data.get("title"),
+        ageRange: data.get("ageRange"),
+        time: data.get("time"),
+        link: data.get("link"),
+        type: data.get("type") || "film",
+        shortDesc: data.get("shortDesc"),
+        showTime: data.get("showTime"),
+        category: data.get("category"),
+        season: data.get("season"),
+        longDesc: data.get("longDesc"),
+        language: data.get("language"),
+        contentType: data.get("contentType"),
+        director: data.get("director"),
+        priceStatus: data.get("priceStatus"),
+        isSlider: data.get("isSlider") === "true",
+        mainImage: mainImageText,
+        video: videoText,
+        deskBanner: deskBannerText,
+        mobileBanner: mobileBannerText,
+        detailImage: finalDetailImages,
+        logo: logoText,
+        actors,
+      },
+      { new: true, runValidators: true },
+    );
+
+    revalidatePath("/p-admin/movies");
+    revalidatePath("/");
+
+    return {
+      message: "اثر با موفقیت بروزرسانی شد",
+      status: 200,
+    };
+  } catch (error) {
+    console.error("خطا در بروزرسانی اثر:", error);
+    return {
+      message: "اتصال اینترنت خود را چک کنید",
+      status: 500,
+    };
+  }
+};
+
 export const deleteMovie = async (id: string) => {
   try {
     await connectToDB();
