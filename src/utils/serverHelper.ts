@@ -40,7 +40,7 @@ const authUser = async () => {
 };
 
 const checkIsAdmin = async () => {
-  connectToDB();
+  await connectToDB();
   const token = cookies().get("accessToken")?.value;
 
   if (!token) {
