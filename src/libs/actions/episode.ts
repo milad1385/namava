@@ -4,11 +4,15 @@ import connectToDB from "@/src/configs/db";
 import SeasonModel from "@/src/models/Season";
 import MovieModel from "@/src/models/movie";
 import EpisodeModel from "@/src/models/episode";
-import { writeFileSync } from "fs";
+import { existsSync, unlinkSync, writeFileSync } from "fs";
 import path from "path";
 import { revalidatePath } from "next/cache";
 import { isValidObjectId } from "mongoose";
-import { checkIsAdmin, deleteImage } from "@/src/utils/serverHelper";
+import {
+  checkIsAdmin,
+  deleteImage,
+  uploadFile,
+} from "@/src/utils/serverHelper";
 import { TResponse } from "../types";
 
 export const createNewEpisode = async (data: FormData) => {
@@ -26,7 +30,7 @@ export const createNewEpisode = async (data: FormData) => {
       imageName = `/uploads/${fileName}`;
       const imagePath = path.join(process.cwd(), "public/uploads/" + fileName);
       const buffer = Buffer.from(await image.arrayBuffer());
-      writeFileSync(imagePath, buffer);
+      writeFileSync(imagePath, buffer as any);
     }
 
     let videoName = undefined;
@@ -36,7 +40,7 @@ export const createNewEpisode = async (data: FormData) => {
       videoName = `/uploads/${fileName}`;
       const imagePath = path.join(process.cwd(), "public/uploads/" + fileName);
       const buffer = Buffer.from(await video.arrayBuffer());
-      writeFileSync(imagePath, buffer);
+      writeFileSync(imagePath, buffer as any);
     }
 
     const season = new SeasonModel({
@@ -67,7 +71,7 @@ export const createNewEpisode = async (data: FormData) => {
           $push: {
             episodes: episode._id,
           },
-        }
+        },
       );
     }
 
@@ -80,7 +84,7 @@ export const createNewEpisode = async (data: FormData) => {
           $push: {
             seasons: season._id,
           },
-        }
+        },
       );
     }
 
@@ -91,6 +95,134 @@ export const createNewEpisode = async (data: FormData) => {
       status: 201,
     };
   } catch (error) {
+    return {
+      message: "اتصال خود را به اینترنت بررسی کنید",
+      status: 500,
+    };
+  }
+};
+
+export const updateEpisode = async (id: string, data: FormData) => {
+  try {
+    await connectToDB();
+
+    if (!(await checkIsAdmin())) {
+      return {
+        message: "شما دسترسی برای ویرایش قسمت را ندارید",
+        status: 403,
+      };
+    }
+
+    const existingEpisode = await EpisodeModel.findById(id);
+    if (!existingEpisode) {
+      return {
+        message: "قسمت مورد نظر یافت نشد",
+        status: 404,
+      };
+    }
+
+    const image = data.get("image") as File | null;
+    const video = data.get("video") as File | null;
+    const series = data.get("series") as string;
+    const seasonNumber = Number(data.get("season"));
+    const title = data.get("title") as string;
+    const description = data.get("description") as string;
+    const link = data.get("link") as string;
+    const time = data.get("time") as string;
+
+    console.log("📌 درخواست ویرایش قسمت:");
+    console.log("- قسمت ID:", id);
+    console.log("- سریال:", series);
+    console.log("- شماره فصل جدید:", seasonNumber);
+
+    let imageName = existingEpisode.image;
+    let videoName = existingEpisode.video;
+
+    if (image) {
+      imageName = await uploadFile(image, imageName, "episode_image");
+    }
+    if (video) {
+      videoName = await uploadFile(video, videoName, "episode_video");
+    }
+
+    // ========== پیدا کردن یا ایجاد فصل جدید ==========
+    let newSeason = await SeasonModel.findOne({ series, seasonNumber });
+
+    if (!newSeason) {
+      console.log("⚠️ فصل جدید پیدا نشد، ایجاد میشه...");
+      newSeason = new SeasonModel({
+        seasonNumber,
+        series,
+        episodes: [],
+      });
+      await newSeason.save();
+
+      await MovieModel.findOneAndUpdate(
+        { _id: series },
+        { $push: { seasons: newSeason._id } },
+      );
+    }
+
+    console.log("✅ فصل جدید:", {
+      id: newSeason._id,
+      seasonNumber: newSeason.seasonNumber,
+      episodesCount: newSeason.episodes?.length || 0,
+    });
+
+    // ========== ✅ منطق تغییر فصل ==========
+    const oldSeasonId = existingEpisode.season?.toString();
+    const newSeasonId = newSeason._id.toString();
+
+    console.log("🔄 تغییر فصل:");
+    console.log("- فصل قبلی:", oldSeasonId);
+    console.log("- فصل جدید:", newSeasonId);
+
+    if (oldSeasonId && oldSeasonId !== newSeasonId) {
+      console.log("✅ فصل تغییر کرده، در حال بروزرسانی...");
+
+      // حذف از فصل قبلی
+      await SeasonModel.findByIdAndUpdate(oldSeasonId, {
+        $pull: { episodes: existingEpisode._id },
+      });
+
+      // اضافه به فصل جدید
+      await SeasonModel.findByIdAndUpdate(newSeasonId, {
+        $push: { episodes: existingEpisode._id },
+      });
+    } else {
+      console.log("ℹ️ فصل تغییری نکرده");
+    }
+
+    // ========== بروزرسانی خود قسمت ==========
+    const updatedEpisode = await EpisodeModel.findByIdAndUpdate(
+      id,
+      {
+        title,
+        description,
+        link,
+        time,
+        image: imageName,
+        video: videoName,
+        season: newSeason._id,
+        series,
+      },
+      { new: true, runValidators: true },
+    );
+
+    console.log("✅ قسمت بروزرسانی شد:", {
+      id: updatedEpisode._id,
+      season: updatedEpisode.season,
+    });
+
+    revalidatePath("/p-admin/series");
+    revalidatePath(`/p-admin/series/${series}`);
+
+    return {
+      message: "قسمت با موفقیت بروزرسانی شد",
+      status: 200,
+    };
+  } catch (error) {
+    console.error("❌ خطا در بروزرسانی قسمت:", error);
     return {
       message: "اتصال خود را به اینترنت بررسی کنید",
       status: 500,
@@ -137,7 +269,7 @@ export const deleteEpisode = async (id: string) => {
           $pull: {
             episodes: episode._id,
           },
-        }
+        },
       );
     }
 
@@ -157,7 +289,7 @@ export const deleteEpisode = async (id: string) => {
 export const likeEpisode = async (
   episodeId: string,
   userId: string,
-  seriesLink: string
+  seriesLink: string,
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -194,7 +326,7 @@ export const likeEpisode = async (
             liked: userId,
             disliked: userId,
           },
-        }
+        },
       );
     } else {
       await EpisodeModel.findOneAndUpdate(
@@ -203,7 +335,7 @@ export const likeEpisode = async (
           $push: {
             liked: userId,
           },
-        }
+        },
       );
     }
     // revalidatePath(`/series/${seriesLink}`);
@@ -223,7 +355,7 @@ export const likeEpisode = async (
 export const dislikeEpisode = async (
   episodeId: string,
   userId: string,
-  seriesLink: string
+  seriesLink: string,
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -259,7 +391,7 @@ export const dislikeEpisode = async (
           $pull: {
             disliked: userId,
           },
-        }
+        },
       );
     } else if (isLiked) {
       await EpisodeModel.findOneAndUpdate(
@@ -268,7 +400,7 @@ export const dislikeEpisode = async (
           $pull: {
             liked: userId,
           },
-        }
+        },
       );
 
       await EpisodeModel.findOneAndUpdate(
@@ -277,7 +409,7 @@ export const dislikeEpisode = async (
           $push: {
             disliked: userId,
           },
-        }
+        },
       );
     } else {
       await EpisodeModel.findOneAndUpdate(
@@ -286,7 +418,7 @@ export const dislikeEpisode = async (
           $push: {
             disliked: userId,
           },
-        }
+        },
       );
     }
 
