@@ -131,7 +131,6 @@ export const createNewMovie = async (data: FormData, stars: TStar[]) => {
     };
   }
 };
-
 export const updateMovie = async (
   id: string,
   data: FormData,
@@ -161,21 +160,19 @@ export const updateMovie = async (
     const deskBanner = data.get("deskBanner") as File | null;
     const mobileBanner = data.get("mobileBanner") as File | null;
     const detailImages = data.getAll("detailImage") as File[];
-
-    const remainingDetailImagesRaw = data.get("remainingDetailImages") as
-      | string
-      | null;
+    
+    const remainingDetailImagesRaw = data.get("remainingDetailImages") as string | null;
     const remainingDetailImages: string[] = remainingDetailImagesRaw
       ? JSON.parse(remainingDetailImagesRaw)
       : [];
 
     const actors = stars.map((star) => star.value);
 
-    const uploadFile = (
+    const uploadFile = async (
       file: File | null,
       oldPath: string,
       prefix: string,
-    ): string => {
+    ): Promise<string> => {
       if (!file || !(file instanceof File)) return oldPath;
 
       if (oldPath) {
@@ -188,8 +185,9 @@ export const updateMovie = async (
       const fileName = `${prefix}_${Date.now()}_${file.name}`;
       const filePath = `/uploads/${fileName}`;
       const fullPath = path.join(process.cwd(), "public", filePath);
-      const buffer = Buffer.from(file.arrayBuffer() as any);
-      writeFileSync(fullPath, buffer as any);
+      
+      const buffer = Buffer.from(await file.arrayBuffer());
+      writeFileSync(fullPath, buffer  as any);
 
       return filePath;
     };
@@ -200,10 +198,9 @@ export const updateMovie = async (
     let deskBannerText = existingMovie.deskBanner;
     let mobileBannerText = existingMovie.mobileBanner;
 
-    // ========== ۱. حذف فایل‌های detailImage که از لیست حذف شدن ==========
     const existingDetailImages = existingMovie.detailImage || [];
     const detailImagesToDelete = existingDetailImages.filter(
-      (path: string) => !remainingDetailImages.includes(path),
+      (path: string) => !remainingDetailImages.includes(path)
     );
 
     for (const imagePath of detailImagesToDelete) {
@@ -217,24 +214,22 @@ export const updateMovie = async (
       }
     }
 
-    // ========== ۲. آپلود فایل‌های جدید ==========
     if (mainImage) {
-      mainImageText = uploadFile(mainImage, mainImageText, "main");
+      mainImageText = await uploadFile(mainImage, mainImageText, "main");
     }
     if (logo) {
-      logoText = uploadFile(logo, logoText, "logo");
+      logoText = await uploadFile(logo, logoText, "logo");
     }
     if (video) {
-      videoText = uploadFile(video, videoText, "video");
+      videoText = await uploadFile(video, videoText, "video");
     }
     if (deskBanner) {
-      deskBannerText = uploadFile(deskBanner, deskBannerText, "desk");
+      deskBannerText = await uploadFile(deskBanner, deskBannerText, "desk");
     }
     if (mobileBanner) {
-      mobileBannerText = uploadFile(mobileBanner, mobileBannerText, "mobile");
+      mobileBannerText = await uploadFile(mobileBanner, mobileBannerText, "mobile");
     }
 
-    // ========== ۳. اضافه کردن detailImage های جدید ==========
     let finalDetailImages = [...remainingDetailImages];
 
     if (detailImages.length > 0) {
@@ -250,7 +245,6 @@ export const updateMovie = async (
       }
     }
 
-    // ========== ۴. بروزرسانی در دیتابیس ==========
     await MovieModel.findByIdAndUpdate(
       id,
       {
@@ -295,7 +289,6 @@ export const updateMovie = async (
     };
   }
 };
-
 export const deleteMovie = async (id: string) => {
   try {
     await connectToDB();
