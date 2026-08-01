@@ -6,7 +6,7 @@ import SeasonModel from "@/src/models/Season";
 import EpisodeModel from "@/src/models/episode";
 import WatchHistoryModel from "@/src/models/watchHistory";
 import BookmarkModel from "@/src/models/bookmark";
-import { authUser, checkIsAdmin } from "@/src/utils/serverHelper";
+import { authUser, checkIsAdmin, deleteFiles } from "@/src/utils/serverHelper";
 import { existsSync, unlinkSync, writeFileSync } from "fs";
 import { isValidObjectId } from "mongoose";
 import { revalidatePath } from "next/cache";
@@ -157,26 +157,13 @@ export const deleteMovie = async (id: string) => {
       };
     }
 
-    const files = [
+    deleteFiles([
       movie.mainImage,
       movie.desktopBanner,
       movie.mobileBanner,
       movie.logo,
       movie.video,
-    ];
-
-    for (const file of files) {
-      if (file && typeof file === "string") {
-        const filePath = path.join(process.cwd(), "public", file);
-        if (existsSync(filePath)) {
-          try {
-            unlinkSync(filePath);
-          } catch (err) {
-            console.error(`خطا در حذف فایل ${file}:`, err);
-          }
-        }
-      }
-    }
+    ]);
 
     await CollectionModel.updateMany(
       { movies: { $in: [id] } },
