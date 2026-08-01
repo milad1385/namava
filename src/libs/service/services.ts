@@ -940,9 +940,11 @@ export const getAllEpisodes = async (
 
 export const getEpisode = async (id: string) => {
   try {
-    connectToDB();
+    await connectToDB();
 
-    const episode = await EpisodeModel.findOne({ _id: id }).populate("season");
+    const episode = await EpisodeModel.findOne({ _id: id })
+      .populate("season")
+      .populate("series", "_id title");
 
     return episode;
   } catch (error) {
