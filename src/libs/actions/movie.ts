@@ -1,10 +1,15 @@
 "use server";
 import connectToDB from "@/src/configs/db";
 import MovieModel from "@/src/models/movie";
-import { authUser } from "@/src/utils/serverHelper";
-import { writeFileSync } from "fs";
+import CollectionModel from "@/src/models/collection";
+import SeasonModel from "@/src/models/Season";
+import EpisodeModel from "@/src/models/episode";
+import WatchHistoryModel from "@/src/models/watchHistory";
+import BookmarkModel from "@/src/models/bookmark";
+import { authUser, checkIsAdmin } from "@/src/utils/serverHelper";
+import { existsSync, unlinkSync, writeFileSync } from "fs";
 import { isValidObjectId } from "mongoose";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import path from "path";
 import { TResponse } from "../types";
 
@@ -129,7 +134,13 @@ export const createNewMovie = async (data: FormData, stars: TStar[]) => {
 
 export const deleteMovie = async (id: string) => {
   try {
-    connectToDB();
+    await connectToDB();
+    if (!(await checkIsAdmin())) {
+      return {
+        message: "شما دسترسی برای حذف فیلم یا سریال را ندارید",
+        status: 403,
+      };
+    }
     if (!isValidObjectId(id)) {
       return {
         message: "لطفا ایدی معتبر ارسال کنید",
@@ -144,6 +155,40 @@ export const deleteMovie = async (id: string) => {
         message: "این اثر یافت نشد",
         status: 404,
       };
+    }
+
+    const files = [
+      movie.mainImage,
+      movie.desktopBanner,
+      movie.mobileBanner,
+      movie.logo,
+      movie.video,
+    ];
+
+    for (const file of files) {
+      if (file && typeof file === "string") {
+        const filePath = path.join(process.cwd(), "public", file);
+        if (existsSync(filePath)) {
+          try {
+            unlinkSync(filePath);
+          } catch (err) {
+            console.error(`خطا در حذف فایل ${file}:`, err);
+          }
+        }
+      }
+    }
+
+    await CollectionModel.updateMany(
+      { movies: { $in: [id] } },
+      { $pull: { movies: id } },
+    );
+
+    await BookmarkModel.deleteMany({ movie: id });
+    await WatchHistoryModel.deleteMany({ movie: id });
+
+    if (movie.type === "series") {
+      await SeasonModel.deleteMany({ series: id });
+      await EpisodeModel.deleteMany({ series: id });
     }
 
     await MovieModel.findByIdAndDelete(`${id}`);
