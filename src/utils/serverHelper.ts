@@ -2,13 +2,12 @@ import UserModel from "@/src/models/user";
 import connectToDB from "@/src/configs/db";
 import { verifyAccessToken } from "./auth";
 import { cookies } from "next/headers";
-import { unlink } from "fs";
+import { unlink, writeFileSync } from "fs";
 import path from "path";
 import ProfileModel, { schema } from "@/src/models/profile";
 import { unlinkSync, existsSync } from "fs";
 import mongoose from "mongoose";
 import { TFileInput } from "../libs/types";
-
 
 const authUser = async () => {
   await connectToDB();
@@ -85,7 +84,7 @@ export const deleteFiles = (files: TFileInput): number => {
   const fileArray = Array.isArray(files) ? files : [files];
 
   const validFiles = fileArray.filter(
-    (file): file is string => typeof file === "string" && file.trim() !== ""
+    (file): file is string => typeof file === "string" && file.trim() !== "",
   );
 
   if (validFiles.length === 0) return 0;
@@ -95,7 +94,7 @@ export const deleteFiles = (files: TFileInput): number => {
   for (const file of validFiles) {
     try {
       const filePath = path.join(process.cwd(), "public", file);
-      
+
       if (existsSync(filePath)) {
         unlinkSync(filePath);
         deletedCount++;
@@ -109,6 +108,29 @@ export const deleteFiles = (files: TFileInput): number => {
   }
 
   return deletedCount;
+};
+
+export const uploadFile = async (
+  file: File | null,
+  oldPath: string,
+  prefix: string,
+): Promise<string> => {
+  if (!file || !(file instanceof File)) return oldPath;
+
+  if (oldPath) {
+    const oldFilePath = path.join(process.cwd(), "public", oldPath);
+    if (existsSync(oldFilePath)) {
+      unlinkSync(oldFilePath);
+    }
+  }
+
+  const fileName = `${prefix}_${Date.now()}_${file.name}`;
+  const filePath = `/uploads/${fileName}`;
+  const fullPath = path.join(process.cwd(), "public", filePath);
+  const buffer = Buffer.from(await file.arrayBuffer());
+  writeFileSync(fullPath, buffer as any);
+
+  return filePath;
 };
 
 export { authUser, checkIsAdmin, deleteImage };
