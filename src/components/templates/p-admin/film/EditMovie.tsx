@@ -486,14 +486,6 @@ function EditMovie({ stars, subCategories, movie }: any) {
         >
           {isLoading ? <Spinner /> : "ویرایش اثر"}
         </Button>
-        <Button
-          disabled={isLoading}
-          type="button"
-          className="bg-amber-500"
-          onClick={() => router.push("/p-admin/series")}
-        >
-          ویرایش قسمت
-        </Button>
         <Button onClick={() => reset()} className="bg-red-700">
           لغو
         </Button>
