@@ -7,6 +7,7 @@ import Table from "@/src/components/modules/table/Table";
 import { deleteEpisode } from "@/src/libs/actions/episode";
 import { formatDate } from "@/src/utils/funcs";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useOptimistic } from "react";
 import toast from "react-hot-toast";
 import { FaPencil, FaRegStar, FaStar, FaTrash } from "react-icons/fa6";
@@ -16,7 +17,7 @@ function SessionList({ episodes, counts }: any) {
     episodes,
     (state, id) => {
       return state.filter((episode: any) => episode._id !== id);
-    }
+    },
   );
   const deleteEpisodeHandler = async (id: string) => {
     deleteOptimistic(id);
@@ -78,7 +79,9 @@ function SessionList({ episodes, counts }: any) {
                         onAction={deleteEpisodeHandler}
                       />
                     </Modal.Page>
-                    <FaPencil className="text-sky-600 text-base md:text-lg" />
+                    <Link href={`/p-admin/series/edit/${episode._id}`}>
+                      <FaPencil className="text-sky-600 text-base md:text-lg" />
+                    </Link>
                   </Modal>
                 </div>
               </td>
