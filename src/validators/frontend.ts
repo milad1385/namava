@@ -306,6 +306,32 @@ export type TMovie = z.infer<typeof Movie>;
 
 // session schema
 
+export const UpdateSession = z.object({
+  title: z
+    .string()
+    .min(3, { message: "عنوان قسمت حداقل باید 3 کارکتر باشد" })
+    .max(60, { message: "عنوان قسمت باید 60 کاراکتر داشته باشد" }),
+  time: z
+    .string()
+    .min(1, { message: "مدت زمان حداقل باید 1 کارکتر باشد" })
+    .max(10, { message: "مدت زمان باید 10 کاراکتر داشته باشد" }),
+  link: z
+    .string()
+    .min(3, { message: "لینک  حداقل باید 3 کارکتر باشد" })
+    .max(30, { message: "لینک  باید 30 کاراکتر داشته باشد" }),
+  desc: z
+    .string()
+    .min(3, { message: "توضیحات قسمت  حداقل باید 3 کارکتر باشد" })
+    .max(1000, { message: "توضیحات قسمت  باید 1000 کاراکتر داشته باشد" }),
+  banner: z.any().optional(),
+  video: z.any().optional(),
+  // serial: z.string().min(1, { message: "سریال را انتخاب کنید" }),
+  season: z
+    .string({ message: "برای انتخاب فصل سریال را انتخاب کنید" })
+    .min(1, { message: "شماره فصل قسمت را وارد کنید" }),
+});
+
+export type TUpdateSession = z.infer<typeof UpdateSession>;
 export const Session = z.object({
   title: z
     .string()
