@@ -163,6 +163,60 @@ export type TActor = z.infer<typeof Actor>;
 
 // movie schema
 
+export const UpdateMovie = z.object({
+  title: z
+    .string()
+    .min(3, { message: "عنوان اثر حداقل باید 3 کارکتر باشد" })
+    .max(60, { message: "عنوان اثر باید 60 کاراکتر داشته باشد" }),
+  ageRange: z
+    .string()
+    .min(1, { message: "رده سنی حداقل باید 1 کارکتر باشد" })
+    .max(3, { message: "رده سنی باید حداکثر 3  کاراکتر داشته باشد" }),
+  time: z
+    .string()
+    .min(1, { message: "مدت زمان حداقل باید 1 کارکتر باشد" })
+    .max(10, { message: "مدت زمان باید 10 کاراکتر داشته باشد" }),
+
+  link: z
+    .string({ required_error: "لینک را وارد کنید" })
+    .min(3, { message: "لینک  حداقل باید 3 کارکتر باشد" })
+    .max(30, { message: "لینک  باید 30 کاراکتر داشته باشد" }),
+  shortDesc: z
+    .string({ required_error: "توضیحات اثر را وارد کنید" })
+    .min(3, { message: "توضیحات اثر  حداقل باید 3 کارکتر باشد" })
+    .max(1000, { message: "توضیحات اثر  باید 1000 کاراکتر داشته باشد" }),
+  showTime: z
+    .string({ required_error: "توضیحات اثر را وارد کنید" })
+    .min(3, { message: "توضیحات اثر  حداقل باید 3 کارکتر باشد" })
+    .max(1000, { message: "توضیحات اثر  باید 1000 کاراکتر داشته باشد" }),
+  category: z.string().min(1, { message: "دسته بندی اثر را انتخاب کنید" }),
+  type: z.string().min(1, { message: "لطفا نوع اثر را انتخاب کنید" }),
+  season: z.any().optional().default(null),
+  longDesc: z
+    .string()
+    .min(3, { message: "توضیحات اثر  حداقل باید 3 کارکتر باشد" })
+    .max(10000, { message: "توضیحات اثر  باید 10000 کاراکتر داشته باشد" }),
+  language: z.string().min(1, { message: "زبان اثر را انتخاب کنید" }),
+  mainImage: z.any().optional(),
+  video: z.any().optional(),
+  deskBanner: z.any().optional(),
+  mobileBanner: z.any().optional(),
+  detailImage: z.any().optional(),
+  logo: z.any().optional(),
+
+  director: z
+    .string()
+    .min(2, { message: "نام کارگردان را وارد کنید" })
+    .max(20, { message: "حداکثر نام کارگردان 20 کاراکتر است" }),
+  contentType: z
+    .string()
+    .min(1, { message: "نوع محتوا این اثر را انتخاب کنید" }),
+  priceStatus: z.string().min(1, {
+    message: "وضعیت قیمت این اثر را انتخاب کنید",
+  }),
+  isSlider: z.boolean().default(false),
+});
+export type TUpdateMovie = z.infer<typeof UpdateMovie>;
 export const Movie = z.object({
   title: z
     .string()
