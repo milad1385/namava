@@ -6,6 +6,7 @@ import Pagination from "@/src/components/modules/pagination/Pagination";
 import Table from "@/src/components/modules/table/Table";
 import { deleteArticle } from "@/src/libs/actions/article";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useOptimistic } from "react";
 import toast from "react-hot-toast";
 import { FaCheck, FaPencil, FaTrash, FaXmark } from "react-icons/fa6";
@@ -15,7 +16,7 @@ function ArticleList({ articles, counts }: any) {
     articles,
     (allArticles, id) => {
       return allArticles.filter((article: any) => article._id !== id);
-    }
+    },
   );
 
   const deleteArticleHandler = async (id: string) => {
@@ -77,7 +78,9 @@ function ArticleList({ articles, counts }: any) {
                       />
                     </Modal.Page>
                   </Modal>
-                  <FaPencil className="text-sky-600 text-base md:text-lg" />
+                  <Link href={`/p-admin/articles/${article.link}`}>
+                    <FaPencil className="text-sky-600 text-base md:text-lg" />
+                  </Link>
                 </div>
               </td>
             </Table.Row>
