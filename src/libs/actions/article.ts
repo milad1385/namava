@@ -2,7 +2,7 @@
 
 import connectToDB from "@/src/configs/db";
 import ArticleModel from "@/src/models/article";
-import { authUser, checkIsAdmin } from "@/src/utils/serverHelper";
+import { authUser, checkIsAdmin, uploadFile } from "@/src/utils/serverHelper";
 import { unlink, writeFileSync } from "fs";
 import { isValidObjectId } from "mongoose";
 import { revalidatePath } from "next/cache";
@@ -27,6 +27,7 @@ export const createNewArticle = async (data: FormData) => {
       image,
       content,
       shortDesc,
+      isDraft,
     }: any = Object.fromEntries(data);
 
     if (!title || !link || !readingTime || !tags || !image || !content) {
@@ -51,7 +52,7 @@ export const createNewArticle = async (data: FormData) => {
       imageName = `/uploads/${fileName}`;
       const imagePath = path.join(process.cwd(), "public/uploads/" + fileName);
       const buffer = Buffer.from(await image.arrayBuffer());
-      writeFileSync(imagePath, buffer);
+      writeFileSync(imagePath, buffer as any);
     }
 
     const article = await ArticleModel.create({
@@ -64,6 +65,8 @@ export const createNewArticle = async (data: FormData) => {
       content,
       creator: user._id,
       shortDesc,
+      isAccept: isDraft ? false : true,
+      isDraft: isDraft ? true : false,
     });
 
     revalidatePath("/p-admin/articles");
@@ -74,6 +77,91 @@ export const createNewArticle = async (data: FormData) => {
       data: article,
     };
   } catch (error) {
+    return {
+      message: "لطفا اتصال اینترنت خود را بررسی کنید",
+      status: 500,
+    };
+  }
+};
+
+export const updateArticle = async (id: string, data: FormData) => {
+  try {
+    await connectToDB();
+
+    if (!(await checkIsAdmin())) {
+      return {
+        message: "این مسیر فقط برای ادمین های سایت مجاز است",
+        status: 403,
+      };
+    }
+
+  
+    const existingArticle = await ArticleModel.findById(id);
+    if (!existingArticle) {
+      return {
+        message: "مقاله مورد نظر یافت نشد",
+        status: 404,
+      };
+    }
+
+    const title = data.get("title") as string;
+    const link = data.get("link") as string;
+    const readingTime = data.get("readingTime") as string;
+    const tags = data.get("tags") as string;
+    const movie = data.get("movie") as string;
+    const image = data.get("image") as File | null;
+    const content = data.get("content") as string;
+    const shortDesc = data.get("shortDesc") as string;
+    const isDraft = data.get("isDraft") as string;
+
+    if (!title || !link || !readingTime || !tags || !content || !shortDesc) {
+      return {
+        message: "فیلد های مورد نظر را به درستی وارد کنید",
+        status: 422,
+      };
+    }
+
+    const user = await authUser();
+    if (!user) {
+      return {
+        message: "لطفا ابتدا لاگین کنید",
+        status: 401,
+      };
+    }
+
+    let imageName = existingArticle.image;
+    if (image && image instanceof File) {
+      imageName = await uploadFile(image, imageName, "article");
+    }
+
+    const updatedArticle = await ArticleModel.findByIdAndUpdate(
+      id,
+      {
+        title,
+        link,
+        readingTime,
+        tags: tags.split("،").filter((t: string) => t.trim() !== ""),
+        movie,
+        image: imageName,
+        content,
+        creator: user._id,
+        shortDesc,
+        isAccept: isDraft ? false : true,
+        isDraft: isDraft ? true : false,
+      },
+      { new: true, runValidators: true },
+    );
+
+    revalidatePath("/p-admin/articles");
+    revalidatePath(`/p-admin/articles/${id}`);
+
+    return {
+      message: "مقاله با موفقیت بروزرسانی شد",
+      status: 200,
+      data: updatedArticle,
+    };
+  } catch (error) {
+    console.error("خطا در بروزرسانی مقاله:", error);
     return {
       message: "لطفا اتصال اینترنت خود را بررسی کنید",
       status: 500,
