@@ -1,34 +1,44 @@
 "use client";
-import { Article, TArticle } from "@/src/validators/frontend";
-import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { AiOutlineProduct } from "react-icons/ai";
-import Input from "@/src/components/modules/p-admin/Input";
-import { FaLetterboxd, FaLink, FaTag } from "react-icons/fa6";
-import { MdAccessTime } from "react-icons/md";
-import SelectBox from "@/src/components/modules/p-admin/SelectBox";
 import Button from "@/src/components/modules/auth/Button/Button";
 import Label from "@/src/components/modules/auth/Label/Label";
-import dynamic from "next/dynamic";
-import { createNewArticle } from "@/src/libs/actions/article";
-import toast from "react-hot-toast";
+import Input from "@/src/components/modules/p-admin/Input";
+import SelectBox from "@/src/components/modules/p-admin/SelectBox";
 import Spinner from "@/src/components/modules/spinner/Spinner";
+import { updateArticle } from "@/src/libs/actions/article";
+import { TArticle, UpdateArticle } from "@/src/validators/frontend";
+import { zodResolver } from "@hookform/resolvers/zod";
+import dynamic from "next/dynamic";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { AiOutlineProduct } from "react-icons/ai";
+import { FaLetterboxd, FaLink, FaTag } from "react-icons/fa6";
+import { MdAccessTime } from "react-icons/md";
+import ImagePreview from "../film/ImagePreview";
+import { useRouter } from "next/navigation";
 
 const Editor = dynamic(() => import("./Editor"), { ssr: false });
 
-function EditArticle({ movies }: any) {
+function EditArticle({ movies, article }: any) {
   const [isLoading, setIsLoading] = useState(false);
-  const [articleBody, setArticleBody] = useState("");
-  const [selectedOption, setSelectedOption] = useState<any>({});
+  const [isDraft, setIsDraft] = useState("");
+  const [articleBody, setArticleBody] = useState(article.content || "");
+  const [selectedOption, setSelectedOption] = useState<any>({
+    value: article.movie._id,
+    label: article.movie.title,
+  });
+  const [previewImage, setPreviewImage] = useState(article?.image || null);
+  const router = useRouter();
 
+  const { _id, ...info } = article;
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isValid },
   } = useForm<TArticle>({
-    resolver: zodResolver(Article),
+    resolver: zodResolver(UpdateArticle),
+    defaultValues: article ? { ...info, tags: article.tags.join(",") } : {},
   });
 
   const moviesOption = movies.map((movie: any) => ({
@@ -37,39 +47,59 @@ function EditArticle({ movies }: any) {
     label: movie.title,
   }));
 
-  const createNewArticleHandeler = async (data: TArticle) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+      setPreviewImage(previewUrl);
+    }
+  };
+
+  const editArticleHandler = async (data: TArticle) => {
     const articleData = new FormData();
     articleData.append("title", data.title);
     articleData.append("link", data.link);
     articleData.append("readingTime", data.readingTime);
     articleData.append("tags", data.tags);
-    articleData.append("movie", selectedOption?.value);
-    articleData.append("image", data.image[0]);
+    articleData.append("movie", selectedOption?.value || "");
     articleData.append("content", articleBody);
     articleData.append("shortDesc", data.shortDesc);
+    articleData.append("isDraft", isDraft);
 
-    const res = await createNewArticle(articleData);
+    if (data.image && data.image[0] instanceof File) {
+      articleData.append("image", data.image[0]);
+    }
+
     setIsLoading(true);
 
-    if (res?.status === 201) {
+    try {
+      const res = await updateArticle(_id, articleData);
+
+      if (res?.status === 200) {
+        setIsLoading(false);
+        reset();
+        toast.success(res?.message);
+        router.push("/p-admin/articles");
+        return;
+      }
+
       setIsLoading(false);
-      reset();
-      return toast.success(`${res?.message}`);
+      toast.error(res?.message || "خطا در بروزرسانی مقاله");
+    } catch (error) {
+      setIsLoading(false);
+      toast.error("خطا در ارتباط با سرور");
     }
-    reset();
-    setIsLoading(false);
-    toast.error(`${res?.message}`);
   };
 
   return (
     <form
       className="bg-milafilmBlack rounded-lg p-6 shadow my-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 md:gap-y-6"
-      onSubmit={handleSubmit(createNewArticleHandeler)}
+      onSubmit={handleSubmit(editArticleHandler)}
     >
       <Input
         register={register}
         errors={errors}
-        icon={<AiOutlineProduct className={`text-2xl`} />}
+        icon={<AiOutlineProduct className="text-2xl" />}
         name="title"
         title="عنوان"
         type="text"
@@ -80,9 +110,9 @@ function EditArticle({ movies }: any) {
       <Input
         register={register}
         errors={errors}
-        icon={<FaLink className={`text-2xl`} />}
+        icon={<FaLink className="text-2xl" />}
         name="link"
-        title="لینک "
+        title="لینک"
         type="text"
         placeholder="لینک مقاله را وارد کنید"
         disable={isLoading}
@@ -91,7 +121,7 @@ function EditArticle({ movies }: any) {
       <Input
         register={register}
         errors={errors}
-        icon={<MdAccessTime className={`text-2xl`} />}
+        icon={<MdAccessTime className="text-2xl" />}
         name="readingTime"
         title="مدت زمان"
         type="text"
@@ -102,7 +132,7 @@ function EditArticle({ movies }: any) {
       <Input
         register={register}
         errors={errors}
-        icon={<FaTag className={`text-2xl`} />}
+        icon={<FaTag className="text-2xl" />}
         name="tags"
         title="تگ ها"
         type="text"
@@ -113,7 +143,7 @@ function EditArticle({ movies }: any) {
       <Input
         register={register}
         errors={errors}
-        icon={<FaLetterboxd className={`text-2xl`} />}
+        icon={<FaLetterboxd className="text-2xl" />}
         name="shortDesc"
         title="توضیحات کوتاه"
         type="text"
@@ -130,16 +160,25 @@ function EditArticle({ movies }: any) {
         selected={selectedOption}
         onSelected={setSelectedOption}
         disable={isLoading}
+        isReactSelect
       />
 
-      <Input
-        register={register}
-        errors={errors}
-        name="image"
-        title="آپلودر عکس"
-        type="file"
-        disable={isLoading}
-      />
+      <div>
+        <Input
+          register={register}
+          errors={errors}
+          name="image"
+          title="آپلودر عکس"
+          type="file"
+          disable={isLoading}
+          onChange={handleFileChange}
+        />
+        <ImagePreview
+          src={previewImage}
+          alt="تصویر مقاله"
+          size="w-[250px] h-[150px]"
+        />
+      </div>
 
       <div className="md:col-span-2 space-y-3 text-white">
         <Label title={"محتوای مقاله"} className="!text-base md:!text-lg" />
@@ -150,18 +189,19 @@ function EditArticle({ movies }: any) {
         <Button
           disabled={isLoading}
           type="submit"
-          className={`${isValid ? "" : "!bg-slate-600 "}`}
+          className={`${isValid ? "" : "!bg-slate-600"} !h-[50px]`}
         >
-          {isLoading ? <Spinner /> : "ایجاد مقاله"}
+          {isLoading && !isDraft ? <Spinner /> : "ویرایش مقاله"}
         </Button>
         <Button
           disabled={isLoading}
-          type="button"
-          className={`${isValid ? "" : "!bg-slate-600 "}`}
+          type="submit"
+          onClick={() => setIsDraft("true")}
+          className={`${isValid ? "" : "!bg-slate-600"} !h-[50px]`}
         >
-          پیش نویس
+          {isLoading && isDraft ? <Spinner /> : "ذخیره پیش نویس"}
         </Button>
-        <Button type="reset" onClick={() => reset()} className="bg-red-700">
+        <Button type="reset" onClick={() => reset()} className="bg-red-700 !h-[50px]">
           لغو
         </Button>
       </div>
