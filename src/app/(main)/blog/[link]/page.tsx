@@ -7,6 +7,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { Metadata } from "next";
 import Share from "@/src/components/templates/article/Share";
+import { notFound } from "next/navigation";
 const ArticleBody = dynamic(
   () => import("@/src/components/templates/article/ArticleBody"),
   { ssr: false },
@@ -15,6 +16,9 @@ const ArticleBody = dynamic(
 async function ArticlePage({ params }: TParams) {
   const article = await getArticle(params.link as string);
 
+  if (!article) {
+    notFound();
+  }
   const articleCreatedTime = new Date(article.createdAt);
   return (
     <>
@@ -114,24 +118,24 @@ async function ArticlePage({ params }: TParams) {
 
 export async function generateMetadata({ params }: TParams): Promise<Metadata> {
   const article = await getArticle(params.link as string);
-  
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://your-domain.com';
+  if(!article) return
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://your-domain.com";
   const articleUrl = `${baseUrl}/blog/${params.link}`;
-  const imageUrl = article.image?.startsWith('http') 
-    ? article.image 
-    : `${baseUrl}${article.image?.startsWith('/') ? '' : '/'}${article.image}`;
-  
+  const imageUrl = article.image?.startsWith("http")
+    ? article.image
+    : `${baseUrl}${article.image?.startsWith("/") ? "" : "/"}${article.image}`;
+
   const description = `در میلا فیلم به تماشای مقاله ${article.title} بپردازید و از جدیدترین اخبار و نقدهای سینمایی لذت ببرید.`;
 
   return {
     title: article.title,
     description: description,
-    keywords: article.tags?.join(', ') || 'مقاله، فیلم، سریال، نقد',
+    keywords: article.tags?.join(", ") || "مقاله، فیلم، سریال، نقد",
     openGraph: {
       title: article.title,
       description: description,
       url: articleUrl,
-      siteName: 'میلا فیلم',
+      siteName: "میلا فیلم",
       images: [
         {
           url: imageUrl,
@@ -140,19 +144,19 @@ export async function generateMetadata({ params }: TParams): Promise<Metadata> {
           alt: article.title,
         },
       ],
-      locale: 'fa_IR',
-      type: 'article',
+      locale: "fa_IR",
+      type: "article",
       publishedTime: article.createdAt,
-      authors: [article.creator?.name || 'میلا فیلم'],
+      authors: [article.creator?.name || "میلا فیلم"],
     },
-    
+
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: article.title,
       description: description,
       images: [imageUrl],
     },
-    
+
     alternates: {
       canonical: articleUrl,
     },
