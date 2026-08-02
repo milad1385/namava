@@ -11,7 +11,7 @@ function ArticleBox({ title, image, createdAt, readingTime, link }: TArticle) {
         alt={image}
         width={1920}
         height={1080}
-        className="rounded-t-md"
+        className="rounded-t-md h-[180px] md:h-[156px]"
       />
       <div className="bg-milafilmBlack rounded-b-md p-3 text-white text-sm space-y-2">
         <div className="font-Dana text-xs text-[#aaa] flex items-center justify-between">
