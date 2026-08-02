@@ -369,6 +369,34 @@ export type TSession = z.infer<typeof Session>;
 
 // article schema
 
+export const UpdateArticle = z.object({
+  title: z
+    .string()
+    .min(3, { message: "عنوان مقاله حداقل باید 3 کارکتر باشد" })
+    .max(100, { message: "عنوان مقاله باید 100 کاراکتر داشته باشد" }),
+  readingTime: z
+    .string()
+    .min(1, { message: "مدت زمان خواندن حداقل باید 1 کارکتر باشد" })
+    .max(10, { message: "مدت زمان خواندن باید 10 کاراکتر داشته باشد" }),
+  shortDesc: z
+    .string()
+    .min(5, { message: "توضیحات کوتاه حداقل باید 5 کارکتر باشد" })
+    .max(1000, {
+      message: "توضیحات کوتاه باید حداکثر  1000 کاراکتر داشته باشد",
+    }),
+  link: z
+    .string()
+    .min(3, { message: "لینک  حداقل باید 3 کارکتر باشد" })
+    .max(30, { message: "لینک  باید 30 کاراکتر داشته باشد" }),
+  tags: z
+    .string({ required_error: "تگ های دسته بندی را بنویسید" })
+    .min(3, { message: "تگ باید حداقل 3 کارکتر باشد" })
+    .max(150, { message: "تگ باید حداکثر 150 کارکتر باشد" }),
+  image: z.any().optional(),
+});
+
+export type TUpdateArticle = z.infer<typeof UpdateArticle>;
+
 export const Article = z.object({
   title: z
     .string()
