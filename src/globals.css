@@ -158,7 +158,31 @@ body {
     @apply flex-center p-2.5  bg-gray-500/35  rounded-full text-[13px];
   }
 }
+.editor-container {
+  height: 500px;
+  width: 100%;
+}
 
+.editor-container .ck-editor {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-container .ck-editor__main {
+  flex: 1;
+  height: calc(100% - 40px) !important;
+}
+
+.editor-container .ck-editor__editable {
+  height: 100% !important;
+  min-height: 450px !important;
+  max-height: 100% !important;
+}
+
+.editor-container .ck-content {
+  height: 100% !important;
+}
 .swiper-button-next::after {
   color: white !important;
   font-size: 20px !important;

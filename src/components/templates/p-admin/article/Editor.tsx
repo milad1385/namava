@@ -1,8 +1,8 @@
 "use client";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-function Editor({article , onArticle} : any) {
 
+function Editor({article , onArticle} : any) {
   const uploadConfig = {
     ckfinder: {
       uploadUrl: "http://localhost:3001/upload",
@@ -15,16 +15,19 @@ function Editor({article , onArticle} : any) {
     language: "fa",
     direction: "rtl",
   };
+
   return (
-    <CKEditor
-      editor={ClassicEditor as any}
-      config={uploadConfig}
-      data={article}
-      onChange={(event, editor) => {
-        const data = editor.getData();
-        onArticle(data);
-      }}
-    />
+    <div className="editor-container">
+      <CKEditor
+        editor={ClassicEditor as any}
+        config={uploadConfig}
+        data={article}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          onArticle(data);
+        }}
+      />
+    </div>
   );
 }
 
