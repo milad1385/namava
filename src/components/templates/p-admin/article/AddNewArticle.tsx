@@ -1,26 +1,30 @@
 "use client";
-import { Article, TArticle } from "@/src/validators/frontend";
-import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { AiOutlineProduct } from "react-icons/ai";
-import Input from "@/src/components/modules/p-admin/Input";
-import { FaLetterboxd, FaLink, FaTag } from "react-icons/fa6";
-import { MdAccessTime } from "react-icons/md";
-import SelectBox from "@/src/components/modules/p-admin/SelectBox";
 import Button from "@/src/components/modules/auth/Button/Button";
 import Label from "@/src/components/modules/auth/Label/Label";
-import dynamic from "next/dynamic";
-import { createNewArticle } from "@/src/libs/actions/article";
-import toast from "react-hot-toast";
+import Input from "@/src/components/modules/p-admin/Input";
+import SelectBox from "@/src/components/modules/p-admin/SelectBox";
 import Spinner from "@/src/components/modules/spinner/Spinner";
+import { createNewArticle } from "@/src/libs/actions/article";
+import { Article, TArticle } from "@/src/validators/frontend";
+import { zodResolver } from "@hookform/resolvers/zod";
+import dynamic from "next/dynamic";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { AiOutlineProduct } from "react-icons/ai";
+import { FaLetterboxd, FaLink, FaTag } from "react-icons/fa6";
+import { MdAccessTime } from "react-icons/md";
 
 const Editor = dynamic(() => import("./Editor"), { ssr: false });
 
 function AddNewArticle({ movies }: any) {
   const [isLoading, setIsLoading] = useState(false);
   const [articleBody, setArticleBody] = useState("");
-  const [selectedOption, setSelectedOption] = useState<any>({});
+  const [isDraft, setIsDraft] = useState("");
+  const [selectedOption, setSelectedOption] = useState<any>({
+    value: -1,
+    label: "لطفا یک فیلم یا سریال مرتبط را انتخاب کنید",
+  });
 
   const {
     register,
@@ -38,6 +42,12 @@ function AddNewArticle({ movies }: any) {
   }));
 
   const createNewArticleHandeler = async (data: TArticle) => {
+    if (selectedOption?.value === -1) {
+      return toast.error("لطفا یک فیلم یا سریال را انتخاب کنید");
+    }
+    if (!articleBody.length) {
+      return toast.error("لطفا متن مقاله را خالی نگذارید");
+    }
     const articleData = new FormData();
     articleData.append("title", data.title);
     articleData.append("link", data.link);
@@ -47,6 +57,7 @@ function AddNewArticle({ movies }: any) {
     articleData.append("image", data.image[0]);
     articleData.append("content", articleBody);
     articleData.append("shortDesc", data.shortDesc);
+    articleData.append("isDraft", isDraft);
 
     const res = await createNewArticle(articleData);
     setIsLoading(true);
@@ -130,6 +141,7 @@ function AddNewArticle({ movies }: any) {
         selected={selectedOption}
         onSelected={setSelectedOption}
         disable={isLoading}
+        isReactSelect
       />
 
       <Input
@@ -150,18 +162,23 @@ function AddNewArticle({ movies }: any) {
         <Button
           disabled={isLoading}
           type="submit"
-          className={`${isValid ? "" : "!bg-slate-600 "}`}
+          className={`${isValid ? "" : "!bg-slate-600"} !h-[50px]`}
         >
-          {isLoading ? <Spinner /> : "ایجاد مقاله"}
+          {isLoading && !isDraft ? <Spinner /> : "ایجاد مقاله"}
         </Button>
         <Button
           disabled={isLoading}
-          type="button"
-          className={`${isValid ? "" : "!bg-slate-600 "}`}
+          type="submit"
+          onClick={() => setIsDraft("true")}
+          className={`${isValid ? "" : "!bg-slate-600"} !h-[50px]`}
         >
-          پیش نویس
+          {isLoading && isDraft ? <Spinner /> : "ذخیره پیش نویس"}
         </Button>
-        <Button type="reset" onClick={() => reset()} className="bg-red-700">
+        <Button
+          type="reset"
+          onClick={() => reset()}
+          className="bg-red-700 !h-[50px]"
+        >
           لغو
         </Button>
       </div>
