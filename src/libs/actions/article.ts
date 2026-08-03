@@ -95,7 +95,6 @@ export const updateArticle = async (id: string, data: FormData) => {
       };
     }
 
-  
     const existingArticle = await ArticleModel.findById(id);
     if (!existingArticle) {
       return {
@@ -206,6 +205,54 @@ export const deleteArticle = async (id: string) => {
 
     return {
       message: "مقاله با موفقیت حذف شد",
+      status: 200,
+    };
+  } catch (error) {
+    return {
+      message: "لطفا اتصال اینترنت خود را چک کنید",
+      status: 500,
+    };
+  }
+};
+
+export const changeArticleStatus = async (id: string) => {
+  try {
+    await connectToDB();
+    if (!isValidObjectId(id)) {
+      return {
+        message: "لطفا یک ایدی معتبر ارسال کنید",
+        status: 422,
+      };
+    }
+
+    if (!checkIsAdmin()) {
+      return {
+        message: "این روت فقط برای ادمین ها در دسترس است",
+        status: 404,
+      };
+    }
+    const article = await ArticleModel.findOne({ _id: id });
+
+    if (!article) {
+      return {
+        message: "مقاله یافت نشد",
+        status: 404,
+      };
+    }
+
+    const updatedArticle = await ArticleModel.findOneAndUpdate(
+      { _id: article._id },
+      {
+        isAccept: !article.isAccept,
+        isDraft: !article.isDraft,
+      },
+      { new: true },
+    );
+
+    revalidatePath("/p-admin/articles");
+
+    return {
+      message: `مقاله با موفقیت ${updatedArticle.isAccept ? "تایید" : "رد"} شد.`,
       status: 200,
     };
   } catch (error) {

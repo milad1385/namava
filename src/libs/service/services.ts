@@ -22,6 +22,7 @@ import { authUser, checkIsAdmin } from "@/src/utils/serverHelper";
 import mongoose, { isValidObjectId } from "mongoose";
 import { cookies } from "next/headers";
 import { IOrders, IWishList } from "../types";
+import { revalidatePath } from "next/cache";
 
 // get all site stat
 
