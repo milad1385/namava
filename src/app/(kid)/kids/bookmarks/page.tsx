@@ -11,17 +11,9 @@ export const metadata: Metadata = {
 };
 
 async function Bookmarks() {
-  const bookmarks: any = await getUserBookmarks();
-
-  const bookmarksArray = Array.isArray(bookmarks) ? bookmarks : [];
-
-  const kidBookmarks = bookmarksArray?.filter(
-    (bookmark: any) => bookmark?.movie?.contentType === "kid",
-  );
-
   return (
     <div className="py-28 container text-white">
-      <Bookmark bookmarks={JSON.parse(JSON.stringify(kidBookmarks))} />
+      <Bookmark />
     </div>
   );
 }
