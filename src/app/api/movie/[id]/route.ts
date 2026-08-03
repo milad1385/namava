@@ -3,10 +3,13 @@ import MovieModel from "@/src/models/movie";
 import { NextResponse } from "next/server";
 import "@/src/models/category";
 import "@/src/models/stars";
+import BookmarkModel from "@/src/models/bookmark";
+import { authUser } from "@/src/utils/serverHelper";
 
 export async function GET(req: Request, { params }) {
   try {
     await connectToDB();
+    const user = await authUser();
 
     const movie = await MovieModel.findOne({ _id: params.id })
       .populate({
@@ -48,6 +51,13 @@ export async function GET(req: Request, { params }) {
 
     movie.categories = categories;
     delete movie.category;
+
+    const bookmark = await BookmarkModel.findOne({
+      user: user._id,
+      movie: movie._id,
+    });
+
+    movie.isBookmarked = !!bookmark;
 
     return NextResponse.json(movie);
   } catch (error) {
