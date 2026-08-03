@@ -3,7 +3,7 @@ import React from "react";
 import SliderTitleSkeleton from "./SliderTitleSkeleton";
 import { usePathname } from "next/navigation";
 
-function MovieSliderSkeleton() {
+function MovieSliderSkeleton({ isBookmark }: { isBookmark?: boolean }) {
   const pathname = usePathname();
   const isKid = pathname.includes("/kids");
 
@@ -12,8 +12,8 @@ function MovieSliderSkeleton() {
   const shimmerColor = isKid ? "via-white/70" : "via-white/20";
 
   return (
-    <div className="container mt-[30px] md:mt-5">
-      <SliderTitleSkeleton bgColor={bgColorLight} />
+    <div className={`${!isBookmark ? "container mt-[30px] md:mt-5" : ""}`}>
+      {!isBookmark && <SliderTitleSkeleton bgColor={bgColorLight} />}
       <div className="mt-10 md:h-[21rem]">
         <div className="flex md:grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3 md:gap-4 overflow-x-auto md:overflow-visible pb-4 md:pb-0 snap-x snap-mandatory scrollbar-hide px-1">
           {Array.from({ length: 7 }).map((_, index) => (

@@ -13,21 +13,10 @@ export const metadata: Metadata = {
   keywords: "نشان شده ، مورد علاقه",
 };
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
 async function Bookmarks() {
-  const [bookmarks, likesMovies] = await Promise.all([
-    getUserBookmarks(),
-    getAllUserLikesMovie(),
-  ]);
-
   return (
     <div className="py-24 container text-white">
-      <Bookmark
-        bookmarks={JSON.parse(JSON.stringify(bookmarks))}
-        likesMovies={JSON.parse(JSON.stringify(likesMovies))}
-      />
+      <Bookmark />
     </div>
   );
 }
