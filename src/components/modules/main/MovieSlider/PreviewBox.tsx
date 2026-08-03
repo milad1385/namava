@@ -28,7 +28,7 @@ function PreviewBox({
 }) {
   const { subscripton, isLogin } = useAuth();
   console.log(subscripton);
-  
+
   const router = useRouter();
   const [movieDetail, setMovieDetail] = useState(initialMovieDetail);
   const [bookmarks, setBookmarks] = useState(userBookmarks || []);
@@ -88,9 +88,19 @@ function PreviewBox({
       const res = await addOrDeleteBookmark(movieDetail._id);
       if (res.status === 201) {
         setBookmarks([...bookmarks, movieDetail._id]);
+        // به‌روزرسانی movieDetail
+        setMovieDetail((prev) => ({
+          ...prev,
+          isBookmarked: true,
+        }));
         toast.success(res.message || "با موفقیت اضافه شد");
       } else if (res.status === 200) {
         setBookmarks(bookmarks.filter((id: string) => id !== movieDetail._id));
+        // به‌روزرسانی movieDetail
+        setMovieDetail((prev) => ({
+          ...prev,
+          isBookmarked: false,
+        }));
         toast.success(res.message || "با موفقیت حذف شد");
       }
     } catch (error) {
@@ -112,6 +122,11 @@ function PreviewBox({
       const res = await addOrDeleteBookmark(movieDetail._id);
       if (res.status === 200) {
         setBookmarks(bookmarks.filter((id: string) => id !== movieDetail._id));
+        // به‌روزرسانی movieDetail
+        setMovieDetail((prev) => ({
+          ...prev,
+          isBookmarked: false,
+        }));
         toast.success(res.message || "با موفقیت حذف شد");
       }
     } catch (error) {
@@ -191,9 +206,16 @@ function PreviewBox({
     }
   };
 
+  // اولویت 1: از movieDetail.isBookmarked استفاده کن
+  // اولویت 2: از bookmarks Array استفاده کن
   const isBookmarked = useMemo(() => {
+    // اگر movieDetail.isBookmarked وجود داره، ازش استفاده کن
+    if (movieDetail?.isBookmarked !== undefined) {
+      return movieDetail.isBookmarked;
+    }
+    // در غیر اینصورت از bookmarks array استفاده کن
     return bookmarks.includes(movieDetail?._id);
-  }, [bookmarks, movieDetail?._id]);
+  }, [bookmarks, movieDetail?._id, movieDetail?.isBookmarked]);
 
   if (!movieDetail || loading) {
     return <PreviewSkeleton ref={previewBoxRef} />;
