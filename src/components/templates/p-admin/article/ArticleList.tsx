@@ -4,7 +4,7 @@ import Modal from "@/src/components/modules/modals/Modal";
 import EmptyBox from "@/src/components/modules/p-admin/EmptyBox";
 import Pagination from "@/src/components/modules/pagination/Pagination";
 import Table from "@/src/components/modules/table/Table";
-import { deleteArticle } from "@/src/libs/actions/article";
+import { changeArticleStatus, deleteArticle } from "@/src/libs/actions/article";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useOptimistic } from "react";
@@ -25,6 +25,16 @@ function ArticleList({ articles, counts }: any) {
     if (res.status === 200) {
       return toast.success(`${res.message}`);
     }
+    toast.error(`${toast.error}`);
+  };
+
+  const changeArticleStatusHandler = async (id: string) => {
+    if (!id) return false;
+    const res = await changeArticleStatus(id);
+    if (res.status === 200) {
+      return toast.success(`${res.message}`);
+    }
+
     toast.error(`${toast.error}`);
   };
   return (
@@ -75,6 +85,13 @@ function ArticleList({ articles, counts }: any) {
                       <ConfirmModal
                         id={article._id}
                         onAction={deleteArticleHandler}
+                      />
+                    </Modal.Page>
+                    <Modal.Page name="status">
+                      <ConfirmModal
+                        id={article._id}
+                        onAction={changeArticleStatusHandler}
+                        title={`آیا از ${article.isAccept ? "رد" : "تایید"} کردن مقاله اطمینان دارید ؟`}
                       />
                     </Modal.Page>
                   </Modal>
