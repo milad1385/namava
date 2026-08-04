@@ -41,7 +41,7 @@ function HeaderDetail({
     }
     setDisliked(!disliked);
     if (liked) setLiked(false);
-    const res = await dislikeMovie(id, user._id, info.link);
+    const res = await dislikeMovie(id, user._id, true);
     if (res.status === 200) {
       toast.success(`${res.message}`);
     }
@@ -54,7 +54,7 @@ function HeaderDetail({
 
     setLiked(!liked);
     if (disliked) setDisliked(false);
-    const res = await likeMovie(id, user._id, info.link);
+    const res = await likeMovie(id, user._id, true);
 
     if (res.status === 200) {
       toast.success(`${res.message}`);
@@ -64,13 +64,13 @@ function HeaderDetail({
   const handleAddToBookmark = async () => {
     setUserBookmarks([...bookmarks, info._id]);
     toast.success(`با موفقیت اضافه شد`);
-    await addOrDeleteBookmark(info._id);
+    await addOrDeleteBookmark(info._id, true);
   };
 
   const handleRemoveFromBookmark = async () => {
     setUserBookmarks(bookmarks.filter((id: string) => id !== info._id));
     toast.success(`با موفقیت حذف شد`);
-    await addOrDeleteBookmark(info._id);
+    await addOrDeleteBookmark(info._id, true);
   };
 
   return (

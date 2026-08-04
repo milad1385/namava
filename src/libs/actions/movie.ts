@@ -160,8 +160,10 @@ export const updateMovie = async (
     const deskBanner = data.get("deskBanner") as File | null;
     const mobileBanner = data.get("mobileBanner") as File | null;
     const detailImages = data.getAll("detailImage") as File[];
-    
-    const remainingDetailImagesRaw = data.get("remainingDetailImages") as string | null;
+
+    const remainingDetailImagesRaw = data.get("remainingDetailImages") as
+      | string
+      | null;
     const remainingDetailImages: string[] = remainingDetailImagesRaw
       ? JSON.parse(remainingDetailImagesRaw)
       : [];
@@ -185,9 +187,9 @@ export const updateMovie = async (
       const fileName = `${prefix}_${Date.now()}_${file.name}`;
       const filePath = `/uploads/${fileName}`;
       const fullPath = path.join(process.cwd(), "public", filePath);
-      
+
       const buffer = Buffer.from(await file.arrayBuffer());
-      writeFileSync(fullPath, buffer  as any);
+      writeFileSync(fullPath, buffer as any);
 
       return filePath;
     };
@@ -200,7 +202,7 @@ export const updateMovie = async (
 
     const existingDetailImages = existingMovie.detailImage || [];
     const detailImagesToDelete = existingDetailImages.filter(
-      (path: string) => !remainingDetailImages.includes(path)
+      (path: string) => !remainingDetailImages.includes(path),
     );
 
     for (const imagePath of detailImagesToDelete) {
@@ -227,7 +229,11 @@ export const updateMovie = async (
       deskBannerText = await uploadFile(deskBanner, deskBannerText, "desk");
     }
     if (mobileBanner) {
-      mobileBannerText = await uploadFile(mobileBanner, mobileBannerText, "mobile");
+      mobileBannerText = await uploadFile(
+        mobileBanner,
+        mobileBannerText,
+        "mobile",
+      );
     }
 
     let finalDetailImages = [...remainingDetailImages];
@@ -354,7 +360,7 @@ export const deleteMovie = async (id: string) => {
 export const likeMovie = async (
   movieId: string,
   userId: string,
-  movieLink: string,
+  isMain?: boolean,
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -371,6 +377,17 @@ export const likeMovie = async (
         message: "ایدی مورد نظر معتبر نمیباشد",
         status: 422,
       };
+    }
+
+    let movieInfo = null;
+    if (isMain) {
+      movieInfo = await MovieModel.findById(movieId).select("type link");
+      if (!movieInfo) {
+        return {
+          message: "فیلم مورد نظر یافت نشد",
+          status: 404,
+        };
+      }
     }
 
     const isLiked = await MovieModel.findOne({
@@ -420,24 +437,29 @@ export const likeMovie = async (
       message = "با موفقیت لایک شد";
     }
 
-    // revalidatePath(`/movie/${movieLink}`);
-    // revalidatePath("/bookmarks");
+    if (isMain && movieInfo) {
+      const path = `/${movieInfo.type === "film" ? "movie" : "series"}/${movieInfo.link}`;
+      revalidatePath(path);
+      revalidatePath("/bookmarks");
+    }
 
     return {
       message,
       status: 200,
     };
   } catch (error) {
+    console.error("Error in likeMovie:", error);
     return {
       message: "اتصال خود را به اینترنت چک کنید",
       status: 500,
     };
   }
 };
+
 export const dislikeMovie = async (
   movieId: string,
   userId: string,
-  movieLink: string,
+  isMain?: boolean,
 ): Promise<TResponse> => {
   try {
     connectToDB();
@@ -454,6 +476,18 @@ export const dislikeMovie = async (
         message: "ایدی مورد نظر معتبر نمیباشد",
         status: 422,
       };
+    }
+
+    // ✅ اطلاعات فیلم رو برای revalidation بگیر (فقط اگه isMain=true باشه)
+    let movieInfo = null;
+    if (isMain) {
+      movieInfo = await MovieModel.findById(movieId).select("type link");
+      if (!movieInfo) {
+        return {
+          message: "فیلم مورد نظر یافت نشد",
+          status: 404,
+        };
+      }
     }
 
     const isLiked = await MovieModel.findOne({
@@ -503,21 +537,24 @@ export const dislikeMovie = async (
       message = "با موفقیت دیس لایک شد";
     }
 
-    // revalidatePath(`/movie/${movieLink}`);
-    // revalidatePath("/bookmarks");
+    // ✅ ریویلیدیت مسیرها اگه isMain=true باشه
+    if (isMain && movieInfo) {
+      const path = `/${movieInfo.type === "film" ? "movie" : "series"}/${movieInfo.link}`;
+      revalidatePath(path);
+    }
 
     return {
       message,
       status: 200,
     };
   } catch (error) {
+    console.error("Error in dislikeMovie:", error);
     return {
       message: "اتصال خود را به اینترنت چک کنید",
       status: 500,
     };
   }
 };
-
 export const deleteUserLike = async (
   movieId: string,
   userId: string,
