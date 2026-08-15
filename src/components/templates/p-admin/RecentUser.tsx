@@ -1,8 +1,7 @@
 import { TUser } from "@/src/libs/types";
 import { formatDate } from "@/src/utils/funcs";
 import Image from "next/image";
-import React from "react";
-import { FaEye, FaTrash, FaUser } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa6";
 
 function RecentUser({ users }: { users: TUser[] }) {
   return (
@@ -16,8 +15,8 @@ function RecentUser({ users }: { users: TUser[] }) {
                 <td>شماره</td>
                 <td>پروفایل</td>
                 <td>نام</td>
+                <td>نام کاربری</td>
                 <td>تاریخ</td>
-                <td>رویداد ها</td>
               </tr>
             </thead>
             <tbody>
@@ -34,11 +33,8 @@ function RecentUser({ users }: { users: TUser[] }) {
                     />
                   </td>
                   <td>{user.name}</td>
+                  <td>{user.username}</td>
                   <td className="font-Dana">{formatDate(user.createdAt)}</td>
-                  <td className="flex items-center justify-center gap-x-4">
-                    <FaTrash className="mt-2.5 text-red-700" />
-                    <FaEye className="mt-2.5 text-milafilm md:cursor-pointer" />
-                  </td>
                 </tr>
               ))}
             </tbody>

@@ -26,6 +26,7 @@ async function MainPage({ searchParams }: TSearchParams) {
     sumationOfOrder,
     orders,
   } = (await getAllStats(numQuery)) as TStats;
+
   const [user, allOrders] = await Promise.all([authUser(), getAllOrders()]);
   return (
     <div className="text-white">

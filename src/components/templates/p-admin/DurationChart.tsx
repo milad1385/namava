@@ -33,7 +33,6 @@ function DurationChart({ orders }: any) {
     },
   ];
   const data = prepareData(startData, orders);
-  console.log(data);
 
   const windowWidth: any = typeof window !== "undefined" && window.innerWidth;
 

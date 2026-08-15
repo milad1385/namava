@@ -54,7 +54,7 @@ export const getAllStats = async (startDate: string) => {
 
     const latestUsers = await UserModel.find(
       filterByDate,
-      "name profiles createdAt",
+      "name profiles username createdAt",
     )
       .sort({ createdAt: -1 })
       .limit(10)

@@ -14,9 +14,7 @@ export type THeader = {
   user?: any;
 };
 
-
 export type TFileInput = string | string[] | null | undefined;
-
 
 export interface IFooter {
   subscription?: boolean;
@@ -105,6 +103,7 @@ export interface TUser {
   name: string;
   profiles: string[];
   createdAt: string;
+  username?: string;
 }
 
 export interface TResponse {
