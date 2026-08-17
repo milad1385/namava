@@ -1,5 +1,4 @@
 import { NextRequest } from "next/server";
-
 export async function POST(req: NextRequest) {
   try {
     const { messages } = await req.json();
@@ -11,7 +10,7 @@ export async function POST(req: NextRequest) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "poolside/laguna-m.1:free",
+        model: "nvidia/nemotron-3-ultra-550b-a55b:free",
         messages: [
           {
             role: "system",
